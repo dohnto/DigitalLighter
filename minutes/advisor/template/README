@@ -1,9 +1,16 @@
 QUICK HOWTO
 -----------
-1. open minutes.tex
-2. find the VARIABLES TO CHANGE section
-3. change variables to correct values
-4. open table/*.tex file
-5. fill the correct values
-6. run `make'
-7. see minutes.pdf
+1. copy 
+
+    actions.tex
+    agenda.tex
+    decisions.tex
+    minutes.tex
+    general.tex
+    finished.tex
+
+    to new directory in advisor directory
+
+2. edit these files according to the meeting
+3. run `make'
+4. see minutes.pdf
