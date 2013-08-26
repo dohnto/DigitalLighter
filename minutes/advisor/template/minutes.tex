@@ -1,0 +1,102 @@
+\documentclass[paper=a4, fontsize=11pt]{article} % A4 paper and 11pt font size
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\usepackage{graphicx}
+%\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage{ltxtable}
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+\usepackage{amssymb}
+% Margins
+\topmargin=0.0in
+\oddsidemargin=-0.0in % left
+\textwidth=6.5in
+\headsep=0.0in
+\headheight=-0.7in
+\textheight=700pt
+
+
+%----------------------------------------------------------------------------------------
+%   VARIABLES TO CHANGE
+%----------------------------------------------------------------------------------------
+\newcommand{\meetingNumber}{1}
+\newcommand{\meetingPlace} {Gloshaugen, Room 054}
+\newcommand{\meetingDate}  {23 Auhust 2013}
+\newcommand{\meetingTime}  {10:20}
+\newcommand{\membersPresent} {  Anh Nguyen Duc,
+                                Agnethe Soraa,
+                                Tomas Dohnalek,
+                                Jan Bednarik,
+                                Milos Jovac}
+\newcommand{\membersMissing} {(none)}
+\newcommand{\summary} {
+We started by presenting ourself, and our backgruonds. The supervisor gave us information about how we would be evaluated, the content of the reports, and due dates. He also gave us tips about reading old reports, and start to working on the project plan immediatley. We desiced time and place for weekly meetings for the rest of the semester.
+}
+\newcommand{\nextMeeting} {6 September 2013, 10:20 Gloshaugen (Room 054)}
+\newcommand{\meetingEnd} {11:00}
+
+%----------------------------------------------------------------------------------------
+%   COUNTERS
+%----------------------------------------------------------------------------------------
+\newcounter{foocounter}
+\newcommand{\cou}{\stepcounter{foocounter}\thefoocounter}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Minutes of meeting with the Supervisor (\#\meetingNumber)
+\horrule{2pt} \\[-0.9cm] % Thick bottom horizontal rule
+}
+
+\begin{document}
+\date{}
+\maketitle % Print the title
+
+\textbf{Place:} \meetingPlace
+
+\textbf{Date:}  \meetingDate
+
+\textbf{Time:}  \meetingTime
+
+\paragraph{Members present:} \membersPresent
+
+\paragraph{Members not present:} \membersMissing
+
+\paragraph{Agenda items covered:} \hspace{0pt}
+\setcounter{foocounter}{0}
+\LTXtable{\textwidth}{tables/agenda.tex}
+
+\paragraph{Decisions:} \hspace{0pt}
+\setcounter{foocounter}{0}
+\LTXtable{\textwidth}{tables/decisions.tex}
+
+\paragraph{Action items:} \hspace{0pt}
+\setcounter{foocounter}{0}
+\LTXtable{\textwidth}{tables/actions.tex}
+
+\paragraph{Finished action items:} \hspace{0pt}
+\setcounter{foocounter}{0}
+\LTXtable{\textwidth}{tables/finished.tex}
+
+\paragraph{Summary:} \summary
+
+\paragraph{Next meeting:} \nextMeeting
+
+\paragraph{Meeting adjourned at \meetingEnd.}
+
+\end{document}

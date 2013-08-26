@@ -1,0 +1,9 @@
+QUICK HOWTO
+-----------
+1. open minutes.tex
+2. find the VARIABLES TO CHANGE section
+3. change variables to correct values
+4. open table/*.tex file
+5. fill the correct values
+6. run `make'
+7. see minutes.pdf
