@@ -15,6 +15,7 @@
 \usepackage{rotating}
 \usepackage[table]{xcolor} 
 \usepackage{gantt}
+\usepackage{hyperref}
 
 % black square
 \usepackage{amsmath}
@@ -79,7 +80,7 @@ Compendium proposed week workload 25 person-hours per week. During our internal 
 After fast research and consultation with our mentor and customer(He have experience with CDP student group from last year), we decided to use SCRUM methodology for a 
 few reasons. Requirements and scope of the undertaking were not that precisely defined at the time 
 we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "waterfall".
-We wanted to have frequent meetings with our customer and include him in development process. Sprints in SCRUM allow us just that - 
+We wanted to have frequent meetings with our customer and involve him in development process. Sprints in SCRUM allow us just that - 
 to have meeting with customer at the end of every sprint, and plan next one together. Sprints doesn't have to be the same length so 
 we can better manage developing process and risks, and we will be able to have as much sprints as possible under time limit of 13 weeks. 
 SCRUM will give us derivatives that we can enhance in increments and allow us to gradually reduce the risk and keep our customer informed 
@@ -87,12 +88,12 @@ about our progress. SCRUM is also a very popular approach in the software indust
 
 
 \subsection{Tools selections}
-For Scrum support and issue tracking we use Gravity Tool\footnote{www.gravitydev.com}. 
+For Scrum support and issue tracking we use Gravity Tool\footnote{\url{www.gravitydev.com}}. 
 The tool is right now in Beta but it is free to use and have all features we needed from proposed AgileZen.
 CHANGE(30.08.2013.) As Gravity missing some of the features we didn't know we need it was hard to procide in it.
-New tool we established is Target Process 3(http://www.targetprocess.com/3/). Tool is also free and is not in Beta.
+New tool we established is Target Process 3 \footnote{\url{http://www.targetprocess.com/3/}}. Tool is also free and is not in Beta.
 
-For collaboration on Minutes, Project Plan and other documents we use GitHub. This tool was proposed by out customer and it is popular free collaboration tool.
+For collaboration on Minutes, Project Plan and other documents we use GitHub. This tool was proposed by our customer and it is popular free collaboration tool.
 For document editing we agreed on LaTeX.
 For group resources and links we use Facebook groups and for managing schedule we use Google Calendar.
  
@@ -109,7 +110,13 @@ As this course last for a 13 weeks, it is normal that we have to make some trade
 This project is technically difficult, and there is a limited amount of time.  
   
 \section{Schedule}
-general paragraph about sprint length
+
+In general the sprints will last for two weeks. The only sprints that does not have that length, is the first and the last. This is because these two are more related to getting started, and finishing the project. The other sprints will have a more general approach. 
+
+After each sprint we have a sprint review with the customer. The sprint reviews takes place every other Thursday, which means that the Wednesday before, the team has to prepare for the review. In each sprint review we both present and demonstrate what we have done so far. After the presentation we are doing a retrospective with the customer. It is important to evaluate our sprint delivery the customer. After the retrospective we will plan the next sprint, and now the customer can prioritize which user stories he wants us to work on next. The Friday after the sprint review, the team will do a detailed planning of the next sprint. 
+
+On the Thursdays in between we have weekly meetings with the customer. It is important to have good communication with the customer. These meetings gives us opportunities to ask questions, and to make sure that we are on the right track.
+
 \subsection{Phases}
 \subsubsection{Sprint 0}
 We have embraced Sprint 0 as a preliminary sprint, when we can set up all necessary collaboration tools, equipment, prepare templates for meetings and mainly to acquaint ourselves with Scrum methodology. The original plan was to finish sprint 0 on 8th of September, but we have decided to terminate it prematurely due to finishing sprint goals in shorter time than we had expected. Other reason for terminating the sprint was desire to start actually working on the product itself.
@@ -139,10 +146,53 @@ To visualize sprint's lengths and layout in time we created Gantt chart ~\ref{fi
 
 \subsection{Milestones}
 
-We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes. There are 8 prototypes In total we 
+We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes(Deliverables). There are 8 prototypes In total we 
 agreed on.Prototype is a milestone by itself. Last or 8th prototype implies that all other milestones are reached. Although the order of milestones may look like a waterfall approach that is not the case.
 Prototypes are the milestones as we said before but they are also a logical and operational units and therefore some logical order of the milestones had to be ordered. Furthermore, milestones are not 
-necessary connected to sprint, and group of milestones that prototypes are "composed" of do not have to be finished in specific order.
+necessary connected to sprint, and group of milestones that prototypes are "composed" of do not have to be finished in the specific order.
+
+
+Overview of all milestones and 8 prototypes(Deliverables).
+
+
+(Prototype 1)
+- Put “Hello World” project to gitHub and pull it to every group member’s local storage 
+- Set up protocol for client & server.
+- Make server able to listen for clients.
+- One client connects to the server.
+
+
+(Prototype 2)
+- The server sends command to one client.
+- The client receives one command.
+- The client “plays” one command.(white light 10 seconds)
+
+
+(Prototype 3)
+- Multiple clients connect to server.
+- The server sends same signal to multiple clients.
+
+
+(Prototype 4)
+- The server sends multiple different commands to the client.
+- The client plays commands. (Red light 2 seconds, Green light 2 seconds)
+
+
+(Prototype 5)
+- Server identifies one client from light.
+
+
+(Prototype 6)
+- Server maps one client to grid.(4 quads)
+
+
+(Prototype 7)
+- Server identifies multiple clients from light.(story for itself high)
+- Server maps all devices to the grid.
+
+
+(Prototype 8)
+- Server play whole picture to the grid.
 
 
 \begin{itemize}
@@ -298,42 +348,29 @@ Hardware problems & 9     & 3     & 27    & Obtain a new one & Keep your devices
 \end{table*}
 \section{Quality Assurance}
 Specific guidelines and practices were adopted
-so that the team and the customer could continuosly verify that the project development keeps the right direction and that the requirements are being fulfilled.
+so that the team and the customer could continuously verify that the project development keeps the right direction and that the requirements are being fulfilled.
 
 \subsection{Customer collaboration}
-Since the scope of the project and the actual requirements are determined by the customer it is essential to establish tight collaboration practises and even involve the customer in the collaboration tools the team uses. 
+Since the scope of the project and the actual requirements are determined by the customer it is essential to establish tight collaboration practices and even involve the customer in the collaboration tools the team uses. In the next paragraph the main means utilized for interaction with the customer are listed. 
 
 \paragraph{Meetings}
-Considering this guidance we agreed on the weekly meetings. As the customer is located in Oslo the meetings will be carried out using the video-conference devices provided by the NTNU (accessible in the Accenture Lab) and Skype software. After each
+We agreed on holding the weekly meetings taking approximately 60 minutes. The standard agenda consists of the approval of the meeting minutes summarizing the last meeting, comments on the meeting minutes and the specific issues regarding the team-customer collaboration and technical issues. As the customer is located in Oslo the meetings will be carried out using the video-conference devices provided by the NTNU (accessible in the Accenture Lab) and Skype software. Contents of each meeting including the topics discussed, decisions made and the future plans are summarized in the meeting minutes. The team should provide the customer with the meeting minutes document before the next meeting is held.
 
 \paragraph{Email}
-Standard email messages will also serve the purpose of the communication mean, both team and thu customer agreed on responsing to the queries as soon as possible. 
+Standard email messages will also serve the purpose of the communication mean, both team and the customer agreed on responding to the queries as soon as possible.
 
 \paragraph{Documents}
-- minutes
-- access to Drive
+In order to provide the customer with the convenient overview of the work done all relevant documents including the meeting minutes, private notes taken during the meetings and the project report are stored on the Google drive cloud storage service and shared with the customer.
+
 \paragraph{Other tools}
-- Gravity, Skype conference, Google calendar
-
-
-
-
-
-
-
-- meetings
-- one person communicates
-- customer decides about stories, accepts/rejects deliverable
-- quality is determined by customer who ahs the opportunity to evalute the product (in its current state) after every sprint.
-
+As mentioned earlier the team decided to utilize the Target Process 3 as a collaboration tool suitable for handling Scrum-driven projects. The customer was invited to join the framework so that he could observe the development process more closely. Thanks to the software tool the customer is able to easily adjust the order of the user stories according to his preferences.
 
 \subsection{Supervisor collaboration}
-- one person communicates
-
+The main responsibility of the team's supervisor is to overview the whole project and discuss the work done together with the future plans. Since the decisions and suggestions of this person are of the great importance the team agreed on holding the supervisor meetings once a week. The team should prepare the meeting minutes document and send it to the supervisor before the next meeting.
 
 \subsection{Team collaboration}
-- continuous doc writing
-- daily standups
+Mostly during the pre-study phase the developers need to distribute and maintain the information considered important for the next work. The Facebook group was chosen and set up to serve this purpose as it disposes of the tools suitable for exchanging website links, opinions and multimedia.
 
+It has been also decided that the project report should be written continuously by all members as a part of our daily workflow. Through this practice the team will be able to keep track of the amount of work done and all members will make sure they understand well what direction the project is aiming.
 
 \end{document}
