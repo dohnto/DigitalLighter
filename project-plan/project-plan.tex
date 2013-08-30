@@ -14,6 +14,7 @@
 \usepackage{tabularx}
 \usepackage{rotating}
 \usepackage[table]{xcolor} 
+\usepackage{gantt}
 
 % black square
 \usepackage{amsmath}
@@ -91,6 +92,8 @@ about our progress. SCRUM is also a very popular approach in the software indust
 \subsection{Tools selections}
 For Scrum support and issue tracking we use Gravity Tool\footnote{www.gravitydev.com}. 
 The tool is right now in Beta but it is free to use and have all features we needed from proposed AgileZen.
+CHANGE(30.08.2013.) As Gravity missing some of the features we didn't know we need it was hard to procide in it.
+New tool we established is Target Process 3(http://www.targetprocess.com/3/). Tool is also free and is not in Beta.
 
 For collaboration on Minutes, Project Plan and other documents we use GitHub. This tool was proposed by out customer and it is popular free collaboration tool.
 For document editing we agreed on LaTeX.
@@ -121,9 +124,11 @@ general paragraph about sprint length
 
 \subsection{Milestones}
 
- [1] Final Prototype - We seted milestons to track progress. After some group of milestones we will have running prototypes. There is 8 prototypes we agreed on. Final Prototype is running software 
- which implies that all other milestones are reached. Altho order of milestones may look like a waterfall approach that is not the case. Prototypes are logical and functional increments and therefore
- some logical order of milestones have to be placed. Further more, milestones are not neseserelly connected to sprints. 
+We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes. There are 8 prototypes In total we 
+agreed on.Prototype is a milestone by itself. Last or 8th prototype implies that all other milestones are reached. Although the order of milestones may look like a waterfall approach that is not the case.
+Prototypes are the milestones as we said before but they are also a logical and operational units and therefore some logical order of the milestones had to be ordered. Furthermore, milestones are not 
+necessary connected to sprint, and group of milestones that prototypes are "composed" of do not have to be finished in specific order.
+
 
 \begin{itemize}
     \item \textbf{Sprint 0}
@@ -148,14 +153,38 @@ general paragraph about sprint length
     \item Presentation
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
-    \includegraphics[scale=0.6]{images/gantt}
-    \caption{Gantt Chart}
-    \label{img:gantt}
+\caption{Gantt Chart: Allocation of sprints into weeks.}
+\begin{sideways}
+\begin{gantt}{8}{14}
+    \begin{ganttitle}
+      \titleelement{1}{1}
+      \titleelement{2}{1}
+      \titleelement{3}{1}
+      \titleelement{4}{1}
+      \titleelement{5}{1}
+      \titleelement{6}{1}
+      \titleelement{7}{1}
+      \titleelement{8}{1}
+      \titleelement{9}{1}
+      \titleelement{10}{1}
+      \titleelement{11}{1}
+      \titleelement{12}{1}
+      \titleelement{13}{1}
+      \titleelement{14}{1}
+    \end{ganttitle}
+    \ganttbar{Sprint 0}{0.5}{1.5}
+    \ganttbarcon{Sprint 1}{2}{2}
+    \ganttbarcon{Sprint 2}{4}{2}
+    \ganttbarcon{Sprint 3}{6}{2}
+    \ganttbarcon{Sprint 4}{8}{2}
+    \ganttbarcon{Sprint 5}{10}{2}
+    \ganttbarcon{Sprint 6}{12}{1.5}
+\end{gantt}
+\end{sideways}
 \end{center}
 \end{figure}
-
 
 \section{Organization}
 
@@ -290,8 +319,6 @@ Standard email messages will also serve the purpose of the communication mean, b
 \subsection{Team collaboration}
 - continuous doc writing
 - daily standups
-
-
 
 
 \end{document}
