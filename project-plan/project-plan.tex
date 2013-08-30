@@ -14,6 +14,7 @@
 \usepackage{tabularx}
 \usepackage{rotating}
 \usepackage[table]{xcolor} 
+\usepackage{gantt}
 
 % black square
 \usepackage{amsmath}
@@ -149,14 +150,39 @@ general paragraph about sprint length
     \item Presentation
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
-    \includegraphics[scale=0.6]{images/gantt}
-    \caption{Gantt Chart}
-    \label{img:gantt}
+\caption{Gantt Chart: Allocation of sprints into weeks.}
+\begin{sideways}
+\begin{gantt}{8}{14}
+    \begin{ganttitle}
+      \titleelement{1}{1}
+      \titleelement{2}{1}
+      \titleelement{3}{1}
+      \titleelement{4}{1}
+      \titleelement{5}{1}
+      \titleelement{6}{1}
+      \titleelement{7}{1}
+      \titleelement{8}{1}
+      \titleelement{9}{1}
+      \titleelement{10}{1}
+      \titleelement{11}{1}
+      \titleelement{12}{1}
+      \titleelement{13}{1}
+      \titleelement{14}{1}
+    \end{ganttitle}
+    \ganttbar{Sprint 0}{0.5}{1.5}
+    \ganttbarcon{Sprint 1}{2}{2}
+    \ganttbarcon{Sprint 2}{4}{2}
+    \ganttbarcon{Sprint 3}{6}{2}
+    \ganttbarcon{Sprint 4}{8}{2}
+    \ganttbarcon{Sprint 5}{10}{2}
+    \ganttbarcon{Sprint 6}{12}{1.5}
+\end{gantt}
+\end{sideways}
 \end{center}
 \end{figure}
-s
+
 \section{Risk management}
 
 \begin{table*}\centering \ra{1.3}
@@ -291,8 +317,6 @@ Standard email messages will also serve the purpose of the communication mean, b
 \subsection{Team collaboration}
 - continuous doc writing
 - daily standups
-
-
 
 
 \end{document}
