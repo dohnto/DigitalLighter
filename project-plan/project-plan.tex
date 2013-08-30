@@ -14,9 +14,11 @@
 \usepackage{tabularx}
 \usepackage{rotating}
 \usepackage[table]{xcolor} 
+\usepackage{gantt}
 
 % black square
 \usepackage{amsmath}
+\usepackage[parfill]{parskip}
 
 \title{
     \normalsize \textsc{Rock Concert Audience as a Screen}\\
@@ -41,7 +43,7 @@ At special occasions the audience will be instructed, by the artist, to hold up 
 This is similar to holding up a lighter like people did in the old days to create a special atmosphere at the concert. 
 We want to digitalize this by giving the audience a chance to use their cell phones instead of lighters. 
 
-On control a signal the application will fill the entire mobile screen with a single colour.
+On control a signal the application will fill the entire mobile screen with a single color.
 The control signal can as an example say: "all pixels white". The signal will be specific for each application.
 Each mobile will be a pixel in a larger picture, which will be presented on the big screen. 
 What kind of picture the audience can create will depend on the number of people in the audience.   
@@ -49,23 +51,14 @@ What kind of picture the audience can create will depend on the number of people
 As a motivation for the audience to hold up their phone, the camera on top of the screen will take pictures of the audience.
 In that way the audience can see a reflection of them selves, and see what kind of picture they are creating together.  
 
-\section{Required work}
-- ?
-
-
 \section{Project scope}
 
-After 3th meeting with our customer we decided to set up scope of the project that is real and doable under 13 weeks. Customer idea although good and inovative has one flaw - it is a huge project!
-As we work under curtain limitations we explained in General Terms section, subsection Limitations, we agreed with customer on next terms:
- - take project title as domain of work and not final product,
- - scale down problem but attack all main problems of the domain,
- - disregard scaling of product,
- - disregard some of problems that are not important for [1]final prototype (do this in agreement with customer)
- 
- 
- [1] Final Prototype - We seted milestons to track progress. After some group of milestones we will have running prototypes. There is 8 prototypes we agreed on. Final Prototype is running software 
- which implies that all other milestones are reached. Altho order of milestones may look like a waterfall approach that is not the case. Prototypes are logical and functional increments and therefore
- some logical order of milestones have to be placed. Further more, milestones are not neseserelly connected to sprints. 
+After third meeting with our customer we decided to lay out the scope of the project that is tangible and doable under 13 weeks. Customer idea although good and innovative has one flaw - it is a huge undertaking!
+As we operate under certain limitations we explained in General Terms section, subsection Limitations, we agreed with customer on next terms:
+ - Take project title as domain of work and not final product,
+ - Scale down problem but attack all main problems of the domain,
+ - Disregard scaling of product,
+ - Disregard some of problems that are not important for final prototype, but talk with a customer before make this kind of decision.
 
 \section{Project architecture}
 Product can be logically divided into two sections -- client and server application.
@@ -83,9 +76,9 @@ Compendium proposed week workload 25 person-hours per week. During our internal 
 
 \section{General Terms}
 \subsection{Methodology}
-After fast research and consultation with our mentor and customer(He have expirience with CDP student group from last year), we decided to use SCRUM methodology for a 
+After fast research and consultation with our mentor and customer(He have experience with CDP student group from last year), we decided to use SCRUM methodology for a 
 few reasons. Requirements and scope of the undertaking were not that precisely defined at the time 
-we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "Waterfal".
+we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "waterfall".
 We wanted to have frequent meetings with our customer and include him in development process. Sprints in SCRUM allow us just that - 
 to have meeting with customer at the end of every sprint, and plan next one together. Sprints doesn't have to be the same length so 
 we can better manage developing process and risks, and we will be able to have as much sprints as possible under time limit of 13 weeks. 
@@ -96,35 +89,44 @@ about our progress. SCRUM is also a very popular approach in the software indust
 \subsection{Tools selections}
 For Scrum support and issue tracking we use Gravity Tool\footnote{www.gravitydev.com}. 
 The tool is right now in Beta but it is free to use and have all features we needed from proposed AgileZen.
+CHANGE(30.08.2013.) As Gravity missing some of the features we didn't know we need it was hard to procide in it.
+New tool we established is Target Process 3(http://www.targetprocess.com/3/). Tool is also free and is not in Beta.
 
 For collaboration on Minutes, Project Plan and other documents we use GitHub. This tool was proposed by our customer and it is popular free collaboration tool.
 For document editing we agreed on LaTeX.
-For group resources and links we use Facebook groups and for managing shedule we use Google Calendar.
+For group resources and links we use Facebook groups and for managing schedule we use Google Calendar.
  
 \subsection{Limitations}
 We are developing this project under a few technical, resource, time and knowledge limitations. 
 
-Our biggest limitation is the image processing part. Half of the team has no experience with this, and the other half has little experience. Their experience is mostly theoretical information about the subject, and that helps, but practical experience would have been prefered. We are aware of this limitation, and our plan is to learn by doing. We are going to start developing, and teach ourself while coding. We chose this approach because we don't want to spend more time than necessary to research image processing.   
+Our biggest limitation is the image processing part. Half of the team has no experience with this, and the other half has little experience. Their experience is mostly theoretical information about the subject, and practical experience is preferred. We are aware of this limitation, and our plan is to learn by doing. We are going to start developing, and teach ourself while coding. We chose this approach because we do not want to spend more time than necessary doing research.
 
-Another limitation is little experience with Mobile development within the team. All of the team members have android phones, and to be able to test our application, we therefore have to develop an android application. Only one of the team members have done this before. 
+Another limitation is lack of experience with Mobile development within the development team. All of the team members have Android phones, and to be able to test our application, we have to develop an Android application. Only one team member have experience with this. 
 
-Other limitations can be if we're not scaling down the project for example, then we don't have all necessary resources. We don't have a huge audience to test the system, we don't have access to a big sceen etc.   
+If we are not scaling down the project, then we do not have all necessary resources to test the system. As an example we do not have a huge audience. Also  we do not have access to a big screen etc. This is also a limitation.  
 
 As this course last for a 13 weeks, it is normal that we have to make some trade-offs.
-This project is techinacally difficult, and we do not have much time.  
+This project is technically difficult, and there is a limited amount of time.  
   
 \section{Schedule}
 general paragraph about sprint length
 \subsection{Phases}
-\paragraph{Sprint 0 (ends 6th of September)}
-\paragraph{Sprint 1 (ends 20th of September)}
-\paragraph{Sprint 2 (ends 4th of October)}
-\paragraph{Sprint 3 (ends 18th of October)}
-\paragraph{Sprint 4 (ends 1st of November)}
+\paragraph{Sprint 0 (ends 1th of September)}
+\paragraph{Sprint 1 (ends 15th of September)}
+\paragraph{Sprint 2 (ends 29th of September)}
+\paragraph{Sprint 3 (ends 13th of October)}
+\paragraph{Sprint 4 (ends 27st of October)}
 \paragraph{Sprint 5 (ends 15th of November)}
+\paragraph{Sprint 6 (ends 21th of November)}
 \subsection{Gantt chart}
 
 \subsection{Milestones}
+
+We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes. There are 8 prototypes In total we 
+agreed on.Prototype is a milestone by itself. Last or 8th prototype implies that all other milestones are reached. Although the order of milestones may look like a waterfall approach that is not the case.
+Prototypes are the milestones as we said before but they are also a logical and operational units and therefore some logical order of the milestones had to be ordered. Furthermore, milestones are not 
+necessary connected to sprint, and group of milestones that prototypes are "composed" of do not have to be finished in specific order.
+
 
 \begin{itemize}
     \item \textbf{Sprint 0}
@@ -149,15 +151,40 @@ general paragraph about sprint length
     \item Presentation
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
-    \includegraphics[scale=0.6]{images/gantt}
-    \caption{Gantt Chart}
-    \label{img:gantt}
+\caption{Gantt Chart: Allocation of sprints into weeks.}
+\begin{sideways}
+\begin{gantt}{8}{14}
+    \begin{ganttitle}
+      \titleelement{1}{1}
+      \titleelement{2}{1}
+      \titleelement{3}{1}
+      \titleelement{4}{1}
+      \titleelement{5}{1}
+      \titleelement{6}{1}
+      \titleelement{7}{1}
+      \titleelement{8}{1}
+      \titleelement{9}{1}
+      \titleelement{10}{1}
+      \titleelement{11}{1}
+      \titleelement{12}{1}
+      \titleelement{13}{1}
+      \titleelement{14}{1}
+    \end{ganttitle}
+    \ganttbar{Sprint 0}{0.5}{1.5}
+    \ganttbarcon{Sprint 1}{2}{2}
+    \ganttbarcon{Sprint 2}{4}{2}
+    \ganttbarcon{Sprint 3}{6}{2}
+    \ganttbarcon{Sprint 4}{8}{2}
+    \ganttbarcon{Sprint 5}{10}{2}
+    \ganttbarcon{Sprint 6}{12}{1.5}
+\end{gantt}
+\end{sideways}
 \end{center}
 \end{figure}
-s
-\section{Risk management}
+
+\section{Organization}
 
 \begin{table*}\centering \ra{1.3}
     \caption{Skills and previous experience table. Coding:
@@ -185,7 +212,6 @@ s
     \end{tabular}
 \end{table*}
 
-\section{Organization}
 
 \subsection{Role Assignment}
 To assign roles according to our skills and previous experience we have decided to make survey of relevant knowledge. 
@@ -294,8 +320,6 @@ As
 \subsection{Team collaboration}
 - continuous doc writing
 - daily standups
-
-
 
 
 \end{document}
