@@ -1,0 +1,32 @@
+- summary what happend in two weaks
+- project plan 
+    in project scope mention scaling
+    mention features what we must deliver, what is compulsory, agree with customer (requirement part)
+    clear description of project, requirement and design should be in separate section
+    requirements in scope section
+    project objective description before project scope (mark, product)
+    project scope - talk about what is not in the scope, emphesise that
+    project architecture -> product architecture -> move 
+    final report ->
+    keep minimum number of internal documents
+    success -> effects
+    general terms -> customer constrains
+    two sections - basic requirements
+                 - sprint requirements (in sprint sections)
+    non-functional req - like how many users can this support
+    evaluation
+    testing plan - customer
+                 - can decide if we decide testing plan before or after
+    midterm report - part of the final report, same document
+                   - 70% percent of report
+    some fixed milestones (at least one)
+    section terminology - explain term milestone, 
+    course milestones - midterm report, 
+    lifecycle for each sprint - chartt
+    work breakdown structure - more like a plan, google image, detail work
+                             - prototype, features of that prototype (epic, user stories, ...)
+    QA -> rename team communication
+    general terms methodology -> move it to different section
+
+next weekend - write as much as possible to report
+    - show prototype on next meeting
