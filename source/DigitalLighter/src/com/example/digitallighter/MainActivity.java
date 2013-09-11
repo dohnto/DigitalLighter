@@ -144,6 +144,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			playCommand("#ffffff:10000");
 			break;
 
+			
 		default:
 			break;
 		}
