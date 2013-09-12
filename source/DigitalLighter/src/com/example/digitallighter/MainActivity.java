@@ -162,7 +162,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	// ========================================================================================================
