@@ -49,9 +49,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
-
 		// RETRIEVE UI ELEMENTS
-
 		background = findViewById(R.id.background);
 		Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
