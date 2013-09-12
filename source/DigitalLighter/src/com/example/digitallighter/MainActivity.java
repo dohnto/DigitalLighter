@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.testflightapp.lib.TestFlight;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
