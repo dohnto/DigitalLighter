@@ -4,19 +4,35 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_register"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:onClick="clickAdvertise"
-        android:text="Start Sever" />
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edit_service_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Input name" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickAdvertise"
+            android:text="Start Sever" />
+    </LinearLayout>
 
     <TextView
-        android:layout_centerInParent="true"
         android:id="@+id/user_counter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal|center_vertical"
         android:gravity="center_horizontal"
         android:text="@string/user_number"
@@ -24,8 +40,8 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_above="@+id/button_holder"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/button_holder"
         android:layout_gravity="center_horizontal|center_vertical"
         android:gravity="center_horizontal"
         android:text="Send command to user"
@@ -33,9 +49,9 @@
 
     <LinearLayout
         android:id="@id/button_holder"
-        android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:gravity="bottom"
         android:orientation="horizontal" >
@@ -49,20 +65,20 @@
             android:text="Red" />
 
         <Button
+            android:id="@+id/btn_white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickGreen"
+            android:text="Green" />
+
+        <Button
             android:id="@+id/btn_blue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="clickBlue"
             android:text="Blue" />
-
-        <Button
-            android:id="@+id/btn_white"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="clickWhite"
-            android:text="White" />
     </LinearLayout>
 
 </RelativeLayout>

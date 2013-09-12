@@ -60,12 +60,6 @@ public class Connection {
 	public synchronized void updateMessages(String msg, boolean local) {
 		Log.e(TAG, "Updating message: " + msg);
 
-		if (local) {
-			msg = "me: " + msg;
-		} else {
-			msg = "them: " + msg;
-		}
-
 		Bundle messageBundle = new Bundle();
 		messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_COMMAND);
 		messageBundle.putString(Protocol.COMMAND, msg);

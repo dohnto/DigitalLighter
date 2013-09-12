@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
 
 		// RETRIEVE UI ELEMENTS
@@ -143,7 +145,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			playCommand("#ffffff:10000");
 			break;
 
-			
 		default:
 			break;
 		}
@@ -158,7 +159,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		mNsdHelper.reslveOnDemand(pos);
 
 	}
-	
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
