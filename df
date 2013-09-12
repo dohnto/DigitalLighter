@@ -1,0 +1,14 @@
+[1mdiff --git a/source/DigitalLighter/src/com/example/digitallighter/MainActivity.java b/source/DigitalLighter/src/com/example/digitallighter/MainActivity.java[m
+[1mindex 208e4ac..085c7a9 100644[m
+[1m--- a/source/DigitalLighter/src/com/example/digitallighter/MainActivity.java[m
+[1m+++ b/source/DigitalLighter/src/com/example/digitallighter/MainActivity.java[m
+[36m@@ -158,6 +158,7 @@[m [mpublic class MainActivity extends Activity implements OnClickListener, OnItemSel[m
+ 		mNsdHelper.reslveOnDemand(pos);[m
+ [m
+ 	}[m
+[32m+[m[41m	[m
+ [m
+ 	@Override[m
+ 	public void onNothingSelected(AdapterView<?> arg0) {[m
+warning: LF will be replaced by CRLF in source/DigitalLighter/src/com/example/digitallighter/MainActivity.java.
+The file will have its original line endings in your working directory.
