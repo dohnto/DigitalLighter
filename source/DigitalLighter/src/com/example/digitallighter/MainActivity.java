@@ -158,6 +158,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		mNsdHelper.reslveOnDemand(pos);
 
 	}
+	
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
