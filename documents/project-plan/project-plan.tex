@@ -61,7 +61,7 @@ As we operate under certain limitations we explained in General Terms section, s
  - Disregard scaling of product,
  - Disregard some of problems that are not important for final prototype, but talk with a customer before make this kind of decision.
 
-\section{Project architecture}
+\section{Product architecture}
 Product can be logically divided into two sections -- client and server application.
 Client side should be used by the audience whereas server side should be used by the concert manager.
 Both kind of applications will communicate through network, there is no need of internet connection.
@@ -69,7 +69,7 @@ Both kind of applications will communicate through network, there is no need of 
 Each application can be divided into more detailed architecture; we will focus on that in next sprint.
 
 
-\section{Measurement of Project Effects}
+\section{Measurement of Project Successes}
 To measure success of our end-product we have to set up some criteria to be fulfilled. The product should pass all test-cases and function according to customer's requirements.
 
 \section{Planned workload}
@@ -144,85 +144,30 @@ We have embraced Sprint 0 as a preliminary sprint, when we can set up all necess
 To visualize sprint's lengths and layout in time we created Gantt chart ~\ref{fig:gantt}.
 
 
-\subsection{Milestones}
-
-We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes(Deliverables). There are 8 prototypes In total we 
-agreed on.Prototype is a milestone by itself. Last or 8th prototype implies that all other milestones are reached. Although the order of milestones may look like a waterfall approach that is not the case.
-Prototypes are the milestones as we said before but they are also a logical and operational units and therefore some logical order of the milestones had to be ordered. Furthermore, milestones are not 
-necessary connected to sprint, and group of milestones that prototypes are "composed" of do not have to be finished in the specific order.
-
-
-Overview of all milestones and 8 prototypes(Deliverables).
-
-\paragraph{Prototype 1}
-\begin{itemize}
-	\item Put "Hello World" project to gitHub and pull it to every group member's local storage.
-	\item Set up protocol for client \& server.
-	\item Make server able to listen for clients.
-	\item One client connects to the server.
-\end{itemize}
-
-\paragraph{Prototype 2}
-\begin{itemize}
-	\item The server sends command to one client.
-	\item The client receives one command.
-	\item The client "plays" one command (white light 10 seconds).
-\end{itemize}
-
-\paragraph{Prototype 3}
-\begin{itemize}
-	\item Multiple clients connect to server.
-	\item The server sends same signal to multiple clients.
-\end{itemize}
-
-\paragraph{Prototype 4}
-\begin{itemize}
-	\item The server sends multiple different commands to the client.
-	\item The client plays commands (Red light 2 seconds, Green light 2 seconds).
-\end{itemize}
-
-\paragraph{Prototype 5}
-\begin{itemize}
-	\item Server identifies one client from light.
-\end{itemize}
-
-\paragraph{Prototype 6}
-\begin{itemize}
-	\item Server maps one client to grid (4 quads).
-\end{itemize}
-
-\paragraph{Prototype 7}
-\begin{itemize}
-	\item Server identifies multiple clients from light.
-	\item Server maps all devices to the grid.
-\end{itemize}
-
-\paragraph{Prototype 8}
-\begin{itemize}
-	\item Server play whole picture to the grid.
-\end{itemize}
-
 \begin{figure}
 \begin{center}
 \label{fig:gantt}
 \caption{Gantt Chart: Allocation of sprints into weeks.}
 \begin{sideways}
-\begin{gantt}{8}{14}
+\begin{gantt}{9}{14}
     \begin{ganttitle}
-      \titleelement{1}{1}
-      \titleelement{2}{1}
-      \titleelement{3}{1}
-      \titleelement{4}{1}
-      \titleelement{5}{1}
-      \titleelement{6}{1}
-      \titleelement{7}{1}
-      \titleelement{8}{1}
-      \titleelement{9}{1}
-      \titleelement{10}{1}
-      \titleelement{11}{1}
-      \titleelement{12}{1}
-      \titleelement{13}{1}
-      \titleelement{14}{1}
+       \titleelement{Week}{14}
+    \end{ganttitle}
+    \begin{ganttitle}
+       \titleelement{1}{1}
+       \titleelement{2}{1}
+       \titleelement{3}{1}
+       \titleelement{4}{1}
+       \titleelement{5}{1}
+       \titleelement{6}{1}
+       \titleelement{7}{1}
+       \titleelement{8}{1}
+       \titleelement{9}{1}
+       \titleelement{10}{1}
+       \titleelement{11}{1}
+       \titleelement{12}{1}
+       \titleelement{13}{1}
+       \titleelement{14}{1}
     \end{ganttitle}
     \ganttbar{Sprint 0}{0.5}{1.5}
     \ganttbarcon{Sprint 1}{2}{2}
@@ -235,6 +180,57 @@ Overview of all milestones and 8 prototypes(Deliverables).
 \end{sideways}
 \end{center}
 \end{figure}
+
+
+\subsection{Milestones}
+
+\subsubsection{Product Milestones}
+
+We set milestones in order to more accurately ascertain whether or not the project is on schedule. After finishing some group of the milestones we will have running prototypes (Deliverables). There are 4 prototypes in total we 
+agreed on. After reaching point of 4 prototypes we will have meeting with our customer about how the project is about to continue. The 3th prototype implies that all milestones are reached. 
+Although the order of prototypes may look like a waterfall approach that is not the case.
+Overview of all milestones and 4 prototypes (Deliverables).
+
+\paragraph{Obedient client  - Prototype 1}
+\begin{itemize}
+	\item Put "Hello World" project to gitHub and pull it to every group member's local storage.
+	\item Set up protocol for client \& server.
+	\item Make server able to listen for clients.
+	\item One client connects to the server.
+	\item The server sends command to one client.
+	\item The client receives one command.
+	\item The client "plays" one command (white light 10 seconds).
+\end{itemize}
+
+\paragraph{Obedient crowd - Prototype 2}
+\begin{itemize}
+	\item Multiple clients connect to the server.
+	\item The server sends same signal to multiple clients.
+	\item The server sends multiple different commands to the client.
+	\item The client plays commands (Red light 2 seconds, Green light 2 seconds).
+\end{itemize}
+
+\paragraph{Traffic light control - Prototype 3}
+\begin{itemize}
+	\item Server identifies one client from light.
+	\item Server maps one client to grid (4 quads).
+\end{itemize}
+
+\paragraph{Digital lighter stone age - Prototype 4}
+\begin{itemize}
+	\item Server identifies multiple clients from light.
+	\item Server maps all devices to the grid.
+	\item Server play whole picture to the grid.
+\end{itemize}
+
+\subsubsection{Course Milestones}
+
+All milestones regarding working on tasks that are not narrowly connected to final products are considered Course Milestones.
+
+\begin{itemize}
+	\item Finish of Project Plan document.
+	\item Learn about team dynamics.
+\end{itemize}
 
 \section{Organization}
 
@@ -330,7 +326,7 @@ Hardware problems & 9     & 3     & 27    & Obtain a new one & Keep your devices
     \end{tabularx}%}
     \end{sideways}
 \end{table*}
-\section{Quality Assurance}
+\section{Communication}
 Specific guidelines and practices were adopted
 so that the team and the customer could continuously verify that the project development keeps the right direction and that the requirements are being fulfilled.
 
