@@ -20,7 +20,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-
+		background = findViewById(R.id.background);
 		Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
 		counter = (TextView) findViewById(R.id.txt_count);
