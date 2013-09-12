@@ -105,6 +105,7 @@ public class MainActivityServer extends Activity {
 	// SEND COMMAND SIGNAL TO USER (5sec red color)
 	// ========================================================================================================
 
+	
 	public void clickRed(View v) {
 		sendCommandSignal("#ff0000:5000");
 	}
