@@ -1,5 +1,5 @@
 \section{Sprint planning}
-After assembling all the tools in Sprint0, we decided to start with the implementation.
+After assembling all the tools in Sprint0, we decided to start with the implementation of core modules.
 As our understanding of task improved, we were able to come up with user stories from the perspective of user, customer, developer and student.
 All user-stories were given to the customer so they can be prioritized. 
 All but user-stories concerning our student obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
@@ -7,7 +7,8 @@ Those were mandatory and already added as user-stories of sprint1.
 On Monday 02.09.2013. we had the meeting with a customer where we estimated time we need for every user story.
 The result of that meeting was the list of the rest of the user-stories for sprin1.
 All user stories for finishing our first prototype were on the sprint1 list so we also agreed date for presentation and showing the running demo - Thursday 12.09.2013. 
-After that ,at a group meeting, we decoupled user-stories into tasks and we were ready to start with the imlementation.
+After that ,at a group meeting, we decoupled user-stories into tasks and we were ready to start with the imlementation of client-server core module.
+
 
 \subsection{Sprint1 User-stories}
 
@@ -21,6 +22,21 @@ After that ,at a group meeting, we decoupled user-stories into tasks and we were
 \end{figure}
 
 \section{Architecture}
+
+Choosing client-server arhitecture was very intuitive to do.
+Our project has user application that depends on commands for what to play, on one side, and application that is responsable of detecting and sending commands to that users on the other.
+Every aplication(user) have to be either one or another. 
+
+Write about Android NSD, create class diagram, 
+
+
+\begin{figure}[!t]
+	\centering
+		\includegraphics[width=16cm]{arhitecture.png}
+	\caption{Sprint1 Arhitecture}
+	\label{fig:sprint1_arhitecture}
+\end{figure}
+
 \section{Implementation}
 \section{Testing}
 \section{Occurring risks}
