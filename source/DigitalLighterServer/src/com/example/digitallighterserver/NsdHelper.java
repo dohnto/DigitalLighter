@@ -15,11 +15,12 @@
  */
 
 package com.example.digitallighterserver;
-
 import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 public class NsdHelper {
@@ -35,8 +36,8 @@ public class NsdHelper {
 	public static final String SERVICE_TYPE = "_http._tcp.";
 
 	public static final String TAG = "NsdHelper";
-	public String mServiceName = "DL";
-	
+	public String mServiceName = "SD";
+
 	Handler mUpdateHandler;
 
 	NsdServiceInfo mService;
@@ -130,12 +131,17 @@ public class NsdHelper {
 			@Override
 			public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
 				mServiceName = NsdServiceInfo.getServiceName();
+				Bundle messageBundle = new Bundle();
+				messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_SERVER_STARTED);
+				messageBundle.putString(Protocol.NEW_SERVICE_NAME, mServiceName);
+				Message message = new Message();
+				message.setData(messageBundle);
+				mUpdateHandler.sendMessage(message);
 			}
 
 			@Override
 			public void onRegistrationFailed(NsdServiceInfo arg0, int arg1) {
-				int a;
-				a = 5;
+
 			}
 
 			@Override
@@ -149,7 +155,8 @@ public class NsdHelper {
 		};
 	}
 
-	public void registerService(int port) {
+	public void registerService(String name, int port) {
+		mServiceName = name;
 		NsdServiceInfo serviceInfo = new NsdServiceInfo();
 		serviceInfo.setPort(port);
 		serviceInfo.setServiceName(mServiceName);

@@ -39,7 +39,7 @@ public class NsdHelper {
 	public static final String SERVICE_TYPE = "_http._tcp.";
 
 	public static final String TAG = "NsdHelper";
-	public String mServiceName = "DL";
+	public String mServiceName = "SD";
 
 	NsdServiceInfo mService;
 	ArrayList<NsdServiceInfo> listOfServices;
@@ -84,10 +84,8 @@ public class NsdHelper {
 					Log.d(TAG, "Unknown Service Type: " + service.getServiceType());
 				} else if (service.getServiceName().equals(mServiceName)) {
 					Log.d(TAG, "Same machine: " + mServiceName);
-				} else if (service.getServiceName().contains(mServiceName)) {
+				} else {
 					listOfServices.add(service);
-					// updateAdapter(service.getServiceName());
-					Toast.makeText(mContext, "New Service", Toast.LENGTH_LONG).show();
 					Bundle messageBundle = new Bundle();
 					messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_NEW_SERVICE_FOUND);
 					messageBundle.putString(Protocol.NEW_SERVICE_NAME, service.getServiceName());

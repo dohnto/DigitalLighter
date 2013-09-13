@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.testflightapp.lib.TestFlight;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
@@ -46,10 +48,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
+		
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
-
 		// RETRIEVE UI ELEMENTS
-
 		background = findViewById(R.id.background);
 		Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
@@ -143,7 +147,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			playCommand("#ffffff:10000");
 			break;
 
-			
 		default:
 			break;
 		}
@@ -158,7 +161,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		mNsdHelper.reslveOnDemand(pos);
 
 	}
-	
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {

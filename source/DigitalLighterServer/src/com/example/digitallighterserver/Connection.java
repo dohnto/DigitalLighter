@@ -130,7 +130,7 @@ public class Connection {
 						Log.d(TAG, "ServerSocket Created, awaiting connection");
 						setSocket(mServerSocket.accept());
 						Bundle messageBundle = new Bundle();
-						messageBundle.putInt("msg", Protocol.MESSAGE_TYPE_SERVER_STARTED);
+						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_USER_ADDED);
 						Message message = new Message();
 						message.setData(messageBundle);
 						mUpdateHandler.sendMessage(message);
