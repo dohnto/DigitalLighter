@@ -5,16 +5,23 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="true" />
+    
+    
+
     <application
+        android:name=".DLSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.digitallighterserver.MainActivity"
+            android:name="com.example.digitallighterserver.MainActivityServer"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,4 +31,6 @@
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

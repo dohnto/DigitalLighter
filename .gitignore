@@ -1,3 +1,5 @@
-# LaTeX stuff 
-##########################
+# LaTeX stuff
 *.aux
+# Android stuff
+*.apk
+*.ap_
