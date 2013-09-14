@@ -1,4 +1,6 @@
 # LaTeX stuff
+.log
+.bbl
 *.aux
 # Android stuff
 *.apk
