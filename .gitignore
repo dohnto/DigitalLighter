@@ -1,5 +1,12 @@
 # LaTeX stuff
+*.log
+*.bbl
+*.out
+*.toc
+*.blg
+*.synctex.gz
 *.aux
+
 # Android stuff
 *.apk
 *.ap_
