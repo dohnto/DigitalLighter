@@ -1,0 +1,134 @@
+\documentclass{report}
+
+% cool tables
+\usepackage{booktabs}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\newcommand{\colorA}{\cellcolor{green!100}}
+\newcommand{\colorB}{\cellcolor{green!60}}
+\newcommand{\colorC}{\cellcolor{yellow!75}}
+\newcommand{\colorD}{\cellcolor{orange!90}}
+\newcommand{\colorE}{\cellcolor{red!80}}
+% images
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{rotating}
+\usepackage[table]{xcolor} 
+\usepackage{gantt}
+\usepackage{hyperref}
+\usepackage{longtable}
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+
+% black square
+\usepackage{amsmath}
+\usepackage[parfill]{parskip}
+
+%numbers
+%\renewcommand\thesection{\arabic{section}}
+\pagenumbering{arabic} 
+
+\title{
+	\hrule
+    \normalsize \textsc{Customer Driven Project}\\
+    \Huge Rock Concert Audience as a Screen\\[10pt]
+    \normalsize Project Report\\[10pt]
+    Netlight AS
+    \hrule
+    }  
+\author{Agnethe Soraa,
+Tomas Dohnalek,
+Jan Bednarik,
+Milos Jovac \\
+\normalsize Project adviser: Anh Nguyen Duc}
+\date{\today}
+
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\begin{document}
+\maketitle
+\chapter*{Abstract}
+\input{abstract/abstract.tex}
+
+\chapter*{Preface}
+%\input{preface/preface.tex}
+
+\tableofcontents
+\setcounter{page}{3}
+
+\chapter{Introduction}
+\input{introduction/introduction.tex}
+
+\chapter{Planning}
+\input{planning/planning.tex}
+
+\chapter{Preliminary studies}
+\input{preliminaryStudies/preliminaryStudies.tex}
+
+\chapter{Requirements}
+\input{requirements/requirements.tex}
+
+\chapter{Testplan}
+\input{testplan/testplan.tex}
+
+\chapter{Software Architecture}
+\input{softwareArchitecture/softwareArchitecture.tex}
+
+\chapter{Tools and strategy}
+\input{toolsAndStrategy/toolsAndStrategy.tex}
+
+\chapter{Sprint 0}
+\input{sprint0/sprint0.tex}
+
+\chapter{Sprint 1}
+\input{sprint1/sprint1.tex}
+
+\chapter{Sprint 2}
+\input{sprint2/sprint2.tex}
+
+\chapter{Sprint 3}
+\input{sprint3/sprint3.tex}
+
+\chapter{Sprint 4}
+\input{sprint4/sprint4.tex}
+
+\chapter{Sprint 5}
+\input{sprint5/sprint5.tex}
+
+\chapter{Sprint 6}
+\input{sprint6/sprint6.tex}
+
+\chapter{Testing}
+\input{testing/testing.tex}
+
+\chapter{Evaluation}
+\input{evaluation/evaluation.tex}
+
+\chapter{Conclusion}
+\input{conclusion/conclusion.tex}
+
+\chapter{References}
+\input{references/references.tex}
+
+\chapter{Attachments}
+\input{attachments/attachments.tex}
+
+\appendix
+\chapter{User Manual}
+\chapter{Installation Guide}
+\chapter{Glossary}
+\chapter{XML Scheme?}
+\chapter{Customer meetings}
+\chapter{Group meetings}
+\chapter{Supervisor meetings}
+\chapter{Evaluation Questioner}
+
+%\input{appendix/appendix.tex}
+
+\end{document}
+
+%\subsection{Project background}
+%\subsection{Source code}
