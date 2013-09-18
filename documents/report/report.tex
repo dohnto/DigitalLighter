@@ -4,6 +4,8 @@
 \usepackage{booktabs}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
+\usepackage{multirow}
+
 \newcommand{\colorA}{\cellcolor{green!100}}
 \newcommand{\colorB}{\cellcolor{green!60}}
 \newcommand{\colorC}{\cellcolor{yellow!75}}
@@ -54,7 +56,7 @@ Milos Jovac \\
 \input{abstract/abstract.tex}
 
 \chapter*{Preface}
-%\input{preface/preface.tex}
+\input{preface/preface.tex}
 
 \tableofcontents
 \setcounter{page}{3}
@@ -62,11 +64,11 @@ Milos Jovac \\
 \chapter{Introduction}
 \input{introduction/introduction.tex}
 
-\chapter{Planning}
-\input{planning/planning.tex}
-
 \chapter{Preliminary studies}
 \input{preliminaryStudies/preliminaryStudies.tex}
+
+\chapter{Planning}
+\input{planning/planning.tex}
 
 \chapter{Requirements}
 \input{requirements/requirements.tex}
