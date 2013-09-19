@@ -1,8 +1,19 @@
-\section{Description/scope}
+\section{Description}
+The product can be logically divided into two applications -- server side  and client side.
+Each application will be used by different kind users and for better distinguishing of all terms we feel need to define them.
 
+\section{Definitions}
+In this section there will be defined and described actors in requirements to avoid misunderstandings. Since our customer namely specified the domain that we should focus on we named the actors as follows.
 
-Since our customer namely specified the 
-\section{Definitions/general terms}
+\paragraph{User} is a participant of concert who wants to actively take part in show and he can download client application.
+
+\paragraph{Concert Manager} or simply \textbf{Manager} is a person who controls what media should be played on screen made from mobile phone's of users. 
+He can also manage other general settings.
+
+\paragraph{Client} or \textbf{Client side} is an application controlled by user and provides him opportunity to be part of the screen by displaying figures on his mobile.
+
+\paragraph{Server} or \textbf{Server side} is and application controlled by manager and provides him opportunity to change the media displayed on screen.
+
 \section{Business Requirements}
 \subsection{Functional}
 
@@ -21,9 +32,19 @@ Since our customer namely specified the
         \item Server-client architecture - Application must work as a server and client architecture.
         \item Platform - Audience application must work on at least one mobile platform.
         \item Deployment - Application must be deployed to relevant mobile application store.
-        \item Scalability - The application must be scalable - it must work with different count of audience mobile phones.
+        \item Scalability - The application must be scalable - it must work with different count of mobile phones.
         \item Generality - The application must be prepared for future using outside of rock concert domain.
-        \item Delivery - Final product must be finished until 21th of November 2013 and presented to the committee and the customer.
+        \item Delivery - Final product must be finished until 21st of November 2013 and presented to the committee and the customer.
     \end{enumerate}
-\section{Use cases}
+\section{Use case diagram}
+In the figure bellow is shown use case diagram \ref{img:usecase} of the whole system.
+
+\begin{figure}[h]
+    \begin{center}
+    \includegraphics[scale=0.4]{images/usecase.pdf}
+    \label{img:usecase}
+    \caption{Use case diagram for both actors User and Manager.}
+    \end{center}
+\end{figure}
+
 \section{Summary}
