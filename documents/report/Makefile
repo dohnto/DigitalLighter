@@ -1,4 +1,4 @@
-NAME=project-plan
+NAME=report
 
 all:
 	pdflatex $(NAME)
