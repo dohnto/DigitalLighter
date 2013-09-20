@@ -10,3 +10,4 @@
 # Android stuff
 *.apk
 *.ap_
+*.db
