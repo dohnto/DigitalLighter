@@ -47,12 +47,22 @@ It allows users to identify other devices on the local network, register service
 Even with minimum API limitation it is a part of Android platform, no third part libreries are needed, it will evolve with Android and therefore always be working.
 Min API version was not of concern to the customer as he replied on mail regarding this question, so we made a decision of using Android Network Discovery(NSD) for client-server descovery and communication.
 
+NSD send look like this:
+
+Device Identifier: HelloWorldServer
+Service Name: _helloWorld._tcp.
+Port: 27812
+Network Address: 192.168.1.31
+
+explain sockets
+
 \begin{figure}[!t]
 	\centering
 		\includegraphics[width=10cm]{sprint1/Server-Client communication.png}
 	\caption{Sprint1 Arhitecture}
 	\label{fig:sprint1_arhitecture}
 \end{figure}
+
 
 
 \begin{figure}[!t]
