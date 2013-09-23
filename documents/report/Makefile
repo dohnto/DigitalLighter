@@ -5,4 +5,10 @@ all:
 	pdflatex $(NAME)
 
 clean:
-	rm -f *.aux *.bbl *.log *.blg $(NAME).pdf
+	rm -f \
+		*.aux \
+		*.bbl \
+		$(NAME).log *.blg \
+		$(NAME).out \
+		$(NAME).toc \
+		$(NAME).pdf
