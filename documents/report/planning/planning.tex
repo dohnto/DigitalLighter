@@ -32,11 +32,13 @@ to have meeting with customer at the end of every sprint, and plan next one toge
 \end{table*}
 
 \subsection{Role Assignment}
-To assign roles according to our skills and previous experience we have decided to make survey of relevant knowledge. 
+To assign roles according to our skills and previous experience we have decided to make a survey of relevant knowledge. 
 Results of this survey can be seen in table \ref{tab:skills}. 
-This table was used as a base for our role assignment, but in practice the only roles used are communications and the scrum master. We decided to embrace this as a development team were we are all equal. 
+This table was used as a base for our role assignment.
+In the beginning, during planning, we did not establish so many roles, but during the development process itself we found out that some of them are necessary. 
+Nevertheless we use only few roles and the responsibility of unused roles (mention in compendium) are distributed to all members. 
+We decided to embrace this as a development team were we are all equal.
 The assigned roles can be seen in table \ref{tab:roles}. 
-In the beginning we have decided to share other roles proposed by compendium.
 
 \begin{table*}\centering \ra{1.3}
     \caption{Assigned roles and their responsibilities}
@@ -46,11 +48,11 @@ In the beginning we have decided to share other roles proposed by compendium.
     \toprule
     Role    & Person   & Responsibility \\
     \midrule
-    \textbf{Project Leader}             & Milos &
+    \textbf{Project Leader}             & Agnethe &
         Responsible for progress of the project according to the plan.
         Distributes work to group members.
         Has final call in arguments.\\
-    \textbf{System Architect}             & Tomas &
+    \textbf{System Architect}             & Milos &
         Check consistency and analyze all layers of the product. \\
     \textbf{Scrum Master}             & Agnethe &
         Leads the scrum stand-ups. \\
@@ -58,8 +60,9 @@ In the beginning we have decided to share other roles proposed by compendium.
         Responsible for communicating with customer and supervisor.
         Regularly send meeting minutes, agenda and other documents to customer and supervisor. \\ 
     \textbf{QA Responsible} & Tomas &
-        Ensure a quality of all documents and end-product.
-        \\ 
+        Ensure a quality of all documents and end-product.        \\ 
+    \textbf{Documentation Responsible} & Agnethe &
+        Responsible for delegating and supervising work on final report.        \\         
     \bottomrule
     \end{tabularx}
 \end{table*}
@@ -72,13 +75,13 @@ Other risks we can see from analyzing the skill table. If for example the only t
 Also if some of the rows in the skill table all were painted red, which would imply that the team had experience with this, then this would be a risk. In such a case, we would have to talk to our customer and consider scaling down this task. 
 \ref{tab:risks}
 
-\begin{table*}
+\begin{sidewaystable}
     \caption{Handling risks}
     \label{tab:risks}
     
     \centering \ra{1.3}
     \vspace{2mm} %\rotatebox{90}{
-    \begin{tabularx}{500pt}{XlllXX}
+    \begin{tabularx}{500pt}{XcccXX}
     \toprule
         Event & Consequence & Possibility & Risk  & Reactive Measures & Proactive Measures \\
     \midrule
@@ -93,9 +96,9 @@ Customer too ambitious & 9     & 5     & 45    & Renegotiate with a customer & K
 Hardware problems & 9     & 3     & 27    & Obtain a new one & Keep your devices updated \\
 \bottomrule
 \end{tabularx}
-\end{table*}
-
+\end{sidewaystable}
 \subsection{Limitations}
+\label{sec:limitations}
 We are developing this project under a few technical, resource, time and knowledge limitations. 
 
 Our biggest limitation is the image processing part. Half of the team has no experience with this, and the other half has little experience. Their experience is mostly theoretical information about the subject, and practical experience is preferred. We are aware of this limitation, and our plan is to learn by doing. We are going to start developing, and teach ourself while coding. We chose this approach because we do not want to spend more time than necessary doing research.
@@ -106,6 +109,8 @@ If we are not scaling down the project, then we do not have all necessary resour
 
 As this course last for a 13 weeks, it is normal that we have to make some trade-offs.
 This project is technically difficult, and there is a limited amount of time. 
+
+
 \section{Communication}
 Specific guidelines and practices were adopted
 so that the team and the customer could continuously verify that the project development keeps the right direction and that the requirements are being fulfilled.
@@ -135,13 +140,15 @@ It has been also decided that the project report should be written continuously 
 
 \section{Project scope}
 After third meeting with our customer we decided to lay out the scope of the project that is tangible and doable under 13 weeks. Customer idea although good and innovative has one flaw - it is a huge undertaking!
-As we operate under certain limitations we explained in General Terms section, subsection Limitations, we agreed with customer on next terms:
- - Take project title as domain of work and not final product,
- - Scale down problem but attack all main problems of the domain,
- - Disregard scaling of product,
- - Disregard some of problems that are not important for final prototype, but talk with a customer before make this kind of decision.
 
-\section{Evaluation criteria} 
+As we operate under certain limitations we explained in \ref{sec:limitations}, we agreed with customer on next terms:
+\begin{itemize}
+	\item Take project title as domain of work and not final product.
+	\item Scale down problem but attack all main problems of the domain.
+	\item When designing architecture disregard scaling of product.
+	\item Disregard some of problems that are not important for final prototype, but  with approval of a customer before making this kind of decision.
+\end{itemize}
+
 \section{Project plan}
 \subsection{General plan for all of the sprints}
 
@@ -150,6 +157,16 @@ In general the sprints will last for two weeks. The only sprints that does not h
 After each sprint we have a sprint review with the customer. The sprint reviews takes place every other Thursday, which means that the Wednesday before, the team has to prepare for the review. In each sprint review we both present and demonstrate what we have done so far. After the presentation we are doing a retrospective with the customer. It is important to evaluate our sprint delivery the customer. After the retrospective we will plan the next sprint, and now the customer can prioritize which user stories he wants us to work on next. The Friday after the sprint review, the team will do a detailed planning of the next sprint. 
 
 On the Thursdays in between we have weekly meetings with the customer. It is important to have good communication with the customer. These meetings gives us opportunities to ask questions, and to make sure that we are on the right track.
+
+You can see detailed sprint decomposition in figure \ref{img:sprint_detail}.
+
+\begin{figure}[!h]
+    \begin{center}
+    \includegraphics[scale=0.4]{images/sprint_detail.pdf}
+    \caption{Diagram depicting detailed sprint decomposition.}
+    \label{img:sprint_detail}
+    \end{center}
+\end{figure}
 
 \subsection{Phases}
 \subsubsection{Sprint 0}
@@ -219,13 +236,8 @@ You can see the Gantt chart in figure \ref{fig:gantt}.
 
 \section{Quality Assurance}
 
-\section{Measurement of Project Successes}
+\section{Measurement of Project Successes \#supervisor}
 To measure success of our end-product we have to set up some criteria to be fulfilled. The product should pass all test-cases and function according to customer's requirements.
 
 \subsection{Description ?}
 \subsection{Result schedule ?}
-
-
-
-\section{Version Control}
-\section{Textual documentation}
