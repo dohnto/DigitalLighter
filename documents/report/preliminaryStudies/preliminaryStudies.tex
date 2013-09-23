@@ -89,6 +89,9 @@ The location of the single participants cannot be determined.
 
 \section{Development technologies}
 
+
+\section{Development tool}
+
 For Scrum support and issue tracking we use Gravity Tool\footnote{\url{www.gravitydev.com}}. 
 The tool is right now in Beta but it is free to use and have all features we needed from proposed AgileZen.
 
@@ -120,11 +123,28 @@ For collaboration on Minutes, Project Plan and other documents we use GitHub. Th
 \end{figure}
 
 
-For document editing we agreed on LaTeX.
+For document editing we agreed on \LaTeX.
 For group resources and links we use Facebook groups and for managing schedule we use Google Calendar.
 
 
 \subsection{Version control system}
-Version control systems are usually stand-alone applications but they can be integrated into other applications.
+Version control systems (VCS) are usually stand-alone applications but they can be integrated into other applications. These system usually allow users to browse previous versions of content.
+
+We have decided that we will use VCS both for source code of applications and for project report. As every member of the team had experience with different version control systems, they become our candidates.
+As our team works both on Microsoft Windows and GNU/Linux, it is necessary that chosen VCS supports clients in both platforms.
+Another criteria was support of online code repository free of charge.
+
+\paragraph{Subversion} or SVN is an open source centralized VCS and has many clients across different platforms. 
+SVN is supported by Google Code\footnote{\url{http://code.google.com/}} repository.
+SVN supports atomic commits, branching and more.
+
+\paragraph{Git} on the other hand is distributed VCS and offers immediate offline operations.
+Projects like Linux kernel\footnote{\url{https://www.kernel.org/}} and Glibc\footnote{\url{https://www.gnu.org/software/libc/}} are using Git as a VCS.
+Although Git was created by Linus Torvalds, there are Windows clients available.
+Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS.
+
+\paragraph{Summary} We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
+You can find our repository on \url{https://github.com/dohnto/CDP} page.
+
 
 \section{Outcome of research}
