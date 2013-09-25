@@ -1,24 +1,15 @@
+In this section we...
+
 \section{Description}
-The product can be logically divided into two applications -- server side  and client side.
-Each application will be used by different kind users and for better distinguishing of all terms we feel need to define them.
-
-\section{Definitions}
-%In this section there will be defined and described actors in requirements to avoid misunderstandings. Since our customer namely specified the domain that we should focus on we named the actors as follows.
-
-%\paragraph{User} is a participant of concert who wants to actively take part in show and he can download client application.
-
-%\paragraph{Concert Manager} or simply \textbf{Manager} is a person who controls what media should be played on screen made from mobile phone's of users. 
-%He can also manage other general settings.
-
-%\paragraph{Client} or \textbf{Client side} is an application controlled by user and provides him opportunity to be part of the screen by displaying figures on his mobile.
-
-%\paragraph{Server} or \textbf{Server side} is and application controlled by manager and provides him opportunity to change the media displayed on screen.
+To clarify and properly explain life cycle of one run of server side application, its usage and possible requirements, we have adopted structure of UML's sequential diagram. 
+As there was a need to express even a physical gestures (like raising hand with mobile there), diagram might violate some of sequential diagram rules.
+Therefore we show in figure \ref{img:wholeapp_seq} interaction between all actors and their mobile devices.
 
 \begin{figure}[!h]
     \begin{center}
     \includegraphics[scale=0.4]{images/wholeapp_seq.pdf}
     \caption{Sequential diagram depicting basic scenario of using product with all actors.}
-    \label{img:usecase}
+    \label{img:wholeapp_seq}
     \end{center}
 \end{figure}
 
@@ -90,9 +81,6 @@ You can see list of functional requirements from manager's point of view below.
 	\item[\textbf{M8}] \label{req_M8}
 		I as a manager I want to be able to start pause stop the media.
 \end{enumerate}
-	
-\refreq{E2}
-
 
 \subsection{Non-functional}
 You can see non-functional requirements in table \ref{tab:req_nonfunc}.
@@ -105,11 +93,11 @@ You can see non-functional requirements in table \ref{tab:req_nonfunc}.
 \toprule[1mm]
 \textbf{ID} & Name & Description\\
 \midrule
-\textbf{N1} & Server-client architecture & Application must work as a server and client architecture.\\
-\textbf{N2} & Platform & Audience application must work on at least one mobile platform.\\
+\textbf{N1} & Server-client architecture & Product must work as a server and client architecture.\\
+\textbf{N2} & Platform & Client side application must work on at least one mobile platform.\\
 \textbf{N3} & Deployment & Application must be deployed to relevant mobile application store.\\
-\textbf{N4} & Scalability & The application must be scalable - it must work with different count of mobile phones.\\
-\textbf{N5} & Generality & The application must be prepared for future using outside of rock concert domain.\\
+\textbf{N4} & Scalability & The product must be scalable - it must work with different count of mobile phones.\\
+\textbf{N5} & Generality & The product must be prepared for future using outside of rock concert domain.\\
 \textbf{N6} & Delivery & Final product must be finished until 21st of November 2013 and presented to the committee and the customer.\\
 \bottomrule[1mm]
 
@@ -137,3 +125,9 @@ You can see non-functional requirements in table \ref{tab:req_nonfunc}.
 \end{table*}
 
 \section{Summary}
+In this chapter was explained how the application's basic life-cycle may look like and was introduced Use case diagram.
+According to Use case diagram there were created \emph{Epics} which serve as a requirements. 
+After that non-functional requirements were introduced.
+In following chapters each user story which is connected to relevant requirement will be referenced with requirement's identification.
+
+As you could see, end user's interaction with both applications is rather simple (and as our customer suggested \ref{minutes:x} the user interface is not core of the work) the main attention will be focused on image processing and network programming.

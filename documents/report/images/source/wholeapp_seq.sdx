@@ -10,15 +10,20 @@ Manager:managerPhone.Create playlist
 Client user:clientPhone.Choose server
 Client user:clientPhone.Connect to server
 clientPhone:managerPhone.connect
-Manager:Client user.Raise you mobile phone
+Manager:Client user.Notice users to raise their mobile phones
 Client user:clientPhone.Enable becoming a Pixel
 Client user:clientPhone.Raise hand with mobile phone
+Manager:managerPhone.Start localization process
+managerPhone:managerPhone.Localization process
 Manager:managerPhone.Start playing playlist
-managerPhone:managerPhone.Localization proces
-managerPhone:clientPhone.Color information
-Manager:managerPhone.Stop playing media
-Manager:Client user.Put down you hands
-Client user:clientPhone.Put down hand hand with mobile phone]]></source>
+
+[c:loop while playlist is not finished]
+managerPhone:clientPhone.Send color information
+managerPhone:managerPhone.Localization process
+[/c]
+
+Manager:Client user.Notice users to down their hands
+Client user:clientPhone.Put down hand with mobile phone]]></source>
 <configuration>
 <property name="activationBarBorderThickness" value="1"/>
 <property name="actorWidth" value="25"/>
