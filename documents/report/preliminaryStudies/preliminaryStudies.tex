@@ -102,44 +102,39 @@ Here are presented tools we have used for a testing purposes or in real developm
 
 \paragraph{Trello}
 is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
-Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics} and \emph{Burn-down chart}.
+Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking.
 
-\paragraph{Gravity}
-\paragraph{TargetProcess3}
+\paragraph{Gravity} 
+is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
+It supports splitting stories into tasks and also automatically calculates \emph{Burn-down chart}. 
+Last but not least it supports it is free of charge for 5 team members, it supports issue tracking and support labels, which can be used for \emph{Epics}.
+On the other hand it does not support time tracking.
+You can see picture of Gravity's features in image \ref{img:gravity}.
 
-For Scrum support and issue tracking we use Gravity Tool\footnote{\url{www.gravitydev.com}}. 
-The tool is right now in Beta but it is free to use and have all features we needed from proposed AgileZen.
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=11cm]{preliminaryStudies/gravity.png}
+	\caption{Gravity features}
+	\label{img:gravity}
+\end{figure}
+
+\paragraph{Target Process} is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
+To its main features belongs role distinguishing, different graphs (such as \emph{Burn-down chart}), time estimation and time tracking of both stories and its tasks, drag and drop prioritizing which makes it easy to use from customer side and different kinds of boards (diverse point of views on project).
+On the contrary it also does not support Epics and it is much more complicated to use than other tools introduced.
+You can see example of board in TargetProcess3 in image \ref{img:targetp}.
 
 \begin{figure}[!t]
 	\centering
-		\includegraphics[width=10cm]{preliminaryStudies/gravity.png}
-	\caption{Wham City Lights}
-	\label{fig:gravity}
+		\includegraphics[width=11cm]{preliminaryStudies/targetp.png}
+	\caption{TargetProcess's board}
+	\label{img:targetp}
 \end{figure}
 
-
-CHANGE(30.08.2013.) As Gravity missing some of the features we didn't know we need it was hard to procide in it.
-New tool we established is Target Process 3 \footnote{\url{http://www.targetprocess.com/3/}}. Tool is also free and is not in Beta.
-
-\begin{figure}[!t]
-	\centering
-		\includegraphics[width=10cm]{preliminaryStudies/targetp.png}
-	\caption{Wham City Lights}
-	\label{fig:targetp}
-\end{figure}
-
-For collaboration on Minutes, Project Plan and other documents we use GitHub. This tool was proposed by our customer and it is popular free collaboration tool.
-
-\begin{figure}[!t]
-	\centering
-		\includegraphics[width=10cm]{preliminaryStudies/git.png}
-	\caption{Wham City Lights}
-	\label{fig:git}
-\end{figure}
-
-
-For document editing we agreed on \LaTeX.
-For group resources and links we use Facebook groups and for managing schedule we use Google Calendar.
+\paragraph{Summary}
+After short discussion we have decided that Trello is not suitable for our purpose so we started to use Gravity since 
+we still did not know which features we will need since we were not skilled in Scrum methodology.
+After a while it showed up, that Gravity has some bugs since it is in Beta version and also miss time tracking feature.
+Because of that in 30th of August we have decided to start using TargetProcess3 although its complexity.
 
 
 \subsection{Version control system}
@@ -161,5 +156,12 @@ Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-base
 \paragraph{Summary} We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
 You can find our repository on \url{https://github.com/dohnto/CDP} page.
 
+
+\begin{figure}[!t]
+	\centering
+		\includegraphics[width=10cm]{preliminaryStudies/git.png}
+	\caption{Our github page}
+	\label{img:git}
+\end{figure}
 
 \section{Outcome of research}
