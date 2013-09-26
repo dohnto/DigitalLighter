@@ -22,7 +22,7 @@ public class Connection {
 
 	private Handler mUpdateHandler;
 	private ChatServer mChatServer;
-	private ChatClient mChatClient;
+	private static ChatClient mChatClient;
 
 	private static final String TAG = "Connection";
 
@@ -40,7 +40,11 @@ public class Connection {
 	}
 
 	public void connectToServer(InetAddress address, int port) {
+		if (mChatClient != null && mChatClient.PORT == port && mChatClient.mAddress.equals(address))
+			return;
+
 		mChatClient = new ChatClient(address, port);
+
 	}
 
 	public void sendMessage(String msg) {

@@ -105,7 +105,6 @@ public class MainActivityServer extends Activity {
 	// SEND COMMAND SIGNAL TO USER (5sec red color)
 	// ========================================================================================================
 
-	
 	public void clickRed(View v) {
 		sendCommandSignal("#ff0000:5000");
 	}
@@ -114,7 +113,7 @@ public class MainActivityServer extends Activity {
 	// SEND COMMAND SIGNAL TO USER (7sec green color)
 	// ========================================================================================================
 
-	public void clicGreen(View v) {
+	public void clickGreen(View v) {
 		sendCommandSignal("#00ff00:7000");
 	}
 
@@ -124,6 +123,14 @@ public class MainActivityServer extends Activity {
 
 	public void clickBlue(View v) {
 		sendCommandSignal("#0000ff:3000");
+	}
+
+	// ========================================================================================================
+	// SEND COMMAND SIGNAL TO USER (3sec blue color)
+	// ========================================================================================================
+
+	public void clickAllThree(View v) {
+		sendCommandSignal("#ff0000:5000|#00ff00:7000|#0000ff:3000");
 	}
 
 	// ========================================================================================================

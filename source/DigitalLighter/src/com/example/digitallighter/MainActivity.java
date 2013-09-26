@@ -43,17 +43,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	// FLAG THAT PREVENT PLAYING NEW COMMAND IF FIRST IS STILL PLAYING
 
-	boolean playingSignal = false;
+	boolean isPlaying = false;
+	ArrayList<String> playingQueue = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
-		
+
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
+
 		// RETRIEVE UI ELEMENTS
+
 		background = findViewById(R.id.background);
 		Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
@@ -80,7 +83,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				switch (msg.getData().getInt(Protocol.MESSAGE_TYPE)) {
 				case Protocol.MESSAGE_TYPE_NEW_SERVICE_FOUND:
 					adapter.add(msg.getData().getString(Protocol.NEW_SERVICE_NAME));
-					Toast.makeText(MainActivity.this, "New Sevice Detected", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this,
+							msg.getData().getString(Protocol.NEW_SERVICE_NAME) + "sevice detected",
+							Toast.LENGTH_SHORT).show();
 					break;
 
 				case Protocol.MESSAGE_TYPE_COMMAND:
@@ -118,23 +123,48 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	public void playCommand(String command) {
 
-		String[] parts = command.split(":");
-		int color = Color.parseColor(parts[0]);
-		int duration = Integer.parseInt(parts[1]);
+		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
+		if (command.contains("|")) {
+			String[] commands = command.split("\\|");
+			for (String s : commands) {
+				playingQueue.add(s);
+			}
+		} else if (!command.equals("recursion")) {
+			playingQueue.add(command);
+		}
 
-		if (!playingSignal) {
-			playingSignal = true;
+		// IN CASE OF BAD COMMAND JUST EXIT
+		if (playingQueue.isEmpty())
+			return;
+
+		if (!isPlaying || command.equals("recursion")) {
+
+			// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
+			String[] parts = playingQueue.get(0).split(":");
+			int color = Color.parseColor(parts[0]);
+			int duration = Integer.parseInt(parts[1]);
+			playingQueue.remove(0);
+
+			// SET FLAG SO OTHER COMMANDS HAVE TO WAIT
+			isPlaying = true;
+
 			background.setBackgroundColor(color);
 			new CountDownTimer(duration, 1000) {
 
+				// SHOW TIME TILL END OF THE COMMAND
 				public void onTick(long millisUntilFinished) {
 					counter.setText("" + (int) millisUntilFinished / 1000);
 				}
 
+				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
 				public void onFinish() {
-					background.setBackgroundColor(Color.BLACK);
+					if (playingQueue.isEmpty()) {
+						background.setBackgroundColor(Color.WHITE);
+						isPlaying = false;
+					} else {
+						playCommand("recursion");
+					}
 					counter.setText("");
-					playingSignal = false;
 				}
 			}.start();
 		}
@@ -144,7 +174,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			playCommand("#ffffff:10000");
+			playCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
 			break;
 
 		default:
