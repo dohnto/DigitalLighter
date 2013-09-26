@@ -79,6 +79,14 @@
             android:layout_weight="1"
             android:onClick="clickBlue"
             android:text="Blue" />
+
+        <Button
+            android:id="@+id/btn_all_three"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickAllThree"
+            android:text="All 3" />
     </LinearLayout>
 
 </RelativeLayout>
