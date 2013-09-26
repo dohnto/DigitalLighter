@@ -1,15 +1,13 @@
 package com.example.digitallighterserver;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -26,11 +24,12 @@ public class Connection {
 
 	private static final String TAG = "Connection";
 
-	private Socket mSocket;
+	private ArrayList<Socket> mSocket;
 	private int mPort = -1;
 
 	public Connection(Handler handler) {
 		mUpdateHandler = handler;
+		mSocket = new ArrayList<Socket>();
 		mChatServer = new ChatServer(handler);
 	}
 
@@ -39,8 +38,8 @@ public class Connection {
 		mChatClient.tearDown();
 	}
 
-	public void connectToServer(InetAddress address, int port) {
-		mChatClient = new ChatClient(address, port);
+	public void connectToServer() {
+		mChatClient = new ChatClient();
 	}
 
 	public void sendMessage(String msg) {
@@ -81,19 +80,12 @@ public class Connection {
 			Log.d(TAG, "Setting a null socket.");
 		}
 		if (mSocket != null) {
-			if (mSocket.isConnected()) {
-				try {
-					mSocket.close();
-				} catch (IOException e) {
-					// TODO(alexlucas): Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			mSocket.add(socket);
 		}
-		mSocket = socket;
+
 	}
 
-	private Socket getSocket() {
+	private ArrayList<Socket> getSockets() {
 		return mSocket;
 	}
 
@@ -121,24 +113,27 @@ public class Connection {
 			public void run() {
 
 				try {
-					// Since discovery will happen via Nsd, we don't need to care which port is
-					// used. Just grab an available one and advertise it via Nsd.
+					// Since discovery will happen via Nsd, we don't need to
+					// care which port is
+					// used. Just grab an available one and advertise it via
+					// Nsd.
 					mServerSocket = new ServerSocket(0);
 					setLocalPort(mServerSocket.getLocalPort());
 
 					while (!Thread.currentThread().isInterrupted()) {
 						Log.d(TAG, "ServerSocket Created, awaiting connection");
 						setSocket(mServerSocket.accept());
+
 						Bundle messageBundle = new Bundle();
-						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_USER_ADDED);
+						messageBundle.putInt(Protocol.MESSAGE_TYPE,
+								Protocol.MESSAGE_TYPE_USER_ADDED);
 						Message message = new Message();
 						message.setData(messageBundle);
 						mUpdateHandler.sendMessage(message);
+
 						Log.d(TAG, "Connected.");
 						if (mChatClient == null) {
-							int port = mSocket.getPort();
-							InetAddress address = mSocket.getInetAddress();
-							connectToServer(address, port);
+							connectToServer();
 						}
 					}
 				} catch (IOException e) {
@@ -151,19 +146,14 @@ public class Connection {
 
 	private class ChatClient {
 
-		private InetAddress mAddress;
-		private int PORT;
-
-		private final String CLIENT_TAG = "ChatClient";
+		private final String CLIENT_TAG = "ChatClient-SeverSide";
 
 		private Thread mSendThread;
 		private Thread mRecThread;
 
-		public ChatClient(InetAddress address, int port) {
+		public ChatClient() {
 
 			Log.d(CLIENT_TAG, "Creating chatClient");
-			this.mAddress = address;
-			this.PORT = port;
 
 			mSendThread = new Thread(new SendingThread());
 			mSendThread.start();
@@ -180,66 +170,23 @@ public class Connection {
 
 			@Override
 			public void run() {
-				try {
-					if (getSocket() == null) {
-						setSocket(new Socket(mAddress, PORT));
-						Log.d(CLIENT_TAG, "Client-side socket initialized.");
-
-					} else {
-						Log.d(CLIENT_TAG, "Socket already initialized. skipping!");
-					}
-
-					mRecThread = new Thread(new ReceivingThread());
-					mRecThread.start();
-
-				} catch (UnknownHostException e) {
-					Log.d(CLIENT_TAG, "Initializing socket failed, UHE", e);
-				} catch (IOException e) {
-					Log.d(CLIENT_TAG, "Initializing socket failed, IOE.", e);
-				}
-
 				while (true) {
 					try {
 						String msg = mMessageQueue.take();
 						sendMessage(msg);
 					} catch (InterruptedException ie) {
-						Log.d(CLIENT_TAG, "Message sending loop interrupted, exiting");
+						Log.d(CLIENT_TAG,
+								"Message sending loop interrupted, exiting");
 					}
-				}
-			}
-		}
-
-		class ReceivingThread implements Runnable {
-
-			@Override
-			public void run() {
-
-				BufferedReader input;
-				try {
-					input = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
-					while (!Thread.currentThread().isInterrupted()) {
-
-						String messageStr = null;
-						messageStr = input.readLine();
-						if (messageStr != null) {
-							Log.d(CLIENT_TAG, "Read from the stream: " + messageStr);
-							updateMessages(messageStr, false);
-						} else {
-							Log.d(CLIENT_TAG, "The nulls! The nulls!");
-							break;
-						}
-					}
-					input.close();
-
-				} catch (IOException e) {
-					Log.e(CLIENT_TAG, "Server loop error: ", e);
 				}
 			}
 		}
 
 		public void tearDown() {
 			try {
-				getSocket().close();
+				for (Socket socket : getSockets()) {
+					socket.close();
+				}
 			} catch (IOException ioe) {
 				Log.e(CLIENT_TAG, "Error when closing server socket.");
 			}
@@ -247,18 +194,21 @@ public class Connection {
 
 		public void sendMessage(String msg) {
 			try {
-				Socket socket = getSocket();
-				if (socket == null) {
-					Log.d(CLIENT_TAG, "Socket is null, wtf?");
-				} else if (socket.getOutputStream() == null) {
-					Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
-				}
+				ArrayList<Socket> sockets = getSockets();
+				for (Socket socket : sockets) {
+					if (socket == null) {
+						Log.d(CLIENT_TAG, "Socket is null, wtf?");
+					} else if (socket.getOutputStream() == null) {
+						Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
+					}
 
-				PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(getSocket()
-						.getOutputStream())), true);
-				out.println(msg);
-				out.flush();
-				updateMessages(msg, true);
+					PrintWriter out = new PrintWriter(new BufferedWriter(
+							new OutputStreamWriter(socket.getOutputStream())),
+							true);
+					out.println(msg);
+					out.flush();
+					updateMessages(msg, true);
+				}
 			} catch (UnknownHostException e) {
 				Log.d(CLIENT_TAG, "Unknown Host", e);
 			} catch (IOException e) {

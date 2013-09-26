@@ -1,10 +1,9 @@
-This chapter is devoted to describing the outcomes of the preliminary research focusing on the similar already existing projects and technologies we could utilize. 
-First the possible methodologies to use will be considered and brief comparation among them will be given.
-Then similar projects will be described, their relations to our project, advantages and disadvantages compering to our project.
-Development technologies and colaboration tools will be presented with outcome of the overall research. 
+This chapter is devoted to describing the outcomes of the preliminary research focusing on the similar already existing projects and technologies we could utilize.
+In section \ref{txt:similar_projects} the similar projects will be described together with their relations to our project and their advantages and disadvantages. 
+Then in the section \ref{txt:development technologies} the development technologies and colaboration tools will be presented with outcome of the overall research. 
 
 
-\section{Similar projects}
+\section{Similar projects} \label{txt:similar_projects}
 
 We were not able to find any other service that would use exactly the same technical solution as compared to our product. 
 Nevertheless a few similar entertainment services that aim to amuse the music concert audience already exist. 
@@ -87,12 +86,39 @@ The location of the single participants cannot be determined.
 %\section{Existing technologies and frameworks}
 %\section{Evaluation of alternative solutions}
 
-\section{Development technologies}
+\section{Development technologies} \label{txt:development technologies}
 
-\subsection{Image processing library}
+According to the customer's requirements the product must be executable on the mobile devices and it should utilize the image processing technologies as well. Therefore we had to make two main decisions - which mobile platform to prefer and which existing image processing libraries to use. Both of the decisions are explained in greater detail in sections \ref{txt:mobile_platform} and \ref{txt:image_processing_library}.
+
+\subsection{Mobile platform - Android} \label{txt:mobile_platform}
+
+The mobile devices market is currently flooded with smartphones and tablets running on dozen of different platforms. 
+But since we try to aim the application on as many users as possible the choice was relatively straightforward.
+Considering the survey carried on by the well established analyst, the company IDC, as of Q2 2013 Google's Android OS held almost 80 \% of the market share\footnote{\url{http://www.idc.com/getdoc.jsp?containerId=prUS24257413}} leaving iOS, windows Phone, BlackBerry and others well behind.
+What is more all of the members of our team posses the Android based smartphone thus we decided to choose the Android platform.
+
+\subsubsection{Android SDK}
+
+Google provides the Android developers with all the necessary tools and API's through the open source and free SDK\footnote{Software Development Kit}. While developing under SDK the Java programming language together with the Android event-driven architecture is used.
+
+\subsubsection{Android NDK}
+
+Through the NDK\footnote{Native Development Kit} Google provides the toolset allowing the programmers parts of the application using native-code languages such as C and C++.
+We discussed using NDK just for the computationally demanding modules such as the image processing since the applications based on already compiled code tend to run faster.
+Nevertheless we are allowed to scale the problem down and thus the use of Java perfectly suffices fr our purposes.
+Should the customer require to scale the problem up we can switch to using NDK anytime.
+
+\subsection{Image processing library - OpenCV} \label{txt:image_processing_library}
+
+As far as the image processing is considered the outcome of our preliminary research is as follows.
+Currently there exist a few open source and free libraries generally focusing on working with the multimedia.
+OpenCV library is probably the most well-known library providing a broad range of image processing functions.
+It is written and meant to be used in conjunction with C++ but the possibility to use Java already exists too.
+The support for using OpenCV on Android platform is provided through the OpenCV4Android SDK that can be obtained from the official OpenCV website\footnote{\url{http://docs.opencv.org/}} and used for free.
+So far we consider this toolkit to be sufficient for our needs but should we come across any problems we might be forced to switch to the combination of OpenCV, C++ and Android NDK.
 
 
-\section{Development tool}
+\section{Development tools} \label{txt:development tools}
 
 \subsection{Project management tool}
 Since we use Scrum methodology, we were in need to find an appropriate management tool supporting Scrum. 
