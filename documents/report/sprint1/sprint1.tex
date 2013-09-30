@@ -49,7 +49,6 @@ For illustrating software architecture "4+1" architectural Model View\ref{fig:4+
 
 \begin{figure}[!ht]
 	\centering
-
 		\includegraphics[width=7cm]{sprint1/4+1.png}
 	\caption{"4+1" architectural view model}
 	\label{fig:4+1 }
@@ -87,6 +86,23 @@ In the sequence diagram \ref{fig:sprint1_communication} is showed how applicatio
 \end{figure}
 
 \subsubsection{Physical View}
+The deployment diagram, displayed in \ref{fig:deployment_diagram } describes the system architecture focusing on the large components and their connections.
+
+\begin{figure}[!Ht]
+	\centering
+		\includegraphics[width=15cm]{sprint1/deploy_diagram.png}
+	\caption{Deployment diagram}
+	\label{fig:deployment_diagram }
+\end{figure}
+
+\paragraph{Client}
+is the application that runs on audience Android device. It is able to discover available services, connect to one and receive command signals from the server. After receiving commands the client is able to flash screen according to given signal.
+
+\paragraph{Router}
+is inevitable part of client-server communication since our project is based on wireless network and zeroconf technologies. In order to support our demands it have to include a DNS relay. The relay embraces storing of service names and allows look-up stored data to the clients.
+
+\paragraph{Server}
+is the application that runs on manager's Android device. It have to register service that it provides at router DNS table. Once registered it have to be able to listen for the clients and broadcast command signals to them.
 
 \subsubsection{Process View}
 
