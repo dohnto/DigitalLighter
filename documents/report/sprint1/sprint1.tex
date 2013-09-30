@@ -37,17 +37,57 @@ Client application should be able to light up different sequences of lights depe
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
 Communication should be established over wireless network using same router for both applications, the user and the server, and without need for third party server nor Internet connection. 
 
-\subsection{"4+1" view model}
-For illustrating software architecture "4+1" Architectural Model View will be used.
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=7cm]{sprint1/arhitecture.png}
+	\caption{Client-server architecture}
+	\label{fig:sprint1_arhitecture}
+\end{figure}
 
-\subsubsection{Logical View}
-A description of the functional requirements of the architecture. The system is decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
+\subsection{"4+1" architectural view model}
+For illustrating software architecture "4+1" architectural Model View\ref{fig:4+1 } will be used. It is based on the multiple concurrent views.
 
 \begin{figure}[!ht]
 	\centering
+<<<<<<< HEAD
+		\includegraphics[width=7cm]{sprint1/4+1.png}
+	\caption{"4+1" architectural view model}
+	\label{fig:4+1 }
+=======
 		\includegraphics[width=7cm]{sprint1/sprint1_class.png}
 	\caption{Sprint 1 Architecture}
 	\label{fig:sprint1_class}
+>>>>>>> b68a6069eb21786f2d19679b09ddea27773e6650
+\end{figure}
+
+\subsubsection{Logical View}
+A description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
+
+Figure \ref{fig:class_diagram_client} gives an overview of the client class structure and collaboration. As planed client have all of the functionality covered by user stories. 
+
+\begin{figure}[!H]
+	\centering
+		\includegraphics[width=10cm]{sprint1/class_diagram_client.png}
+	\caption{Sprint 1 client class diagram}
+	\label{fig:class_diagram_client}
+\end{figure}
+
+Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. We made separate thread "ServerThread" for incoming clients to optimize server. Sending command signals is also moved from ui thread to "SendingThread" in order to live more processing power for modules like image processing.
+
+\begin{figure}[!Ht]
+	\centering
+		\includegraphics[width=10cm]{sprint1/class_diagram_server.png}
+	\caption{Sprint 1 server class diagram}
+	\label{fig:class_diagram_server}
+\end{figure}
+
+In the sequence diagram \ref{fig:sprint1_communication} is showed how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
+
+\begin{figure}[!Ht]
+	\centering
+		\includegraphics[width=7cm]{sprint1/communication.png}
+	\caption{Sprint 1 Communication}
+	\label{fig:sprint1_communication}
 \end{figure}
 
 \subsubsection{Physical View}
@@ -55,26 +95,6 @@ A description of the functional requirements of the architecture. The system is 
 \subsubsection{Process View}
 
 \subsubsection{Development View}
-
-
-\begin{figure}[!h]
-	\centering
-		\includegraphics[width=7cm]{sprint1/arhitecture.png}
-	\caption{Sprint 1 Architecture}
-	\label{fig:sprint1_arhitecture}
-\end{figure}
-
-
-\begin{figure}[!h]
-	\centering
-		\includegraphics[width=7cm]{sprint1/communication.png}
-	\caption{Sprint 1 Communication}
-	\label{fig:sprint1_communication}
-\end{figure}
-
-
-
-
 
 \section{Implementation}
 
