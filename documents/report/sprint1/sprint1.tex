@@ -1,32 +1,63 @@
+In this chapter planning and work-flow regarding Sprint 1 will be described. 
+All from setting our goals to implementation and testing. On the end we will evaluate whole sprint and try to answer on following questions: What went well? What could be improved? What should we start doing?  
+
 \section{Sprint Planning}
 After assembling all the tools in Sprint 0, we decided to start with the implementation of core modules.
 As our understanding of task improved, we were able to come up with user stories from the perspective of user, customer, developer and student.
 All user-stories were given to the customer so they can be prioritized. 
-All but user-stories concerning our student obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
+All but user-stories concerning our school obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
 We decided to have school tasks as a user stories so we can better keep our time tracking. 
 School user-stories were mandatory and already added as a user-stories of sprint 1.
-On Monday 02.09.2013. we had the meeting with a customer where we estimated time we need for every user story.
+On Monday 02.09.2013. we had the meeting with the customer where we estimated time we need for every user story.
 Result of that meeting was list of rest of the user-stories for sprint 1.
-We agreed date for presentation and showing the running demo - Thursday 12.09.2013.
+
+\subsection{Duration}
+This Sprint will be 2 weeks long. From 02.09.2013 to 15.09.2013.
+We agreed on the date for presentation and showing the running demo - Thursday 12.09.2013.
+Estimated velocity is 240h since we agreed on 30 working hours per person per week.
 
 \subsection{Sprint 1 User-stories}
+
+All Sprint 1 user-stories are presented in table \ref{tab:sprint1stories}
 
 \LTXtable{\textwidth}{sprint1/stories.tex}
 
 \section{Sprint Goal}
-We decoupled user-stories into tasks and we were ready to start with the implementation of client-server core module.
-This core module will offer only communication and the most basic system operations. 
-Our goal is to deliver working demo over core module including registering service, listening for the clients and send simple signals to the client from the server.
-And scaning for the services, connecting, receiving signals and play commands on the client. 
+
+Our goal for this Sprint is to deliver working demo over core client-server module.
+This includes registering services, listening for the client and sending simple signals to the client from the server application.
+Scanning for the services, connecting, receiving signals and play commands on the client.
+Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client, is goal of this sprint too.
 
 \section{Architecture}
 
-For the core communication and organization of our product we selected Client-Server Architecture.
+For the core communication and organization of our product we selected Client-Server Architecture \ref{fig:sprint1_arhitecture}.
 Choosing this architecture was very intuitive to do as our project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
-Communication should be established over computer network using same router for both applications, the user and the server, and without need for third party server or internet connection. 
+Communication should be established over wireless network using same router for both applications, the user and the server, and without need for third party server nor Internet connection. 
 
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=7cm]{sprint1/arhitecture.png}
+	\caption{Sprint 1 Architecture}
+	\label{fig:sprint1_arhitecture}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=7cm]{sprint1/communication.png}
+	\caption{Sprint 1 Communication}
+	\label{fig:sprint1_communication}
+\end{figure}
+
+
+
+
+
+\section{Implementation}
 
 Our first research of technologies that could help as at achieving client-server communication, without writing everything from scratch, was Bonjour software. 
 It is the Apple's implementation of Zero configuration network (Zeroconf). 
@@ -55,24 +86,6 @@ Port: 27812
 Network Address: 192.168.1.31
 
 explain sockets
-
-\begin{figure}[!t]
-	\centering
-		\includegraphics[width=10cm]{sprint1/Server-Client communication.png}
-	\caption{Sprint1 Arhitecture}
-	\label{fig:sprint1_arhitecture}
-\end{figure}
-
-
-
-\begin{figure}[!t]
-	\centering
-		\includegraphics[width=16cm]{sprint1/arhitecture.png}
-	\caption{Sprint 1 Architecture}
-	\label{fig:sprint1_arhitecture}
-\end{figure}
-
-\section{Implementation}
 
 NSD
 \section{Testing}
