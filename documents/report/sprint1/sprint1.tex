@@ -1,6 +1,7 @@
 In this chapter planning and work-flow regarding Sprint 1 will be described. 
 All from setting our goals to implementation and testing. On the end we will evaluate whole sprint and try to answer on following questions: What went well? What could be improved? What should we start doing?  
 
+
 \section{Sprint Planning}
 After assembling all the tools in Sprint 0, we decided to start with the implementation of core modules.
 As our understanding of task improved, we were able to come up with user stories from the perspective of user, customer, developer and student.
@@ -37,7 +38,7 @@ Client application should be able to light up different sequences of lights depe
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
 Communication should be established over wireless network using same router for both applications, the user and the server, and without need for third party server nor Internet connection. 
 
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 		\includegraphics[width=7cm]{sprint1/arhitecture.png}
 	\caption{Client-server architecture}
@@ -47,7 +48,7 @@ Communication should be established over wireless network using same router for 
 \subsection{"4+1" architectural view model}
 For illustrating software architecture "4+1" architectural Model View\ref{fig:4+1 } will be used. It is based on the multiple concurrent views.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 		\includegraphics[width=7cm]{sprint1/4+1.png}
 	\caption{"4+1" architectural view model}
@@ -60,7 +61,7 @@ A description of the functional requirements of the architecture. The client and
 
 Figure \ref{fig:class_diagram_client} gives an overview of the client class structure and collaboration. As planed client have all of the functionality covered by user stories. 
 
-\begin{figure}[!H]
+\begin{figure}[H]
 	\centering
 		\includegraphics[width=10cm]{sprint1/class_diagram_client.png}
 	\caption{Sprint 1 client class diagram}
@@ -69,7 +70,7 @@ Figure \ref{fig:class_diagram_client} gives an overview of the client class stru
 
 Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. We made separate thread "ServerThread" for incoming clients to optimize server. Sending command signals is also moved from ui thread to "SendingThread" in order to live more processing power for modules like image processing.
 
-\begin{figure}[!Ht]
+\begin{figure}[H]
 	\centering
 		\includegraphics[width=10cm]{sprint1/class_diagram_server.png}
 	\caption{Sprint 1 server class diagram}
@@ -78,9 +79,9 @@ Figure \ref{fig:class_diagram_server} gives an overview of the server class stru
 
 In the sequence diagram \ref{fig:sprint1_communication} is showed how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
 
-\begin{figure}[!Ht]
+\begin{figure}[H]
 	\centering
-		\includegraphics[width=7cm]{sprint1/communication.png}
+		\includegraphics[width=9cm]{sprint1/communication.png}
 	\caption{Sprint 1 Communication}
 	\label{fig:sprint1_communication}
 \end{figure}
@@ -88,7 +89,7 @@ In the sequence diagram \ref{fig:sprint1_communication} is showed how applicatio
 \subsubsection{Physical View}
 The deployment diagram, displayed in \ref{fig:deployment_diagram } describes the system architecture focusing on the large components and their connections.
 
-\begin{figure}[!H]
+\begin{figure}[H]
 	\centering
 		\includegraphics[width=15cm]{sprint1/deploy_diagram.png}
 	\caption{Deployment diagram}
@@ -96,7 +97,7 @@ The deployment diagram, displayed in \ref{fig:deployment_diagram } describes the
 \end{figure}
 
 \paragraph{Client}
-is the application that runs on audience Android device. It is able to discover available services, connect to one and receive command signals from the server. After receiving commands the client is able to flash screen according to given signal.
+is the application that runs on audience Android device. It is able to discover available services, connects to the one and receives command signals from the server. After receiving commands the client is able to flash screen according to given signal.
 
 \paragraph{Router}
 is inevitable part of client-server communication since our project is based on wireless network and zeroconf technologies. In order to support our demands it have to include a DNS relay. The relay embraces storing of service names and allows look-up stored data to the clients.
