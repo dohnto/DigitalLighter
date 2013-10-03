@@ -9,28 +9,23 @@ import org.opencv.core.Size;
 
 public class PointCollector {
 
-	// DIMENSIONS OF THE SCREEN
-	public static final int TILE_COUNT_X = 4;
-	public static final int TILE_COUNT_Y = 4;
-
-	// ALL IMAGES THAT NEED TO BE MAPPED
-	ArrayList<Mat> rgbResources;
-
-	// COLOR TO SEARCH FOR
-	Scalar mBGRColor;
+	// COLORS TO SEARCH FOR
+	ArrayList<Scalar> mBGRColors;
 
 	// REF TO MAPPER AND BLOB DETECTOR
 	LightDetector mDetector;
 	TileMapper mMapper;
 
-	public PointCollector(ArrayList<Mat> resOut) {
-		rgbResources = resOut;
+	public PointCollector(int titleCountX, int titleCountY) {
 		mDetector = new LightDetector();
-		mBGRColor = new Scalar(0.0, 0.0, 255.00, 0.0);
-		mMapper = new TileMapper(TILE_COUNT_X, TILE_COUNT_Y);
+		mBGRColors = new ArrayList<Scalar>();
+		mBGRColors.add(new Scalar(0.0, 255.0, 0.00, 0.0)); // green
+		mBGRColors.add(new Scalar(255.0, 0.0, 0.00, 0.0)); // blue
+		mBGRColors.add(new Scalar(0.0, 0.0, 255.00, 0.0)); // red
+		mMapper = new TileMapper(titleCountX, titleCountY);
 	}
 
-	public void collect() {
+	public void collect(final Mat img) {
 
 		// DO EVERYTHING IN BG THREAD
 		Thread processThread = new Thread(new Runnable() {
@@ -38,19 +33,22 @@ public class PointCollector {
 			@Override
 			public void run() {
 
-				// FIND ALL DEVICES FOR ON IMG
-				for (Mat mat : rgbResources) {
-					ArrayList<Point> points = mDetector.getBlobCoords(mat, mBGRColor);
-					Size imgSize = new Size((double) mat.height(), (double) mat.width());
+				// FIND ALL DEVICES ON IMG
+				for (Scalar color : mBGRColors) {
+					ArrayList<Point> points = mDetector.getBlobCoords(img, color);
+					Size imgSize = new Size((double) img.height(), (double) img.width());
 
 					// GET SCREEN POSITION FOR EVERY DEVICE
+
+					System.out.println("\nCOLOR: " + color.toString());
+					System.out.println("=====================================");
 					for (Point p : mMapper.mapList(imgSize, points))
 						System.out.println("Device in quadrant(" + p.x + "," + p.y + ")");
 				}
 			}
 		});
 
-		// STARTING CREATED THREAD
+		// START CREATED THREAD
 		processThread.start();
 	}
 }

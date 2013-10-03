@@ -22,23 +22,24 @@ import java.util.ArrayList;
 public class Panel{
 	static String res_folder = "./res/drawable/";
 	
-    public static void main(String[] args) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);       
-        // debug
-        String outDebug = res_folder + "pokus/o.jpg";
-        
-        
-        //for (int i = 0; i < 1; ++i) {
-        
-        
+	public static void main(String[] args) {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		// debug
+		String outDebug = res_folder + "pokus/o.jpg";
+
+		// for (int i = 0; i < 1; ++i) {
+
+		PointCollector collector = new PointCollector(4, 4);
 		ArrayList<Mat> rgbResources = new ArrayList<Mat>();
-//		for (int i = 0; i < 16; ++i) {
-//			rgbResources.add(Highgui.imread(res_folder + i + ".jpg"));
-//		}
-//		new PointCollector(rgbResources).collect();
+		for (int i = 17; i < 18; ++i) {
+			collector.collect(Highgui.imread(res_folder + i + ".jpg"));
+		}
+		
         
-        LightDetector detector = new LightDetector();
-        for (int i = 0; i < 1; ++i) {
+       
+ /*       
+    LightDetector detector = new LightDetector();
+   for (int i = 17; i < 18; ++i) {
 
         	String input = res_folder + i + ".jpg";
         	String output = res_folder + "out/" + i + ".jpg";
@@ -72,9 +73,10 @@ public class Panel{
         	//Mat imageOut = mergeImages(imageIn, imageProcessed);
         	
 //        	Core.rectangle(imageIn, new Point(0, 0), new Point(10, 10), color);
-        	Highgui.imwrite(output, imageIn);
+        	if(Highgui.imwrite(output, imageIn))
+        		System.out.println("Upis");
 
-        }                             
+        } */                            
     }
     
     public static Mat mergeImages(Mat img1, Mat img2)
