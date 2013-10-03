@@ -10,6 +10,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
+import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
 
@@ -31,15 +32,19 @@ public class LightDetector {
 	Mat mDilatedMask = new Mat();
 	Mat mHierarchy = new Mat();
 
-	public ArrayList<Point> getBlobCoords(Mat rgbaImage, Scalar rgbColor) {
+	public ArrayList<Point> getBlobCoords(Mat rgbaImage, Scalar hsvColor) {
+		this.setHsvColor(hsvColor);
+		
 		Imgproc.pyrDown(rgbaImage, mPyrDownMat);
 		Imgproc.pyrDown(mPyrDownMat, mPyrDownMat);
 
+		
 		Imgproc.cvtColor(mPyrDownMat, mHsvMat, Imgproc.COLOR_RGB2HSV_FULL);
 
 		Core.inRange(mHsvMat, mLowerBound, mUpperBound, mMask);
 		Imgproc.dilate(mMask, mDilatedMask, new Mat());
-
+		
+	
 		List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 
 		Imgproc.findContours(mDilatedMask, contours, mHierarchy,
