@@ -28,13 +28,13 @@ import java.awt.*;
 import javax.swing.*; 
 
 public class Panel{
-	static String res_folder = "/home/tom/workspace/LightDetectorTester/res/drawable/";
+	static String res_folder = "./res/drawable/";
 	
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         LightDetector detector = new LightDetector();
         
-        for (int i = 0; i < 1; ++i) {
+        for (int i = 0; i < 16; ++i) {
         	String input = res_folder + i + ".jpg";
         	String output = res_folder + "out/" + i + ".jpg";
         	
