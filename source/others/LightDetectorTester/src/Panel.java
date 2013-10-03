@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.awt.peer.LightweightPeer;
 import org.opencv.core.Core;
@@ -38,7 +38,7 @@ public class Panel{
 //		new PointCollector(rgbResources).collect();
         
         LightDetector detector = new LightDetector();
-        for (int i = 0; i < 16; ++i) {
+        for (int i = 0; i < 1; ++i) {
 
         	String input = res_folder + i + ".jpg";
         	String output = res_folder + "out/" + i + ".jpg";

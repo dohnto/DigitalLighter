@@ -49,6 +49,7 @@ public class LightDetector {
 		
 		this.setHsvColor(hsvColor);
 		
+		
 		Imgproc.pyrDown(rgbaImage, mPyrDownMat);
 		Imgproc.pyrDown(mPyrDownMat, mPyrDownMat);
 
@@ -145,9 +146,10 @@ public class LightDetector {
     public Scalar scalarRgba2Hsv(Scalar rgbColor) {
         Mat pointMatHsv = new Mat();
         Mat pointMatRgba = new Mat(50, 50, CvType.CV_8UC3, rgbColor);                       
-        Imgproc.cvtColor(pointMatRgba, pointMatHsv, Imgproc.COLOR_BGR2HSV_FULL, 3);                             
+        Imgproc.cvtColor(pointMatRgba, pointMatHsv, Imgproc.COLOR_RGB2HSV_FULL, 3);                             
 
-        return new Scalar(pointMatHsv.get(0, 0));
+        Scalar retval = new Scalar(pointMatHsv.get(10, 10));
+        return retval;
     }
 
 	public Mat getSpectrum() {
