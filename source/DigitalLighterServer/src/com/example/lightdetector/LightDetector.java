@@ -32,7 +32,19 @@ public class LightDetector {
 	Mat mDilatedMask = new Mat();
 	Mat mHierarchy = new Mat();
 
-	public ArrayList<Point> getBlobCoords(Mat rgbaImage, Scalar hsvColor) {
+	/* METHODS */
+	
+	/**
+	 * 
+	 * @param rgbaImage	An image to be processed
+	 * @param rgbColor RGB color as a string (e.g. "#FF0000" - Red)
+	 * @return List of center points of found blobs.
+	 */
+	public ArrayList<Point> getBlobCoords(Mat rgbaImage, Scalar rgbColor) {
+
+		// RGB color HSV
+		Scalar hsvColor = scalarRgba2Hsv(rgbColor);
+		
 		this.setHsvColor(hsvColor);
 		
 		Imgproc.pyrDown(rgbaImage, mPyrDownMat);
@@ -123,6 +135,18 @@ public class LightDetector {
 
 		Imgproc.cvtColor(spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
 	}
+	
+	/**
+	 * @param rgbColor
+	 * @return HSV color represented by scalar
+	 */
+    public Scalar scalarRgba2Hsv(Scalar rgbColor) {
+        Mat pointMatHsv = new Mat();
+        Mat pointMatRgba = new Mat(50, 50, CvType.CV_8UC3, rgbColor);                       
+        Imgproc.cvtColor(pointMatRgba, pointMatHsv, Imgproc.COLOR_BGR2HSV_FULL, 3);                             
+
+        return new Scalar(pointMatHsv.get(0, 0));
+    }
 
 	public Mat getSpectrum() {
 		return mSpectrum;

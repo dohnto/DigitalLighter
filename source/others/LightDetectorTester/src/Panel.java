@@ -1,12 +1,12 @@
+package src;
+
 import java.awt.peer.LightweightPeer;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
-import com.example.digitallighterserver.lightdetector.*;
 import com.example.lightdetector.LightDetector;
-
 
 //import org.opencv.samples.tutorial1.LightDetector;
 //import org.opencv.samples.tutorial1.R;
@@ -28,11 +28,15 @@ import java.awt.*;
 import javax.swing.*; 
 
 public class Panel{
-	static String res_folder = "/home/tom/workspace/LightDetectorTester/res/drawable/";
+	static String res_folder = "./res/drawable/";
 	
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         LightDetector detector = new LightDetector();
+        
+        // debug
+        String outDebug = res_folder + "pokus/o.jpg";
+        
         
         for (int i = 0; i < 1; ++i) {
         	String input = res_folder + i + ".jpg";
@@ -42,20 +46,36 @@ public class Panel{
 
         	System.out.println("Processing: " + input);
         	
-        	Scalar color = new Scalar(171, 255, 255);
+        	// HSV color
+//        	Scalar colorHSV = new Scalar(171, 255, 255);
+        	
+        	// RGB color
+        	Scalar color = new Scalar(0, 0, 255);
+//        	Scalar colorRGB = new Scalar(0, 0, 255);        	
+//        	Scalar colorHSV;
+//        	colorHSV = detector.scalarRgba2Hsv(colorRGB);
+        	
+//        	System.out.println("" + colorHSV.val[0] + " " + colorHSV.val[1] + " " + colorHSV.val[2]);
+        	
+        	// debug//        	//            
+//            Mat img = new Mat(new Size(300, 300), CvType.CV_8UC3, colorHSV);        
+//            Highgui.imwrite(outDebug, img);
         	
         	ArrayList<Point> mobiles =  detector.getBlobCoords(imageIn, color);
         	for (Point center: mobiles) {
-        		System.out.println("pes");
+        		System.out.println("found blob");
         		Core.circle(imageIn, center, 5, new Scalar(255, 0, 0));
         	}
         	
         	//Mat imageProcessed = detector.detect(imageIn, new Scalar(255, 255, 255, 255));
         	//Mat imageOut = mergeImages(imageIn, imageProcessed);
         	
-        	Core.rectangle(imageIn, new Point(0, 0), new Point(10, 10), color);
+//        	Core.rectangle(imageIn, new Point(0, 0), new Point(10, 10), color);
         	Highgui.imwrite(output, imageIn);
         }
+        
+        
+        
     }
     
     public static Mat mergeImages(Mat img1, Mat img2)
