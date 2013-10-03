@@ -29,10 +29,6 @@ public class Connection {
 
 	public Connection(Handler handler) {
 		mUpdateHandler = handler;
-<<<<<<< HEAD
-
-=======
->>>>>>> 3b60da8a3fa2df1a066306f3aa87ee0e40b87847
 		mSocket = new ArrayList<Socket>();
 		mChatServer = new ChatServer(handler);
 	}
