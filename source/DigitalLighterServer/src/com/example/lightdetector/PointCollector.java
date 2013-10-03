@@ -16,6 +16,7 @@ public class PointCollector {
 	LightDetector mDetector;
 	Scalar mBGRColor;
 	TileMapper mMapper;
+	
 
 
 	public PointCollector(ArrayList<Mat> resOut) {
