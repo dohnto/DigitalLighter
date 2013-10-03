@@ -1,18 +1,14 @@
-<<<<<<< HEAD
 package src;
 
 import java.awt.peer.LightweightPeer;
-
-=======
->>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
-<<<<<<< HEAD
+
 import com.example.lightdetector.LightDetector;
-=======
+
 import com.example.lightdetector.*;
->>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
+
 
 //import org.opencv.samples.tutorial1.LightDetector;
 //import org.opencv.samples.tutorial1.R;
@@ -27,26 +23,23 @@ public class Panel{
 	static String res_folder = "./res/drawable/";
 	
     public static void main(String[] args) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        
-<<<<<<< HEAD
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);       
         // debug
         String outDebug = res_folder + "pokus/o.jpg";
         
         
-        for (int i = 0; i < 1; ++i) {
-=======
+        //for (int i = 0; i < 1; ++i) {
         
         
 		ArrayList<Mat> rgbResources = new ArrayList<Mat>();
-		for (int i = 0; i < 16; ++i) {
-			rgbResources.add(Highgui.imread(res_folder + i + ".jpg"));
-		}
-		new PointCollector(rgbResources).collect();
+//		for (int i = 0; i < 16; ++i) {
+//			rgbResources.add(Highgui.imread(res_folder + i + ".jpg"));
+//		}
+//		new PointCollector(rgbResources).collect();
         
-     /*   LightDetector detector = new LightDetector();
+        LightDetector detector = new LightDetector();
         for (int i = 0; i < 16; ++i) {
->>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
+
         	String input = res_folder + i + ".jpg";
         	String output = res_folder + "out/" + i + ".jpg";
         	
@@ -80,14 +73,8 @@ public class Panel{
         	
 //        	Core.rectangle(imageIn, new Point(0, 0), new Point(10, 10), color);
         	Highgui.imwrite(output, imageIn);
-<<<<<<< HEAD
-        }
-        
-        
-        
-=======
-        } */
->>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
+
+        }                             
     }
     
     public static Mat mergeImages(Mat img1, Mat img2)
