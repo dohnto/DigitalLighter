@@ -7,7 +7,17 @@ import org.opencv.core.Size;
 
 /**
  * This class maps point from image to given category.
- * Consider 
+ * Consider situation below
+ * -------------------------
+ * |          |            |
+ * |          |     X      |
+ * |          |            |
+ * -------------------------
+ *  X means point to be categorized
+ *  tilesCountX = 2
+ *  tilesCountY = 1
+ *  After mapping, result should be (1, 0), because X is in Second box in
+ *  horizontal and in first box in vertical.
  * @author Tomas Dohnalek
  *
  */
@@ -17,7 +27,7 @@ public class TileMapper {
 	private int tilesCountY;
 
 	/**
-	 * Creates TileMapping class that
+	 * Creates TileMapping class specifying tiles
 	 * @param tilesCountX
 	 * @param tilesCountY
 	 */
@@ -30,6 +40,12 @@ public class TileMapper {
 		this.tilesCountY = tileCountY;
 	}
 	
+	/**
+	 * Maps a whole bunch of points, see map() below
+	 * @param imageSize
+	 * @param listOfPoints
+	 * @return List of categories
+	 */
 	public ArrayList<Point> mapList(Size imageSize, ArrayList<Point> listOfPoints) {
 		ArrayList<Point> result = new ArrayList<Point>();
 		
@@ -40,6 +56,12 @@ public class TileMapper {
 		return result;
 	}
 
+	/**
+	 * Maps single point according to image size
+	 * @param imageSize
+	 * @param point
+	 * @return pair of x category and y category
+	 */
 	public Point map(Size imageSize, Point point) {
 		Point tile = new Point();
 		
