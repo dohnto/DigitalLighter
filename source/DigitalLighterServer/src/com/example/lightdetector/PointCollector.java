@@ -42,7 +42,7 @@ public class PointCollector {
 					Size imgSize = new Size((double) mat.height(), (double) mat.width());
 
 					for (Point p : mMapper.mapList(imgSize, points))
-						System.out.println("Device is in quadrant(" + p.x + "," + p.y + ")");
+						System.out.println("Device in quadrant(" + p.x + "," + p.y + ")");
 				}
 
 			}
