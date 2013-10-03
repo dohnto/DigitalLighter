@@ -24,13 +24,13 @@ public class Connection {
 
 	private static final String TAG = "Connection";
 
-	private static ArrayList<Socket> mSocket;
+	private ArrayList<Socket> mSocket;
 	private int mPort = -1;
 
 	public Connection(Handler handler) {
 		mUpdateHandler = handler;
-		if (mSocket == null)
-			mSocket = new ArrayList<Socket>();
+
+		mSocket = new ArrayList<Socket>();
 		mChatServer = new ChatServer(handler);
 	}
 
