@@ -1,44 +1,52 @@
+<<<<<<< HEAD
 package src;
 
 import java.awt.peer.LightweightPeer;
 
+=======
+>>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+<<<<<<< HEAD
 import com.example.lightdetector.LightDetector;
+=======
+import com.example.lightdetector.*;
+>>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
 
 //import org.opencv.samples.tutorial1.LightDetector;
 //import org.opencv.samples.tutorial1.R;
 import org.opencv.highgui.Highgui;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.opencv.core.Rect;
-import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
-import org.opencv.core.Size;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.awt.*;  
-
-import javax.swing.*; 
+import java.util.ArrayList; 
 
 public class Panel{
 	static String res_folder = "./res/drawable/";
 	
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        LightDetector detector = new LightDetector();
         
+<<<<<<< HEAD
         // debug
         String outDebug = res_folder + "pokus/o.jpg";
         
         
         for (int i = 0; i < 1; ++i) {
+=======
+        
+        
+		ArrayList<Mat> rgbResources = new ArrayList<Mat>();
+		for (int i = 0; i < 16; ++i) {
+			rgbResources.add(Highgui.imread(res_folder + i + ".jpg"));
+		}
+		new PointCollector(rgbResources).collect();
+        
+     /*   LightDetector detector = new LightDetector();
+        for (int i = 0; i < 16; ++i) {
+>>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
         	String input = res_folder + i + ".jpg";
         	String output = res_folder + "out/" + i + ".jpg";
         	
@@ -72,10 +80,14 @@ public class Panel{
         	
 //        	Core.rectangle(imageIn, new Point(0, 0), new Point(10, 10), color);
         	Highgui.imwrite(output, imageIn);
+<<<<<<< HEAD
         }
         
         
         
+=======
+        } */
+>>>>>>> 559bca74dcd6c557c4313c8357909120c84911a4
     }
     
     public static Mat mergeImages(Mat img1, Mat img2)
