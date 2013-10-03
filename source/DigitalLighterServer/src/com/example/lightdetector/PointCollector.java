@@ -9,35 +9,40 @@ import org.opencv.core.Size;
 
 public class PointCollector {
 
+	// DIMENSIONS OF THE SCREEN
 	public static final int TILE_COUNT_X = 4;
 	public static final int TILE_COUNT_Y = 4;
-	
-	ArrayList<Mat> rgbResources;
-	LightDetector mDetector;
-	Scalar mBGRColor;
-	TileMapper mMapper;
-	
 
+	// ALL IMAGES THAT NEED TO BE MAPPED
+	ArrayList<Mat> rgbResources;
+
+	// COLOR TO SEARCH FOR
+	Scalar mBGRColor;
+
+	// REF TO MAPPER AND BLOB DETECTOR
+	LightDetector mDetector;
+	TileMapper mMapper;
 
 	public PointCollector(ArrayList<Mat> resOut) {
 		rgbResources = resOut;
 		mDetector = new LightDetector();
 		mBGRColor = new Scalar(0.0, 0.0, 255.00, 0.0);
-		mMapper = new TileMapper(TILE_COUNT_X,TILE_COUNT_Y);
+		mMapper = new TileMapper(TILE_COUNT_X, TILE_COUNT_Y);
 	}
-	
 
 	public void collect() {
+
+		// DO EVERYTHING IN BG THREAD
 		Thread processThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				for (Mat mat : rgbResources) {
 					ArrayList<Point> points = mDetector.getBlobCoords(mat, mBGRColor);
-					Size imgSize = new Size((double)mat.height(), (double) mat.width());
-					mMapper.mapList(imgSize, points);
-					
-					System.out.println("Device is in quadrant:");
+					Size imgSize = new Size((double) mat.height(), (double) mat.width());
+
+					for (Point p : mMapper.mapList(imgSize, points))
+						System.out.println("Device is in quadrant(" + p.x + "," + p.y + ")");
 				}
 
 			}
