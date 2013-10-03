@@ -37,15 +37,20 @@ public class PointCollector {
 
 			@Override
 			public void run() {
+
+				// FIND ALL DEVICES FOR ON IMG
 				for (Mat mat : rgbResources) {
 					ArrayList<Point> points = mDetector.getBlobCoords(mat, mBGRColor);
 					Size imgSize = new Size((double) mat.height(), (double) mat.width());
 
+					// GET SCREEN POSITION FOR EVERY DEVICE
 					for (Point p : mMapper.mapList(imgSize, points))
 						System.out.println("Device in quadrant(" + p.x + "," + p.y + ")");
 				}
-
 			}
 		});
+
+		// STARTING CREATED THREAD
+		processThread.start();
 	}
 }
