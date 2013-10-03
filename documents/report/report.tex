@@ -1,5 +1,7 @@
 \documentclass{report}
 
+\usepackage[utf8]{inputenc}
+
 % cool tables
 \usepackage{booktabs}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
@@ -15,12 +17,13 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{rotating}
-\usepackage[table]{xcolor} 
+\usepackage[table]{xcolor}
 \usepackage{gantt}
 \usepackage{hyperref}
 \usepackage{longtable}
 % ?
 \usepackage{float}
+
 
 
 \usepackage[T1]{fontenc}
@@ -49,7 +52,7 @@
 \author{Agnethe Soraa,
 Tomas Dohnalek,
 Jan Bednarik,
-Milos Jovac \\
+Miloš Jovac \\
 \normalsize Project supervisor: Anh Nguyen Duc}
 \date{\today}
 
@@ -108,6 +111,7 @@ Milos Jovac \\
 \input{sprint6/sprint6.tex}
 
 \chapter{Testing}
+
 \input{testing/testing.tex}
 
 \chapter{Evaluation}
@@ -123,16 +127,7 @@ Milos Jovac \\
 \input{attachments/attachments.tex}
 
 \appendix
-\chapter{User Manual}
-\chapter{Installation Guide}
-\chapter{Glossary}
-\chapter{XML Scheme?}
-\chapter{Customer meetings}
-\chapter{Group meetings}
-\chapter{Supervisor meetings}
-\chapter{Evaluation Questioner}
-
-%\input{appendix/appendix.tex}
+\input{appendix/appendix.tex}
 
 \end{document}
 

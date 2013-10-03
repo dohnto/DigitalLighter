@@ -29,7 +29,10 @@ public class Connection {
 
 	public Connection(Handler handler) {
 		mUpdateHandler = handler;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3b60da8a3fa2df1a066306f3aa87ee0e40b87847
 		mSocket = new ArrayList<Socket>();
 		mChatServer = new ChatServer(handler);
 	}
@@ -114,8 +117,10 @@ public class Connection {
 			public void run() {
 
 				try {
-					// Since discovery will happen via Nsd, we don't need to care which port is
-					// used. Just grab an available one and advertise it via Nsd.
+					// Since discovery will happen via Nsd, we don't need to
+					// care which port is
+					// used. Just grab an available one and advertise it via
+					// Nsd.
 					mServerSocket = new ServerSocket(0);
 					setLocalPort(mServerSocket.getLocalPort());
 
@@ -124,7 +129,8 @@ public class Connection {
 						setSocket(mServerSocket.accept());
 
 						Bundle messageBundle = new Bundle();
-						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_USER_ADDED);
+						messageBundle.putInt(Protocol.MESSAGE_TYPE,
+								Protocol.MESSAGE_TYPE_USER_ADDED);
 						Message message = new Message();
 						message.setData(messageBundle);
 						mUpdateHandler.sendMessage(message);
@@ -173,7 +179,8 @@ public class Connection {
 						String msg = mMessageQueue.take();
 						sendMessage(msg);
 					} catch (InterruptedException ie) {
-						Log.d(CLIENT_TAG, "Message sending loop interrupted, exiting");
+						Log.d(CLIENT_TAG,
+								"Message sending loop interrupted, exiting");
 					}
 				}
 			}
@@ -199,8 +206,9 @@ public class Connection {
 						Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
 					}
 
-					PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-							socket.getOutputStream())), true);
+					PrintWriter out = new PrintWriter(new BufferedWriter(
+							new OutputStreamWriter(socket.getOutputStream())),
+							true);
 					out.println(msg);
 					out.flush();
 					updateMessages(msg, true);

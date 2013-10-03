@@ -11,88 +11,54 @@ The actual user stories are listed in table \ref{tab:sprint0stories}. Since we s
 %259 & \LaTeX template for minutes project plan & 5 & 4 \\
 %\end{longtable}
 
-\begin{table*}[!h]
-\caption{User stories selected for Sprint 0. }
-\label{tab:sprint0stories}
-\def\arraystretch{1.25}
-\begin{tabularx}{\textwidth}{ccXcc} 
-
-\toprule[1mm]
-\multirow{2}{*}{\textbf{ID}} &
-\multirow{2}{*}{\textbf{Ref.}} & \multirow{2}{*}{\textbf{Description}} & \multicolumn{2}{c}{\textbf{Hours}} \\
- 					& & & \textbf{Est.} & \textbf{Sp.} \\
-%\textbf{ID} 	& \textbf{Description} 									& \textbf{Est.} & \textbf{Sp.} \\
-\midrule
-\textbf{259} 	& 
-	& {\bf I as a developer need to prepare \LaTeX template for minutes, project plan, weekly status report.} 	
-	& 			
-	& \textbf{5} \\
-		& & \hspace{2em} Meeting minutes	&  & 2 \\
-		& & \hspace{2em} Project report 	&  & 2 \\
-
-\textbf{245} 	& 
-	& \textbf{We as a team need to give a project and team name.} 						& 			& \textbf{2} \\
-		& & \hspace{2em} Team name &  & 1 \\
-		& & \hspace{2em} Product name &  & 1 \\
-
-\textbf{248} 	&
-	& \textbf{I as a developer need to agree on customer, advisor and internal meetings.} 						& 			& \textbf{2} \\
-
-\textbf{247} 	&
-	& \textbf{I as a developer need to agree on daily working hours.} 						&  			& \textbf{1} \\
-
-\textbf{243} 	&
-	& \textbf{I as a developer need to set up the video conferencing.} 						& 			& \textbf{2} \\
-
-\textbf{249} 	&
-	& \textbf{I as a developer need to add goals for Sprint 0.} 						& 			& \textbf{4} \\
-
-\textbf{250} 	&
-	& \textbf{I as a developer need to decide which collaboration technologies to use.} 						& 			& \textbf{20} \\
-
-\textbf{258} 	&
-	& \textbf{We as a team need to assign roles to team members.} 						& 			& \textbf{1} \\
-
-\textbf{258} 	&
-	& \textbf{I as a developer need to write a project plan.} 						&  			& \textbf{90} \\
-
-\textbf{258} 	&
-	& \textbf{I as a developer need to research the older reports.} 						&  			& \textbf{30} \\
-
-\textbf{258} 	&
-	& \textbf{I as a developer need to summarise the requirements.} 						&  			& \textbf{4} \\
-\midrule
-				& \textbf{SUM:}		&			& \textbf{161}
- \\																			
-\bottomrule[1mm]
-
-\end{tabularx}
-\end{table*}
+\input{sprint0/stories.tex}
 
 \section{System Burndown}
-Since we managed to establish the proper collaboration tool Target Process 3 only during the sprint the software was not able to generate relevant burndown chart. We at least tried to estimate how much time we spent working on each of the user stories listed in table
+Since we managed to establish the proper collaboration tool Target Process 3 only during the sprint the software was not able to generate relevant burndown chart.
+We at least tried to estimate how much time we spent working on each of the user stories listed in table \ref{tab:sprint0stories}.
 
-%\begin{figure}[H]
-%	\centering
-%		\includegraphics[width=10cm]{sprint0/burn_down_sprint0.png}
-%	\caption{Sprint0 Burn Down Chart}
-%	\label{fig:sprint0_burn_down_chart}
-%\end{figure}
+\section{Architecture} \label{txt:sprint0architecture}
 
+Considering the well established team collaboration model "forming, storming, norming and performing" the sprint 0 focused mainly on the first three parts.
+Thus no architecture was needed and this task was assigned to the sprint 1.
 
-\section{Architecture}
 \section{Implementation}
+
+As explained in section \ref{txt:sprint0architecture} the sprint 0 was not aimed at the implementation and this task was assigned to the sprint 1.
+
 \section{Testing}
+
+Only the third party products were tested during the sprint 0. We focused on testing the online team collaboration tools including Trello, Gravity and TargetProcess3. The outcomes of our research are describer in chapter \ref{txt:development tools}.
+
 \section{Occurring risks}
+
+One of the more major risks we came across were the limitations of the selected collaboration tools used for controlling the Scrum process. As we were learning all the perks of using the Scrum methodology we continuously discovered that neither Trello nor Gravity software tools suited our needs and we had to spend more time searching for another tool and setting it up again. A few difficulties regarding the version control system Git preventing us from merging individual versions of the project plan document might be also considered as an risk which forced us to spend significant amount of time solving these issues.
+
 \section{Retrospective}
+
+Since each complex software project requires that the team would go through the certain initiative tasks such as the assignment of the team roles, agreeing on the meetings, setting up the communication and collaboration tools etc., the Sprint 0 cannot be really thought of as a fully-fledged sprint. We mainly focused on pre-studying the scrum methodology, communicating with the customer and the supervisor, clarifying the requirements and researching both the collaboration and development tools.
+
+We feel we managed to do a lot of work due to the fact we started working immediately after the first meeting with the customer was held. Besides the time spent on setting the tools we mainly focused on writng the project plan as this is a project where the amount of documentation is expected to be extensive. Though during the first days we were not working particularly efficient due to the fact we started to write the project plan without any clear specification of the document structure. Once we agreed on the structure we dare to claim we were performing very well which resulted in finishing all of the initiative tasks before the formerly set deadline.
+
+We presented the customer the outcomes of our preliminary studies and we also walked him through the collaboration tools and provided him with the access to all of our resources so that we would be able to collaborate more tightly. The customer was satisfied with the work done which resulted in his approval of the preliminary end of Sprint 0.
+
 \subsection{Pros}
+\begin{itemize}
+\item A few online collaboration tools were evaluated so that we were able to find the most suitable one which we are comfortable working with.
+\item The initiation tasks were finished earlier than expected and the Sprint 1 could be started earlier.
+\item All of the members' computers were set so that all of the tools work.
+\item We got familiar with the concept of user stories, assigned a few of the to Sprint 0 and managed to finish all of them.
+\item All of the members were committed to spending the same amount of working hours.
+\item We are awesome at everything.
+\end{itemize}
+
 \subsection{Cons}
-\section{Evaluation}
-
-
-
-\subsubsection{Sprint 0 [probably delete]}
-We have embraced Sprint 0 as a preliminary sprint, when we can set up all necessary collaboration tools, equipment, prepare templates for meetings and mainly to acquaint ourselves with Scrum methodology. The original plan was to finish sprint 0 on 8th of September, but we have decided to terminate it prematurely due to finishing sprint goals in shorter time than we had expected. Other reason for terminating the sprint was desire to start actually working on the product itself.
+\begin{itemize}
+\item Lack of experience in using the scrum process.
+\item Missing document structure resulted in loosing time figuring out what to work on.
+\item The time spent on different tasks was not measured.
+\item Late use of the proper collaboration tool resulted in inability to generate the burndown chart.
+\end{itemize}
 
 \paragraph{Sprint goals:}
 \begin{itemize}
