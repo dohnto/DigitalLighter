@@ -1,6 +1,7 @@
 package com.example.digitallighterserver;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.lightdetector.CameraActivity;
 
 public class MainActivityServer extends Activity {
 
@@ -147,6 +150,10 @@ public class MainActivityServer extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void clickCamera(View v){
+		startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
 	}
 
 }

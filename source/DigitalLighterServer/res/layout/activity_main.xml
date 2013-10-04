@@ -51,8 +51,7 @@
         android:id="@id/button_holder"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/cameraHolder"
         android:gravity="bottom"
         android:orientation="horizontal" >
 
@@ -88,5 +87,14 @@
             android:onClick="clickAllThree"
             android:text="All 3" />
     </LinearLayout>
+
+    <Button
+        android:id="@id/cameraHolder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="clickCamera"
+        android:text="Camera" />
 
 </RelativeLayout>
