@@ -25,6 +25,8 @@ public class TileMapper {
 	
 	private int tilesCountX;
 	private int tilesCountY;
+	
+	private Boolean debug = true;
 
 	/**
 	 * Creates TileMapping class specifying tiles
@@ -63,10 +65,23 @@ public class TileMapper {
 	 * @return pair of x category and y category
 	 */
 	public Point map(Size imageSize, Point point) {
+		if (debug) {
+			System.out.print("TileMapper::map:");
+			System.out.print("imageSize = " + imageSize.width + "x" + imageSize.height);
+		}
+		
 		Point tile = new Point();
 		
 		tile.x = mapToBox(tilesCountX, imageSize.width, point.x);
 		tile.y = mapToBox(tilesCountY, imageSize.height, point.y);
+		
+		if (debug) {
+			System.out.print("TileMapper::map:");
+			System.out.print(" imageSize = " + imageSize.width + "x" + imageSize.height);
+			System.out.print(" point = " + point.x + " " + point.y);
+			System.out.print(" => " + tile.x + " " + tile.y);
+			System.out.println();
+		}
 		
 		return tile;
 	}
@@ -84,5 +99,9 @@ public class TileMapper {
 			index -= 1; // correction 
 		
 		return index;
+	}
+	
+	public void setDebug(Boolean flag) {
+		debug = flag;
 	}
 }

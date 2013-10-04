@@ -2,6 +2,8 @@ package com.example.lightdetector;
 
 import java.util.HashMap;
 
+import org.opencv.core.Scalar;
+
 public class ColorManager {
 	// keys meant to use for hasmap
 	public static String KEY_RED = "red";
@@ -38,6 +40,11 @@ public class ColorManager {
 	 */
 	public static double[] getColor(String key) {
 		return getInstance().get(key);
+	}
+	
+	public static Scalar getCvColor(String key) {
+		double[] color = getInstance().get(key);
+		return new Scalar(color[0], color[1], color[2]);
 	}
 	
 }
