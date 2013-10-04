@@ -1,14 +1,11 @@
 //package src;
 
 import java.awt.peer.LightweightPeer;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
-
-import com.example.lightdetector.LightDetector;
-
 import com.example.lightdetector.*;
-
 
 //import org.opencv.samples.tutorial1.LightDetector;
 //import org.opencv.samples.tutorial1.R;
@@ -19,22 +16,29 @@ import org.opencv.core.Scalar;
 
 import java.util.ArrayList; 
 
-public class Panel{
+public class Panel implements PointCollectorListener {
 	static String res_folder = "./res/drawable/";
+	static private Mat image;
+
+	static int tilesX = 2; 
+	static int tilesY = 2;
 	
 	public static void main(String[] args) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		// debug
-		String outDebug = res_folder + "pokus/o.jpg";
-
-		// for (int i = 0; i < 1; ++i) {
-
-		PointCollector collector = new PointCollector(4, 4);
-		ArrayList<Mat> rgbResources = new ArrayList<Mat>();
-		for (int i = 17; i < 18; ++i) {
-			collector.collect(Highgui.imread(res_folder + i + ".jpg"));
-		}
 		
+
+		image = Highgui.imread(res_folder + 17 + ".jpg");
+		
+		
+		PointCollector collector = new PointCollector(tilesX, tilesY, this);
+		collector.collect(image);
+		
+		image = drawTilesGrid(image, tilesX, tilesY);
+		image = drawTile(image, 0, 0, new Scalar(0, 0, 255, 100));
+
+		image = drawTile(image, 0, 1, new Scalar(255, 0, 255, 100));
+		
+		Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
         
        
  /*       
@@ -79,7 +83,19 @@ public class Panel{
         } */                            
     }
     
-    public static Mat mergeImages(Mat img1, Mat img2)
+    private static Mat drawTile(Mat input, int x, int y, Scalar color) {
+    	Mat output = new Mat(input.height(), input.width(), input.type(), new Scalar(0, 0, 0));
+    	input.copyTo(output);
+    	
+    	int unitX = output.width()/tilesX;
+    	int unitY = output.height()/tilesY;
+    	Core.rectangle(output, new Point(unitX*x,unitY*y), new Point(unitX*(x+1),unitY*(y+1)), color, 5);
+
+    	//Core.addWeighted(input, 1.0, output, 0.5, 0, output);
+		return output;
+	}
+
+	public static Mat mergeImages(Mat img1, Mat img2)
     {
     	Mat imgResult = new Mat(img1.rows(),2*img1.cols(),img1.type()); // Your final image
     	//if (img2.channels() == 1)
@@ -97,4 +113,30 @@ public class Panel{
     	
     	return imgResult;
     }
+    
+    public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
+    	Mat output = new Mat();
+    	input.copyTo(output);
+    	
+    	int unit = output.width()/tilesX;
+    	for (int i = 0; i < tilesX; ++i)
+    		Core.line(output, new Point(i*unit, 0), new Point(i*unit, output.height()), new Scalar(255, 0, 0, 255));
+    	
+    	unit = output.height()/tilesY;
+    	for (int i = 0; i < tilesY; ++i)
+    		Core.line(output, new Point(0, i*unit), new Point(output.width(), i*unit), new Scalar(255, 0, 0, 255));
+    	
+    	return output;
+    }
+
+	@Override
+	public void onPointCollectorUpdate(PointCollectorUpdate update) {
+		update.getBlueDevicePoints();
+		
+		//image = drawTiles(image, tilesX, tilesY);
+		
+		
+		Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
+		
+	}
 }
