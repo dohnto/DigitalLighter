@@ -26,6 +26,8 @@ public class PointCollector {
 	PointCollectorListener listener;
 	private Handler mUpdateHandler;
 	HashMap<String, ArrayList<Point>> update;
+	
+	boolean delivered = true;
 
 	public PointCollector(int titleCountX, int titleCountY, PointCollectorListener listener) {
 		mDetector = new LightDetector();
@@ -37,8 +39,10 @@ public class PointCollector {
 		mUpdateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.getData().getBoolean(NEW_UPDATE)
+				if(msg.getData().getBoolean(NEW_UPDATE){
 					listener.onPointCollectorUpdate(update);
+					delivered = true;
+				}
 			}
 
 		};
@@ -52,6 +56,7 @@ public class PointCollector {
 			@Override
 			public void run() {
 				update = new HashMap<String, ArrayList<Point>>();
+				delivered = false;
 				
 				// FIND ALL DEVICES ON IMG
 				for (String color : colors) {
