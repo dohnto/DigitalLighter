@@ -36,7 +36,7 @@ public class PointCollector {
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
 
-		mUpdateHandler = new Handler() {
+	/*	mUpdateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.getData().getBoolean(NEW_UPDATE)) {
@@ -45,7 +45,7 @@ public class PointCollector {
 				}
 			}
 
-		};
+		}; */
 	}
 
 	public void collect(final Mat img, final ArrayList<String> colors) {
