@@ -15,8 +15,9 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 
 import java.util.ArrayList; 
+import java.util.HashMap;
 
-public class Panel implements PointCollectorListener {
+public class Panel {
 	static String res_folder = "./res/drawable/";
 	static private Mat image;
 
@@ -30,8 +31,19 @@ public class Panel implements PointCollectorListener {
 		image = Highgui.imread(res_folder + 17 + ".jpg");
 		
 		
-		PointCollector collector = new PointCollector(tilesX, tilesY, this);
-		collector.collect(image);
+		PointCollector collector = new PointCollector(tilesX, tilesY, new PointCollectorListener() {
+			
+			@Override
+			public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) {
+				
+
+				// image = drawTiles(image, tilesX, tilesY);
+
+				Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
+				
+			}
+		});
+		collector.collect(image, );
 		
 		image = drawTilesGrid(image, tilesX, tilesY);
 		image = drawTile(image, 0, 0, new Scalar(0, 0, 255, 100));
@@ -129,14 +141,6 @@ public class Panel implements PointCollectorListener {
     	return output;
     }
 
-	@Override
-	public void onPointCollectorUpdate(PointCollectorUpdate update) {
-		update.getBlueDevicePoints();
-		
-		//image = drawTiles(image, tilesX, tilesY);
-		
-		
-		Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
-		
-	}
+
+
 }
