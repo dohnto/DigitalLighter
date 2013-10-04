@@ -29,7 +29,7 @@ public class PointCollector {
 
 	boolean delivered = true;
 
-	public PointCollector(int titleCountX, int titleCountY, PointCollectorListener listener) {
+	public PointCollector(int titleCountX, int titleCountY, final PointCollectorListener listener) {
 		mDetector = new LightDetector();
 		this.listener = listener;
 		mMapper = new TileMapper(titleCountX, titleCountY);
@@ -39,7 +39,7 @@ public class PointCollector {
 		mUpdateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.getData().getBoolean(NEW_UPDATE){
+				if(msg.getData().getBoolean(NEW_UPDATE)){
 					listener.onPointCollectorUpdate(update);
 					delivered = true;
 				}
