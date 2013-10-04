@@ -39,7 +39,7 @@ public class PointCollector {
 		mUpdateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.getData().getBoolean(NEW_UPDATE)){
+				if (msg.getData().getBoolean(NEW_UPDATE)) {
 					listener.onPointCollectorUpdate(update);
 					delivered = true;
 				}
@@ -81,5 +81,26 @@ public class PointCollector {
 
 		// START CREATED THREAD
 		processThread.start();
+	}
+
+	public void collectOffline(final Mat img, final ArrayList<String> colors) {
+
+		update = new HashMap<String, ArrayList<Point>>();
+
+		// FIND ALL DEVICES ON IMG
+		for (String color : colors) {
+			double[] bgrArray = ColorManager.getInstance().get(color);
+			Scalar scalar = new Scalar(bgrArray[0], bgrArray[1], bgrArray[2]);
+			ArrayList<Point> points = mDetector.getBlobCoords(img, scalar);
+			Size imgSize = new Size((double) img.height(), (double) img.width());
+			ArrayList<Point> resultPoints = new ArrayList<Point>();
+			for (Point p : mMapper.mapList(imgSize, points)) {
+				resultPoints.add(p);
+			}
+			update.put(color, resultPoints);
+		}
+		
+		listener.onPointCollectorUpdate(update);
+
 	}
 }
