@@ -27,7 +27,11 @@ public class Panel {
 	public static void main(String[] args) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-
+		ArrayList<String> screenColors = new ArrayList<>();
+		screenColors.add(ColorManager.KEY_BLUE);
+		screenColors.add(ColorManager.KEY_GREEN);
+		screenColors.add(ColorManager.KEY_RED);
+		
 		image = Highgui.imread(res_folder + 17 + ".jpg");
 		
 		
@@ -36,22 +40,21 @@ public class Panel {
 			@Override
 			public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) {
 				
+				for (String colorItem: update.keySet()) {
+					for (Point tile: update.get(colorItem)) {
 
-				// image = drawTiles(image, tilesX, tilesY);
+						image = drawTile(image, (int)tile.x, (int)tile.y, ColorManager.getCvColor(colorItem));
+					}
+				}
 
+				image = drawTilesGrid(image, tilesY, tilesY);
 				Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
 				
 			}
 		});
-		collector.collect(image, );
+		collector.collect(image, screenColors);
 		
-		image = drawTilesGrid(image, tilesX, tilesY);
-		image = drawTile(image, 0, 0, new Scalar(0, 0, 255, 100));
-
-		image = drawTile(image, 0, 1, new Scalar(255, 0, 255, 100));
 		
-		Highgui.imwrite(res_folder + "out/" + 17 + ".jpg", image);
-        
        
  /*       
     LightDetector detector = new LightDetector();
