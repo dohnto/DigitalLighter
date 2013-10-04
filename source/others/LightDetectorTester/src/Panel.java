@@ -27,7 +27,7 @@ public class Panel {
 	public static void main(String[] args) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		ArrayList<String> screenColors = new ArrayList<>();
+		ArrayList<String> screenColors = new ArrayList<String>();
 		screenColors.add(ColorManager.KEY_BLUE);
 		screenColors.add(ColorManager.KEY_GREEN);
 		screenColors.add(ColorManager.KEY_RED);
