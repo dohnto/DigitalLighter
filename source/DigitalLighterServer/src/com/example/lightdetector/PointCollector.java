@@ -15,7 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 
 public class PointCollector {
-	
+
 	private static final String NEW_UPDATE = "";
 
 	// REF TO MAPPER AND BLOB DETECTOR
@@ -26,7 +26,7 @@ public class PointCollector {
 	PointCollectorListener listener;
 	private Handler mUpdateHandler;
 	HashMap<String, ArrayList<Point>> update;
-	
+
 	boolean delivered = true;
 
 	public PointCollector(int titleCountX, int titleCountY, PointCollectorListener listener) {
@@ -57,18 +57,20 @@ public class PointCollector {
 			public void run() {
 				update = new HashMap<String, ArrayList<Point>>();
 				delivered = false;
-				
+
 				// FIND ALL DEVICES ON IMG
 				for (String color : colors) {
-					ArrayList<Point> points = mDetector.getBlobCoords(img, ColorManager.getInstance().get(color));
+					double[] bgrArray = ColorManager.getInstance().get(color);
+					Scalar scalar = new Scalar(bgrArray[0], bgrArray[1], bgrArray[2]);
+					ArrayList<Point> points = mDetector.getBlobCoords(img, scalar);
 					Size imgSize = new Size((double) img.height(), (double) img.width());
-					ArrayList<Point> resultPoints = new ArrayList<Point>(); 
+					ArrayList<Point> resultPoints = new ArrayList<Point>();
 					for (Point p : mMapper.mapList(imgSize, points)) {
 						resultPoints.add(p);
 					}
 					update.put(color, resultPoints);
 				}
-				
+
 				Message msg = new Message();
 				Bundle bundle = new Bundle();
 				bundle.putBoolean(NEW_UPDATE, true);
