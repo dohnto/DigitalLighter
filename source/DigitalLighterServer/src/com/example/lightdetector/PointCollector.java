@@ -24,7 +24,7 @@ public class PointCollector {
 
 	// LISTENER THAT CATCH THE UPDATES
 	PointCollectorListener listener;
-	private Handler mUpdateHandler;
+	//private Handler mUpdateHandler;
 	HashMap<String, ArrayList<Point>> update;
 
 	boolean delivered = true;
@@ -48,7 +48,7 @@ public class PointCollector {
 		}; */
 	}
 
-	public void collect(final Mat img, final ArrayList<String> colors) {
+	/*public void collect(final Mat img, final ArrayList<String> colors) {
 
 		// DO EVERYTHING IN BG THREAD
 		Thread processThread = new Thread(new Runnable() {
@@ -81,7 +81,7 @@ public class PointCollector {
 
 		// START CREATED THREAD
 		processThread.start();
-	}
+	}*/
 
 	public void collectOffline(final Mat img, final ArrayList<String> colors) {
 
@@ -92,7 +92,7 @@ public class PointCollector {
 			double[] bgrArray = ColorManager.getInstance().get(color);
 			Scalar scalar = new Scalar(bgrArray[0], bgrArray[1], bgrArray[2]);
 			ArrayList<Point> points = mDetector.getBlobCoords(img, scalar);
-			Size imgSize = new Size((double) img.height(), (double) img.width());
+			Size imgSize = new Size((double) img.width(), (double) img.height());
 			ArrayList<Point> resultPoints = new ArrayList<Point>();
 			for (Point p : mMapper.mapList(imgSize, points)) {
 				resultPoints.add(p);
