@@ -12,9 +12,11 @@ School user-stories were mandatory and already added as a user-stories of sprint
 On Monday 02.09.2013. we had the meeting with the customer where we estimated time we need for every user story.
 Result of that meeting was list of rest of the user-stories for sprint 1.
 
+For the documentation part, we made a document that we called the project plan, but the supervisor wanted these sections to be integrated in the project report instead. Therefore we decided to make the content for the report, and to make the general structure for it. Also integrate the parts we wrote in the project plan in the project report. We also plan to add the additional sections we need.
+
 \subsection{Duration}
 This Sprint will be 2 weeks long. From 02.09.2013 to 15.09.2013.
-We agreed on the date for presentation and showing the running demo - Thursday 12.09.2013.
+We agreed on the date if presentation and showing the running demo - Thursday 12.09.2013.
 Estimated velocity is 240h since we agreed on 30 working hours per person per week.
 
 \subsection{Sprint 1 User-stories}
@@ -30,8 +32,9 @@ This includes registering services, listening for the client and sending simple 
 Scanning for the services, connecting, receiving signals and play commands on the client.
 Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client, is goal of this sprint too.
 
-\section{Architecture}
+The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. We need to evaluate if we need to write more of remove sections after integrating. The goal is also to finish the chapters that is a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
 
+\section{Architecture}
 For the core communication and organization of our product we selected Client-Server Architecture \ref{fig:sprint1_arhitecture}.
 Choosing this architecture was very intuitive to do as our project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
@@ -147,7 +150,18 @@ NSD
 That Android will not get NSD able for low APIs. 
 Then we have to use third part libraries.
 
-\section{Retrospective}
+\section{Retrospective and Evaluation}
+In this section the team will take a look back at sprint 1, and review this sprint. The focus will be on what went well, and goal we achieved. Another focus will also be what we could have done differently, and of course and learn from what we could have done differently.
+
 \subsection{Pros}
+For the implementation part we reached the sprint 1 goals. We delivered a working demonstration video over core client-server module. The server side registers services, listens for the client, and sends simple  signals. The client is scanning for the services, connecting, receiving signals and play commands on the client. The customer was very satisfied with the video, and suggested recording our future prototypes as well. Besides this we reached the goal to implement Test-Flight in both applications. We also reached the milestone, Obedient client - Prototype 1.
+
+For the documentation the work done is in the report is good. The report is better structured now, and it actually looks like a report, which is good. The supervisor liked the structure as well. We added a lot of sections when we integrated the project plan in the report, so that the introduction, the preliminary studies and the planning chapter would be as complete as possible. In for example the preliminary studies chapter we haven't written all of the studies about the image processing part yet, because we will research this more in later sprints.
+
+
 \subsection{Cons}
-\section{Evaluation}
+The sprint planning in this sprint could have been better. We over estimated some of the implementation user stories. To solve this better till next time we should spend more time doing the planning poker. This make sure that everyone understands the task better. 
+
+The structure of the report is good, but we probably have to reduce the number of chapters. The supervisor suggested to move the test plan chapter in the planning chapter, since it was such a small chapter. The supervisor also wanted us to work more with the requirements chapter. There should be a better connection between the user stories and the requirements.
+
+Another con this sprint was that when we tested the product on the mobiles we had problems with the network. Since the mobiles where on different subnets, the client could not find the server. We had to borrow a router and bring with us to be able to test. 

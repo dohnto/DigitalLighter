@@ -1,19 +1,21 @@
 In this chapter we are planning the project in general. It is hard to come up with a detailed plan for each sprint now, but this is a rough plan for the whole project. After doing a preliminary study we have made some decisions about methodology tools, technology, collaboration, and a rough project plan. Planning increases the efficiency and it reduces the risks involved. It also facilitates proper coordination within a development team, and this will help us maintain a good control. Planning will help us to achieve our goals by using the available time and resources, and of course planning helps in decision making  
 
 \section{Work breakdown structure}
-We thoroughly examined the whole project considering the stated scope and the objectives and we were able to decompose it into six main distinctive modules:
+\label{sec:wbs}
+We thoroughly examined the whole project considering the stated scope and the objectives and we were able to decompose it into eight main distinctive modules:
 
 \begin{itemize}
 \item Pre-study
-\item Requirements
-\item Project plan
-\item Application
+\item Requirements elicitation
+\item Project planning
+\item Application design
+\item Application implementation
+\item Testing and evaluation
 \item Project management
-\item Report
+\item Documentation
 \end{itemize}
 
 The main modules can be further decomposed into smaller actions. The graphical representation of the whole work breakdown structure can be found in the appendix in chapter \ref{txt:work_breakdown_structure}.
-
 
 \section{Methodology choice - Scrum}
 After fast research and consultation with our mentor and customer(He have experience with CDP student group from last year), we decided to use SCRUM methodology for a few reasons. Requirements and scope of the undertaking were not that precisely defined at the time we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "waterfall". We wanted to have frequent meetings with our customer and involve him in development process. Sprints in SCRUM allow us just that - 
@@ -148,7 +150,41 @@ Mostly during the pre-study phase the developers need to distribute and maintain
 It has been also decided that the project report should be written continuously by all members as a part of our daily workflow. Through this practice the team will be able to keep track of the amount of work done and all members will make sure they understand well what direction the project is aiming.
 
 \section{Duration and workload}
- Compendium proposed week workload 25 person-hours per week. During our internal meeting we have decided that each member will spend 30 hours per week because our team consists only of 4 members. We agreed on fixed daily working hours so that we could distribute the workload through the whole semester. We will do daily stand-ups according to Scrum methodology.
+Compendium proposed week workload 25 person-hours per week. 
+During our internal meeting we have decided that each member will spend 30 hours per week because our team consists only of 4 members. 
+We agreed on fixed daily working hours so that we could distribute the workload through the whole semester.
+We will do daily stand-ups according to Scrum methodology.
+
+According to work break down structure \ref{sec:wbs} and presented week workload, there was created initial time estimation of whole project. 
+You can see the estimation in table \ref{tab:initial-time-estimation}. 
+As a part of a evaluation, spend hours will be filled, and then retrospective to the planning phase can be done.
+
+\begin{table*}[!h]
+	\caption{Initial time estimation table}
+	\label{tab:initial-time-estimation}
+	\def\arraystretch{1.25}
+	\begin{tabularx}{\textwidth}{Xcccc}
+		\toprule[1mm]
+		\multirow{2}{*}{\textbf{Task}} &
+		\multirow{2}{*}{\textbf{From date}} & 
+		\multirow{2}{*}{\textbf{To date}} & 
+		\multicolumn{2}{c}{\textbf{Hours}} \\
+ 				& & & \textbf{Est.} & \textbf{Sp.} \\
+		\midrule
+		Pre-study 					& 26.08.2013 & 15.09.2013 & 70 &  ?\\
+		Requirements elicitation 	& 26.08.2013 & 29.09.2013 & 80 &  ?\\
+		Project planning			& 26.08.2013 & 15.09.2013 &	75 &  ?\\
+		Application design 			& 26.08.2013 & 27.10.2013 & 90 &  ?\\
+		Application implementation	& 02.09.2013 & 20.11.2013 &	450 &  ?\\
+		Testing and evaluation 		& 02.09.2013 & 20.11.2013 & 130 &	?\\
+		Project Management  		& 26.08.2013 & 20.11.2013 & 120 &  ?\\
+		Documentation				& 26.08.2013 & 20.11.2013 &	425 &  ?\\
+		\midrule		
+		\textbf{$\sum$}	& &	&		1440	& \textbf{?} \\								
+		\bottomrule[1mm]
+	\end{tabularx}
+\end{table*}
+
 
 \section{Project scope}
 After third meeting with our customer we decided to lay out the scope of the project that is tangible and doable under 13 weeks. Customer idea although good and innovative has one flaw - it is a huge undertaking!
@@ -240,10 +276,29 @@ Overview of all milestones and 4 prototypes (Deliverables).
 You can see the Gantt chart in figure \ref{fig:gantt}.
 \input{planning/gantt.tex}
 
-\section{Quality Assurance}
+\section{Test plan}
+The purpose of this chapter is to introduce the overall plan for the testing of our product, and it describes the scope of the overall testing.
+In this chapter we will explain how we plan to test our product, who will be responsible for it, and very short mention the test criteria.
+This is the strategy that will be used to verify and ensure that the product meets its requirements, and of course the quality attributes. 
 
-\section{Measurement of Project Successes \#supervisor}
-To measure success of our end-product we have to set up some criteria to be fulfilled. The product should pass all test-cases and function according to customer's requirements.
+\subsection{Approach}
+This is a proof of concept project. The customer did not want us to focus on the testing. We are focusing on the happy path. A happy path is a default scenario featuring no exceptional or error conditions, and comprises the sequence of activities executed if everything goes as expected. Happy path testing is a well-defined test case that uses known input, that executes without exception and that produces an expected output. This means that we do not spend time actually writing tests, but still we have to manually test that the product does what it is supposed to.
 
-\subsection{Description ?}
-\subsection{Result schedule ?}
+We manually have to test the integration between the sprints, and we have do this continuously to ensure that the modules of the various sprints are well integrated. We are also doing verification and validation testing. This is the process of checking that the product meets specifications and that it fulfills its intended purpose. It may also be referred to as software quality control, and it is high-level checking. Again we do this manually, which means we do not write tests for this. We will write about these tests in each of the sprint chapters. 
+
+
+\subsection{Responsibilities}
+The whole development team is responsible for testing the product. 
+Each person is responsible for testing their own code. It is important to perform continuously testing. We also plan to have someone different to test, rather than the person who wrote the specific code segment. 
+This is mostly for the usability of the product.As we are short on manpower and time we can not guarantee that this is always the case.
+Testing will be done continuously through out the sprints, when the relevant functionality is implemented, and they will be performed at a time that allows the developers to fix bugs before the sprint has ended. 
+
+\subsection{Test criteria} 
+A test is considered passed when it achieves the expected result.
+A test will be considered to have failed if the result differs from what was expected.
+
+TODO: WRITE CRITERA
+
+\subsection{Measurement of Project Successes}
+To measure success of our end-product we have to use the test criteria and see if the critera is fulfilled. The product should function according to customer's requirements.
+
