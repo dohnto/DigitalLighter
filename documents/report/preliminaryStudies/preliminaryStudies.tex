@@ -2,12 +2,16 @@ This chapter is devoted to describing the outcomes of the preliminary research f
 In section \ref{txt:similar_projects} the similar projects will be described together with their relations to our project and their advantages and disadvantages. 
 Then in the section \ref{txt:development technologies} the development technologies and colaboration tools will be presented with outcome of the overall research. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Similar projects} \label{txt:similar_projects}
 
 We were not able to find any other service that would use exactly the same technical solution as compared to our product. 
 Nevertheless a few similar entertainment services that aim to amuse the music concert audience already exist. 
 These services basically encourage the audience to use either their smartphones or other device as the source of light that helps to create impressive and colorful show.
+
+%==================================================================================================%
 
 \subsection{Wham City Lights}
 
@@ -86,11 +90,16 @@ The location of the single participants cannot be determined.
 %\section{Existing technologies and frameworks}
 %\section{Evaluation of alternative solutions}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Development technologies} \label{txt:development technologies}
 
 According to the customer's requirements the product must be executable on the mobile devices and it should utilize the image processing technologies as well. Therefore we had to make two main decisions - which mobile platform to prefer and which existing image processing libraries to use. Both of the decisions are explained in greater detail in sections \ref{txt:mobile_platform} and \ref{txt:image_processing_library}.
 
-\subsection{Mobile platform - Android} \label{txt:mobile_platform}
+%==================================================================================================%
+
+\subsection{Android} \label{txt:mobile_platform}
 
 The mobile devices market is currently flooded with smartphones and tablets running on dozen of different platforms. 
 But since we try to aim the application on as many users as possible the choice was relatively straightforward.
@@ -108,7 +117,9 @@ We discussed using NDK just for the computationally demanding modules such as th
 Nevertheless we are allowed to scale the problem down and thus the use of Java perfectly suffices fr our purposes.
 Should the customer require to scale the problem up we can switch to using NDK anytime.
 
-\subsection{Image processing library - OpenCV} \label{txt:image_processing_library}
+%==================================================================================================%
+
+\subsection{OpenCV} \label{txt:image_processing_library}
 
 As far as the image processing is considered the outcome of our preliminary research is as follows.
 Currently there exist a few open source and free libraries generally focusing on working with the multimedia.
@@ -117,25 +128,35 @@ It is written and meant to be used in conjunction with C++ but the possibility t
 The support for using OpenCV on Android platform is provided through the OpenCV4Android SDK that can be obtained from the official OpenCV website\footnote{\url{http://docs.opencv.org/}} and used for free.
 So far we consider this toolkit to be sufficient for our needs but should we come across any problems we might be forced to switch to the combination of OpenCV, C++ and Android NDK.
 
+%==================================================================================================%
 
-\section{Development tools} \label{txt:development tools}
+\subsection{TestFlight}
 
-\subsection{Project management tool}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Project management tools}
 Since we use Scrum methodology, we were in need to find an appropriate management tool supporting Scrum. 
 There exist many possible tools, but most of them are charged from
 certain number of team members. 
 Here are presented tools we have used for a testing purposes or in real development.
 
-\paragraph{Trello}
-is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
-Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking.
+%==================================================================================================%
 
-\paragraph{Gravity} 
+\subsection{Trello}
+is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
+Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking. Therefore after short discussion we have decided that Trello is not suitable for our purpose.
+
+%==================================================================================================%
+
+\subsection{Gravity} 
 is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
 It supports splitting stories into tasks and also automatically calculates \emph{Burn-down chart}. 
 Last but not least it supports it is free of charge for 5 team members, it supports issue tracking and support labels, which can be used for \emph{Epics}.
 On the other hand it does not support time tracking.
-You can see picture of Gravity's features in image \ref{img:gravity}.
+You can see picture of Gravity's features in image \ref{img:gravity}. After a while it showed up that Gravity has some bugs since it is in Beta version and also it misses a time tracking feature.
 
 \begin{figure}[!h]
 	\centering
@@ -143,11 +164,12 @@ You can see picture of Gravity's features in image \ref{img:gravity}.
 	\caption{Gravity features}
 	\label{img:gravity}
 \end{figure}
+%==================================================================================================%
 
-\paragraph{Target Process} is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
+\subsection{Target Process} is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
 To its main features belongs role distinguishing, different graphs (such as \emph{Burn-down chart}), time estimation and time tracking of both stories and its tasks, drag and drop prioritizing which makes it easy to use from customer side and different kinds of boards (diverse point of views on project).
 On the contrary it also does not support Epics and it is much more complicated to use than other tools introduced.
-You can see example of board in TargetProcess3 in image \ref{img:targetp}.
+You can see example of board in TargetProcess3 in image \ref{img:targetp}. Despite its complexity we decided to use the TargetProcess as it suited our needs the best.
 
 \begin{figure}[!t]
 	\centering
@@ -156,32 +178,27 @@ You can see example of board in TargetProcess3 in image \ref{img:targetp}.
 	\label{img:targetp}
 \end{figure}
 
-\paragraph{Summary}
-After short discussion we have decided that Trello is not suitable for our purpose so we started to use Gravity since 
-we still did not know which features we will need since we were not skilled in Scrum methodology.
-After a while it showed up, that Gravity has some bugs since it is in Beta version and also miss time tracking feature.
-Because of that in 30th of August we have decided to start using TargetProcess3 although its complexity.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Version control tools}
+Version control systems (VCS) are usually stand-alone applications but they can be integrated into other applications. These system usually allow users to browse previous versions of content. We have decided that we will use VCS both for source code of applications and for project report. 
 
-\subsection{Version control system}
-Version control systems (VCS) are usually stand-alone applications but they can be integrated into other applications. These system usually allow users to browse previous versions of content.
+As every member of the team had experience with different version control systems, they become our candidates. As our team works both on Microsoft Windows and GNU/Linux, it is necessary that chosen VCS supports clients in both platforms. Another criteria was support of online code repository free of charge.
 
-We have decided that we will use VCS both for source code of applications and for project report. As every member of the team had experience with different version control systems, they become our candidates.
-As our team works both on Microsoft Windows and GNU/Linux, it is necessary that chosen VCS supports clients in both platforms.
-Another criteria was support of online code repository free of charge.
+%==================================================================================================%
 
-\paragraph{Subversion} or SVN is an open source centralized VCS and has many clients across different platforms. 
+\subsection{Subversion} or SVN is an open source centralized VCS and has many clients across different platforms. 
 SVN is supported by Google Code\footnote{\url{http://code.google.com/}} repository.
-SVN supports atomic commits, branching and more.
+SVN supports atomic commits, branching and more. Although this tool provides the user with all of the necessary functionality we decided not to use it as the customer suggested to use the other tool.
 
-\paragraph{Git} on the other hand is distributed VCS and offers immediate offline operations.
+%==================================================================================================%
+
+\subsection{Git} on the other hand is distributed VCS and offers immediate offline operations.
 Projects like Linux kernel\footnote{\url{https://www.kernel.org/}} and Glibc\footnote{\url{https://www.gnu.org/software/libc/}} are using Git as a VCS.
 Although Git was created by Linus Torvalds, there are Windows clients available.
-Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS.
-
-\paragraph{Summary} We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
+Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS. We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
 You can find our repository on \url{https://github.com/dohnto/CDP} page.
-
 
 \begin{figure}[!t]
 	\centering
@@ -190,4 +207,49 @@ You can find our repository on \url{https://github.com/dohnto/CDP} page.
 	\label{img:git}
 \end{figure}
 
-\section{Outcome of research}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Communication tools} \label{txt:communication tools}
+Regular Communication with stakeholders and creation of a positive understanding is one of the essential parts of the successful project that can help build effective long-term relationships all parties benefit from. Not only the development team should meet the customer and the supervisor on regular basis but there is also the need for easy distribution and sharing of all kind of the documents. As the time resources of all parties are limited the right collaboration tools enabling seamless and fast communication must be established.
+
+There are certain standard tools that are widely used as a mean of exchanging both textual information and data files. The mainstream well known and effective tools include standard e-mail for messaging, tool for video conferencing, cloud system for data sharing and/or calendar for planning the meetings. Certain platforms providing all necessary tools exist, one can choose among solutions made by Microsoft, Apple, Google and Facebook to list a few most popular.
+
+%==================================================================================================%
+
+\subsection{Email}
+Standard email messages will serve the purpose of the communication mean.
+
+%==================================================================================================%
+
+\subsection{Google Drive}
+In order to provide the customer with the convenient overview of the work done all relevant documents including the meeting minutes, private notes taken during the meetings and the project report are stored on the Google drive cloud storage service and shared with the customer.
+
+%==================================================================================================%
+
+\subsection{Google Calendar}
+The shared Google Calendar was established to keep track of arranged meetings.
+
+%==================================================================================================%
+
+\subsection{Skype}
+The Skype is used as a videoconferencing tool as it is considered to be a software of a good quality and the customer disposes of the Skype account.
+
+%==================================================================================================%
+
+\subsection{Facebook group}
+For the purpose of internal communication and data exchange among the team members a Facebook group was chosen.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Documentation tools} \label{txt:documentation tools}
+
+There are basically two options for documentation writing. It is either possible to use WYSIWYG editor such as Microsoft Word, Libre Office or document preparation system based on markup language such as \LaTeX.
+
+\subsection{LaTeX}
+
+It was strongly suggested by the customer to use the latter one as the reports written using \LaTeX  tend to make more professional impression.
+
+
