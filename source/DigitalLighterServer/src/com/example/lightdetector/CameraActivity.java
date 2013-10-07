@@ -127,7 +127,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 			buffer.remove();
 		}
 		return image;
-
 	}
 
 	@Override
