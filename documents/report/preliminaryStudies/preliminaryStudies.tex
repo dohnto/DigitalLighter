@@ -94,11 +94,33 @@ The location of the single participants cannot be determined.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Software development methodology}
-A software development methodology is a framework used for structuring, planning and controlling the process of developing an information systems \cite{selectinMethodology}.
+A software development methodology is a framework used for structuring, planning and controlling the process of developing an information systems \cite{selectingMethodology}.
 There will be presented a few of leading methodologies below. 
 
 \subsection{Waterfall}
+Waterfall development methodology is a linear framework \cite{selectingMethodology}.
+
+
 \subsection{Scrum}
+
+\subsection{Scrum related terms}
+
+\paragraph{User story}
+is a short text of user's language of a system that describes user's interaction with the system.
+
+User stories are actually narrative texts that describe an interaction of the user and the system, focusing on the value a user gains from the system.
+
+\paragraph{Epic}
+is a large \emph{user story} that will need to be broken down into smaller stories. It is too big to fit into a sprint, or it is unknown as to whether it is too big to fit into a sprint or not.
+
+\paragraph{Task}
+If user story is too complex, it can be divided into several tasks. 
+Task is then basic unit of problem division.
+
+
+\paragraph{Milestone}
+ is an event that receives special attention. It can add significant value to project scheduling by helping team to more accurately determine whether or not the project is on schedule.
+
 
 After fast research and consultation with our mentor and customer(He has experience with CDP student group from last year), we decided to use SCRUM methodology for a few reasons. Requirements and scope of the undertaking were not that precisely defined at the time we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "waterfall". We wanted to have frequent meetings with our customer and involve him in development process. Sprints in SCRUM allow us just that - 
 to have meeting with customer at the end of every sprint, and plan next one together. Sprints does not have to be the same length so we can better managed developing process and risks, and we will be able to have as much sprints as possible under time limit of 13 weeks. SCRUM will give us derivatives that we can enhance in increments and allow us to gradually reduce the risk and keep our customer informed about our progress. SCRUM is also a very popular approach in the software industry, so it is a good choice to learn it.
@@ -156,13 +178,13 @@ Here are presented tools we have used for a testing purposes or in real developm
 %==================================================================================================%
 
 \subsection{Trello}
-is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
+Trello is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
 Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking. Therefore after short discussion we have decided that Trello is not suitable for our purpose.
 
 %==================================================================================================%
 
 \subsection{Gravity} 
-is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
+Gravity is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
 It supports splitting stories into tasks and also automatically calculates \emph{Burn-down chart}. 
 Last but not least it supports it is free of charge for 5 team members, it supports issue tracking and support labels, which can be used for \emph{Epics}.
 On the other hand it does not support time tracking.
@@ -176,7 +198,8 @@ You can see picture of Gravity's features in image \ref{img:gravity}. After a wh
 \end{figure}
 %==================================================================================================%
 
-\subsection{Target Process} is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
+\subsection{Target Process} 
+Target Process is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
 To its main features belongs role distinguishing, different graphs (such as \emph{Burn-down chart}), time estimation and time tracking of both stories and its tasks, drag and drop prioritizing which makes it easy to use from customer side and different kinds of boards (diverse point of views on project).
 On the contrary it also does not support Epics and it is much more complicated to use than other tools introduced.
 You can see example of board in TargetProcess3 in image \ref{img:targetp}. Despite its complexity we decided to use the TargetProcess as it suited our needs the best.
@@ -198,13 +221,15 @@ As every member of the team had experience with different version control system
 
 %==================================================================================================%
 
-\subsection{Subversion} or SVN is an open source centralized VCS and has many clients across different platforms. 
+\subsection{Subversion}
+Subversion or SVN is an open source centralized VCS and has many clients across different platforms. 
 SVN is supported by Google Code\footnote{\url{http://code.google.com/}} repository.
 SVN supports atomic commits, branching and more. Although this tool provides the user with all of the necessary functionality we decided not to use it as the customer suggested to use the other tool.
 
 %==================================================================================================%
 
-\subsection{Git} on the other hand is distributed VCS and offers immediate offline operations.
+\subsection{Git}
+Git on the other hand is distributed VCS and offers immediate offline operations.
 Projects like Linux kernel\footnote{\url{https://www.kernel.org/}} and Glibc\footnote{\url{https://www.gnu.org/software/libc/}} are using Git as a VCS.
 Although Git was created by Linus Torvalds, there are Windows clients available.
 Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS. We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
