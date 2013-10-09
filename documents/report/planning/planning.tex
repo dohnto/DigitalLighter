@@ -198,10 +198,9 @@ As we operate under certain limitations we explained in \ref{sec:limitations}, w
 \end{itemize}
 
 \section{Project plan}
-This section contains a general plan for all the sprints, the general sprint duration, and all the milestones for this project. In this chapter there is also a gantt diagram and a work breakdown structure to visualize how we plan to reach the different milestones.
+This section contains a general plan for all the sprints, the general sprint duration, and all the milestones for this project. In this chapter there is also a Gantt diagram and a work breakdown structure to visualize how we plan to reach the different milestones.
 
 \subsection{General plan for the sprints}
-
 In general the sprints will last for two weeks. The only sprints that does not have that length, is the first and the last. This is because these two are more related to getting started, and finishing the project. The other sprints will have a more general approach. 
 
 After each sprint we have a sprint review with the customer. The sprint reviews takes place every other Thursday, which means that the Wednesday before, the team has to prepare for the review. In each sprint review we both present and demonstrate what we have done so far. After the presentation we are doing a retrospective with the customer. It is important to evaluate our sprint delivery the customer. After the retrospective we will plan the next sprint, and now the customer can prioritize which user stories he wants us to work on next. The Friday after the sprint review, the team will do a detailed planning of the next sprint. 
@@ -209,8 +208,7 @@ After each sprint we have a sprint review with the customer. The sprint reviews 
 On the Thursdays in between we have weekly meetings with the customer. It is important to have good communication with the customer. These meetings gives us opportunities to ask questions, and to make sure that we are on the right track.
 
 You can see detailed sprint decomposition in figure \ref{img:sprint_detail}.
-
-\begin{figure}[!ht]
+\begin{figure}[h!]
     \begin{center}
     \includegraphics[scale=0.5]{images/sprint_detail.eps}
     \caption{Diagram depicting detailed sprint decomposition.}
@@ -218,14 +216,16 @@ You can see detailed sprint decomposition in figure \ref{img:sprint_detail}.
     \end{center}
 \end{figure}
 
-\paragraph{Sprint duration:}
-Sprint 0 (ends 6th of September)
-Sprint 1 (ends 20th of September)
-Sprint 2 (ends 4th of October)
-Sprint 3 (ends 18th of October)
-Sprint 4 (ends 1st of November)
-Sprint 5 (ends 15th of November)
 
+\paragraph{Sprint duration:}
+
+You can see the Gantt chart depicting sprint duration and allocation into weeks in figure \ref{fig:gantt}.
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=18cm, angle=90]{planning/gantt.pdf}
+	\caption{Gantt Chart depicting allocation of sprints into weeks.}
+	\label{fig:gantt}
+\end{figure}
 
 \subsection{Product Milestones}
 
@@ -272,10 +272,6 @@ Overview of all milestones and 4 prototypes (Deliverables).
 	\item Learn about team dynamics.
 \end{itemize}
 
-\section{Gantt diagram}
-You can see the Gantt chart in figure \ref{fig:gantt}.
-\input{planning/gantt.tex}
-
 \section{Test plan}
 The purpose of this chapter is to introduce the overall plan for the testing of our product, and it describes the scope of the overall testing.
 In this chapter we will explain how we plan to test our product, who will be responsible for it, and very short mention the test criteria.
@@ -285,6 +281,7 @@ This is the strategy that will be used to verify and ensure that the product mee
 
 This is a proof of concept project. The customer did not want us to focus on the testing part on this project, but in order to deliver a valid product we will need to do some testing. In order to save time and spend most of the working hours on the implementation, we will use black box testing.  
 
+<<<<<<< HEAD
 We are focusing on the happy path. A happy path is a default scenario featuring no exceptional or error conditions, and comprises the sequence of activities executed if everything goes as expected. Happy path testing is a well-defined test case that uses known input, that executes without exception and that produces an expected output. This means that we do not spend time actually writing tests, but still we have to manually test that the product does what it is supposed to.
 
 We are also doing verification and validation testing. 
@@ -300,6 +297,9 @@ We will also manually have to test the integration between the deliveries in the
 
 We are using TestFlight for user testing. TestFlight allows the customer to easily access the applications, and try out the features. We can also get feedback from other end-users, and this way we can improve our product.  
 
+=======
+               
+>>>>>>> a2423011be58c42eb40498cd30cea962748fb98e
 \subsection{Responsibilities}
 The whole development team is responsible for testing the product. 
 Each person is responsible for testing the features they have implemented. It is important to test continuously through out the sprints, and it will be done when the relevant functionality is implemented. The test will be performed at a time that allows the developers to fix bugs before the sprint has ended.

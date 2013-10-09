@@ -1,23 +1,23 @@
 In this chapter planning and work-flow regarding Sprint 1 will be described. 
-All from setting our goals to implementation and testing. On the end we will evaluate whole sprint and try to answer on following questions: What went well? What could be improved? What should we start doing?  
+All from setting  goals to implementation and testing. On the end team will evaluate whole sprint and try to answer on following questions: What went well? What could be improved? What should we start doing?  
 
 
 \section{Sprint Planning}
-After assembling all the tools in Sprint 0, we decided to start with the implementation of core modules.
-As our understanding of task improved, we were able to come up with user stories from the perspective of user, customer, developer and student.
+After assembling all the tools in Sprint 0, team decided to start with the implementation of the core modules.
+As teams understanding of task improved, they were able to come up with user stories from the perspective of user, customer, developer and a student.
 All user-stories were given to the customer so they can be prioritized. 
-All but user-stories concerning our school obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
-We decided to have school tasks as a user stories so we can better keep our time tracking. 
+All but user-stories concerning team school obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
+Team decided to have school tasks as a user stories so time can be better tracked.
 School user-stories were mandatory and already added as a user-stories of sprint 1.
-On Monday 02.09.2013. we had the meeting with the customer where we estimated time we need for every user story.
+On Monday 02.09.2013. team had meeting with the customer where time needed for every user story were estimated.
 Result of that meeting was list of rest of the user-stories for sprint 1.
 
-For the documentation part, we made a document that we called the project plan, but the supervisor wanted these sections to be integrated in the project report instead. Therefore we decided to make the content for the report, and to make the general structure for it. Also integrate the parts we wrote in the project plan in the project report. We also plan to add the additional sections we need.
+For the documentation part, team made a document named "project plan", but the supervisor wanted these sections to be integrated in the project report instead. Therefore team decided to make the content for the report, and to make the general structure for it. Also integrate the parts previously written in the project plan into the project report. Team also planed to add the additional sections that were missing.
 
 \subsection{Duration}
 This Sprint will be 2 weeks long. From 02.09.2013 to 15.09.2013.
-We agreed on the date for presentation and showing the running demo - Thursday 12.09.2013.
-Estimated velocity is 240h since we agreed on 30 working hours per person per week.
+The team agreed on the date for presentation and showing the running demo - Thursday 12.09.2013.
+Estimated velocity is 240h since team agreed on 30 working hours per person per week.
 
 \subsection{Sprint 1 User-stories}
 
@@ -27,12 +27,41 @@ All Sprint 1 user-stories are presented in table \ref{tab:sprint1stories}
 
 \section{Sprint Goal}
 
-Our goal for this Sprint is to deliver working demo over core client-server module.
+Team's goal for this Sprint is to deliver working demo over core client-server module.
 This includes registering services, listening for the client and sending simple signals to the client from the server application.
 Scanning for the services, connecting, receiving signals and play commands on the client.
-Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client, is goal of this sprint too.
+Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client.
 
 The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. We need to evaluate if we need to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
+
+\section {Preliminary studies}
+In this section all research connected to finishing user-stories, taken before work on actual code, will be described, as well as a decisions team made in order to successfully finish sprint 1.
+
+\subsection{Bonjour software}
+The first research of technologies that could help with achieving client-server communication, without writing everything from scratch, was Bonjour software. 
+It is a group of technologies that includes service discovery, address assignment, and hostname resolution. 
+Bonjour locates devices such as printers, other computers, and the services that those devices offer on a local network using multicast Domain Name System (mDNS) service records.
+It is the Apple's implementation of Zero configuration network (Zeroconf).
+Aldo good and very useful tool it is not supported on Android, and since Android is our platform of choice we had to research further. 
+We learned that we want zeroconf library written in Java with similar set of services as Bonjour.
+
+\subsection {Zero configuration (Zeroconf)}
+Zeroconf is a methodology and a set of special technologies that automatically create a usable computer network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
+It does not require manual operator intervention or special configuration servers.
+It is assembled of technologies that includes service discovery, addressing assignment, and host name resolution.
+
+
+\subsection{JmDNS library}
+Further research brought JmDNS. 
+Java implementation of multi-cast DNS that can be used for service registration and discovery in Local Area Network. 
+It works on most JDK1.6 compatible Virtual Machines, it comes as a library and it is easy to integrate with Android. 
+JmDNS fulfill all of our expectations, but while learning about it over internet, we found that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
+
+\subsection{Android Network Service Discovery (NSD)}
+NSD is supported from API version 16. 
+It allows users to identify other devices on the local network, register services, broadcast connection information, scan for registered services and connect.
+Even with API limitation it is a part of Android platform, no third part libraries are needed, it will evolve with Android and therefore always be working.
+Min API version was not of concern to the customer, so team made a decision of using Android Network Discovery(NSD) for client-server core module.
 
 \section{Architecture}
 For the core communication and organization of our product we selected Client-Server Architecture \ref{fig:sprint1_arhitecture}.
@@ -108,30 +137,8 @@ is inevitable part of client-server communication since our project is based on 
 \paragraph{Server}
 is the application that runs on manager's Android device. It have to register service that it provides at router DNS table. Once registered it have to be able to listen for the clients and broadcast command signals to them.
 
-\subsubsection{Development View}
-
 
 \section{Implementation}
-
-Our first research of technologies that could help as at achieving client-server communication, without writing everything from scratch, was Bonjour software. 
-It is the Apple's implementation of Zero configuration network (Zeroconf). 
-Zero-configuration network (Zeroconf)  is a methodology and a set of special technologies that automatically create a usable computer network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
-It does not require manual operator intervention or special configuration servers.
-It is assembled of technologies that includes service discovery, addressing assignment, and host name resolution.
-Aldo good and very useful tool it is not supported on Android, and since Android is our platform of choice we had to research further. 
-We learned that we want zeroconf library with similar set of services as Bonjour written in Java.
-
-
-Further research brought us to JmDNS. Java implementation of multi-cast DNS that can be used for service registration and discovery in Local Area Network. 
-It works on most JDK1.6 compatible Virtual Machines, it comes as a library and it is easy to integrate with Android. 
-JmDNS fulfill all of our expectations, but while learning about it over internet, we found that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
-
-
-Android Network Service Discovery(NSD) is supported from API version 16. 
-It allows users to identify other devices on the local network, register services, broadcast connection information, scan for registered services and connect.
-Even with minimum API limitation it is a part of Android platform, no third part libraries are needed, it will evolve with Android and therefore always be working.
-Min API version was not of concern to the customer as he replied on mail regarding this question, so we made a decision of using Android Network Discovery(NSD) for client-server discovery and communication.
-
 NSD send look like this:
 
 Device Identifier: HelloWorldServer
@@ -142,6 +149,7 @@ Network Address: 192.168.1.31
 explain sockets
 
 NSD
+
 \section{Testing}
 
 \section{Occurring risks}
