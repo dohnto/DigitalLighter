@@ -166,5 +166,4 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 		// Core.addWeighted(input, 1.0, output, 0.5, 0, output);
 		return output;
 	}
-
 }
