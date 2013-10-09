@@ -154,8 +154,18 @@ The user stories for this sprint was very clear, and the customer did not change
 The first risk in the risk table describes team members being sick. This did not occur, but what did occur was that that some of team members had to be absent in some of the working hours. 
 The team solved this by having these team members work more independently, and with more flexible hours.  
 
-That Android will not get NSD able for low APIs. 
-Then we have to use third part libraries.
+For now only Android 4.1 adds support for multicast DNS-based discovery.
+One of the risks is that Android will not make it available for lower platforms.
+In that case a bit over 50\% of the devices will not be supported as shown on the figure \ref{fig:Platform_chart }, and future development of our prototype will require some of the third part libraries we discovered in prestudy or similar.
+Supporting lower platforms in the future, or not, is however never stated in any official document of the Android documentation.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=10cm]{sprint1/android_platform_chart.png}
+	\caption{Data collected during a 7-day period ending on October 2, 2013. 
+	Any versions with less than 0.1\% distribution are not shown.}
+	\label{fig:Platform_chart }
+\end{figure}
 
 \section{Retrospective and Evaluation}
 In this section the team will take a look back at sprint 1, and review this sprint. The focus will be on what went well, and goal we achieved. Another focus will also be what we could have done differently, and of course and learn from what we could have done differently.
