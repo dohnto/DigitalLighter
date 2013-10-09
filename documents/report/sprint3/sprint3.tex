@@ -3,9 +3,31 @@ All from setting our goals to implementation and testing. On the end we will eva
 % TODO rewrite
 
 \section{Sprint planning}
-% TODO
+In the planning part of sprint 2 when there have been introduced and idea or goal for refining and extent the existing code, customer agreed, with condition, that sprint 3 will be focused on image processing part.
 
-This time we offered customer to have a "pre-demo" video on Thursday 4.10.2013 during our regular meeting.
+As the image processing module was one of the major risks there was done some pre-study research even in sprint 2 about possible approaches.
+One specific way to deal with the problem was introduced to customer in planning part of meeting.
+Customer was not satisfied with such a low-level approach and wanted us to use some existing tools.
+Therefore there was need for additional pre-study concerning existing projects or libraries that could be used.
+You can read more about additional pre-study below.
+
+This time there was made an offer of additional "pre-demo" video on Thursday 4.10.2013 during our regular meeting and customer gladly accepted this proposal.
+
+\subsection{Sprint goal}
+The goal of this sprint is having a working application on a mobile phone that can work in two modes.  
+Input type and output are for both modes common - input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
+In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image/video) are treated as an input.
+
+You can see example of input with matrix 2x2 in image. Appropriate output of image processing and mapping module will be: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=7cm]{sprint3/sprint3_goal.pdf}
+	\caption{Example of ideal data input for image processing module with 2x2 matrix.}
+	\label{img:sprint3_goal}
+\end{figure}
+
+
 \subsection{Duration}
 This sprint will be 2 weeks long. From 30.09.2013 to 13.10.2013.
 We agreed on the date of presentation and showing the running demo - Thursday 11.10.2013.
@@ -14,19 +36,6 @@ Estimated velocity is 240h since we agreed on 30 working hours per person per we
 \subsection{User-stories}
 You can see user stories concerning sprint 3 in table \ref{tab:sprint3stories}.
 \LTXtable{\textwidth}{sprint3/stories.tex}
-\subsection{Sprint goal}
-The goal of this sprint is having a working application on a mobile phone that can work in two modes.  
-Input type and output are for both modes common - input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
-In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image/video) are treated as an input.
-
-You can see example of input with matrix 2x2 in image. Appropriate output of image processing and mapping module will be: \texttt{\{blue,[0,0]\}, \{red,[0,1]\}, \{green,[1,1]\}}.
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=7cm]{sprint3/sprint3_goal.jpg}
-	\caption{Example of ideal data input for image processing module with 2x2 matrix.}
-	\label{img:sprint3_goal}
-\end{figure}
 
 \section{System Burndown}
 \section{Architecture}

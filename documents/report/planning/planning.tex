@@ -198,10 +198,9 @@ As we operate under certain limitations we explained in \ref{sec:limitations}, w
 \end{itemize}
 
 \section{Project plan}
-This section contains a general plan for all the sprints, the general sprint duration, and all the milestones for this project. In this chapter there is also a gantt diagram and a work breakdown structure to visualize how we plan to reach the different milestones.
+This section contains a general plan for all the sprints, the general sprint duration, and all the milestones for this project. In this chapter there is also a Gantt diagram and a work breakdown structure to visualize how we plan to reach the different milestones.
 
 \subsection{General plan for the sprints}
-
 In general the sprints will last for two weeks. The only sprints that does not have that length, is the first and the last. This is because these two are more related to getting started, and finishing the project. The other sprints will have a more general approach. 
 
 After each sprint we have a sprint review with the customer. The sprint reviews takes place every other Thursday, which means that the Wednesday before, the team has to prepare for the review. In each sprint review we both present and demonstrate what we have done so far. After the presentation we are doing a retrospective with the customer. It is important to evaluate our sprint delivery the customer. After the retrospective we will plan the next sprint, and now the customer can prioritize which user stories he wants us to work on next. The Friday after the sprint review, the team will do a detailed planning of the next sprint. 
@@ -209,8 +208,7 @@ After each sprint we have a sprint review with the customer. The sprint reviews 
 On the Thursdays in between we have weekly meetings with the customer. It is important to have good communication with the customer. These meetings gives us opportunities to ask questions, and to make sure that we are on the right track.
 
 You can see detailed sprint decomposition in figure \ref{img:sprint_detail}.
-
-\begin{figure}[!ht]
+\begin{figure}[h!]
     \begin{center}
     \includegraphics[scale=0.5]{images/sprint_detail.eps}
     \caption{Diagram depicting detailed sprint decomposition.}
@@ -218,14 +216,16 @@ You can see detailed sprint decomposition in figure \ref{img:sprint_detail}.
     \end{center}
 \end{figure}
 
-\paragraph{Sprint duration:}
-Sprint 0 (ends 6th of September)
-Sprint 1 (ends 20th of September)
-Sprint 2 (ends 4th of October)
-Sprint 3 (ends 18th of October)
-Sprint 4 (ends 1st of November)
-Sprint 5 (ends 15th of November)
 
+\paragraph{Sprint duration:}
+
+You can see the Gantt chart depicting sprint duration and allocation into weeks in figure \ref{fig:gantt}.
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=18cm, angle=90]{planning/gantt.pdf}
+	\caption{Gantt Chart depicting allocation of sprints into weeks.}
+	\label{fig:gantt}
+\end{figure}
 
 \subsection{Product Milestones}
 
@@ -272,26 +272,37 @@ Overview of all milestones and 4 prototypes (Deliverables).
 	\item Learn about team dynamics.
 \end{itemize}
 
-\section{Gantt diagram}
-You can see the Gantt chart in figure \ref{fig:gantt}.
-\input{planning/gantt.tex}
-
 \section{Test plan}
 The purpose of this chapter is to introduce the overall plan for the testing of our product, and it describes the scope of the overall testing.
 In this chapter we will explain how we plan to test our product, who will be responsible for it, and very short mention the test criteria.
 This is the strategy that will be used to verify and ensure that the product meets its requirements, and of course the quality attributes. 
 
 \subsection{Approach}
-This is a proof of concept project. The customer did not want us to focus on the testing. We are focusing on the happy path. A happy path is a default scenario featuring no exceptional or error conditions, and comprises the sequence of activities executed if everything goes as expected. Happy path testing is a well-defined test case that uses known input, that executes without exception and that produces an expected output. This means that we do not spend time actually writing tests, but still we have to manually test that the product does what it is supposed to.
 
-We manually have to test the integration between the sprints, and we have do this continuously to ensure that the modules of the various sprints are well integrated. We are also doing verification and validation testing. This is the process of checking that the product meets specifications and that it fulfills its intended purpose. It may also be referred to as software quality control, and it is high-level checking. Again we do this manually, which means we do not write tests for this. We will write about these tests in each of the sprint chapters. 
+This is a proof of concept project. The customer did not want us to focus on the testing part on this project, but in order to deliver a valid product we will need to do some testing. In order to save time and spend most of the working hours on the implementation, we will use black box testing.  
+
+We are focusing on the happy path. A happy path is a default scenario featuring no exceptional or error conditions, and comprises the sequence of activities executed if everything goes as expected. Happy path testing is a well-defined test case that uses known input, that executes without exception and that produces an expected output. This means that we do not spend time actually writing tests, but still we have to manually test that the product does what it is supposed to.
+
+We are also doing verification and validation testing. 
+This is the process of checking that the product meets specifications, and that it fulfills its intended purpose. It may also be referred to as software quality control, and it is high-level checking. 
+We will do this with test cases, or scenario testing. 
+A test case is a set of conditions or variables under which a tester will determine whether an application, or one of its features, is working as it was originally established to do. 
+The mechanism for determining whether a system has passed or failed such a test is known as a test oracle. 
+In our case this will be the requirements, or the use cases. Scenario testing is similar, but test cases tests single steps, and scenarios covers a number of steps. 
+The scenarios should be easy to evaluate. 
+The development team will not implement tests, but we will  perform the tests manually. 
+In each sprint we will design test scenarios where we will compare the expected with the actual result.
+We will also manually have to test the integration between the deliveries in the different sprints. 
+
+We are using TestFlight for user testing. TestFlight allows the customer to easily access the applications, and try out the features. We can also get feedback from other end-users, and this way we can improve our product.  
 
 
 \subsection{Responsibilities}
 The whole development team is responsible for testing the product. 
-Each person is responsible for testing their own code. It is important to perform continuously testing. We also plan to have someone different to test, rather than the person who wrote the specific code segment. 
-This is mostly for the usability of the product.As we are short on manpower and time we can not guarantee that this is always the case.
-Testing will be done continuously through out the sprints, when the relevant functionality is implemented, and they will be performed at a time that allows the developers to fix bugs before the sprint has ended. 
+Each person is responsible for testing the features they have implemented. It is important to test continuously through out the sprints, and it will be done when the relevant functionality is implemented. The test will be performed at a time that allows the developers to fix bugs before the sprint has ended.
+We also plan to have someone different to test, rather than the person who wrote the specific code segment. 
+This is mostly for the usability of the product. We are short on manpower and time, which means we can not guarantee that this is always the case.
+ 
 
 \subsection{Test criteria} 
 
