@@ -2,6 +2,7 @@ NAME=report
 
 all:
 	pdflatex $(NAME)
+	bibtex $(NAME)
 	pdflatex $(NAME)
 
 clean:
