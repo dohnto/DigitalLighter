@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, PointCollectorListener {
 
@@ -36,6 +37,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 
 	static int tilesX = 4;
 	static int tilesY = 4;
+	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	int fpsCounter;
@@ -90,7 +92,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		setContentView(R.layout.color_blob_detection_surface_view);
-
+		
+		info = (TextView) findViewById(R.id.info_txt);
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 
