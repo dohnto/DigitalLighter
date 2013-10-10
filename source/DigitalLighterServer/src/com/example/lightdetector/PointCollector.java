@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
 
 public class PointCollector {
 
@@ -29,9 +30,10 @@ public class PointCollector {
 	private Handler mUpdateHandler;
 
 	boolean delivered = true;
+	final TextView info;
 
-	public PointCollector(int titleCountX, int titleCountY, final PointCollectorListener listener) {
-
+	public PointCollector(int titleCountX, int titleCountY, final PointCollectorListener listener, final TextView info) {
+		this.info = info;
 		this.listener = listener;
 		mMapper = new TileMapper(titleCountX, titleCountY);
 
@@ -42,6 +44,12 @@ public class PointCollector {
 			public void handleMessage(Message msg) {
 				if (msg.getData().getBoolean(NEW_UPDATE)) {
 					if (buffer.size() > 0) {
+						String text = new String();
+						for (String colorItem : buffer.peek().keySet()) {
+							text += colorItem + ": " + buffer.peek().get(colorItem).size() + "\n";
+						}
+						info.setText(text);
+						
 						listener.onPointCollectorUpdate(buffer.poll());
 					}
 				}

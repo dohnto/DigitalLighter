@@ -15,10 +15,10 @@ public class ColorManager {
 	
 	private ColorManager() {
 		colors = new HashMap<String, double[]>();
-		colors.put(KEY_RED, new double[] {0.0, 0.0, 255.0});
-		colors.put(KEY_GREEN, new double[] {0.0, 255.0, 0.0});
-		colors.put(KEY_BLUE, new double[] {255.0, 0.0, 0.0});
-		colors.put(KEY_WHITE, new double[] {255.0, 255.0, 255.0});
+		colors.put(KEY_RED, new double[] {255.0, 0.0, 0.0, 255.0});
+		colors.put(KEY_GREEN, new double[] {0.0, 255.0, 0.0, 255.0});
+		colors.put(KEY_BLUE, new double[] {0.0, 0.0, 255.0, 255.0});
+		colors.put(KEY_WHITE, new double[] {255.0, 255.0, 255.0, 255.0});
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class ColorManager {
 	
 	public static Scalar getCvColor(String key) {
 		double[] color = getInstance().get(key);
-		return new Scalar(color[0], color[1], color[2]);
+		return new Scalar(color[0], color[1], color[2], color[3]);
 	}
 	
 }

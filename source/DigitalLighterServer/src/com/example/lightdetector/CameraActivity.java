@@ -102,7 +102,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 	@Override
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
-		collector = new PointCollector(tilesX, tilesY, this);
+		collector = new PointCollector(tilesX, tilesY, this, info);
 
 		screenColors.add(ColorManager.KEY_BLUE);
 		screenColors.add(ColorManager.KEY_GREEN);
