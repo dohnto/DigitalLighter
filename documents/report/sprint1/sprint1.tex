@@ -36,7 +36,7 @@ This includes registering services, listening for the client and sending simple 
 Scanning for the services, connecting, receiving signals and play commands on the client.
 Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client.
 
-The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. We need to evaluate if we need to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
+The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. It must be evaluated whether to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
 
 \section {Research}
 In this section all research connected to finishing user-stories, taken before work on actual code, will be described, as well as a decisions team made in order to successfully finish sprint 1.
@@ -46,8 +46,8 @@ The first research of technologies that could help with achieving client-server 
 It is a group of technologies that includes service discovery, address assignment, and hostname resolution. 
 Bonjour locates devices such as printers, other computers, and the services that those devices offer on a local network using multicast Domain Name System (mDNS) service records.
 It is the Apple's implementation of Zero configuration network (Zeroconf).
-Aldo good and very useful tool it is not supported on Android, and since Android is our platform of choice we had to research further. 
-We learned that we want zeroconf software written in Java with similar set of services as Bonjour.
+Aldo good and very useful tool it is not supported on Android, and since Android is the platform chosen for the DigialLighter product further research must have been carried out. 
+Zeroconf software written in Java with similar set of services as Bonjour seemed to be the best option.
 
 \subsection {Zero configuration (Zeroconf)}
 Zeroconf is a methodology and a set of special technologies that automatically create a usable wireless network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
@@ -68,8 +68,8 @@ Even with API limitation it is a part of Android platform, no third part librari
 Min API version was not of concern to the customer, so team made a decision of using Android Network Discovery(NSD) for client-server core module.
 
 \section{Architecture}
-For the core communication and organization of our product we selected Client-Server Architecture figure \ref{fig:sprint1_arhitecture}.
-Choosing this architecture was very intuitive to do as our project should consist of two applications and overall tasks should be partitioned. 
+For the core communication and organization of our product the Client-Server Architecture was selected as shown in figure \ref{fig:sprint1_arhitecture}.
+Choosing this architecture was very intuitive to do as the project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
 Communication should be established over wireless network using same router for both applications, the user and the server, and without need for third party server nor Internet connection. 
@@ -104,7 +104,7 @@ Figure \ref{fig:class_diagram_client} gives an overview of the client class stru
 	\label{fig:class_diagram_client}
 \end{figure}
 
-Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. We made separate thread "ServerThread" for incoming clients to optimize server. Sending command signals is also moved from UI thread to "SendingThread" in order to make application more responsive.
+Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. Separated thread "ServerThread" for incoming clients was made to optimize server. Sending command signals is also moved from UI thread to "SendingThread" in order to make application more responsive.
 
 \begin{figure}[H]
 	\centering
@@ -182,14 +182,14 @@ Supporting lower platforms in the future, or not, is however never stated in any
 In this section the team will take a look back at sprint 1, and review this sprint. The focus will be on what went well, and goal we achieved. Another focus will also be what we could have done differently, and of course and learn from what we could have done differently.
 
 \subsection{Pros}
-For the implementation part we reached the sprint 1 goals. We delivered a working demonstration video over core client-server module. The server side registers services, listens for the client, and sends simple  signals. The client is scanning for the services, connecting, receiving signals and play commands on the client. The customer was very satisfied with the video, and suggested recording our future prototypes as well. Besides this we reached the goal to implement Test-Flight in both applications. We also reached the milestone, Obedient client - Prototype 1.
+For the implementation part the sprint 1 goals were reached. The working demonstration video over core client-server module was delivered. The server side registers services, listens for the client, and sends simple  signals. The client is scanning for the services, connecting, receiving signals and play commands on the client. The customer was very satisfied with the video, and suggested recording our future prototypes as well. Besides this we reached the goal to implement Test-Flight in both applications. We also reached the milestone, Obedient client - Prototype 1.
 
-For the documentation the work done is in the report is good. The report is better structured now, and it actually looks like a report, which is good. The supervisor liked the structure as well. We added a lot of sections when we integrated the project plan in the report, so that the introduction, the preliminary studies and the planning chapter would be as complete as possible. In for example the preliminary studies chapter we haven't written all of the studies about the image processing part yet, because we will research this more in later sprints.
+For the documentation the work done is in the report is good. The report is better structured now, and it actually looks like a report, which is good. The supervisor liked the structure as well. A lot of sections were added when the team integrated the project plan in the report, so that the introduction, the preliminary studies and the planning chapter would be as complete as possible. In for example the preliminary studies chapter the team has not written all of the studies about the image processing part yet, because the team will research this more in later sprints.
 
 \subsection{Cons}
-The sprint planning in this sprint could have been better. We over estimated some of the implementation user stories. To solve this better till next time we should spend more time doing the planning poker. This make sure that everyone understands the task better. 
+The sprint planning in this sprint could have been better. Some of the implementation user stories were over estimated. To solve this better till next time the team should spend more time doing the planning poker. This makes sure that everyone understands the task better. 
 
-The structure of the report is good, but we probably have to reduce the number of chapters. The supervisor suggested to move the test plan chapter in the planning chapter, since it was such a small chapter. The supervisor also wanted us to work more with the requirements chapter. There should be a better connection between the user stories and the requirements.
+The structure of the report is good, but the number of chapters wuold probably have to be reduced. The supervisor suggested to move the test plan chapter in the planning chapter, since it was such a small chapter. The supervisor also wanted the team to work more with the requirements chapter. There should be a better connection between the user stories and the requirements.
 
 
-Another con this sprint was that when we tested the product on the mobiles we had problems with the network. Since the mobiles where on different subnets, the client could not find the server. We had to borrow a router and bring with us to be able to test. 
+Another con this sprint was that when the product was tested on the mobiles there were problems with the network. Since the mobiles were on different subnets, the client could not find the server. We had to borrow a router and bring with us to be able to test. 
