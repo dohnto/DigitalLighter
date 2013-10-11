@@ -1,4 +1,4 @@
-In this chapter there will be described expected behavior of product and its resulting requirements. 
+In this chapter expected behavior of product and its resulting requirements will be described. 
 First there will be introduced simple life cycle of the product.
 Although project title was accepted as a domain and not a final product, following requirements could be applied also on project that is not scaled down.
 
@@ -19,7 +19,7 @@ Notice that there are some actions of both Manager and client user which do requ
 
 \section{Use case diagram}
 As we have defined terminology in section \ref{sec:terminology} we will use actor's names according to that terminology.
-In the figure bellow is shown use case diagram \ref{img:usecase} of the whole system.
+In the figure bellow use case diagram \ref{img:usecase} of the whole system  is shown.
 
 \begin{figure}[h!]
     \begin{center}
@@ -135,32 +135,25 @@ You can see non-functional requirements listed below.
 \label{sec:quality_attributes}
 
 \paragraph{Accessibility}
-Accessibility is the degree to which a the product is available to as many people as possible. 
+is the degree to which a the product is available to as many people as possible. 
 Accessibility can be viewed as the "ability to access" and benefit from the product. 
-To achieve this we plan to release the product on the Android appstore, and we are also using Testflight to make the applications as accessible as we can.
-
-\paragraph{Availability}
-
-Availability is the ability to be available for use, especially if faults occur. Faults must be recognized or avoided and so the system must react in a particular way. What happens depends on what we want. Ignore. Continue as before. Recovery is the combination of retry and maintain. Prevent is clear. To achieve this requirement must be aware of the faults that may occur and generate response.
+To achieve this we plan to release the product on the Android Play Store, and we are also using TestFlight to make the applications as accessible as we can.
 
 \paragraph{Interoperability}
-Interoperability refers to the ability of the product to usefully exchange information. The client-server architecture must have the intention of exchanging information. 
-
-WRITE MORE
+describes the extent to which systems and devices can exchange data, and interpret that shared data. Digital Lighter server and client application should be able to mutually share specific structure or format of data that is preserved and unalterd during the process.  
 
 \paragraph{Maintainability}
-Maintainability is the ease with which a product can be maintained. This means the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy.
+is the ease with which a product can be maintained. This means the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy.
 
 \paragraph{Modifiability}
-
-Modifiability is all about handling changes, and this is including the extent to which this modification affects other functions. 
-We must be prepared for changes, and we can do this  by increase cohesion, and reduce coupling in our product. 
-If we make the modules smaller, we will reduce the risk if we have to make a change. 
-We can also make sure that we are restricting the dependencies. 
-Increasing the cohesion, or interdependency within modules, can affect build time, load time, initialization time or run time.
+is all about handling changes, and this is including the extent to which this modification affects other functions. 
+Code must be prepared for changes, and this can only be done by increase cohesion, and reduce coupling. 
+If the modules get built smaller, the risk of having to make a change will be reduced. 
+Team should also make sure that dependencies are restricted. 
+Increasing the cohesion, or interdependency within modules, can affect build time, load time, initialization time or run time, therefore some trade-offs have to be done.
 
 \paragraph{Performance}
-Performance is about managing system resources in the face of particular types of demands to achieve acceptable timing behavior. 
+is about managing system resources in the face of particular types of demands to achieve acceptable timing behavior. 
 Performance can be measured in terms of throughput and latency. 
 Performance can be improved by reducing demand, or by managing resources more appropriately. 
 Reducing demands will have the side effect of reducing fidelity, or refuse service to some requests. 
@@ -168,15 +161,6 @@ Managing the resources more fitting can be done through scheduling, relication, 
 
 WRITE MORE HERE WEHN WE KNOW MORE!!
 
-\paragraph{Scalability}
- Scalability describes the capability to cope and perform under an increased or expanding workload. A system that scales well will be able to maintain, or even increase its level of performance, or efficiency when tested by larger operational demands.
- If our server works properly with ten clients, but with a thousand clients it might fail to meet response time requirements.
- In our case the average response time probably scales linearly with the number of clients.
- WRITE MORE HERE WEHN WE KNOW MORE!!
-
-\paragraph{Testability}
-
-To ensure that the product testd has payoffs in terms of the cost of testing and reliability of the system. The test harness is software system that isolates testing resources to test cases and test infrastructure so we can easily re-apply tests. Another thing is the creation of test cases prior to the development of a component as developers know which test component must pass. Checking observing system state is a large class of testability tactics. Making it possible to do fault injection, to record system state that the partition key, to isloere from the environment. Complex systems are difficult to test because they have large state space in which contexts where computation takes place, and because the greater the number of number of interconnections among elements of the system. Consistently, the system simply is another tactic that supports testabilitet.
 
 \paragraph{Usability}
 Usability is the ease of use and learnability of the product.

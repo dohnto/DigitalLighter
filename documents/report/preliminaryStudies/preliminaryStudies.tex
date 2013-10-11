@@ -130,32 +130,7 @@ It can be noticed that the Digital Lighter project requires the team to make a g
 \subsection{Scrum} \label{txt:scrum}
 Scrum is one of the well established agile methodologies and it has been embraced by the team for several reasons. The customer had good experience using Scrum before and he strongly encouraged the team to use this methodology. Moreover one of the team members has the real world experience working in Scrum. Even though it requires "learning-by-doing" approach to learn Scrum in this case all of the  team members were committed to learn new methodology as it seems to be widely used in the commercial field and therefore the team members would get the valuable experience.
 
-It must be mentioned the team does not use the pure Scrum methodology but rather adjusts it to its specific needs as we are not able to fulfill all of the procedures Scrum dictates. This approach is referred to as a \textit{Scrumbut} \cite{viscardi2013professional} which comes from the self explanatory claim "We use scrum, but ...".  The Scrum framework consists of the roles, processes and artifacts \cite{viscardi2013professional}. Our approach to the role assigning and fulfilling the processes is described in section
-
-\subsubsection{Roles}
-\paragraph{Product owner} is a person who is responsible for the procut's success after it is released. In this case our customer served the role of the product owner.
-\paragraph{ScrumMaster} is the supervisor of the Scrum and safeguards the whole project. As Agnethe dispose of the previous experience working in Scrum team she has been assigned this role.
-\paragraph{Team} comprise of all of the parties involved including the product owner, Scrum master and all of the developers.
-
-\subsubsection{Processes}
-The most important Scrum ceremonies include daily stand up meetings, sprint planning, sprint retrospective and sprint review.
-
-\paragraph{Daily stand up meetings} are meant to enable the team member to make their progress visible, summarize the obstacles and to commit to the next tasks. Basically all of the members should be able to answer these three questions:
-
-\begin{itemize}
-\item What have you done since yesterday?
-\item What are you planning to do today?
-\item What issues are you currently facing?
-\end{itemize}
-
-We found these meetings especially useful for keeping it clear who works on what. Nevertheless as it will be described in chapter \ref{txt:duration_and_workload} the team members do not work full hours and thus do not meet every day. Given this fact it is impossible to make the daily stand up meetings and this is one of the reasons the team rather falls back on Scrumbut.
-
-\paragraph{Sprint planning} serves the purpose of discussion between the team and the customer focused no selecting the user stories to be moved to the next sprint's backlog and specifying their priority. 
-
-\paragraph{Product owner}ff
-\paragraph{Product owner}ff
-
-
+It must be mentioned the team does not use the pure Scrum methodology but rather adjusts it to its specific needs as we are not able to fulfill all of the procedures Scrum dictates. This approach is referred to as a \textit{Scrumbut} \cite{viscardi2013professional} which comes from the self explanatory claim "We use scrum, but ...".  The Scrum framework consists of the roles, processes and artifacts \cite{viscardi2013professional}. Our approach to the role assigning and fulfilling the processes is described in section \ref{txt:utilizing_scrum}. The overall concept of Scrum can be seen on figure \ref{fig:scrum}.
 
 \begin{figure}[hbt]
 \centering
@@ -164,42 +139,10 @@ We found these meetings especially useful for keeping it clear who works on what
 \label{fig:scrum}
 \end{figure}
 
-\subsubsection{Artifacts}
-
-
-
-
-
-
-	- we do not work full hours so we cannot do daily standups (scrum but) also we focus a lot on documentation
-	- we decided to make 2-weeks sprints s we sould have at least 5 full sprints
-	- leading software methodology so the team members were committed to learn this
-
-Product is designed, coded, and tested during the sprint
-Scrum teams do a little of everything all the time (requirements, design, code, test, documentation)
-
-
-
-After fast research and consultation with our mentor and customer(He has experience with CDP student group from last year), we decided to use SCRUM methodology for a few reasons. Requirements and scope of the undertaking were not that precisely defined at the time we had to decide on the methodology. Our approach therefore could not be founded on the sequential methodology as is "waterfall". We wanted to have frequent meetings with our customer and involve him in development process. Sprints in SCRUM allow us just that - 
-to have meeting with customer at the end of every sprint, and plan next one together. Sprints does not have to be the same length so we can better managed developing process and risks, and we will be able to have as much sprints as possible under time limit of 13 weeks. SCRUM will give us derivatives that we can enhance in increments and allow us to gradually reduce the risk and keep our customer informed about our progress. SCRUM is also a very popular approach in the software industry, so it is a good choice to learn it.
-
-
-
-
-
-Scrum framework consists of 
-roles: product owner, scrum master, team
-ceremonies: planning, retrospective, daily standups
-artifacts: product and sprint backlog, user stories, burndown chart, 
-
-
 \subsubsection{Scrum related terms}
 
-Since the customer is technically skilled and is used to use Scrum technology, we have adopted his terminology.
 \paragraph{User story}
-is a short text of user's language of a system that describes user's interaction with the system.
-
-User stories are actually narrative texts that describe an interaction of the user and the system, focusing on the value a user gains from the system.
+is a short text of user's language of a system that describes user's interaction with the system. User stories are actually narrative texts that describe an interaction of the user and the system, focusing on the value a user gains from the system.
 
 \paragraph{Epic}
 is a large \emph{user story} that will need to be broken down into smaller stories. It is too big to fit into a sprint, or it is unknown as to whether it is too big to fit into a sprint or not.
@@ -208,10 +151,11 @@ is a large \emph{user story} that will need to be broken down into smaller stori
 If user story is too complex, it can be divided into several tasks. 
 Task is then basic unit of problem division.
 
+\paragraph{Milestone} is an event that receives special attention. It can add significant value to project scheduling by helping team to more accurately determine whether or not the project is on schedule.
 
-\paragraph{Milestone}
- is an event that receives special attention. It can add significant value to project scheduling by helping team to more accurately determine whether or not the project is on schedule.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Development technologies} \label{txt:development technologies}
 
 According to the customer's requirements the product must be executable on the mobile devices and it should utilize the image processing technologies as well. Therefore we had to make two main decisions - which mobile platform to prefer and which existing image processing libraries to use. Both of the decisions are explained in greater detail in sections \ref{txt:mobile_platform} and \ref{txt:image_processing_library}.
@@ -265,12 +209,14 @@ Here are presented tools we have used for a testing purposes or in real developm
 %==================================================================================================%
 
 \subsection{Trello}
+\label{TrelloToolDescription}
 Trello is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
 Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking. Therefore after short discussion we have decided that Trello is not suitable for our purpose.
 
 %==================================================================================================%
 
 \subsection{Gravity} 
+\label{GravityToolDescription}
 Gravity is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
 It supports splitting stories into tasks and also automatically calculates \emph{Burn-down chart}. 
 Last but not least it supports it is free of charge for 5 team members, it supports issue tracking and support labels, which can be used for \emph{Epics}.
