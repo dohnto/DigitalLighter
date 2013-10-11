@@ -97,28 +97,50 @@ A software development methodology is a framework used for structuring, planning
 
 One can basically choose between two main general approaches, the traditional software development process or iterative-development process \cite{fairley2009managing}. The first technique mentioned mainly comprise of so called waterfall based models. In theory the waterfall model thoroughly describes the software lifecycle phases as a strict sequence that should result in a functional product. The real world experiences however show that this model is not suitable for the projects where the requirements are unclear in the preliminary phases and likely to change a lot during the development process \cite{john2011software}.
 
-It is impossible to have the crystal clear image of the resulting product in the beginning\cite{fairley2009managing} and this fact prevents both the customer and development team to specify all of the requirements beforehand. On the contrary it is more desirable to follow the employ the methodology which enables the development team to add the new features in an iterative manner and to present functional pieces of code (prototypes) to the customer regularly so that the right course of the project can be maintained.
+It is impossible to have the crystal clear image of the resulting product in the beginning\cite{fairley2009managing} and this fact prevents both the customer and development team to specify all of the requirements beforehand. On the contrary it is more desirable to employ the methodology which enables the development team to add the new features in an iterative manner and to present functional pieces of code (prototypes) to the customer regularly so that the right course of the project can be maintained.
 
-Therefore it is reasonable to 
-
-it has been decided to utilize the agile methodology, specifically the Scrum model as described in the following sections.
-
-- lightweight
-
-
-- we chose agile because (why)
-	- suites our needs better
-	- ...
-
-A few of leading methodologies below. There will be presented 
+Therefore it is more reasonable to rely on the approaches from the latter group, the approaches based on iterative-development process. In general these models are designed in the way that they enable the development team to continuously verify and validate the product and detect the process problems early. It has been decided to use the agile development models as described in section \ref{txt:agile_methodologies} and specifically The Scrum model covered in section \ref{txt:scrum}.
 
 %==================================================================================================%
-\subsection{Agile methodologies}
+\subsection{Agile methodologies} \label{txt:agile_methodologies}
+Agile methodologies were created as the contrary to the traditional software development techniques based on the waterfall model. According to the Agile Manifesto \cite{agileManifesto} created by the well established non profit organization Agile Alliance\footnote{\url{http://www.agilealliance.org/}} the agile approach basically mainly focus on team-customer communication, working software, tight collaboration and abbility to respond to changes. As stated in table \ref{tab:agile_vs_waterfall} these and other features agile methodologies provide suite the DigitalLighter the best.
 
+\begin{table}[htb]
+	\begin{center}
+	\caption{Confrontation between the agile and waterfall methodologies and their applicability in DigitalLighter project}
+	\label{tab:agile_vs_waterfall}
+	\def\arraystretch{1.3}
+		\begin{tabularx}{0.9\textwidth}{ X c c }
+		\toprule[0.5mm]
+		\textbf{DigitalLighter properties} & \textbf{Agile methodologies} & \textbf{Waterfall} \\
+		\midrule[0.5mm]
+		small-medium sized teams 						& \tick  & \tick 	\\
+		Quick development				 				& \tick  & \cross 	\\
+		Prototyping										& \tick  & \cross 	\\
+		Frequent product releases 						& \tick  & \cross 	\\
+		Strong customer involvement 					& \tick  & \cross 	\\
+		Focus on documentation 							& \cross & \tick  	\\
+		\bottomrule[0.5mm]
+		\end{tabularx}
+	\end{center}
+\end{table}
 
+It can be noticed that the DigitalLighter project requires the team to make a great effort writing the documentation which does not particularly correspond with the agile approach. The issue is that this is still the school project and the extensive documentation is a part of the task. Still as far as the properties of the DigitalLighter project are concerned the advantages of the agile approach are prevailing.
 
 %==================================================================================================%
-\subsection{Scrum}
+\subsection{Scrum} \label{txt:scrum}
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=\textwidth]{preliminaryStudies/scrum.png}
+\caption{Scrum}
+\label{fig:scrum}
+\end{figure}
+
+
+Product is designed, coded, and tested during the sprint
+Scrum teams do a little of everything all the time (requirements, design, code, test, documentation)
+
 - scrum but
 
 \subsubsection{Scrum related terms}
