@@ -38,6 +38,15 @@
 \usepackage[parfill]{parskip}
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
 
+% ticks and crosses
+\usepackage{pifont}
+\newcommand{\tick}{\textcolor{green}{\ding{52}}}
+\newcommand{\cross}{\textcolor{red}{\ding{54}}}
+ 
+% colored text
+\usepackage{color}
+ 
+
 
 % referencing requirements
 \newcommand{\refreq}[1]{\hyperref[req_#1]{#1}}
@@ -81,7 +90,7 @@ Miloš Jovac \\
 \chapter{Preliminary studies}
 \input{preliminaryStudies/preliminaryStudies.tex}
 
-\chapter{Planning}
+\chapter{Planning} \label{txt:planning}
 \input{planning/planning.tex}
 
 \chapter{Requirements}
