@@ -1,5 +1,5 @@
 In this chapter planning and work-flow regarding Sprint 1 will be described. 
-All from setting  goals to implementation and testing. On the end team will evaluate whole sprint and try to answer on following questions: What went well? What could be improved? What should we start doing?  
+All from setting  goals to implementation and testing. On the end team will evaluate whole sprint and try to answer the following questions: What went well? What could be improved? What should we start doing?  
 
 
 \section{Sprint Planning}
@@ -12,7 +12,11 @@ School user-stories were mandatory and already added as a user-stories of sprint
 On Monday 02.09.2013. team had meeting with the customer where time needed for every user story were estimated.
 Result of that meeting was list of rest of the user-stories for sprint 1.
 
-For the documentation part, team made a document named "project plan", but the supervisor wanted these sections to be integrated in the project report instead. Therefore team decided to make the content for the report, and to make the general structure for it. Also integrate the parts previously written in the project plan into the project report. Team also planed to add the additional sections that were missing.
+For the documentation part, team made a document "project plan". 
+Supervisor wanted these sections to be integrated in the project report instead. 
+Therefore team decided to make the content for the report, and to make the general structure for it. 
+Also integrate the parts previously written in the project plan into the project report. 
+Team also planed to add the additional sections that were missing.
 
 \subsection{Duration}
 This Sprint will be 2 weeks long. From 02.09.2013 to 15.09.2013.
@@ -34,7 +38,7 @@ Establishing simple communication protocol and implementing Test-Flight in both 
 
 The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. We need to evaluate if we need to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
 
-\section {Preliminary studies}
+\section {Research}
 In this section all research connected to finishing user-stories, taken before work on actual code, will be described, as well as a decisions team made in order to successfully finish sprint 1.
 
 \subsection{Bonjour software}
@@ -43,10 +47,10 @@ It is a group of technologies that includes service discovery, address assignmen
 Bonjour locates devices such as printers, other computers, and the services that those devices offer on a local network using multicast Domain Name System (mDNS) service records.
 It is the Apple's implementation of Zero configuration network (Zeroconf).
 Aldo good and very useful tool it is not supported on Android, and since Android is our platform of choice we had to research further. 
-We learned that we want zeroconf library written in Java with similar set of services as Bonjour.
+We learned that we want zeroconf software written in Java with similar set of services as Bonjour.
 
 \subsection {Zero configuration (Zeroconf)}
-Zeroconf is a methodology and a set of special technologies that automatically create a usable computer network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
+Zeroconf is a methodology and a set of special technologies that automatically create a usable wireless network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
 It does not require manual operator intervention or special configuration servers.
 It is assembled of technologies that includes service discovery, addressing assignment, and host name resolution.
 
@@ -55,7 +59,7 @@ It is assembled of technologies that includes service discovery, addressing assi
 Further research brought JmDNS. 
 Java implementation of multi-cast DNS that can be used for service registration and discovery in Local Area Network. 
 It works on most JDK1.6 compatible Virtual Machines, it comes as a library and it is easy to integrate with Android. 
-JmDNS fulfill all of our expectations, but while learning about it over internet, we found that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
+JmDNS fulfill all of the expectations, but while learning about it, team found that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
 
 \subsection{Android Network Service Discovery (NSD)}
 NSD is supported from API version 16. 
@@ -64,7 +68,7 @@ Even with API limitation it is a part of Android platform, no third part librari
 Min API version was not of concern to the customer, so team made a decision of using Android Network Discovery(NSD) for client-server core module.
 
 \section{Architecture}
-For the core communication and organization of our product we selected Client-Server Architecture \ref{fig:sprint1_arhitecture}.
+For the core communication and organization of our product we selected Client-Server Architecture figure \ref{fig:sprint1_arhitecture}.
 Choosing this architecture was very intuitive to do as our project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
@@ -78,7 +82,7 @@ Communication should be established over wireless network using same router for 
 \end{figure}
 
 \subsection{"4+1" architectural view model}
-For illustrating software architecture "4+1" architectural Model View\ref{fig:4+1 } will be used. It is based on the multiple concurrent views.
+For illustrating software architecture "4+1" architectural Model View\ref{fig:4+1 } will be used. It is based on the multiple concurrent views therefore better explanation of architecture can be provided.
 
 \begin{figure}[H]
 	\centering
@@ -89,7 +93,7 @@ For illustrating software architecture "4+1" architectural Model View\ref{fig:4+
 \end{figure}
 
 \subsubsection{Logical View}
-A description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
+The description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
 
 Figure \ref{fig:class_diagram_client} gives an overview of the client class structure and collaboration. As planed client have all of the functionality covered by user stories. 
 
@@ -100,7 +104,7 @@ Figure \ref{fig:class_diagram_client} gives an overview of the client class stru
 	\label{fig:class_diagram_client}
 \end{figure}
 
-Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. We made separate thread "ServerThread" for incoming clients to optimize server. Sending command signals is also moved from ui thread to "SendingThread" in order to live more processing power for modules like image processing.
+Figure \ref{fig:class_diagram_server} gives an overview of the server class structure and collaboration. We made separate thread "ServerThread" for incoming clients to optimize server. Sending command signals is also moved from UI thread to "SendingThread" in order to make application more responsive.
 
 \begin{figure}[H]
 	\centering
@@ -109,7 +113,7 @@ Figure \ref{fig:class_diagram_server} gives an overview of the server class stru
 	\label{fig:class_diagram_server}
 \end{figure}
 
-In the sequence diagram \ref{fig:sprint1_communication} is showed how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
+In the sequence diagram \ref{fig:sprint1_communication} it is showed how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
 
 \begin{figure}[H]
 	\centering
@@ -132,44 +136,24 @@ The deployment diagram, displayed in \ref{fig:deployment_diagram } describes the
 is the application that runs on audience Android device. It is able to discover available services, connects to the one and receives command signals from the server. After receiving commands the client is able to flash screen according to given signal.
 
 \paragraph{Router}
-is inevitable part of client-server communication since our project is based on wireless network and zeroconf technologies. In order to support our demands it have to include a DNS relay. The relay embraces storing of service names and allows look-up stored data to the clients.
+is inevitable part of client-server communication since project is based on wireless network and zeroconf technologies. In order to support all the demands demands it have to include a DNS relay service. The relay embraces storing of service names and allows look-up stored data to the clients.
 
 \paragraph{Server}
 is the application that runs on manager's Android device. It have to register service that it provides at router DNS table. Once registered it have to be able to listen for the clients and broadcast command signals to them.
 
 
 \section{Implementation}
-NSD send look like this:
 
-Device Identifier: HelloWorldServer
-Service Name: \_helloWorld.\_tcp.
-Port: 27812
-Network Address: 192.168.1.31
+In this sprint most of the work have be done on time. Actual progress was not ideal, but team managed to finish all of the goals that have been set on the beginning of the sprint.
+Actual burn down chart can be seen on figure \ref{fig:Burn1 } that is generated by team  management tool targetProcess 3 \ref{targetProcessToolDescription}.  
 
-explain sockets
-
-NSD
-
-\subsection{Server-side application}
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=5cm]{sprint1/server_ui.png}
-	\caption{Server UI}
-	\label{fig:Server_UI }
+		\includegraphics[width=10cm]{sprint1/sprint1_burndown.png}
+	\caption{Burn down chart.}
+	\label{fig:Burn1 }
 \end{figure}
 
-\subsection{Client-side application}
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=7cm]{sprint1/user_ui.png}
-	\caption{Client UI}
-	\label{fig:Client_UI }
-\end{figure}
-
-\section{Testing}
-
-\subsection{Test design}
-\subsection{Test execution \& results}
 
 \section{Occurring risks}
 The risk table 3.3, taken from the risk management section in the planning chapter, shows the risks that can occur this project. 
