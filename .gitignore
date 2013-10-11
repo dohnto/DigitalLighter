@@ -28,6 +28,7 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+project.properties
 
 #jan's folder
 materials
