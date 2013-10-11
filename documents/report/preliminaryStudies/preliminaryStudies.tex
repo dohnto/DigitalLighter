@@ -1,12 +1,13 @@
 This chapter is devoted to describing the outcomes of the preliminary research focusing on the similar already existing projects and technologies that could be utilized.
-In section \ref{txt:similar_projects} the similar projects will be described together with their relations to our project and their advantages and disadvantages.
-Software development methodology is described in section \ref{sec:methodology}.
-Then in the section \ref{txt:development technologies} the development technologies and collaboration tools will be presented with outcome of the overall research.
+
+In section \ref{sec:similar_projects} the similar projects will be described together with their relations to our project and their advantages and disadvantages.
+Chosen software development methodology is described in section \ref{sec:methodology}.
+Next, development technologies \ref{sec:development_technologies}, project management tools \ref{sec:management_tools}, version control tool choice \ref{sec:vcs} communication \ref{sec:communication_tools} and documentation tools \ref{sec:documentation_tools} are presented.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Similar projects} \label{txt:similar_projects}
+\section{Similar projects} \label{sec:similar_projects}
 No other services using exactly the same technical solution as compared to our product was found.
 Nevertheless a few similar entertainment services that aim to amuse the music concert audience already exist. 
 These services basically encourage the audience to use either their smartphones or other device as the source of light that helps to create impressive and colorful show.
@@ -92,16 +93,17 @@ The location of the single participants cannot be determined.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Software development methodology}
+\label{sec:methodology}
 A software development methodology is a framework used for structuring, planning and controlling the process of developing an information systems \cite{selectingMethodology}. In the real world ICT companies utilize quite a few various software development methodologies that differ mainly in the overall size of the project they are meant to manage, life cycle phases design and the level of certainty that initial requirements would not change.
 
 One can basically choose between two main general approaches, the traditional software development process or iterative-development process \cite{fairley2009managing}. The first technique mentioned mainly comprise of so called waterfall based models. In theory the waterfall model thoroughly describes the software life cycle phases as a strict sequence that should result in a functional product. The real world experiences however show that this model is not suitable for the projects where the requirements are unclear in the preliminary phases and likely to change a lot during the development process \cite{john2011software}.
 
 It is impossible to have the crystal clear image of the resulting product in the beginning\cite{fairley2009managing} which applies to Digital Lighter project very well. This fact prevents both the customer and the development team to specify all of the requirements beforehand. On the contrary, the team agreed with the customer it is more desirable to employ the methodology which enables the development team to add the new features in an iterative manner and to present functional pieces of code (prototypes) to the customer regularly so that the right course of the project can be maintained.
 
-Therefore it is more reasonable to rely on the approaches from the latter group, the approaches based on iterative-development process. In general these models are designed in the way that they enable the development team to continuously verify and validate the product and detect the process problems early and as discussed with the customer this is something both development team and the customer will benefit from. It has been decided to use the agile development models as described in section \ref{txt:agile_methodologies} and specifically the Scrum model covered in section \ref{txt:scrum}.
+Therefore it is more reasonable to rely on the approaches from the latter group, the approaches based on iterative-development process. In general these models are designed in the way that they enable the development team to continuously verify and validate the product and detect the process problems early and as discussed with the customer this is something both development team and the customer will benefit from. It has been decided by the team to use the agile development models as described in section \ref{subsec:agile_methodologies} and specifically the Scrum model covered in section \ref{subsec:scrum}.
 
 %==================================================================================================%
-\subsection{Agile methodologies} \label{txt:agile_methodologies}
+\subsection{Agile methodologies} \label{subsec:agile_methodologies}
 Agile methodologies were created as the contrary to the traditional software development techniques based on the waterfall model. According to the Agile Manifesto \cite{agileManifesto} created by the well established non profit organization Agile Alliance\footnote{\url{http://www.agilealliance.org/}} the agile approach basically mainly focus on team-customer communication, working software, tight collaboration and ability to respond to changes. As stated in table \ref{tab:agile_vs_waterfall} these and other features agile methodologies provide suite the Digital Lighter the best as the customer stated he requires to be closely involved in the development process.
 
 \begin{table}[htb]
@@ -127,7 +129,7 @@ Agile methodologies were created as the contrary to the traditional software dev
 It can be noticed that the Digital Lighter project requires the team to make a great effort writing the documentation which does not particularly correspond with the agile approach. The issue is that this is still the school project and the extensive documentation is a part of the task. Still as far as the properties of the Digital Lighter project are concerned the advantages of the agile approach are prevailing.
 
 %==================================================================================================%
-\subsection{Scrum} \label{txt:scrum}
+\subsection{Scrum} \label{subsec:scrum}
 Scrum is one of the well established agile methodologies and it has been embraced by the team for several reasons. The customer had good experience using Scrum before and he strongly encouraged the team to use this methodology. Moreover one of the team members has the real world experience working in Scrum. Even though it requires "learning-by-doing" approach to learn Scrum in this case all of the  team members were committed to learn new methodology as it seems to be widely used in the commercial field and therefore the team members would get the valuable experience.
 
 It must be mentioned the team does not use the pure Scrum methodology but rather adjusts it to its specific needs as we are not able to fulfill all of the procedures Scrum dictates. This approach is referred to as a \textit{Scrumbut} \cite{viscardi2013professional} which comes from the self explanatory claim "We use scrum, but ...".  The Scrum framework consists of the roles, processes and artifacts \cite{viscardi2013professional}. Our approach to the role assigning and fulfilling the processes is described in section \ref{txt:utilizing_scrum}. The overall concept of Scrum can be seen on figure \ref{fig:scrum}.
@@ -156,18 +158,20 @@ Task is then basic unit of problem division.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Development technologies} \label{txt:development technologies}
+\section{Development technologies} \label{sec:development_technologies}
 
-According to the customer's requirements the product must be executable on the mobile devices and it should utilize the image processing technologies as well. Therefore we had to make two main decisions - which mobile platform to prefer and which existing image processing libraries to use. Both of the decisions are explained in greater detail in sections \ref{txt:mobile_platform} and \ref{txt:image_processing_library}.
+According to the customer's requirements the product must be executable on the mobile devices and it should utilize the image processing technologies as well. 
+Therefore there was a need to make two main decisions - which mobile platform to prefer and which existing image processing libraries to use. 
+Both of the decisions are explained in greater detail in sections \ref{subsec:mobile_platform} and \ref{subsec:image_processing_library}.
 
 %==================================================================================================%
 
-\subsection{Android} \label{txt:mobile_platform}
+\subsection{Android} \label{subsec:mobile_platform}
 
 The mobile devices market is currently flooded with smartphones and tablets running on dozen of different platforms. 
-But since we try to aim the application on as many users as possible the choice was relatively straightforward.
-Considering the survey carried on by the well established analyst, the company IDC, as of Q2 2013 Google's Android OS held almost 80 \% of the market share\footnote{\url{http://www.idc.com/getdoc.jsp?containerId=prUS24257413}} leaving iOS, windows Phone, BlackBerry and others well behind.
-What is more all of the members of our team posses the Android based smartphone thus we decided to choose the Android platform.
+Since Android platform has major position on the mobile market, the choice was relatively straightforward.
+Considering the survey carried on by the well established analyst, the company IDC, as of Q2 2013 Google's Android OS held almost 80 \% of the market share\footnote{\url{http://www.idc.com/getdoc.jsp?containerId=prUS24257413}} leaving iOS, Windows Phone, BlackBerry and others well behind.
+What is more all of the members of our team posses the Android based smartphone thus it has been decided by the team and customer to choose the Android platform.
 
 \subsubsection{Android SDK}
 
@@ -176,89 +180,96 @@ Google provides the Android developers with all the necessary tools and API's th
 \subsubsection{Android NDK}
 
 Through the NDK\footnote{Native Development Kit} Google provides the toolset allowing the programmers parts of the application using native-code languages such as C and C++.
-We discussed using NDK just for the computationally demanding modules such as the image processing since the applications based on already compiled code tend to run faster.
-Nevertheless we are allowed to scale the problem down and thus the use of Java perfectly suffices fr our purposes.
-Should the customer require to scale the problem up we can switch to using NDK anytime.
+Use of NDK was discussed resulting in adopting it only for computationally demanding modules such as the image processing since the applications based on already compiled code tend to run faster.
+Nevertheless scaling down the problem is allowed by the customer and thus the use of Java perfectly suffices for our purposes.
+Provided the customer requires to scale the problem up, there is a possibility to switch to using NDK anytime.
 
 %==================================================================================================%
 
-\subsection{OpenCV} \label{txt:image_processing_library}
+\subsection{OpenCV} \label{subsec:image_processing_library}
 
 As far as the image processing is considered the outcome of our preliminary research is as follows.
 Currently there exist a few open source and free libraries generally focusing on working with the multimedia.
 OpenCV library is probably the most well-known library providing a broad range of image processing functions.
 It is written and meant to be used in conjunction with C++ but the possibility to use Java already exists too.
 The support for using OpenCV on Android platform is provided through the OpenCV4Android SDK that can be obtained from the official OpenCV website\footnote{\url{http://docs.opencv.org/}} and used for free.
-So far we consider this toolkit to be sufficient for our needs but should we come across any problems we might be forced to switch to the combination of OpenCV, C++ and Android NDK.
+So far the toolkit is considered sufficient for the needs but if any problems occur, it might be necessary to switch to the combination of OpenCV, C++ and Android NDK.
 
 %==================================================================================================%
 
 \subsection{TestFlight}
 
-TestFlight\footnote{\url{https://testflightapp.com/}} is a free web service for mobile developers that provides the tools to easily deploy and distribute the mobile application. What is more TestFlight offers the SDK for developers so that it can be integrated directly into the applications. The advantage of using the TestFlight is the fact that the developer is able to track the bugs, crashes and users' or testers' feedback. The customer suggested the team to use such a service and we had to choose between the TestFlight and similar service called HockeyApp. Unlike HockeyApp the TestFlight is a free service therefore we decided to adopt this service.
+TestFlight\footnote{\url{https://testflightapp.com/}} is a free web service for mobile developers that provides the tools to easily deploy and distribute the mobile application. 
+What is more, TestFlight offers the SDK for developers so that it can be integrated directly into the applications. 
+The advantage of using the TestFlight is the fact that the developer is able to track the bugs, crashes and users' or testers' feedback. 
+The customer suggested the team to use such a service.
+Quick research was made and two different services were found - TestFlight and HockeyApp. Unlike HockeyApp the TestFlight is a free service therefore it was decided by the team that this service will be adopted.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Project management tools}
-Since we use Scrum methodology, we were in need to find an appropriate management tool supporting Scrum. 
+\label{sec:management_tools}
+Since Scrum methodology was chosen, there was a need to find an appropriate management tool supporting Scrum.
 There exist many possible tools, but most of them are charged from
 certain number of team members. 
-Here are presented tools we have used for a testing purposes or in real development.
+Here are presented tools that have been used by the team for a testing purposes or in real development process.
 
 %==================================================================================================%
 
 \subsection{Trello}
-\label{TrelloToolDescription}
-Trello is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to who and in what stage the task is.
-Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking. Therefore after short discussion we have decided that Trello is not suitable for our purpose.
+\label{subsec:TrelloToolDescription}
+Trello is a collaboration tool\footnote{\url{https://trello.com/}} that can organize tasks into various boards, it shows what task has been assigned to whom and in what stage the task is.
+Even though Trello supports a lot of features, it is not originally designed for Scrum use and there is no support of \emph{Epics}, \emph{Burn-down chart} and time tracking. 
+Therefore a after short discussion it was decided by the team that Trello is not suitable for this purpose.
 
 %==================================================================================================%
 
 \subsection{Gravity} 
-\label{GravityToolDescription}
+\label{subsec:GravityToolDescription}
 Gravity is a simple project management tool\footnote{\url{www.gravitydev.com}} currently in beta phase.
 It supports splitting stories into tasks and also automatically calculates \emph{Burn-down chart}. 
-Last but not least it supports it is free of charge for 5 team members, it supports issue tracking and support labels, which can be used for \emph{Epics}.
+Last but not least it is free of charge for 5 team members, it supports issue tracking and labels, which can be used as a compensation for \emph{Epics}.
 On the other hand it does not support time tracking.
-You can see picture of Gravity's features in image \ref{img:gravity}. After a while it showed up that Gravity has some bugs since it is in Beta version and also it misses a time tracking feature.
+You can see a picture of Gravity's features in image \ref{fig:gravity}. After a while it showed up that Gravity has some bugs since it is in Beta version and it also lack a time tracking feature.
 
 \begin{figure}[!h]
 	\centering
 		\includegraphics[width=11cm]{preliminaryStudies/gravity.png}
 	\caption{Gravity features}
-	\label{img:gravity}
+	\label{fig:gravity}
 \end{figure}
 %==================================================================================================%
 
 \subsection{Target Process} 
-\label{targetProcessToolDescription}
+\label{subsec:targetProcessToolDescription}
 Target Process is a project management tool\footnote{\url{http://www.targetprocess.com/}} that supports different processes such as Scrum, Kanban and own process. 
-To its main features belongs role distinguishing, different graphs (such as \emph{Burn-down chart}), time estimation and time tracking of both stories and its tasks, drag and drop prioritizing which makes it easy to use from customer side and different kinds of boards (diverse point of views on project).
+To its main features belongs role distinguishing, different graphs, such as \emph{Burn-down chart}, time estimation, time tracking of both stories and its tasks, drag and drop prioritizing which makes it easy to use from customer side and different kinds of boards (diverse point of views on project).
 On the contrary it also does not support Epics and it is much more complicated to use than other tools introduced.
-You can see example of board in TargetProcess3 in image \ref{img:targetp}. Despite its complexity we decided to use the TargetProcess as it suited our needs the best.
+You can see example of board in TargetProcess3 in image \ref{fig:targetp}. Despite its complexity it has been decided by the team to use the TargetProcess as it suited the team's needs the best.
 
 \begin{figure}[!t]
 	\centering
 		\includegraphics[width=11cm]{preliminaryStudies/targetp.png}
 	\caption{TargetProcess's board}
-	\label{img:targetp}
+	\label{fig:targetp}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Version control tools}
-Version control systems (VCS) are usually stand-alone applications but they can be integrated into other applications. These system usually allow users to browse previous versions of content. We have decided that we will use VCS both for source code of applications and for project report. 
+\section{Version control tool}
+\label{sec:vcs}
+Version control systems (VCS) are usually stand-alone applications but they can be integrated into other applications. These systems usually allow users to browse previous versions of content. It has been decided to use VCS both for source code of applications and for the project report. 
 
-As every member of the team had experience with different version control systems, they become our candidates. As our team works both on Microsoft Windows and GNU/Linux, it is necessary that chosen VCS supports clients in both platforms. Another criteria was support of online code repository free of charge.
+As every member of the team had experience with different version control systems, they become the candidates. As members of the team work both on Microsoft Windows and GNU/Linux, it is necessary that chosen VCS supports clients in both platforms. Another criteria was support of online code repository free of charge.
 
 %==================================================================================================%
 
 \subsection{Subversion}
 Subversion or SVN is an open source centralized VCS and has many clients across different platforms. 
 SVN is supported by Google Code\footnote{\url{http://code.google.com/}} repository.
-SVN supports atomic commits, branching and more. Although this tool provides the user with all of the necessary functionality we decided not to use it as the customer suggested to use the other tool.
+SVN supports atomic commits, branching and more. Although this tool provides the user all of the necessary functionality it has been agreed by the team not to use it as the customer suggested to use the other tool.
 
 %==================================================================================================%
 
@@ -266,24 +277,28 @@ SVN supports atomic commits, branching and more. Although this tool provides the
 Git on the other hand is distributed VCS and offers immediate offline operations.
 Projects like Linux kernel\footnote{\url{https://www.kernel.org/}} and Glibc\footnote{\url{https://www.gnu.org/software/libc/}} are using Git as a VCS.
 Although Git was created by Linus Torvalds, there are Windows clients available.
-Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS. We have adopted Git as our version control system due to our customer suggestion, the distribution feature and our good experience with Github.
-You can find our repository on \url{https://github.com/dohnto/CDP} page.
+Git is supported by GitHub\footnote{\url{https://github.com/}}, what is web-based hosting service for VCS. Git has been adopted as team's version control system due to the customer suggestion, the distribution feature and general good experience with Github.
+You can find Digital Lighter's repository on \url{https://github.com/dohnto/CDP} page.
 
-\begin{figure}[!t]
-	\centering
-		\includegraphics[width=10cm]{preliminaryStudies/git.png}
-	\caption{Our github page}
-	\label{img:git}
-\end{figure}
+%\begin{figure}[!t]
+%	\centering
+%		\includegraphics[width=10cm]{preliminaryStudies/git.png}
+%	\caption{Our github page}
+%	\label{img:git}
+%\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Communication tools} \label{txt:communication tools}
-Regular Communication with stakeholders and creation of a positive understanding is one of the essential parts of the successful project that can help build effective long-term relationships all parties benefit from. Not only the development team should meet the customer and the supervisor on regular basis but there is also the need for easy distribution and sharing of all kind of the documents. As the time resources of all parties are limited the right collaboration tools enabling seamless and fast communication must be established.
+\section{Communication tools} \label{sec:communication_tools}
+Regular communication with stakeholders and creation of a positive understanding is one of the essential parts of the successful project that can help build effective long-term relationships all parties benefit from. 
+Not only the development team should meet the customer and the supervisor on regular basis but there is also the need for easy distribution and sharing of all kinds of the documents. 
+As the time resources of all parties are limited the right collaboration tools enabling seamless and fast communication must be established.
 
-There are certain standard tools that are widely used as a mean of exchanging both textual information and data files. The mainstream well known and effective tools include standard e-mail for messaging, tool for video conferencing, cloud system for data sharing and/or calendar for planning the meetings. Certain platforms providing all necessary tools exist, one can choose among solutions made by Microsoft, Apple, Google and Facebook to list a few most popular.
+There are certain standard tools that are widely used as a mean of exchanging both textual information and data files. 
+The mainstream well known and effective tools include standard e-mail for messaging, tool for video conferencing, cloud system for data sharing and/or calendar for planning the meetings. 
+Certain platforms providing all necessary tools exist, one can choose among solutions made by Microsoft, Apple, Google and Facebook to list a few most popular.
 
 %==================================================================================================%
 
@@ -313,7 +328,8 @@ For the purpose of internal communication and data exchange among the team membe
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Documentation tools} \label{txt:documentation tools}
+\section{Documentation tools} 
+\label{sec:documentation_tools}
 
 There are basically two options for documentation writing. It is either possible to use WYSIWYG editor such as Microsoft Word, Libre Office or document preparation system based on markup language such as \LaTeX.
 
