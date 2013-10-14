@@ -44,7 +44,7 @@ public class Connection {
 
 	public void sendMessage(String msg) {
 		if (mChatClient != null) {
-			mChatClient.sendMessage(msg);
+			mChatClient.broadcast(msg);
 		}
 	}
 
@@ -173,7 +173,7 @@ public class Connection {
 				while (true) {
 					try {
 						String msg = mMessageQueue.take();
-						sendMessage(msg);
+						broadcast(msg);
 					} catch (InterruptedException ie) {
 						Log.d(CLIENT_TAG,
 								"Message sending loop interrupted, exiting");
@@ -192,19 +192,16 @@ public class Connection {
 			}
 		}
 
-		public void sendMessage(String msg) {
+		public void unicast(Socket receiver, String msg) {
 			try {
-				ArrayList<Socket> sockets = getSockets();
-				for (Socket socket : sockets) {
-					if (socket == null) {
-						Log.d(CLIENT_TAG, "Socket is null, wtf?");
-					} else if (socket.getOutputStream() == null) {
-						Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
-					}
-
-					PrintWriter out = new PrintWriter(new BufferedWriter(
-							new OutputStreamWriter(socket.getOutputStream())),
-							true);
+				if (receiver == null) {
+					Log.d(CLIENT_TAG, "Socket is null, wtf?");
+				} else if (receiver.getOutputStream() == null) {
+					Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
+				} else {
+					PrintWriter out = new PrintWriter(
+							new BufferedWriter(new OutputStreamWriter(
+									receiver.getOutputStream())), true);
 					out.println(msg);
 					out.flush();
 					updateMessages(msg, true);
@@ -217,6 +214,13 @@ public class Connection {
 				Log.d(CLIENT_TAG, "Error3", e);
 			}
 			Log.d(CLIENT_TAG, "Client sent message: " + msg);
+		}
+
+		public void broadcast(String msg) {
+			ArrayList<Socket> sockets = getSockets();
+			for (Socket socket : sockets) {
+				unicast(socket, msg);
+			}
 		}
 	}
 }

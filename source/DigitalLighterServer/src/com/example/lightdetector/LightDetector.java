@@ -14,7 +14,6 @@ import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
 
-import android.content.res.AssetManager;
 
 public class LightDetector {
 	// Lower and Upper bounds for range checking in HSV color space
