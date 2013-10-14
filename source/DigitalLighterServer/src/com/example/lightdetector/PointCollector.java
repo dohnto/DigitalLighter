@@ -26,13 +26,13 @@ public class PointCollector {
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	// LISTENER THAT CATCH THE UPDATES
-	PointCollectorListener listener;
+	PointCollectorObserver listener;
 	private Handler mUpdateHandler;
 
 	boolean delivered = true;
 	final TextView info;
 
-	public PointCollector(int titleCountX, int titleCountY, final PointCollectorListener listener, final TextView info) {
+	public PointCollector(int titleCountX, int titleCountY, final PointCollectorObserver listener, final TextView info) {
 		this.info = info;
 		this.listener = listener;
 		mMapper = new TileMapper(titleCountX, titleCountY);

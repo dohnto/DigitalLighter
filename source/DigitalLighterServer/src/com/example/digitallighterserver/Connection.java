@@ -16,7 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class Connection {
+public class Connection extends Ob{
 
 	private Handler mUpdateHandler;
 	private ChatServer mChatServer;

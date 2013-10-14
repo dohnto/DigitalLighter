@@ -31,7 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class CameraActivity extends Activity implements CvCameraViewListener2, PointCollectorListener {
+public class CameraActivity extends Activity implements CvCameraViewListener2, PointCollectorObserver {
 
 	PointCollector collector;
 
