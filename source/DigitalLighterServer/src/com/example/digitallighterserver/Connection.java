@@ -16,7 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class Connection extends Ob{
+public class Connection {
 
 	private Handler mUpdateHandler;
 	private ChatServer mChatServer;
@@ -125,8 +125,7 @@ public class Connection extends Ob{
 						setSocket(mServerSocket.accept());
 
 						Bundle messageBundle = new Bundle();
-						messageBundle.putInt(Protocol.MESSAGE_TYPE,
-								Protocol.MESSAGE_TYPE_USER_ADDED);
+						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_USER_ADDED);
 						Message message = new Message();
 						message.setData(messageBundle);
 						mUpdateHandler.sendMessage(message);
@@ -175,8 +174,7 @@ public class Connection extends Ob{
 						String msg = mMessageQueue.take();
 						broadcast(msg);
 					} catch (InterruptedException ie) {
-						Log.d(CLIENT_TAG,
-								"Message sending loop interrupted, exiting");
+						Log.d(CLIENT_TAG, "Message sending loop interrupted, exiting");
 					}
 				}
 			}
@@ -199,9 +197,8 @@ public class Connection extends Ob{
 				} else if (receiver.getOutputStream() == null) {
 					Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
 				} else {
-					PrintWriter out = new PrintWriter(
-							new BufferedWriter(new OutputStreamWriter(
-									receiver.getOutputStream())), true);
+					PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+							receiver.getOutputStream())), true);
 					out.println(msg);
 					out.flush();
 					updateMessages(msg, true);

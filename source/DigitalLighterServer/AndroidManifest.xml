@@ -48,6 +48,10 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
         </activity>
+
+        <service
+            android:name="com.example.digitallighterserver.ConnectionService"
+            android:exported="false" />
     </application>
 
 </manifest>
