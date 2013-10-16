@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -24,6 +26,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import com.example.digitallighterserver.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +34,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class CameraActivity extends Activity implements CvCameraViewListener2, PointCollectorObserver {
+public class CameraActivity extends Activity implements CvCameraViewListener2, Observer {
 
 	PointCollector collector;
 
@@ -102,7 +105,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 	@Override
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
-		collector = new PointCollector(tilesX, tilesY, this, info);
+		collector = new PointCollector(tilesX, tilesY);
 
 		screenColors.add(ColorManager.KEY_BLUE);
 		screenColors.add(ColorManager.KEY_GREEN);
@@ -130,14 +133,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 			buffer.remove();
 		}
 		return image;
-	}
-
-	@Override
-	public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) {
-		if (buffer.size() > 20) {
-			buffer.clear();
-		}
-		buffer.add(update);
 	}
 
 	public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
@@ -168,5 +163,15 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, P
 
 		// Core.addWeighted(input, 1.0, output, 0.5, 0, output);
 		return output;
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		HashMap<String, ArrayList<Point>> blobs = (HashMap<String, ArrayList<Point>>) data;
+		if (buffer.size() > 20) {
+			buffer.clear();
+		}
+		buffer.add(blobs);
+		
 	}
 }

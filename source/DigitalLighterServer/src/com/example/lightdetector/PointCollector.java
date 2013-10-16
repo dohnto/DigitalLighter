@@ -3,6 +3,7 @@ package com.example.lightdetector;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Observable;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -18,7 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
-public class PointCollector {
+public class PointCollector extends Observable {
 
 	private static final String NEW_UPDATE = "";
 	TileMapper mMapper;
@@ -26,15 +27,11 @@ public class PointCollector {
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	// LISTENER THAT CATCH THE UPDATES
-	PointCollectorObserver listener;
 	private Handler mUpdateHandler;
 
 	boolean delivered = true;
-	final TextView info;
 
-	public PointCollector(int titleCountX, int titleCountY, final PointCollectorObserver listener, final TextView info) {
-		this.info = info;
-		this.listener = listener;
+	public PointCollector(int titleCountX, int titleCountY) {
 		mMapper = new TileMapper(titleCountX, titleCountY);
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
@@ -44,13 +41,7 @@ public class PointCollector {
 			public void handleMessage(Message msg) {
 				if (msg.getData().getBoolean(NEW_UPDATE)) {
 					if (buffer.size() > 0) {
-						String text = new String();
-						for (String colorItem : buffer.peek().keySet()) {
-							text += colorItem + ": " + buffer.peek().get(colorItem).size() + "\n";
-						}
-						info.setText(text);
-						
-						listener.onPointCollectorUpdate(buffer.poll());
+						notifyObservers(buffer.poll());
 					}
 				}
 			}
