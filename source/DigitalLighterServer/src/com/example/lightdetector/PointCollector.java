@@ -19,19 +19,19 @@ import android.os.Message;
 import android.widget.TextView;
 
 public class PointCollector {
-
+/*
 	private static final String NEW_UPDATE = "";
 	TileMapper mMapper;
 
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	// LISTENER THAT CATCH THE UPDATES
-	PointCollectorObserver listener;
+	//PointCollectorObserver listener;
 	private Handler mUpdateHandler;
 
 	boolean delivered = true;
 	final TextView info;
-
+/*
 	public PointCollector(int titleCountX, int titleCountY, final PointCollectorObserver listener, final TextView info) {
 		this.info = info;
 		this.listener = listener;
@@ -56,7 +56,7 @@ public class PointCollector {
 			}
 
 		};
-	}
+	} 
 
 	public void collect(final Mat input, final ArrayList<String> colors) {
 
@@ -112,7 +112,7 @@ public class PointCollector {
 		 * update.put(color, resultPoints); }
 		 * 
 		 * listener.onPointCollectorUpdate(update);
-		 */
+		 
 
 	}
 
@@ -132,5 +132,5 @@ public class PointCollector {
 
 		}
 
-	}
+	} */
 }
