@@ -20,6 +20,7 @@ public class ColorManager {
 		colors.put(KEY_GREEN, new double[] {0.0, 255.0, 0.0, 255.0});
 		colors.put(KEY_BLUE, new double[] {0.0, 0.0, 255.0, 255.0});
 		colors.put(KEY_WHITE, new double[] {255.0, 255.0, 255.0, 255.0});
+		colors.put(KEY_BLACK, new double[] {0.0, 0.0, 0.0, 255.0});
 	}
 	
 	/**
