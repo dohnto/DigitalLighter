@@ -35,7 +35,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer {
-
 	PointCollector collector;
 
 	static int tilesX = 4;
@@ -109,7 +108,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		screenColors.add(ColorManager.KEY_BLUE);
 		screenColors.add(ColorManager.KEY_GREEN);
-		screenColors.add(ColorManager.KEY_RED);
+		screenColors.add(ColorManager.KEY_RED); 
 	}
 
 	@Override
@@ -120,7 +119,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-		collector.collect(inputFrame.rgba(), screenColors);
+		//collector.collect(inputFrame.rgba(), screenColors);
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
@@ -134,6 +133,14 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		}
 		return image;
 	}
+
+	/*
+	public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) {
+		if (buffer.size() > 20) {
+			buffer.clear();
+		}
+		buffer.add(update);
+	} */
 
 	public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
 		Mat output = new Mat();

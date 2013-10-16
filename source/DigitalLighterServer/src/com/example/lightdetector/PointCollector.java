@@ -19,8 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
-public class PointCollector extends Observable {
-
+public class PointCollector extends Observable {	
 	private static final String NEW_UPDATE = "";
 	TileMapper mMapper;
 
@@ -32,6 +31,7 @@ public class PointCollector extends Observable {
 	boolean delivered = true;
 
 	public PointCollector(int titleCountX, int titleCountY) {
+
 		mMapper = new TileMapper(titleCountX, titleCountY);
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
@@ -47,7 +47,7 @@ public class PointCollector extends Observable {
 			}
 
 		};
-	}
+	} 
 
 	public void collect(final Mat input, final ArrayList<String> colors) {
 
@@ -91,7 +91,7 @@ public class PointCollector extends Observable {
 		processThread.start();
 	}
 
-	public void collectOffline(final Mat img, final ArrayList<String> colors) {
+	/*public void collectOffline(final Mat img, final ArrayList<String> colors) {
 		/*
 		 * update = new HashMap<String, ArrayList<Point>>();
 		 * 
@@ -103,9 +103,9 @@ public class PointCollector extends Observable {
 		 * update.put(color, resultPoints); }
 		 * 
 		 * listener.onPointCollectorUpdate(update);
-		 */
+		 
 
-	}
+	}*/
 
 	class myAsync extends AsyncTask<String, String, HashMap<String, ArrayList<Point>>> {
 
