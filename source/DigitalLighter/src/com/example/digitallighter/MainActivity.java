@@ -159,7 +159,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
 				public void onFinish() {
 					if (playingQueue.isEmpty()) {
-						background.setBackgroundColor(Color.WHITE);
+					//	background.setBackgroundColor(Color.WHITE); now device should stay lighting last command color
 						isPlaying = false;
 					} else {
 						playCommand("recursion");

@@ -13,6 +13,7 @@ import org.opencv.core.Point;
 
 import android.text.style.ForegroundColorSpan;
 
+import com.example.lightdetector.CameraActivity;
 import com.example.lightdetector.ColorManager;
 import com.example.lightdetector.PointCollector;
 
@@ -20,19 +21,19 @@ public class DeviceMapper implements Observer {
 
 	PointCollector collector; // point collector
 	DeviceMapperState state; // state of FSM
-	static int tilesX = 4;
-	static int tilesY = 4;
+	static int tilesX = 2;
+	static int tilesY = 2;
 	static long WAIT_TIME = 1 * 1000; // waiting time between sending a signal
 										// and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
-	String SHUT_DOWN_COLOR = ColorManager.KEY_BLACK;
-	
-	Date startTime;
+	double[] SHUT_DOWN_COLOR = ColorManager.getColor(ColorManager.KEY_BLACK);
+
+	long startT;
 	ArrayList<Point> falseAlarmDevices; // blobs that are shining with RARE
 										// color when non of phone should light
 
-	HashMap<String, ArrayList<Point>> lastDetectedBlobs;
-	HashMap<Point, ArrayList<Socket>> devices = new HashMap<Point, ArrayList<Socket>>();
+	HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
+	HashMap<Point, ArrayList<Socket>> devices;
 	int oneByOneCounter = 0;
 
 	Boolean detectionDone;
@@ -42,26 +43,36 @@ public class DeviceMapper implements Observer {
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
-	public DeviceMapper(ConnectionService mConnection) {
+	public DeviceMapper(ConnectionService mConnection, Observer ca) {
+		devices = new HashMap<Point, ArrayList<Socket>>();
+
+		for (int i = 0; i < tilesX; i++)
+			for (int j = 0; j < tilesY; j++) {
+				ArrayList<Socket> list = new ArrayList<Socket>();
+				devices.put(new Point(i, j), list);
+			}
+
 		collector = new PointCollector(tilesX, tilesY);
 		collector.addObserver(this);
+		collector.addObserver(ca);
 		state = DeviceMapperState.INIT;
 		network = mConnection;
-	}
-
-	private int getNumberOfClients() {
-		// TODO get from network module number of sockets
-		return 0;
 	}
 
 	public void nextFrame(Mat image) {
 		detectionDone = false;
 		doFSMStep(image, false);
+
 	}
 
 	@Override
 	public void update(Observable obs, Object obj) {
 		lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
+		doFSMStep(null, true);
+	}
+
+	public void updateTEST(HashMap<String, ArrayList<Point>> obj) {
+		lastDetectedBlobs = obj;
 		doFSMStep(null, true);
 	}
 
@@ -81,26 +92,27 @@ public class DeviceMapper implements Observer {
 		switch (state) {
 		case INIT:
 			// broadcast all devices to shine with initial color
-			network.broadcastCommandSignal(ColorManager.getHexColor(ColorManager.getColor(SHUT_DOWN_COLOR)) + ":1100");
-			startTime = new Date();
+			network.broadcastCommandSignal(ColorManager.getHexColor(SHUT_DOWN_COLOR) + ":1000");
+			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
 		case DETECT_FALSE_ALARM:
 			// wait few seconds for devices to process the image
-			if (new Date().getTime() - startTime.getTime() > WAIT_TIME) {
+			if (System.currentTimeMillis() - startT > WAIT_TIME) {
 				// take a picture and find all possible devices
 				screenColors.clear();
 				screenColors.add(RARE_COLOR);
-				detectLights(image);
 				state = DeviceMapperState.DETECT_FALSE_ALARM_WAIT_FOR_UPDATE;
+				detectLights(image);
 			}
 			break;
 		case DETECT_FALSE_ALARM_WAIT_FOR_UPDATE:
-			if (forceNextStep) // collected send update, now we can process
-								// blobs
+			if (forceNextStep) { // collected send update, now we can process
+									// blobs
 				falseAlarmDevices = lastDetectedBlobs.get(RARE_COLOR);
-			lastDetectedBlobs.clear();
-			state = DeviceMapperState.ONE_BY_ONE;
+				lastDetectedBlobs.clear();
+				state = DeviceMapperState.ONE_BY_ONE;
+			}
 			break;
 		case ONE_BY_ONE:
 			if (oneByOneCounter >= network.getConnectedDevices().size()) {
@@ -108,17 +120,18 @@ public class DeviceMapper implements Observer {
 			} else {
 				// iterate through all of devices
 				// make it light
-				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter), ColorManager.getHexColor(ColorManager.getColor(RARE_COLOR)) + ":1100");
-				startTime = new Date();
+				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter),
+						ColorManager.getHexColor(ColorManager.getColor(RARE_COLOR)) + ":1000");
+				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
 			}
 			break;
 		case DETECT_ONE:
-			if (new Date().getTime() - startTime.getTime() > WAIT_TIME) {
+			if (System.currentTimeMillis() - startT > WAIT_TIME) {
 				screenColors.clear();
 				screenColors.add(RARE_COLOR);
-				detectLights(image);
 				state = DeviceMapperState.DETECT_ONE_WAIT_FOR_UPDATE;
+				detectLights(image);
 			}
 			break;
 		case DETECT_ONE_WAIT_FOR_UPDATE:
@@ -129,13 +142,17 @@ public class DeviceMapper implements Observer {
 
 				// randomly choose the tile
 				Point tileOfDevice = lastDetectedBlobs.get(RARE_COLOR).get(
-						getRandomInt(0, lastDetectedBlobs.size()));
+						getRandomInt(0, lastDetectedBlobs.size() - 1));
 				// add to hash map
-				devices.get(tileOfDevice).add(
-						network.getConnectedDevices().get(oneByOneCounter));
+
+				devices.get(tileOfDevice).add(network.getConnectedDevices().get(oneByOneCounter));
 				oneByOneCounter++;
+				state = DeviceMapperState.INIT;
 			}
+			break;
 		case END:
+			if (devices != null && devices.size() > 0)
+				network.unicastCommandSignal(devices.get(new Point(0, 0)).get(0), "#ff0000:5000");
 			break;
 		default:
 			// this should never happen

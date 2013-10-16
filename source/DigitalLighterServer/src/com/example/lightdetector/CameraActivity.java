@@ -9,43 +9,46 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import com.example.digitallighterserver.ConnectionService;
-import com.example.digitallighterserver.MainActivityServer;
-import com.example.digitallighterserver.DeviceMapper;
-import com.example.digitallighterserver.R;
-import com.example.digitallighterserver.ConnectionService.LocalBinder;
-import com.example.digitallighterserver.ServiceObserver;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.digitallighterserver.ConnectionService;
+import com.example.digitallighterserver.ConnectionService.LocalBinder;
+import com.example.digitallighterserver.DeviceMapper;
+import com.example.digitallighterserver.R;
+import com.example.digitallighterserver.ServiceObserver;
+
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
 	PointCollector collector;
 
-	static int tilesX = 4;
-	static int tilesY = 4;
+	static int tilesX = 2;
+	static int tilesY = 2;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	int fpsCounter;
 	ConnectionService mService;
 	boolean mBound = false;
-		
+
 	DeviceMapper dm;
 
 	// COLORS
@@ -70,7 +73,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			}
 		}
 	};
-	
 
 	/** Defines callbacks for service binding, passed to bindService() */
 	private ServiceConnection mConnection = new ServiceConnection() {
@@ -82,6 +84,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
+			dm = new DeviceMapper(mService, CameraActivity.this);
 		}
 
 		@Override
@@ -89,6 +92,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mBound = false;
 		}
 	};
+
+	public void startDetection(View v) {
+		startProcess = true;
+	}
+
+	private boolean startProcess = false;
 
 	@Override
 	public void onPause() {
@@ -101,6 +110,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	public void onResume() {
 		super.onResume();
 		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+		Intent serviceIntent = new Intent(this, ConnectionService.class);
+		bindService(serviceIntent, mConnection, Context.BIND_ADJUST_WITH_ACTIVITY);
 	}
 
 	public void onDestroy() {
@@ -117,22 +128,18 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		setContentView(R.layout.color_blob_detection_surface_view);
-		
+
 		info = (TextView) findViewById(R.id.info_txt);
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 		mOpenCvCameraView.setCvCameraViewListener(this);
-		
-		dm = new DeviceMapper(mService);
 	}
 
 	@Override
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
-		collector = new PointCollector(tilesX, tilesY);
-
 		screenColors.add(ColorManager.KEY_BLUE);
 		screenColors.add(ColorManager.KEY_GREEN);
-		screenColors.add(ColorManager.KEY_RED); 
+		screenColors.add(ColorManager.KEY_RED);
 	}
 
 	@Override
@@ -143,7 +150,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-		dm.nextFrame(inputFrame.rgba());
+		if (startProcess && dm != null) {
+			dm.nextFrame(inputFrame.rgba());
+		}
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
@@ -158,12 +167,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	}
 
 	/*
-	public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) {
-		if (buffer.size() > 20) {
-			buffer.clear();
-		}
-		buffer.add(update);
-	} */
+	 * public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) { if (buffer.size() > 20)
+	 * { buffer.clear(); } buffer.add(update); }
+	 */
 
 	public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
 		Mat output = new Mat();
@@ -202,11 +208,18 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			buffer.clear();
 		}
 		buffer.add(blobs);
-		
+
+	}
+
+	public void updateTEST(HashMap<String, ArrayList<Point>> obj) {
+		if (buffer.size() > 20) {
+			buffer.clear();
+		}
+		buffer.add(obj);
 	}
 
 	@Override
 	public void onServiceDataUpdate() {
-		//When something change inside service like new device connected this function will be invoked		
+		// When something change inside service like new device connected this function will be invoked
 	}
 }

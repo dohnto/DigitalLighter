@@ -99,7 +99,6 @@ public class ConnectionService extends Service {
 
 	public void broadcastCommandSignal(String signal) {
 		mConnection.sendMessage(signal);
-		Toast.makeText(this, "Sent: " + signal, Toast.LENGTH_LONG).show();
 	}
 
 	public void unicastCommandSignal(Socket receiver, String msg) {

@@ -13,6 +13,8 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 
+import com.example.digitallighterserver.DeviceMapper;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +43,9 @@ public class PointCollector extends Observable {
 			public void handleMessage(Message msg) {
 				if (msg.getData().getBoolean(NEW_UPDATE)) {
 					if (buffer.size() > 0) {
+						setChanged();
 						notifyObservers(buffer.poll());
+						
 					}
 				}
 			}
