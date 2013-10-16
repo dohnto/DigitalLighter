@@ -25,8 +25,12 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+<<<<<<< Updated upstream
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.MainActivityServer;
+=======
+import com.example.digitallighterserver.DeviceMapper;
+>>>>>>> Stashed changes
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.ServiceObserver;
@@ -53,7 +57,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	int fpsCounter;
 	ConnectionService mService;
 	boolean mBound = false;
-	
+		
+	DeviceMapper dm;
+
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
@@ -127,6 +133,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		info = (TextView) findViewById(R.id.info_txt);
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 		mOpenCvCameraView.setCvCameraViewListener(this);
+		
+		dm = new DeviceMapper();
 
 	}
 
@@ -148,13 +156,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-		//collector.collect(inputFrame.rgba(), screenColors);
+		dm.nextFrame(inputFrame.rgba());
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
 			for (String colorItem : buffer.peek().keySet()) {
 				for (Point tile : buffer.peek().get(colorItem)) {
-					// System.out.println("Blob: " + colorItem + " " + tile.x + " " + tile.y);
 					image = drawTile(image, (int) tile.x, (int) tile.y, ColorManager.getCvColor(colorItem));
 				}
 			}
