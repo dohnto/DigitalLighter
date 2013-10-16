@@ -25,16 +25,24 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import com.example.digitallighterserver.ConnectionService;
+import com.example.digitallighterserver.MainActivityServer;
 import com.example.digitallighterserver.R;
+import com.example.digitallighterserver.ConnectionService.LocalBinder;
+import com.example.digitallighterserver.ServiceObserver;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class CameraActivity extends Activity implements CvCameraViewListener2, Observer {
+public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
 	PointCollector collector;
 
 	static int tilesX = 4;
@@ -43,7 +51,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	int fpsCounter;
-
+	ConnectionService mService;
+	boolean mBound = false;
+	
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
@@ -64,6 +74,25 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			}
 				break;
 			}
+		}
+	};
+	
+
+	/** Defines callbacks for service binding, passed to bindService() */
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			// We've bound to LocalService, cast the IBinder and get LocalService instance
+			LocalBinder binder = (LocalBinder) service;
+			mService = binder.getService();
+			mBound = true;
+			mService.setObserver(CameraActivity.this);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			mBound = false;
 		}
 	};
 
@@ -180,5 +209,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		}
 		buffer.add(blobs);
 		
+	}
+
+	@Override
+	public void onServiceDataUpdate() {
+		//When something change inside service like new device connected this function will be invoked		
 	}
 }

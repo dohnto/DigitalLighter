@@ -1,5 +1,8 @@
 package com.example.digitallighterserver;
 
+import java.net.Socket;
+import java.util.ArrayList;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -37,7 +40,7 @@ public class ConnectionService extends Service {
 	 * clients, we don't need to deal with IPC.
 	 */
 	public class LocalBinder extends Binder {
-		ConnectionService getService() {
+		public ConnectionService getService() {
 			// Return this instance of ConnectionService so clients can call public methods
 			return ConnectionService.this;
 		}
@@ -94,9 +97,17 @@ public class ConnectionService extends Service {
 		}
 	}
 
-	public void sendCommandSignal(String signal) {
+	public void broadcastCommandSignal(String signal) {
 		mConnection.sendMessage(signal);
 		Toast.makeText(this, "Sent: " + signal, Toast.LENGTH_LONG).show();
+	}
+
+	public void unicastCommandSignal(Socket receiver, String msg) {
+		mConnection.sendMessage(msg);
+	}
+
+	public ArrayList<Socket> getConnectedDevices() {
+		return mConnection.getSockets();
 	}
 
 	public void setObserver(ServiceObserver obs) {

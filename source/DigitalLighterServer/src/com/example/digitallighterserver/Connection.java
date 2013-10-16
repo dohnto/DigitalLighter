@@ -47,6 +47,12 @@ public class Connection {
 			mChatClient.broadcast(msg);
 		}
 	}
+	
+	public void sendMessage(Socket receiver, String msg) {
+		if (mChatClient != null) {
+			mChatClient.unicast(receiver, msg);
+		}
+	}
 
 	public int getLocalPort() {
 		return mPort;
@@ -85,7 +91,7 @@ public class Connection {
 
 	}
 
-	private ArrayList<Socket> getSockets() {
+	public ArrayList<Socket> getSockets() {
 		return mSocket;
 	}
 
