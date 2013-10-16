@@ -25,12 +25,9 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-<<<<<<< Updated upstream
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.MainActivityServer;
-=======
 import com.example.digitallighterserver.DeviceMapper;
->>>>>>> Stashed changes
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.ServiceObserver;
@@ -134,8 +131,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		
-		dm = new DeviceMapper();
-
+		dm = new DeviceMapper(mService);
 	}
 
 	@Override
