@@ -10,6 +10,7 @@ public class ColorManager {
 	public static String KEY_BLUE = "blue";
 	public static String KEY_GREEN = "green";
 	public static String KEY_WHITE = "white";
+	public static String KEY_BLACK = "black";
 	
 	private static HashMap<String, double[]> colors = null;
 	
@@ -45,6 +46,14 @@ public class ColorManager {
 	public static Scalar getCvColor(String key) {
 		double[] color = getInstance().get(key);
 		return new Scalar(color[0], color[1], color[2], color[3]);
+	}
+	
+	public static String getHexColor(double[] color){
+		String f = "#" + Integer.toHexString((int) color[0]);
+		String s = "" + Integer.toHexString((int) color[1]);
+		String t = "" + Integer.toHexString((int) color[2]);
+				
+		return f+s+t;
 	}
 	
 }
