@@ -10,13 +10,10 @@ import java.util.Random;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-
-import android.text.style.ForegroundColorSpan;
-
 import com.example.lightdetector.ColorManager;
 import com.example.lightdetector.PointCollector;
 
-public class DeviceMapper implements Observer {
+public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	PointCollector collector; // point collector
 	DeviceMapperState state; // state of FSM
@@ -60,10 +57,10 @@ public class DeviceMapper implements Observer {
 		network = mConnection;
 	}
 
-	public void nextFrame(Mat image) {
+	public Boolean nextFrame(Mat image) {
 		detectionDone = false;
 		doFSMStep(image, false);
-
+		return false;
 	}
 
 	@Override
@@ -179,5 +176,10 @@ public class DeviceMapper implements Observer {
 	public static int getRandomInt(int min, int max) {
 		Random r = new Random();
 		return min + (int) r.nextInt(max - min + 1);
+	}
+
+	@Override
+	public HashMap<Point, ArrayList<Socket>> getDevices() {
+		return devices;
 	}
 }
