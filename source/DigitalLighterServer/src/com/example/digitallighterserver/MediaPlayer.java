@@ -20,6 +20,6 @@ public class MediaPlayer {
 	 * @return Playback finished
 	 */
 	public boolean playNextFrame() {
-		
+		return false;
 	}
 }
