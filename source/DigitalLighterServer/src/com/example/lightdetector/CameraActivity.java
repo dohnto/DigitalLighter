@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
+import com.example.digitallighterserver.DeviceLocatingStrategy;
 import com.example.digitallighterserver.DeviceMapper;
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
@@ -49,7 +50,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	ConnectionService mService;
 	boolean mBound = false;
 
-	DeviceMapper dm;
+	DeviceLocatingStrategy dl;
 
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
@@ -84,7 +85,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-			dm = new DeviceMapper(mService, CameraActivity.this);
+			dl = new DeviceMapper(mService, /*tilesX, tilesY,*/ CameraActivity.this);
 		}
 
 		@Override
@@ -150,8 +151,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-		if (startProcess && dm != null) {
-			dm.nextFrame(inputFrame.rgba());
+		if (startProcess && dl != null) {
+			dl.nextFrame(inputFrame.rgba());
 		}
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
