@@ -17,8 +17,8 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	PointCollector collector; // point collector
 	DeviceMapperState state; // state of FSM
-	static int tilesX = 2;
-	static int tilesY = 2;
+	int tilesX;
+	int tilesY;
 	static long WAIT_TIME = 200; // waiting time between sending a signal
 										// and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
@@ -41,7 +41,10 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
-	public DeviceMapper(ConnectionService mConnection, Observer ca) {
+	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
+		this.tilesX = tilesX;
+		this.tilesY = tilesY;
+		
 		devices = new HashMap<Point, ArrayList<Socket>>();
 
 		for (int i = 0; i < tilesX; i++)
@@ -57,6 +60,9 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		network = mConnection;
 	}
 
+	/**
+	 * Process next frame, returns true when precedure is finished. 
+	 */
 	public Boolean nextFrame(Mat image) {
 		detectionDone = false;
 		doFSMStep(image, false);
@@ -80,8 +86,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		DETECT_ONE_WAIT_FOR_UPDATE, END;
 	}
 
-	private void doFSMStep(Mat image, Boolean forceNextStep) {
-
+	/**
+	 * Makes one step in FS machine, returns true if it is in final state.
+	 * @param image
+	 * @param forceNextStep
+	 */
+	private Boolean doFSMStep(Mat image, Boolean forceNextStep) {
+		Boolean retval = false;
+		
 		switch (state) {
 		case INIT:
 			recoveryCounter = 0;
@@ -159,11 +171,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		case END:
 			network.unicastCommandSignal(devices.get(new Point(0, 0))
 						.get(0), "#ff0000:5000");
+			retval = true;
 			break;
 		default:
 			// this should never happen
 			break;
 		}
+		
+		return retval;
 	}
 
 	private void detectLights(Mat image) {

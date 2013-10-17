@@ -35,6 +35,7 @@ import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.DeviceLocatingStrategy;
 import com.example.digitallighterserver.DeviceMapper;
+import com.example.digitallighterserver.DeviceTracker;
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
@@ -85,7 +86,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-			dl = new DeviceMapper(mService, /*tilesX, tilesY,*/ CameraActivity.this);
+			dl = new DeviceMapper(mService, tilesX, tilesY, CameraActivity.this);
 		}
 
 		@Override
@@ -152,7 +153,11 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
 		if (startProcess && dl != null) {
-			dl.nextFrame(inputFrame.rgba());
+			if (dl.nextFrame(inputFrame.rgba())) { // mapping is finished
+				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
+				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl);
+				
+			}
 		}
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
