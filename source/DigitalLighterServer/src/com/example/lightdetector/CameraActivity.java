@@ -43,8 +43,8 @@ import com.example.digitallighterserver.ServiceObserver;
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
 	PointCollector collector;
 
-	static int tilesX = 2;
-	static int tilesY = 2;
+	static int tilesX = 3;
+	static int tilesY = 3;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
