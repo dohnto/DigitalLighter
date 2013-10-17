@@ -9,6 +9,8 @@ import org.opencv.core.Point;
 
 public class DeviceTracker implements DeviceLocatingStrategy {
 
+	HashMap<Point, ArrayList<Socket>> devices;
+	
 	public DeviceTracker(int tilesX, int tilesY,
 			HashMap<Point, ArrayList<Socket>> devices) {
 		// TODO Automaticky generovaný stub konstruktoru

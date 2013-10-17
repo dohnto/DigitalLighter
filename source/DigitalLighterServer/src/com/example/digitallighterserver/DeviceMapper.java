@@ -20,7 +20,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	int tilesX;
 	int tilesY;
 	static long WAIT_TIME = 200; // waiting time between sending a signal
-										// and taking a picture in miliseconds
+									// and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
 	double[] SHUT_DOWN_COLOR = ColorManager.getColor(ColorManager.KEY_BLACK);
 
@@ -41,10 +41,11 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
-	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
+	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY,
+			Observer ca) {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
-		
+
 		devices = new HashMap<Point, ArrayList<Socket>>();
 
 		for (int i = 0; i < tilesX; i++)
@@ -61,7 +62,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	}
 
 	/**
-	 * Process next frame, returns true when precedure is finished. 
+	 * Process next frame, returns true when precedure is finished.
 	 */
 	public Boolean nextFrame(Mat image) {
 		detectionDone = false;
@@ -88,12 +89,13 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	/**
 	 * Makes one step in FS machine, returns true if it is in final state.
+	 * 
 	 * @param image
 	 * @param forceNextStep
 	 */
 	private Boolean doFSMStep(Mat image, Boolean forceNextStep) {
 		Boolean retval = false;
-		
+
 		switch (state) {
 		case INIT:
 			recoveryCounter = 0;
@@ -150,7 +152,8 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				}
 
 				// randomly choose the tile
-				if (lastDetectedBlobs.get(RARE_COLOR).size() > 0) { // phone detected
+				if (lastDetectedBlobs.get(RARE_COLOR).size() > 0) { // phone
+																	// detected
 					Point tileOfDevice = lastDetectedBlobs.get(RARE_COLOR).get(
 							getRandomInt(0, lastDetectedBlobs.size() - 1));
 					// add to hash map
@@ -158,9 +161,11 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 							network.getConnectedDevices().get(oneByOneCounter));
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
-				} else if (recoveryCounter < RECOVERY_TRIES) { // not detected but give second chance
+				} else if (recoveryCounter < RECOVERY_TRIES) { // not detected
+																// but give
+																// second chance
 					recoveryCounter++;
-					state = DeviceMapperState.ONE_BY_ONE;					
+					state = DeviceMapperState.ONE_BY_ONE;
 				} else { // run out of second chances
 					// TODO delete phone
 					oneByOneCounter++;
@@ -169,15 +174,31 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			}
 			break;
 		case END:
-			network.unicastCommandSignal(devices.get(new Point(0, 0))
-						.get(0), "#ff0000:5000");
+			for (int i = 0; i < 3; i++) {
+				for (Socket s : devices.get(new Point(0, i))) {
+					network.unicastCommandSignal(s, "#ff0000:5000");
+				}
+			}
+			
+			for (int i = 0; i < 3; i++) {
+				for (Socket s : devices.get(new Point(1, i))) {
+					network.unicastCommandSignal(s, "#ffcc00:5000");
+				}
+			}
+			
+			for (int i = 0; i < 3; i++) {
+				for (Socket s : devices.get(new Point(2, i))) {
+					network.unicastCommandSignal(s, "#00ff00:5000");
+				}
+			}
+
 			retval = true;
 			break;
 		default:
 			// this should never happen
 			break;
 		}
-		
+
 		return retval;
 	}
 
