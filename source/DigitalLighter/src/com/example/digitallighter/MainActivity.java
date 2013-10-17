@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.testflightapp.lib.TestFlight;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
@@ -50,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
+		//TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
