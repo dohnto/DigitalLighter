@@ -102,7 +102,7 @@ public class ConnectionService extends Service {
 	}
 
 	public void unicastCommandSignal(Socket receiver, String msg) {
-		mConnection.sendMessage(msg);
+		mConnection.sendMessage(receiver, msg);
 	}
 
 	public ArrayList<Socket> getConnectedDevices() {

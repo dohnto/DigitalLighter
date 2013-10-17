@@ -98,10 +98,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	};
 
 	public void startDetection(View v) {
-		startProcess = true;
+		((DeviceMapper) dl).setStarted(true);
 	}
-
-	private boolean startProcess = false;
 
 	@Override
 	public void onPause() {
@@ -154,7 +152,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-		if (startProcess && dl != null) {
+		if (dl != null) {
 			if (dl.nextFrame(inputFrame.rgba())) { // mapping is finished
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
@@ -162,8 +160,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService);
 			}
 		}
-		
-		if (startProcess && mediaPlayer != null) {
+
+		if (mediaPlayer != null) {
 			if (mediaPlayer.playNextFrame()) {
 				// media is done, reset process?
 			}

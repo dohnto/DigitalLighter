@@ -19,7 +19,17 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	DeviceMapperState state; // state of FSM
 	int tilesX;
 	int tilesY;
-	static long WAIT_TIME = 200; // waiting time between sending a signal
+	boolean started = false;
+
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
+
+	static long WAIT_TIME = 1000; // waiting time between sending a signal
 									// and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
 	double[] SHUT_DOWN_COLOR = ColorManager.getColor(ColorManager.KEY_BLACK);
@@ -34,15 +44,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	final int RECOVERY_TRIES = 3;
 	int recoveryCounter = 0;
 
-	Boolean detectionDone;
+	boolean detectionDone = false;
 
 	ConnectionService network;
 
 	// COLORS
 	ArrayList<String> screenColors = new ArrayList<String>();
 
-	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY,
-			Observer ca) {
+	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
 
@@ -65,15 +74,23 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	 * Process next frame, returns true when precedure is finished.
 	 */
 	public Boolean nextFrame(Mat image) {
-		detectionDone = false;
-		doFSMStep(image, false);
+		if (started) {
+			detectionDone = false;
+			doFSMStep(image, false);
+		} else {
+			screenColors.clear();
+			screenColors.add(RARE_COLOR);
+			detectLights(image);
+		}
 		return false;
 	}
 
 	@Override
 	public void update(Observable obs, Object obj) {
-		lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
-		doFSMStep(null, true);
+		if (started) {
+			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
+			doFSMStep(null, true);
+		}
 	}
 
 	public enum DeviceMapperState {
@@ -100,8 +117,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		case INIT:
 			recoveryCounter = 0;
 			// broadcast all devices to shine with initial color
-			network.broadcastCommandSignal(ColorManager
-					.getHexColor(SHUT_DOWN_COLOR) + ":1000");
+			network.broadcastCommandSignal(ColorManager.getHexColor(SHUT_DOWN_COLOR) + ":1000");
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
@@ -129,10 +145,8 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			} else {
 				// iterate through all of devices
 				// make it light
-				network.unicastCommandSignal(
-						network.getConnectedDevices().get(oneByOneCounter),
-						ColorManager.getHexColor(ColorManager
-								.getColor(RARE_COLOR)) + ":1000");
+				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter),
+						ColorManager.getHexColor(ColorManager.getColor(RARE_COLOR)) + ":1000");
 				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
 			}
@@ -157,8 +171,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 					Point tileOfDevice = lastDetectedBlobs.get(RARE_COLOR).get(
 							getRandomInt(0, lastDetectedBlobs.size() - 1));
 					// add to hash map
-					devices.get(tileOfDevice).add(
-							network.getConnectedDevices().get(oneByOneCounter));
+					devices.get(tileOfDevice).add(network.getConnectedDevices().get(oneByOneCounter));
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				} else if (recoveryCounter < RECOVERY_TRIES) { // not detected
@@ -179,13 +192,13 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 					network.unicastCommandSignal(s, "#ff0000:5000");
 				}
 			}
-			
+
 			for (int i = 0; i < 3; i++) {
 				for (Socket s : devices.get(new Point(1, i))) {
 					network.unicastCommandSignal(s, "#ffcc00:5000");
 				}
 			}
-			
+
 			for (int i = 0; i < 3; i++) {
 				for (Socket s : devices.get(new Point(2, i))) {
 					network.unicastCommandSignal(s, "#00ff00:5000");
@@ -203,7 +216,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	}
 
 	private void detectLights(Mat image) {
-		if (!detectionDone) {
+		if (!detectionDone && collector != null) {
 			collector.collect(image, screenColors);
 			detectionDone = true;
 		}
