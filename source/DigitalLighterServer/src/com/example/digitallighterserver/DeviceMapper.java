@@ -175,19 +175,19 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			break;
 		case END:
 			for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(0, i))) {
+				for (Socket s : devices.get(new Point(i, 0))) {
 					network.unicastCommandSignal(s, "#ff0000:5000");
 				}
 			}
 			
 			for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(1, i))) {
+				for (Socket s : devices.get(new Point(i, 1))) {
 					network.unicastCommandSignal(s, "#ffcc00:5000");
 				}
 			}
 			
 			for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(2, i))) {
+				for (Socket s : devices.get(new Point(i, 3))) {
 					network.unicastCommandSignal(s, "#00ff00:5000");
 				}
 			}
