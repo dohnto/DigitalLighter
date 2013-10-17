@@ -21,14 +21,6 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	int tilesY;
 	boolean started = false;
 
-	public boolean isStarted() {
-		return started;
-	}
-
-	public void setStarted(boolean started) {
-		this.started = started;
-	}
-
 	static long WAIT_TIME = 1000; // waiting time between sending a signal
 									// and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
@@ -40,7 +32,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
 	HashMap<Point, ArrayList<Socket>> devices;
-	int oneByOneCounter = 0;
+	int oneByOneCounter;
 	final int RECOVERY_TRIES = 3;
 	int recoveryCounter = 0;
 
@@ -55,6 +47,18 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
 
+		collector = new PointCollector(tilesX, tilesY);
+		collector.addObserver(this);
+		collector.addObserver(ca);
+		network = mConnection;
+		
+		reset();
+	}
+	
+	public void reset() {
+		state = DeviceMapperState.INIT;
+		//started = true;
+		
 		devices = new HashMap<Point, ArrayList<Socket>>();
 
 		for (int i = 0; i < tilesX; i++)
@@ -62,12 +66,9 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				ArrayList<Socket> list = new ArrayList<Socket>();
 				devices.put(new Point(i, j), list);
 			}
+		oneByOneCounter = 0;
+		lastDetectedBlobs.clear();
 
-		collector = new PointCollector(tilesX, tilesY);
-		collector.addObserver(this);
-		collector.addObserver(ca);
-		state = DeviceMapperState.INIT;
-		network = mConnection;
 	}
 
 	/**
@@ -204,7 +205,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 					network.unicastCommandSignal(s, "#00ff00:5000");
 				}
 			}
-
+			started = false;
 			retval = true;
 			break;
 		default:
@@ -230,5 +231,13 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	@Override
 	public HashMap<Point, ArrayList<Socket>> getDevices() {
 		return devices;
+	}
+	
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
 	}
 }
