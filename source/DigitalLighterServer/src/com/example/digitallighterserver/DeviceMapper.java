@@ -22,7 +22,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	boolean started = false;
 
 	static long WAIT_TIME = 1000; // waiting time between sending a signal
-									// and taking a picture in miliseconds
+								  // and taking a picture in miliseconds
 	String RARE_COLOR = ColorManager.KEY_BLUE;
 	double[] SHUT_DOWN_COLOR = ColorManager.getColor(ColorManager.KEY_BLACK);
 
@@ -182,6 +182,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 					state = DeviceMapperState.ONE_BY_ONE;
 				} else { // run out of second chances
 					// TODO delete phone
+					network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter), ColorManager.getHexColor(SHUT_DOWN_COLOR) + ":1000");
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				}

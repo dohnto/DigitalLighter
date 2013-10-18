@@ -1,8 +1,18 @@
 package com.example.digitallighterserver;
 
-public class ImageMapper {
+import org.opencv.core.Mat;
 
-	public ImageMapper(String media) {
-		// TODO load media
+public class ImageMapper {
+	public ImageMapper(String pathname) {
+		
 	}
+	
+	public Mat getNextFrame() {
+		return new Mat();
+	}
+	
+	public boolean isFinished() {
+		return true;
+	}
+	
 }
