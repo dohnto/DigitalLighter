@@ -230,7 +230,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	}
 
 	@Override
-	public HashMap<Point, ArrayList<Socket>> getDevices() {
+	public final HashMap<Point, ArrayList<Socket>> getDevices() {
 		return devices;
 	}
 	
@@ -240,5 +240,5 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	public void setStarted(boolean started) {
 		this.started = started;
-	}
+	}	
 }
