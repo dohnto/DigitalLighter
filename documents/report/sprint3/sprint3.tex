@@ -13,12 +13,6 @@ You can read more about additional preliminary studies below.
 
 This time there was made an offer of additional "pre-demo" video showing the progress of implementation on Thursday 4.10.2013 during our regular meeting and customer gladly accepted this proposal.
 
-\subsection{Sprint goal}
-The goal of this sprint is having a working application on a mobile phone that can work in two modes.  
-Input type and output are for both modes common -- input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
-In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image/video) are treated as an input.
-
-You can see example of input with matrix 2x2 in image. Appropriate output of image processing and mapping module will be: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
 
 \begin{figure}[H]
 	\centering
@@ -33,9 +27,25 @@ We agreed on the date of presentation and showing the running demo -- Thursday 1
 Estimated velocity is 240h since we agreed on 30 working hours per person per week.
 
 \subsection{User-stories}
-You can see user stories concerning sprint 3 in table \ref{tab:sprint3stories}.
+
+\subsubsection*{Implementation}
+All the functional requirements for sprint 3 are presented in table \ref{tab:sprint3stories}
 \LTXtable{\textwidth}{sprint3/stories.tex}
 
+\subsubsection*{Documentation}
+All the documentation stories for sprint 3 are presented in table \ref{tab:sprint3Documentationstories}
+\LTXtable{\textwidth}{sprint3/storiesDocumentation.tex}
+
+\subsubsection*{Process}
+All the Process stories for sprint 3 are presented in table \ref{tab:sprint3storiesProcess}
+\LTXtable{\textwidth}{sprint3/storiesProcess.tex}
+
+\section{Sprint goal}
+The goal of this sprint is having a working application on a mobile phone that can work in two modes.  
+Input type and output are for both modes common -- input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
+In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image/video) are treated as an input.
+
+You can see example of input with matrix 2x2 in image. Appropriate output of image processing and mapping module will be: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
 \section{Preliminary studies}
 % TODO
 
