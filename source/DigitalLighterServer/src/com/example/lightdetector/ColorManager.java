@@ -36,6 +36,7 @@ public class ColorManager {
 			color[0] = Double.parseDouble(commands[0]);
 			color[1] = Double.parseDouble(commands[1]);
 			color[2] = Double.parseDouble(commands[2]);
+			color[3] = 255.0;
 		} else {
 			color = BLACK;
 		}

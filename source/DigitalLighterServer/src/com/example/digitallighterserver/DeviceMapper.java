@@ -23,14 +23,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	static long WAIT_TIME = 1000; // waiting time between sending a signal
 								  // and taking a picture in miliseconds
-	String RARE_COLOR = ColorManager.KEY_BLUE;
-	double[] SHUT_DOWN_COLOR = ColorManager.getColor(ColorManager.KEY_BLACK);
+	double[] RARE_COLOR      = ColorManager.BLUE;
+	double[] SHUT_DOWN_COLOR = ColorManager.BLACK;
 
 	long startT;
 	ArrayList<Point> falseAlarmDevices; // blobs that are shining with RARE
 										// color when non of phone should light
 
-	HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
+	HashMap<double[], ArrayList<Point>> lastDetectedBlobs = new HashMap<double[], ArrayList<Point>>();
 	HashMap<Point, ArrayList<Socket>> devices;
 	int oneByOneCounter;
 	final int RECOVERY_TRIES = 3;
@@ -41,7 +41,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	ConnectionService network;
 
 	// COLORS
-	ArrayList<String> screenColors = new ArrayList<String>();
+	ArrayList<double[]> screenColors = new ArrayList<double[]>();
 
 	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		this.tilesX = tilesX;
@@ -90,7 +90,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	@Override
 	public void update(Observable obs, Object obj) {
 		if (started) {
-			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
+			lastDetectedBlobs = (HashMap<double[], ArrayList<Point>>) obj;
 			doFSMStep(null, true);
 		}
 	}
@@ -148,7 +148,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				// iterate through all of devices
 				// make it light
 				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter),
-						ColorManager.getHexColor(ColorManager.getColor(RARE_COLOR)) + ":1000");
+						ColorManager.getHexColor(RARE_COLOR) + ":1000");
 				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
 			}
