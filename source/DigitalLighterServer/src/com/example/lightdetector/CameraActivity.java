@@ -56,9 +56,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	DeviceLocatingStrategy dl;
 	MediaPlayer mediaPlayer = null;
 
-	// COLORS
-	ArrayList<String> screenColors = new ArrayList<String>();
-
 	private CameraBridgeViewBase mOpenCvCameraView;
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
@@ -139,8 +136,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void onCameraViewStarted(int width, int height) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
