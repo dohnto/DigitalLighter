@@ -11,7 +11,7 @@ public class ImageMapper {
 
 	int frameCounter; // current processed frame
 	static Context context;
-	String [] framesNames;
+	String[] framesNames;
 	String path;
 
 	public ImageMapper(String path) throws IOException {
@@ -20,15 +20,26 @@ public class ImageMapper {
 		framesNames = context.getAssets().list(path);
 		reset();
 	}
-	
+
+	/**
+	 * This function resets all necessary settings. After calling this function,
+	 * the media is ready to be replayed.
+	 */
 	public void reset() {
 		frameCounter = 0;
 	}
 
+	/**
+	 * Returns next frame, be sure (!!!) that isFinished() returns false before
+	 * calling this function.
+	 */
 	public Mat getNextFrame() {
 		return Highgui.imread(path + framesNames[frameCounter++]);
 	}
 
+	/**
+	 * Returns true if no more frames are available
+	 */
 	public boolean isFinished() {
 		return frameCounter >= framesNames.length;
 	}
