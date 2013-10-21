@@ -52,12 +52,12 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		collector.addObserver(ca);
 		network = mConnection;
 		
-		reset();
+		//reset();
 	}
 	
 	public void reset() {
 		state = DeviceMapperState.INIT;
-		//started = true;
+		started = true;
 		
 		devices = new HashMap<Point, ArrayList<Socket>>();
 

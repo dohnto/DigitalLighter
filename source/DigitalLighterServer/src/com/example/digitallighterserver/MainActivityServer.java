@@ -1,6 +1,8 @@
 package com.example.digitallighterserver;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -46,10 +48,10 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	protected void onStart() {
 		super.onStart();
 
-		// START SERVICE AND BIND TO IT
+		// START SERVICE IF NOT STARTED AND BIND TO IT
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
 		startService(serviceIntent);
-		bindService(serviceIntent, mConnection, Context.BIND_ADJUST_WITH_ACTIVITY);
+		bindService(serviceIntent, mConnection, Context.BIND_IMPORTANT);
 	}
 
 	/** Defines callbacks for service binding, passed to bindService() */
@@ -128,7 +130,8 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickCamera(View v) {
-		startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
+		//startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
+		mService.pingUsers();
 	}
 
 	@Override

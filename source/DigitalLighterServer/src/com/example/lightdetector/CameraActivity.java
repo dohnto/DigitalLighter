@@ -98,7 +98,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	};
 
 	public void startDetection(View v) {
-		((DeviceMapper) dl).setStarted(true);
+		((DeviceMapper) dl).reset();
 	}
 
 	@Override
