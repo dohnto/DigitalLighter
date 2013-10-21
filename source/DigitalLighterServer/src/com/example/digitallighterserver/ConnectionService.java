@@ -88,6 +88,10 @@ public class ConnectionService extends Service {
 		return super.onStartCommand(intent, flags, startId);
 	}
 
+	public void pingUsers() {
+		//mConnection.pingUsers();
+	}
+
 	public void registerService(String name) {
 		if (mConnection.getLocalPort() > -1) {
 			mNsdHelper.registerService(name, mConnection.getLocalPort());
