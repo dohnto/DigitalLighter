@@ -130,8 +130,8 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickCamera(View v) {
-		//startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
-		mService.pingUsers();
+		startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
+		//mService.pingUsers();
 	}
 
 	@Override

@@ -42,10 +42,12 @@ import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
+	private static final String MEDIA_SOURCE = "4x4/expand";
+
 	PointCollector collector;
 
-	static int tilesX = 3;
-	static int tilesY = 3;
+	static int tilesX = 4;
+	static int tilesY = 4;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
@@ -136,7 +138,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void onCameraViewStarted(int width, int height) {
-		
+
 	}
 
 	@Override
@@ -152,7 +154,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
-				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, "3x3/expand/");
+				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, MEDIA_SOURCE);
 				mediaPlayer.addObserver(this);
 				mediaPlayer.play();
 			}
@@ -160,12 +162,19 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
-			for (String colorItem : buffer.peek().keySet()) {
-				for (Point tile : buffer.peek().get(colorItem)) {
-					image = drawTile(image, (int) tile.x, (int) tile.y, ColorManager.getCvColor(colorItem));
+
+			if (buffer.size() < 20) {
+
+				for (String colorItem : buffer.peek().keySet()) {
+					for (Point tile : buffer.peek().get(colorItem)) {
+						image = drawTile(image, (int) tile.x, (int) tile.y,
+								ColorManager.getCvColor(colorItem));
+					}
 				}
+				buffer.remove();
+			} else {
+				buffer.clear();
 			}
-			buffer.remove();
 		}
 		return image;
 	}
@@ -207,10 +216,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void update(Observable observable, Object data) {
-		HashMap<String, ArrayList<Point>> blobs = (HashMap<String, ArrayList<Point>>) data;
-		if (buffer.size() > 20) {
-			buffer.clear();
-		}
+		HashMap<String, ArrayList<Point>> blobs = new HashMap<String, ArrayList<Point>>(
+				(HashMap<String, ArrayList<Point>>) data);
 		buffer.add(blobs);
 	}
 

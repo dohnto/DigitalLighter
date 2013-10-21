@@ -1,11 +1,14 @@
 package com.example.digitallighterserver;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class ImageMapper {
 
@@ -22,19 +25,34 @@ public class ImageMapper {
 	}
 
 	/**
-	 * This function resets all necessary settings. After calling this function,
-	 * the media is ready to be replayed.
+	 * This function resets all necessary settings. After calling this function, the media is ready to be
+	 * replayed.
 	 */
 	public void reset() {
 		frameCounter = 0;
 	}
 
 	/**
-	 * Returns next frame, be sure (!!!) that isFinished() returns false before
-	 * calling this function.
+	 * Returns next frame, be sure (!!!) that isFinished() returns false before calling this function.
 	 */
-	public Mat getNextFrame() {
-		return Highgui.imread(path + framesNames[frameCounter++]);
+	public Bitmap getNextFrame() {
+		AssetManager assetManager = context.getAssets();
+
+		InputStream istr;
+		Bitmap bitmap = null;
+		try {
+			String p = path + "/" + framesNames[frameCounter++];
+			istr = assetManager.open(p);
+			bitmap = BitmapFactory.decodeStream(istr);
+		} catch (IOException e) {
+			bitmap = null;
+		}
+
+		if (isFinished())
+			reset();
+
+		return bitmap;
+
 	}
 
 	/**
