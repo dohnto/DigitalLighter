@@ -217,7 +217,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			buffer.clear();
 		}
 		buffer.add(blobs);
-
 	}
 
 	@Override
