@@ -6,6 +6,9 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 public class ImageMapper {
 
@@ -18,6 +21,7 @@ public class ImageMapper {
 		this.path = path;
 		context = DLSApplication.getContext();
 		framesNames = context.getAssets().list(path);
+		context.getAssets().open(path).
 		reset();
 	}
 
@@ -34,6 +38,8 @@ public class ImageMapper {
 	 * calling this function.
 	 */
 	public Mat getNextFrame() {
+		Bitmap b = BitmapFactory.decodeFile("file:///android_asset/image/Malay/bullet.jpg");
+		b.getPixel(x, y)
 		return Highgui.imread(path + framesNames[frameCounter++]);
 	}
 
