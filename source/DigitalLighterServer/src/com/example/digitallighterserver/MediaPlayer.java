@@ -59,6 +59,8 @@ public class MediaPlayer extends Observable {
 
 				// playback the whole video frame by frame
 				while (!imageMapper.isFinished()) {
+					HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
+					ArrayList<Point> list = new ArrayList<Point>();
 					// get current devices' locations
 					HashMap<Point, ArrayList<Socket>> devices;
 					devices = deviceMapper.getDevices();
@@ -71,13 +73,23 @@ public class MediaPlayer extends Observable {
 					for (int i = 0; i < (int) frame.size().width; i++) {
 						for (int j = 0; j < (int) frame.size().height; j++) {
 
+							String hexColor = ColorManager.getHexColor(frame.get(i, j));
+							list = update.get(hexColor);
+							if (list == null)
+								list = new ArrayList<Point>();
+
+							Point currentPoint = new Point(i, j);
+							boolean pointAdded = false;
+
 							// display one color on all devices from one tile
-							for (Socket device : devices.get(new Point((double) i, (double) j))) {
-								String hexColor = ColorManager.getHexColor(frame.get(i, j));
+							for (Socket device : devices.get(currentPoint)) {
+
 								network.unicastCommandSignal(device, createCommand(hexColor, frameMs));
 								setChanged();
-								HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
-								ArrayList<Point> list = new ArrayList<Point>();
+								if (!pointAdded) {
+									list.add(currentPoint);
+									pointAdded = true;
+								}
 								notifyObservers(update);
 							}
 						}

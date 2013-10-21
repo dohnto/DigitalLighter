@@ -47,7 +47,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	static int tilesX = 3;
 	static int tilesY = 3;
 	TextView info;
-	BlockingQueue<HashMap<double[], ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<double[], ArrayList<Point>>>();
+	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	int fpsCounter;
 	ConnectionService mService;
@@ -57,7 +57,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	MediaPlayer mediaPlayer = null;
 
 	// COLORS
-	ArrayList<double[]> screenColors = new ArrayList<double[]>();
+	ArrayList<String> screenColors = new ArrayList<String>();
 
 	private CameraBridgeViewBase mOpenCvCameraView;
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -167,7 +167,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
-			for (double[] colorItem : buffer.peek().keySet()) {
+			for (String colorItem : buffer.peek().keySet()) {
 				for (Point tile : buffer.peek().get(colorItem)) {
 					image = drawTile(image, (int) tile.x, (int) tile.y, ColorManager.getCvColor(colorItem));
 				}
@@ -214,7 +214,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void update(Observable observable, Object data) {
-		HashMap<double[], ArrayList<Point>> blobs = (HashMap<double[], ArrayList<Point>>) data;
+		HashMap<String, ArrayList<Point>> blobs = (HashMap<String, ArrayList<Point>>) data;
 		if (buffer.size() > 20) {
 			buffer.clear();
 		}
