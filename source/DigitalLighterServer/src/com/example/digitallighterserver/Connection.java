@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -94,6 +95,18 @@ public class Connection {
 	public ArrayList<Socket> getSockets() {
 		return mSocket;
 	}
+	
+	public void pingUsers() throws UnknownHostException, IOException{
+       if(mSocket != null && !mSocket.isEmpty()){
+    	   for(int i=0; i<mSocket.size(); i++){
+    		   Socket socket = mSocket.get(i);
+    	
+    		   if(InetAddress.getByName(socket.getInetAddress().toString()).isReachable(200)){
+    			  // TODODODODODDOD
+    		   }
+    	   }
+       }
+    }
 
 	private class ChatServer {
 		ServerSocket mServerSocket = null;
