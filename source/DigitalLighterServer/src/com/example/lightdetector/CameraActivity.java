@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
+import com.example.digitallighterserver.DLSApplication;
 import com.example.digitallighterserver.DeviceLocatingStrategy;
 import com.example.digitallighterserver.DeviceMapper;
 import com.example.digitallighterserver.DeviceTracker;
@@ -157,7 +158,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
-				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService);
+				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, "3x3/expand/");
 				mediaPlayer.play();
 			}
 		}

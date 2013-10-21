@@ -1,6 +1,8 @@
 package com.example.digitallighterserver;
 
 import com.example.lightdetector.ColorManager;
+
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +31,12 @@ public class MediaPlayer {
 		this.deviceMapper = deviceMapper;
 		this.network = network;
 		
-		imageMapper = new ImageMapper(media);
+		try {
+			imageMapper = new ImageMapper(media);
+		} catch (IOException e) {
+			// TODO Automaticky generovaný zachytávací blok
+			e.printStackTrace();
+		}
 	}
 	
 	/**

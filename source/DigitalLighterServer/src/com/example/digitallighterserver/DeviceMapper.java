@@ -75,15 +75,16 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	 * Process next frame, returns true when precedure is finished.
 	 */
 	public Boolean nextFrame(Mat image) {
+		boolean finished = false;
 		if (started) {
 			detectionDone = false;
-			doFSMStep(image, false);
+			finished = doFSMStep(image, false);
 		} else {
 			screenColors.clear();
 			screenColors.add(RARE_COLOR);
 			detectLights(image);
 		}
-		return false;
+		return finished;
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			}
 			break;
 		case END:
-			for (int i = 0; i < 3; i++) {
+			/*for (int i = 0; i < 3; i++) {
 				for (Socket s : devices.get(new Point(i, 0))) { // red
 					network.unicastCommandSignal(s, "#ff0000:3000|#ff0000:1000|#000000:1000|#000000:1000|#ff0000:3000");
 				}
@@ -205,7 +206,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				for (Socket s : devices.get(new Point(i, 2))) { // green
 					network.unicastCommandSignal(s, "#00ff00:3000|#000000:1000|#000000:1000|#00ff00:1000|#00ff00:3000");
 				}
-			}
+			}*/
 			started = false;
 			retval = true;
 			break;
