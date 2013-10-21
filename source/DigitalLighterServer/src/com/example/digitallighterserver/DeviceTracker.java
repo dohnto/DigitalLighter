@@ -13,19 +13,17 @@ public class DeviceTracker implements DeviceLocatingStrategy {
 	
 	public DeviceTracker(int tilesX, int tilesY,
 			HashMap<Point, ArrayList<Socket>> devices) {
-		// TODO Automaticky generovaný stub konstruktoru
+		this.devices = devices;
 	}
 
 	@Override
 	public Boolean nextFrame(Mat image) {
-		// TODO Automaticky generovaný stub metody
-		return null;
+		return false;
 	}
 
 	@Override
 	public HashMap<Point, ArrayList<Socket>> getDevices() {
-		// TODO Automaticky generovaný stub metody
-		return null;
+		return devices;
 	}
 
 }
