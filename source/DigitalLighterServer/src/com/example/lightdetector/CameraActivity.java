@@ -140,9 +140,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	@Override
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
-		screenColors.add(ColorManager.KEY_BLUE);
-		screenColors.add(ColorManager.KEY_GREEN);
-		screenColors.add(ColorManager.KEY_RED);
+
+		screenColors.add(ColorManager.BLUE);
+		screenColors.add(ColorManager.GREEN);
+		screenColors.add(ColorManager.RED);
 	}
 
 	@Override
@@ -159,6 +160,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
 				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, "3x3/expand/");
+				mediaPlayer.addObserver(this);
 				mediaPlayer.play();
 			}
 		}
@@ -187,12 +189,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		int unit = output.width() / tilesX;
 		for (int i = 0; i < tilesX; ++i)
 			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
-					ColorManager.getCvColor(ColorManager.KEY_RED));
+					ColorManager.getCvColor(ColorManager.RED));
 
 		unit = output.height() / tilesY;
 		for (int i = 0; i < tilesY; ++i)
 			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
-					ColorManager.getCvColor(ColorManager.KEY_RED));
+					ColorManager.getCvColor(ColorManager.RED));
 
 		return output;
 	}

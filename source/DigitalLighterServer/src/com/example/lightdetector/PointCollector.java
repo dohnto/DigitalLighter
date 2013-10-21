@@ -21,7 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
-public class PointCollector extends Observable {	
+public class PointCollector extends Observable {
 	private static final String NEW_UPDATE = "";
 	TileMapper mMapper;
 
@@ -45,13 +45,13 @@ public class PointCollector extends Observable {
 					if (buffer.size() > 0) {
 						setChanged();
 						notifyObservers(buffer.poll());
-						
+
 					}
 				}
 			}
 
 		};
-	} 
+	}
 
 	public void collect(final Mat input, final ArrayList<String> colors) {
 
@@ -94,21 +94,22 @@ public class PointCollector extends Observable {
 		processThread.start();
 	}
 
-	/*public void collectOffline(final Mat img, final ArrayList<String> colors) {
-		/*
-		 * update = new HashMap<String, ArrayList<Point>>();
-		 * 
-		 * // FIND ALL DEVICES ON IMG for (String color : colors) { double[] bgrArray =
-		 * ColorManager.getInstance().get(color); Scalar scalar = new Scalar(bgrArray[0], bgrArray[1],
-		 * bgrArray[2]); ArrayList<Point> points = mDetector.getBlobCoords(img, scalar); Size imgSize = new
-		 * Size((double) img.width(), (double) img.height()); ArrayList<Point> resultPoints = new
-		 * ArrayList<Point>(); for (Point p : mMapper.mapList(imgSize, points)) { resultPoints.add(p); }
-		 * update.put(color, resultPoints); }
-		 * 
-		 * listener.onPointCollectorUpdate(update);
-		 
-
-	}*/
+	/*
+	 * public void collectOffline(final Mat img, final ArrayList<String> colors) { /* update = new
+	 * HashMap<String, ArrayList<Point>>();
+	 * 
+	 * // FIND ALL DEVICES ON IMG for (String color : colors) { double[] bgrArray =
+	 * ColorManager.getInstance().get(color); Scalar scalar = new Scalar(bgrArray[0], bgrArray[1],
+	 * bgrArray[2]); ArrayList<Point> points = mDetector.getBlobCoords(img, scalar); Size imgSize = new
+	 * Size((double) img.width(), (double) img.height()); ArrayList<Point> resultPoints = new
+	 * ArrayList<Point>(); for (Point p : mMapper.mapList(imgSize, points)) { resultPoints.add(p); }
+	 * update.put(color, resultPoints); }
+	 * 
+	 * listener.onPointCollectorUpdate(update);
+	 * 
+	 * 
+	 * }
+	 */
 
 	class myAsync extends AsyncTask<String, String, HashMap<String, ArrayList<Point>>> {
 
