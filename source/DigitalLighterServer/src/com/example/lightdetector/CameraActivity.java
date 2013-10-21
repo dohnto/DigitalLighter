@@ -47,7 +47,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	static int tilesX = 3;
 	static int tilesY = 3;
 	TextView info;
-	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
+	BlockingQueue<HashMap<double[], ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<double[], ArrayList<Point>>>();
 
 	int fpsCounter;
 	ConnectionService mService;
@@ -57,7 +57,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	MediaPlayer mediaPlayer = null;
 
 	// COLORS
-	ArrayList<String> screenColors = new ArrayList<String>();
+	ArrayList<double[]> screenColors = new ArrayList<double[]>();
 
 	private CameraBridgeViewBase mOpenCvCameraView;
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -140,9 +140,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	@Override
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
-		screenColors.add(ColorManager.KEY_BLUE);
-		screenColors.add(ColorManager.KEY_GREEN);
-		screenColors.add(ColorManager.KEY_RED);
+
+		screenColors.add(ColorManager.BLUE);
+		screenColors.add(ColorManager.GREEN);
+		screenColors.add(ColorManager.RED);
 	}
 
 	@Override
@@ -166,7 +167,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
-			for (String colorItem : buffer.peek().keySet()) {
+			for (double[] colorItem : buffer.peek().keySet()) {
 				for (Point tile : buffer.peek().get(colorItem)) {
 					image = drawTile(image, (int) tile.x, (int) tile.y, ColorManager.getCvColor(colorItem));
 				}
@@ -188,12 +189,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		int unit = output.width() / tilesX;
 		for (int i = 0; i < tilesX; ++i)
 			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
-					ColorManager.getCvColor(ColorManager.KEY_RED));
+					ColorManager.getCvColor(ColorManager.RED));
 
 		unit = output.height() / tilesY;
 		for (int i = 0; i < tilesY; ++i)
 			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
-					ColorManager.getCvColor(ColorManager.KEY_RED));
+					ColorManager.getCvColor(ColorManager.RED));
 
 		return output;
 	}
@@ -213,7 +214,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void update(Observable observable, Object data) {
-		HashMap<String, ArrayList<Point>> blobs = (HashMap<String, ArrayList<Point>>) data;
+		HashMap<double[], ArrayList<Point>> blobs = (HashMap<double[], ArrayList<Point>>) data;
 		if (buffer.size() > 20) {
 			buffer.clear();
 		}
