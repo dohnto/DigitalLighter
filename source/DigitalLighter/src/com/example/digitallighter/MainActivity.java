@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
+		// TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
@@ -149,16 +149,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 			background.setBackgroundColor(color);
 			new CountDownTimer(duration, 500) {
-				
+
 				// SHOW TIME TILL END OF THE COMMAND
 				public void onTick(long millisUntilFinished) {
-					counter.setText("" + (int) millisUntilFinished / 1000);					
+					counter.setText("" + (int) millisUntilFinished / 1000);
 				}
 
 				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
 				public void onFinish() {
 					if (playingQueue.isEmpty()) {
-					//	background.setBackgroundColor(Color.WHITE); now device should stay lighting last command color
+						// background.setBackgroundColor(Color.WHITE); now device should stay lighting last
+						// command color
 						isPlaying = false;
 					} else {
 						playCommand("recursion");

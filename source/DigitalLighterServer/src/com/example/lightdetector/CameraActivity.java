@@ -159,6 +159,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
 				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, "3x3/expand/");
+				mediaPlayer.addObserver(this);
 				mediaPlayer.play();
 			}
 		}
