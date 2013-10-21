@@ -141,9 +141,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	public void onCameraViewStarted(int width, int height) {
 		// TODO Auto-generated method stub
 
-		screenColors.add(ColorManager.BLUE);
-		screenColors.add(ColorManager.GREEN);
-		screenColors.add(ColorManager.RED);
 	}
 
 	@Override
