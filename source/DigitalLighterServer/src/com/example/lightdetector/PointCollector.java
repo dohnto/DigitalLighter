@@ -25,7 +25,7 @@ public class PointCollector extends Observable {
 	private static final String NEW_UPDATE = "";
 	TileMapper mMapper;
 
-	BlockingQueue<HashMap<double[], ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<double[], ArrayList<Point>>>();
+	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	// LISTENER THAT CATCH THE UPDATES
 	private Handler mUpdateHandler;
@@ -53,7 +53,7 @@ public class PointCollector extends Observable {
 		};
 	} 
 
-	public void collect(final Mat input, final ArrayList<double[]> colors) {
+	public void collect(final Mat input, final ArrayList<String> colors) {
 
 		Mat imgTemp = new Mat();
 		input.copyTo(imgTemp);
@@ -64,20 +64,20 @@ public class PointCollector extends Observable {
 
 			@Override
 			public void run() {
-				HashMap<double[], ArrayList<Point>> update = new HashMap<double[], ArrayList<Point>>();
+				HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
 				// REF TO MAPPER AND BLOB DETECTOR
 				LightDetector mDetector = new LightDetector();
 
 				// FIND ALL DEVICES ON IMG
-				for (double[] color : colors) {
-					Scalar scalar = new Scalar(color[0], color[1], color[2]);
+				for (String hexaColor : colors) {
+					Scalar scalar = ColorManager.getCvColor(hexaColor);
 					ArrayList<Point> points = mDetector.getBlobCoords(img, scalar);
 					Size imgSize = new Size((double) img.width(), (double) img.height());
 					ArrayList<Point> resultPoints = new ArrayList<Point>();
 					for (Point p : mMapper.mapList(imgSize, points)) {
 						resultPoints.add(p);
 					}
-					update.put(color, resultPoints);
+					update.put(hexaColor, resultPoints);
 				}
 
 				buffer.add(update);

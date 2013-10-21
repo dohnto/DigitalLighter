@@ -23,14 +23,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	static long WAIT_TIME = 1000; // waiting time between sending a signal
 								  // and taking a picture in miliseconds
-	double[] RARE_COLOR      = ColorManager.BLUE;
-	double[] SHUT_DOWN_COLOR = ColorManager.BLACK;
+	String RARE_COLOR      = ColorManager.getHexColor(ColorManager.BLUE);
+	String SHUT_DOWN_COLOR = ColorManager.getHexColor(ColorManager.BLACK);
 
 	long startT;
 	ArrayList<Point> falseAlarmDevices; // blobs that are shining with RARE
 										// color when non of phone should light
 
-	HashMap<double[], ArrayList<Point>> lastDetectedBlobs = new HashMap<double[], ArrayList<Point>>();
+	HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
 	HashMap<Point, ArrayList<Socket>> devices;
 	int oneByOneCounter;
 	final int RECOVERY_TRIES = 3;
@@ -41,7 +41,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	ConnectionService network;
 
 	// COLORS
-	ArrayList<double[]> screenColors = new ArrayList<double[]>();
+	ArrayList<String> screenColors = new ArrayList<String>();
 
 	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		this.tilesX = tilesX;
@@ -90,7 +90,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	@Override
 	public void update(Observable obs, Object obj) {
 		if (started) {
-			lastDetectedBlobs = (HashMap<double[], ArrayList<Point>>) obj;
+			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
 			doFSMStep(null, true);
 		}
 	}
@@ -119,7 +119,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		case INIT:
 			recoveryCounter = 0;
 			// broadcast all devices to shine with initial color
-			network.broadcastCommandSignal(ColorManager.getHexColor(SHUT_DOWN_COLOR) + ":1000");
+			network.broadcastCommandSignal(SHUT_DOWN_COLOR + ":1000");
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
@@ -148,7 +148,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				// iterate through all of devices
 				// make it light
 				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter),
-						ColorManager.getHexColor(RARE_COLOR) + ":1000");
+						RARE_COLOR + ":1000");
 				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
 			}
@@ -183,7 +183,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 					state = DeviceMapperState.ONE_BY_ONE;
 				} else { // run out of second chances
 					// TODO delete phone
-					network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter), ColorManager.getHexColor(SHUT_DOWN_COLOR) + ":1000");
+					network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter), SHUT_DOWN_COLOR + ":1000");
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				}

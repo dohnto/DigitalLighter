@@ -15,6 +15,10 @@ public class ColorManager {
 	public static Scalar getCvColor(double[] color) {
 		return new Scalar(color[0], color[1], color[2], color[3]);
 	}
+	
+	public static Scalar getCvColor(String hexa) {
+		return getCvColor(getColor(hexa));
+	}
 
 	public static String getHexColor(double[] color) {
 		String f = "#" + String.format("%02X", (int) color[0]);
@@ -24,22 +28,12 @@ public class ColorManager {
 		return f + s + t;
 	}
 	
-	public static String getKey(double[] color) {
-		return "" + color[0] + "|" + color[1] + "|" + color[2];
-	}
-	
-	public static double[] getColor(String key) {
+	public static double[] getColor(String hexa) {
 		double[] color = new double[4];
-		
-		if (key.contains("|")) { 
-			String[] commands = key.split("\\|");
-			color[0] = Double.parseDouble(commands[0]);
-			color[1] = Double.parseDouble(commands[1]);
-			color[2] = Double.parseDouble(commands[2]);
-			color[3] = 255.0;
-		} else {
-			color = BLACK;
-		}
+		color[0] = Integer.parseInt(hexa.substring(1, 3), 16);
+		color[1] = Integer.parseInt(hexa.substring(3, 5), 16);
+		color[2] = Integer.parseInt(hexa.substring(5, 7), 16);
+		color[3] = 255.0;
 		return color;
 	}
 }
