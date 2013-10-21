@@ -156,14 +156,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			if (dl.nextFrame(inputFrame.rgba())) { // mapping is finished
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
-				// create media player
+				// create media player which runs in separate thread
 				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService);
-			}
-		}
-
-		if (mediaPlayer != null) {
-			if (mediaPlayer.playNextFrame()) {
-				// media is done, reset process?
+				mediaPlayer.play();
 			}
 		}
 
@@ -222,13 +217,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		}
 		buffer.add(blobs);
 
-	}
-
-	public void updateTEST(HashMap<String, ArrayList<Point>> obj) {
-		if (buffer.size() > 20) {
-			buffer.clear();
-		}
-		buffer.add(obj);
 	}
 
 	@Override
