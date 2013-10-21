@@ -18,6 +18,9 @@ public class MediaPlayer {
 	private ConnectionService network;
 	private ImageMapper imageMapper;
 	
+	static private int frameRate = 1; // images per second
+	static private int frameMs = (int) (1/(double)frameRate * 1000); // frame stays for XX ms
+	
 	/**
 	 * Constructor
 	 * @param tilesX number of tiles x axis
@@ -65,7 +68,8 @@ public class MediaPlayer {
 							
 							// display one color on all devices from one tile
 							for(Socket device: devices.get(new Point((double) i, (double) j))) {
-								network.unicastCommandSignal(device, ColorManager.getHexColor(frame.get((int) i, (int) j)));
+								String hexColor = ColorManager.getHexColor(frame.get(i, j));
+								network.unicastCommandSignal(device, createCommand(hexColor, frameMs));
 							}
 						}						
 					}
@@ -74,5 +78,11 @@ public class MediaPlayer {
 		});
 		
 		playbackThread.start();		
+	}
+	
+	static public String createCommand(String prefix, int ms) {
+		String retval = new String(prefix);
+		retval += ":" + Integer.toString(ms);
+		return retval;
 	}
 }
