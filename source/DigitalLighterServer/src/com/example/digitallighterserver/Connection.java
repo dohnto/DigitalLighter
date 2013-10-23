@@ -54,6 +54,12 @@ public class Connection {
 			mChatClient.unicast(receiver, msg);
 		}
 	}
+	
+	public void sendMessage(ArrayList<Socket> receivers, String msg) {
+		if (receivers != null && receivers.size() > 0) {
+			mChatClient.multicast(receivers, msg);
+		}
+	}
 
 	public int getLocalPort() {
 		return mPort;
@@ -235,6 +241,12 @@ public class Connection {
 		public void broadcast(String msg) {
 			ArrayList<Socket> sockets = getSockets();
 			for (Socket socket : sockets) {
+				unicast(socket, msg);
+			}
+		}
+		
+		public void multicast(ArrayList<Socket> receivers, String msg) {
+			for (Socket socket : receivers) {
 				unicast(socket, msg);
 			}
 		}

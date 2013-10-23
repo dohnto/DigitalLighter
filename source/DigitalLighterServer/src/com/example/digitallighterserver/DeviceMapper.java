@@ -10,6 +10,9 @@ import java.util.Random;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+
+import android.util.Log;
+
 import com.example.lightdetector.ColorManager;
 import com.example.lightdetector.PointCollector;
 
@@ -36,8 +39,6 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	final int RECOVERY_TRIES = 3;
 	int recoveryCounter = 0;
 
-	boolean detectionDone = false;
-
 	ConnectionService network;
 
 	// COLORS
@@ -51,8 +52,6 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		collector.addObserver(this);
 		collector.addObserver(ca);
 		network = mConnection;
-		
-		//reset();
 	}
 	
 	public void reset() {
@@ -77,11 +76,14 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	public Boolean nextFrame(Mat image) {
 		boolean finished = false;
 		if (started) {
-			detectionDone = false;
 			finished = doFSMStep(image, false);
 		} else {
 			screenColors.clear();
-			screenColors.add(RARE_COLOR);
+			screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
+			screenColors.add(ColorManager.getHexColor(ColorManager.RED));
+			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
+			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
+			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
 			detectLights(image);
 		}
 		return finished;
@@ -189,24 +191,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				}
 			}
 			break;
-		case END:
-			/*for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(i, 0))) { // red
-					network.unicastCommandSignal(s, "#ff0000:3000|#ff0000:1000|#000000:1000|#000000:1000|#ff0000:3000");
-				}
-			}
-
-			for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(i, 1))) { // yellow
-					network.unicastCommandSignal(s, "#ffcc00:3000|#000000:1000|#ffcc00:1000|#000000:1000|#ffcc00:3000");
-				}
-			}
-
-			for (int i = 0; i < 3; i++) {
-				for (Socket s : devices.get(new Point(i, 2))) { // green
-					network.unicastCommandSignal(s, "#00ff00:3000|#000000:1000|#000000:1000|#00ff00:1000|#00ff00:3000");
-				}
-			}*/
+		case END: // set flag
 			started = false;
 			retval = true;
 			break;
@@ -219,9 +204,8 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	}
 
 	private void detectLights(Mat image) {
-		if (!detectionDone && collector != null) {
+		if (collector != null) {
 			collector.collect(image, screenColors);
-			detectionDone = true;
 		}
 	}
 
@@ -241,5 +225,5 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	public void setStarted(boolean started) {
 		this.started = started;
-	}	
+	}
 }

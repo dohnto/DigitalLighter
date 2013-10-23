@@ -2,6 +2,7 @@ package com.example.digitallighterserver;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lightdetector.ColorManager;
@@ -21,11 +22,10 @@ public class MediaPlayer extends Observable {
 	private int tilesY;
 	private DeviceLocatingStrategy deviceMapper;
 	private ConnectionService network;
-	private ImageMapper imageMapper;
+	private CommandCreator commandCreator;
 
 	static private int frameRate = 1; // images per second
-	static private int frameMs = (int) (1 / (double) frameRate * 1000); // frame stays for XX ms
-
+	
 	/**
 	 * Constructor
 	 * 
@@ -43,12 +43,7 @@ public class MediaPlayer extends Observable {
 		this.deviceMapper = deviceMapper;
 		this.network = network;
 
-		try {
-			imageMapper = new ImageMapper(media);
-		} catch (IOException e) {
-			// TODO Automaticky generovaný zachytávací blok
-			e.printStackTrace();
-		}
+		commandCreator = new CommandCreator(media, frameRate);
 	}
 
 	/**
@@ -62,7 +57,7 @@ public class MediaPlayer extends Observable {
 			public void run() {
 
 				// playback the whole video frame by frame
-				while (!imageMapper.isFinished()) {
+				while (!commandCreator.isFinished()) {
 					HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
 					ArrayList<Point> list = new ArrayList<Point>();
 					// get current devices' locations
@@ -70,39 +65,45 @@ public class MediaPlayer extends Observable {
 					devices = deviceMapper.getDevices();
 
 					// get new frame to display
-					Bitmap frame = imageMapper.getNextFrame();
+					int waitTime = commandCreator.nextCommand(5);
+					waitTime = (waitTime > 100) ? waitTime - 100 : 0;
 
 					// display each tile one by one
-					for (int i = 0; i < frame.getWidth(); i++) {
-						for (int j = 0; j < frame.getHeight(); j++) {
+					for (int i = 0; i < tilesX; i++) {
+						for (int j = 0; j < tilesY; j++) {
+							String command = commandCreator.getCommand(i, j);
+							//int color = frame.getPixel(i, j);
+							//double[] colorArray = { Color.red(color), Color.green(color), Color.blue(color) };
 
-							int color = frame.getPixel(i, j);
-							double[] colorArray = { Color.red(color), Color.green(color), Color.blue(color) };
-
-							String hexColor = ColorManager.getHexColor(colorArray);
-							list = update.get(hexColor);
+							//String hexColor = ColorManager.getHexColor(colorArray);
+							/*list = update.get(hexColor);
 							if (list == null) {
 								list = new ArrayList<Point>();
 								update.put(hexColor, list);
-							}
-							Point currentPoint = new Point(i, j);
-							boolean pointAdded = false;
+							}*/
+							/*boolean pointAdded = false;
 
 							if (!pointAdded) {
 								setChanged();
 								list.add(currentPoint);
 								pointAdded = true;
-							}
+							}*/
 
+							Point currentPoint = new Point(i, j);
 							// display one color on all devices from one tile
-							for (Socket device : devices.get(currentPoint)) {
-
-								network.unicastCommandSignal(device, createCommand(hexColor, frameMs));
-
-							}
+							network.multicastCommandSignal(devices.get(currentPoint), command);
+							Log.i("PES", "TILE " + i + ", " + j + ": " + command);
 						}
+						
 					}
 					notifyObservers(update);
+					
+					try {
+						Thread.sleep(waitTime);
+					} catch (InterruptedException e) {
+						// TODO Automaticky generovaný zachytávací blok
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -110,9 +111,5 @@ public class MediaPlayer extends Observable {
 		playbackThread.start();
 	}
 
-	static public String createCommand(String prefix, int ms) {
-		String retval = new String(prefix);
-		retval += ":" + Integer.toString(ms);
-		return retval;
-	}
+	
 }

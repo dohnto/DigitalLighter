@@ -104,6 +104,10 @@ public class ConnectionService extends Service {
 	public void broadcastCommandSignal(String signal) {
 		mConnection.sendMessage(signal);
 	}
+	
+	public void multicastCommandSignal(ArrayList<Socket> receivers, String msg) {
+		mConnection.sendMessage(receivers, msg);
+	}
 
 	public void unicastCommandSignal(Socket receiver, String msg) {
 		mConnection.sendMessage(receiver, msg);
