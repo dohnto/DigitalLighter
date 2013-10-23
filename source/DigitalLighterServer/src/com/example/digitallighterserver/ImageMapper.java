@@ -21,6 +21,7 @@ public class ImageMapper {
 		this.path = path;
 		context = DLSApplication.getContext();
 		framesNames = context.getAssets().list(path);
+		context.getAssets().open(path).
 		reset();
 	}
 
@@ -52,7 +53,6 @@ public class ImageMapper {
 			reset();
 
 		return bitmap;
-
 	}
 
 	/**
