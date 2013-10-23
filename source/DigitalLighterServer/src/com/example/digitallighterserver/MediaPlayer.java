@@ -1,5 +1,9 @@
 package com.example.digitallighterserver;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.widget.Toast;
+
 import com.example.lightdetector.ColorManager;
 
 import java.io.IOException;
@@ -66,34 +70,39 @@ public class MediaPlayer extends Observable {
 					devices = deviceMapper.getDevices();
 
 					// get new frame to display
-					Mat frame = new Mat();
-					imageMapper.getNextFrame().copyTo(frame);
+					Bitmap frame = imageMapper.getNextFrame();
 
 					// display each tile one by one
-					for (int i = 0; i < (int) frame.size().width; i++) {
-						for (int j = 0; j < (int) frame.size().height; j++) {
+					for (int i = 0; i < frame.getWidth(); i++) {
+						for (int j = 0; j < frame.getHeight(); j++) {
 
-							String hexColor = ColorManager.getHexColor(frame.get(i, j));
+							int color = frame.getPixel(i, j);
+							double[] colorArray = { Color.red(color), Color.green(color), Color.blue(color) };
+
+							String hexColor = ColorManager.getHexColor(colorArray);
 							list = update.get(hexColor);
-							if (list == null)
+							if (list == null) {
 								list = new ArrayList<Point>();
-
+								update.put(hexColor, list);
+							}
 							Point currentPoint = new Point(i, j);
 							boolean pointAdded = false;
+
+							if (!pointAdded) {
+								setChanged();
+								list.add(currentPoint);
+								pointAdded = true;
+							}
 
 							// display one color on all devices from one tile
 							for (Socket device : devices.get(currentPoint)) {
 
 								network.unicastCommandSignal(device, createCommand(hexColor, frameMs));
-								setChanged();
-								if (!pointAdded) {
-									list.add(currentPoint);
-									pointAdded = true;
-								}
-								notifyObservers(update);
+
 							}
 						}
 					}
+					notifyObservers(update);
 				}
 			}
 		});
