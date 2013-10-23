@@ -16,35 +16,30 @@ import android.util.Log;
 import com.example.lightdetector.ColorManager;
 import com.example.lightdetector.PointCollector;
 
-public class DeviceMapper implements Observer, DeviceLocatingStrategy {
+public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
+	protected PointCollector collector; // point collector
+	protected int tilesX;
+	protected int tilesY;
+	protected boolean started = false;
 
-	PointCollector collector; // point collector
-	DeviceMapperState state; // state of FSM
-	int tilesX;
-	int tilesY;
-	boolean started = false;
+	protected static int LIGHT_TIME = 1000;
+	protected static int WAIT_TIME = 1000; // waiting time between sending a
+											// signal
+	// and taking a picture in miliseconds
+	protected String SHUT_DOWN_COLOR = ColorManager
+			.getHexColor(ColorManager.BLACK);
 
-	static long WAIT_TIME = 1000; // waiting time between sending a signal
-								  // and taking a picture in miliseconds
-	String RARE_COLOR      = ColorManager.getHexColor(ColorManager.BLUE);
-	String SHUT_DOWN_COLOR = ColorManager.getHexColor(ColorManager.BLACK);
+	protected long startT;
 
-	long startT;
-	ArrayList<Point> falseAlarmDevices; // blobs that are shining with RARE
-										// color when non of phone should light
-
-	HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
-	HashMap<Point, ArrayList<Socket>> devices;
-	int oneByOneCounter;
-	final int RECOVERY_TRIES = 3;
-	int recoveryCounter = 0;
-
-	ConnectionService network;
+	protected HashMap<String, ArrayList<Point>> lastDetectedBlobs = new HashMap<String, ArrayList<Point>>();
+	protected HashMap<Point, ArrayList<Socket>> devices;
+	protected ConnectionService network;
 
 	// COLORS
-	ArrayList<String> screenColors = new ArrayList<String>();
+	protected ArrayList<String> screenColors = new ArrayList<String>();
 
-	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
+	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY,
+			Observer ca) {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
 
@@ -53,11 +48,11 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		collector.addObserver(ca);
 		network = mConnection;
 	}
-	
+
 	public void reset() {
-		state = DeviceMapperState.INIT;
+		resetState();
 		started = true;
-		
+
 		devices = new HashMap<Point, ArrayList<Socket>>();
 
 		for (int i = 0; i < tilesX; i++)
@@ -65,15 +60,15 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 				ArrayList<Socket> list = new ArrayList<Socket>();
 				devices.put(new Point(i, j), list);
 			}
-		oneByOneCounter = 0;
 		lastDetectedBlobs.clear();
-
 	}
+
+	protected abstract void resetState();
 
 	/**
 	 * Process next frame, returns true when precedure is finished.
 	 */
-	public Boolean nextFrame(Mat image) {
+	public boolean nextFrame(Mat image) {
 		boolean finished = false;
 		if (started) {
 			finished = doFSMStep(image, false);
@@ -84,7 +79,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
 			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
 			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
-			detectLights(image);
+			detectLights(image, screenColors);
 		}
 		return finished;
 	}
@@ -97,115 +92,17 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		}
 	}
 
-	public enum DeviceMapperState {
-		INIT, // broadcast all devices to shine with initial color
-		DETECT_FALSE_ALARM, // take a picture and find all possible devices
-		DETECT_FALSE_ALARM_WAIT_FOR_UPDATE, // waiting until the image is
-											// processed
-		ONE_BY_ONE, // iterate through all of devices
-					// make it light
-		DETECT_ONE, // take a picure
-		DETECT_ONE_WAIT_FOR_UPDATE, END;
-	}
-
 	/**
 	 * Makes one step in FS machine, returns true if it is in final state.
 	 * 
 	 * @param image
 	 * @param forceNextStep
 	 */
-	private Boolean doFSMStep(Mat image, Boolean forceNextStep) {
-		Boolean retval = false;
+	protected abstract boolean doFSMStep(Mat image, Boolean forceNextStep);
 
-		switch (state) {
-		case INIT:
-			recoveryCounter = 0;
-			// broadcast all devices to shine with initial color
-			network.broadcastCommandSignal(SHUT_DOWN_COLOR + ":1000");
-			startT = System.currentTimeMillis();
-			state = DeviceMapperState.DETECT_FALSE_ALARM;
-			break;
-		case DETECT_FALSE_ALARM:
-			// wait few seconds for devices to process the image
-			if (System.currentTimeMillis() - startT > WAIT_TIME) {
-				// take a picture and find all possible devices
-				screenColors.clear();
-				screenColors.add(RARE_COLOR);
-				state = DeviceMapperState.DETECT_FALSE_ALARM_WAIT_FOR_UPDATE;
-				detectLights(image);
-			}
-			break;
-		case DETECT_FALSE_ALARM_WAIT_FOR_UPDATE:
-			if (forceNextStep) { // collected send update, now we can process
-									// blobs
-				falseAlarmDevices = lastDetectedBlobs.get(RARE_COLOR);
-				lastDetectedBlobs.clear();
-				state = DeviceMapperState.ONE_BY_ONE;
-			}
-			break;
-		case ONE_BY_ONE:
-			if (oneByOneCounter >= network.getConnectedDevices().size()) {
-				state = DeviceMapperState.END;
-			} else {
-				// iterate through all of devices
-				// make it light
-				network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter),
-						RARE_COLOR + ":1000");
-				startT = System.currentTimeMillis();
-				state = DeviceMapperState.DETECT_ONE;
-			}
-			break;
-		case DETECT_ONE:
-			if (System.currentTimeMillis() - startT > WAIT_TIME) {
-				screenColors.clear();
-				screenColors.add(RARE_COLOR);
-				state = DeviceMapperState.DETECT_ONE_WAIT_FOR_UPDATE;
-				detectLights(image);
-			}
-			break;
-		case DETECT_ONE_WAIT_FOR_UPDATE:
-			if (forceNextStep) {
-				for (Point p : falseAlarmDevices) {
-					lastDetectedBlobs.get(RARE_COLOR).remove(p);
-				}
-
-				// randomly choose the tile
-				if (lastDetectedBlobs.get(RARE_COLOR).size() > 0) { // phone
-																	// detected
-					Point tileOfDevice = lastDetectedBlobs.get(RARE_COLOR).get(
-							getRandomInt(0, lastDetectedBlobs.size() - 1));
-					// add to hash map
-					devices.get(tileOfDevice).add(network.getConnectedDevices().get(oneByOneCounter));
-					oneByOneCounter++;
-					state = DeviceMapperState.INIT;
-				} else if (recoveryCounter < RECOVERY_TRIES) { // not detected
-																// but give
-																// second chance
-					recoveryCounter++;
-					state = DeviceMapperState.ONE_BY_ONE;
-				} else { // run out of second chances
-					// TODO delete phone
-					network.unicastCommandSignal(network.getConnectedDevices().get(oneByOneCounter), SHUT_DOWN_COLOR + ":1000");
-					oneByOneCounter++;
-					state = DeviceMapperState.INIT;
-				}
-			}
-			break;
-		case END: // set flag
-			started = false;
-			retval = true;
-			break;
-		default:
-			// this should never happen
-			break;
-		}
-
-		return retval;
-	}
-
-	private void detectLights(Mat image) {
+	protected void detectLights(Mat image, ArrayList<String> colors) {
 		if (collector != null) {
-			collector.collect(image, screenColors);
+			collector.collect(image, colors);
 		}
 	}
 
@@ -218,7 +115,7 @@ public class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	public final HashMap<Point, ArrayList<Socket>> getDevices() {
 		return devices;
 	}
-	
+
 	public boolean isStarted() {
 		return started;
 	}

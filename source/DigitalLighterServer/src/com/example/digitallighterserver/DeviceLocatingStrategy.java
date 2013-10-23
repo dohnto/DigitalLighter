@@ -9,6 +9,6 @@ import org.opencv.core.Point;
 
 public interface DeviceLocatingStrategy {
 	
-	public Boolean nextFrame(Mat image);
+	public boolean nextFrame(Mat image);
 	public HashMap<Point, ArrayList<Socket>> getDevices();
 }

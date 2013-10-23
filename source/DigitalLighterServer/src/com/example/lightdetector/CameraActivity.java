@@ -36,6 +36,7 @@ import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.DLSApplication;
 import com.example.digitallighterserver.DeviceLocatingStrategy;
 import com.example.digitallighterserver.DeviceMapper;
+import com.example.digitallighterserver.DeviceMapperSimple;
 import com.example.digitallighterserver.DeviceTracker;
 import com.example.digitallighterserver.MediaPlayer;
 import com.example.digitallighterserver.R;
@@ -88,8 +89,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-			dl = new DeviceMapper(mService, tilesX, tilesY, CameraActivity.this);
+			dl = new DeviceMapperSimple(mService, tilesX, tilesY, CameraActivity.this);
 		}
+		
 
 		@Override
 		public void onServiceDisconnected(ComponentName arg0) {

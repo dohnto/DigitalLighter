@@ -45,7 +45,6 @@ public class PointCollector extends Observable {
 					if (buffer.size() > 0) {
 						setChanged();
 						notifyObservers(buffer.poll());
-
 					}
 				}
 			}

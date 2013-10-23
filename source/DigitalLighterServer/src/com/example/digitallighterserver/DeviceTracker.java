@@ -17,7 +17,7 @@ public class DeviceTracker implements DeviceLocatingStrategy {
 	}
 
 	@Override
-	public Boolean nextFrame(Mat image) {
+	public boolean nextFrame(Mat image) {
 		return false;
 	}
 
