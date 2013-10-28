@@ -87,7 +87,11 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	@Override
 	public void update(Observable obs, Object obj) {
 		if (started) {
-			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
+			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj; // possible
+																			// race
+																			// condition?
+																			// copy
+																			// obj?
 			doFSMStep(null, true);
 		}
 	}
