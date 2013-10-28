@@ -22,8 +22,8 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected int tilesY;
 	protected boolean started = false;
 
-	protected static int LIGHT_TIME = 1000;
-	protected static int WAIT_TIME = 1000; // waiting time between sending a
+	protected static int LIGHT_TIME = 100;
+	protected static int WAIT_TIME  = 1005; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
 	protected String SHUT_DOWN_COLOR = ColorManager
@@ -75,10 +75,10 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		} else {
 			screenColors.clear();
 			screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
-			screenColors.add(ColorManager.getHexColor(ColorManager.RED));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.RED));
 			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
-			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
-			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
 			detectLights(image, screenColors);
 		}
 		return finished;

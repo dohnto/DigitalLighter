@@ -54,7 +54,7 @@ public class DeviceMapperTree extends DeviceMapper {
 		state = DeviceMapperState.INIT;
 		sockets = new ArrayList<Socket>(network.getConnectedDevices());
 		divider = new TreeListDivider<Socket>(sockets, RARE_COLORS.size());
-		for (Socket s : possiblePositions.keySet()) {
+		for (Socket s : sockets) {
 			possiblePositions.put(s, fillPositions());
 		}
 	}
@@ -99,6 +99,7 @@ public class DeviceMapperTree extends DeviceMapper {
 							LIGHT_TIME);
 					network.multicastCommandSignal(division.get(i), command);
 				}
+				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_TREE;
 			}
 			break;
@@ -139,7 +140,7 @@ public class DeviceMapperTree extends DeviceMapper {
 			for (int i = 0; i < sockets.size(); i++) {
 				Socket socket = sockets.get(i);
 				ArrayList<Point> positions = possiblePositions.get(socket);
-				if (positions.size() < 1) {
+				if (positions == null || positions.size() < 1) {
 					// too bad, no position for this device
 				} else if (positions.size() == 1) { // perfect case
 					devices.get(positions.get(0)).add(socket);

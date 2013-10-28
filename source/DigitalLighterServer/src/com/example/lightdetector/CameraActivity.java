@@ -37,18 +37,19 @@ import com.example.digitallighterserver.DLSApplication;
 import com.example.digitallighterserver.DeviceLocatingStrategy;
 import com.example.digitallighterserver.DeviceMapper;
 import com.example.digitallighterserver.DeviceMapperSimple;
+import com.example.digitallighterserver.DeviceMapperTree;
 import com.example.digitallighterserver.DeviceTracker;
 import com.example.digitallighterserver.MediaPlayer;
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
-	private static final String MEDIA_SOURCE = "4x4/expand";
+	private static final String MEDIA_SOURCE = "3x3/traffic-light";
 
 	PointCollector collector;
 
-	static int tilesX = 4;
-	static int tilesY = 4;
+	static int tilesX = 3;
+	static int tilesY = 3;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
@@ -89,7 +90,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-			dl = new DeviceMapperSimple(mService, tilesX, tilesY, CameraActivity.this);
+			dl = new DeviceMapperTree(mService, tilesX, tilesY, CameraActivity.this);
 		}
 		
 
@@ -161,6 +162,11 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				mediaPlayer.play();
 			}
 		}
+		
+		int middleX = inputFrame.rgba().width()/2;
+		int middleY = inputFrame.rgba().height()/2;
+		double [] color = inputFrame.rgba().get(middleX, middleY);
+		Log.i("BARVA", "" + color[0] + " " + color[1] + " " + color[2]);
 
 		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
 		if (buffer.size() > 0) {
@@ -190,12 +196,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		Mat output = new Mat();
 		input.copyTo(output);
 
-		int unit = output.width() / tilesX;
+		int unit = output.width() - 1 / tilesX;
 		for (int i = 0; i < tilesX; ++i)
 			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
 					ColorManager.getCvColor(ColorManager.RED));
-
-		unit = output.height() / tilesY;
++
+		unit = output.height()  - 1/ tilesY;
 		for (int i = 0; i < tilesY; ++i)
 			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
 					ColorManager.getCvColor(ColorManager.RED));

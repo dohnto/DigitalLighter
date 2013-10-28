@@ -24,6 +24,7 @@ public class MediaPlayer extends Observable {
 	private ConnectionService network;
 	private CommandCreator commandCreator;
 
+	static private int NEXT_FRAMES = 5;
 	static private int frameRate = 1; // images per second
 	
 	/**
@@ -65,7 +66,7 @@ public class MediaPlayer extends Observable {
 					devices = deviceMapper.getDevices();
 
 					// get new frame to display
-					int waitTime = commandCreator.nextCommand(5);
+					int waitTime = commandCreator.nextCommand(NEXT_FRAMES);
 					waitTime = (waitTime > 100) ? waitTime - 100 : 0;
 
 					// display each tile one by one
@@ -92,7 +93,6 @@ public class MediaPlayer extends Observable {
 							Point currentPoint = new Point(i, j);
 							// display one color on all devices from one tile
 							network.multicastCommandSignal(devices.get(currentPoint), command);
-							Log.i("PES", "TILE " + i + ", " + j + ": " + command);
 						}
 						
 					}

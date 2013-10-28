@@ -41,6 +41,8 @@ public class TreeListDivider<T> {
 			itemsCount += division.get(i).size();
 		}
 		int finalDivision = (int)Math.ceil(log(itemsCount, parts));
+		if (finalDivision == 0)
+			finalDivision = 1; // correction
 		return finalDivision <= steps;
 	}
 	

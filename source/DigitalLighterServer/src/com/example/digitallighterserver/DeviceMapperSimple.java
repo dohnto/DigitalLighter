@@ -18,7 +18,7 @@ import com.example.lightdetector.PointCollector;
 
 public class DeviceMapperSimple extends DeviceMapper {
 	protected DeviceMapperState state;
-	protected String RARE_COLOR = ColorManager.getHexColor(ColorManager.BLUE);
+	protected String RARE_COLOR = ColorManager.getHexColor(ColorManager.RED);
 
 	protected ArrayList<Point> falseAlarmDevices; // blobs that are shining with
 													// RARE
@@ -64,7 +64,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 			break;
 		case DETECT_FALSE_ALARM:
 			// wait few seconds for devices to process the image
-			if (System.currentTimeMillis() - startT > WAIT_TIME) {
+			if (System.currentTimeMillis() - startT > 0) {
 				// take a picture and find all possible devices
 				screenColors.clear();
 				screenColors.add(RARE_COLOR);
