@@ -54,7 +54,7 @@ public class NsdHelper {
 		listOfServices.add(null);
 	}
 
-	public void reslveOnDemand(int position) {
+	public void resolveOnDemand(int position) {
 		if (position == 0)
 			return;
 		mNsdManager.resolveService(listOfServices.get(position), mResolveListener);

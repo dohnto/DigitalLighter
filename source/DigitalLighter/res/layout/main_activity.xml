@@ -36,10 +36,16 @@
             android:background="@android:color/white" />
 
         <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/refresh"
+            android:onClick="clickScan" />
+
+        <Button
             android:id="@+id/btn_connect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/action_button"
             android:layout_weight="1"
             android:onClick="clickConnect"
             android:text="Connect" />

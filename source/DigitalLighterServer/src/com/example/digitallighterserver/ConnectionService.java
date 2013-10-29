@@ -3,6 +3,8 @@ package com.example.digitallighterserver;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import com.example.jmdns.JmDNSService;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -21,7 +23,7 @@ public class ConnectionService extends Service {
 	private final IBinder mBinder = new LocalBinder();
 
 	// NSD
-	NsdHelper mNsdHelper;
+	JmDNSService mNsdHelper;
 	private Connection mConnection;
 	private Handler mUpdateHandler;
 
@@ -49,7 +51,7 @@ public class ConnectionService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Toast.makeText(ConnectionService.this, "Service started ", Toast.LENGTH_SHORT).show();
+		Toast.makeText(ConnectionService.this, "DL connection service started ", Toast.LENGTH_SHORT).show();
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
 
@@ -78,8 +80,16 @@ public class ConnectionService extends Service {
 
 		// NSD
 		mConnection = new Connection(mUpdateHandler);
-		mNsdHelper = new NsdHelper(this, mUpdateHandler);
-		mNsdHelper.initializeNsd();
+
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				mNsdHelper = new JmDNSService(ConnectionService.this, mUpdateHandler);
+			}
+		});
+		t.start();
+
 	}
 
 	@Override
@@ -89,12 +99,20 @@ public class ConnectionService extends Service {
 	}
 
 	public void pingUsers() {
-		//mConnection.pingUsers();
+		// mConnection.pingUsers();
 	}
 
-	public void registerService(String name) {
+	public void registerService(final String name) {
 		if (mConnection.getLocalPort() > -1) {
-			mNsdHelper.registerService(name, mConnection.getLocalPort());
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					mNsdHelper.createService(name, mConnection.getLocalPort());
+				}
+			});
+			t.start();
+
 		} else {
 			Log.d(TAG, "ServerSocket isn't bound.");
 			Toast.makeText(this, "Server isn't bound", Toast.LENGTH_SHORT).show();
@@ -104,7 +122,7 @@ public class ConnectionService extends Service {
 	public void broadcastCommandSignal(String signal) {
 		mConnection.sendMessage(signal);
 	}
-	
+
 	public void multicastCommandSignal(ArrayList<Socket> receivers, String msg) {
 		mConnection.sendMessage(receivers, msg);
 	}

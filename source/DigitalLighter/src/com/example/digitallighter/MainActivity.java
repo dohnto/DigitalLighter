@@ -1,14 +1,15 @@
 package com.example.digitallighter;
 
 import java.util.ArrayList;
+
+import javax.jmdns.ServiceInfo;
+
 import android.app.Activity;
 import android.graphics.Color;
-import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,38 +25,31 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
 	// LOGCAT TAG
-
 	private static final String TAG = "Client";
 
-	// NSD
-
-	NsdHelper mNsdHelper;
+	// CONNECTION
 	private Handler mUpdateHandler;
 	private Connection mConnection;
 
 	// UI
-
 	View background;
 	TextView counter;
 	public Spinner spinner;
 	public ArrayAdapter<String> adapter;
+	ArrayList<String> list;
 
-	// FLAG THAT PREVENT PLAYING NEW COMMAND IF FIRST IS STILL PLAYING
-
+	// COMMAND
 	boolean isPlaying = false;
 	ArrayList<String> playingQueue = new ArrayList<String>();
+	private int selectedServiceIndex = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// TestFlight.passCheckpoint("DigitalLighter MainActivityCreated");
-
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
 
 		// RETRIEVE UI ELEMENTS
-
 		background = findViewById(R.id.background);
 		Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
@@ -64,29 +58,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		spinner.setOnItemSelectedListener(this);
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
-
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("Pick Service");
+		list = new ArrayList<String>();
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
+		spinner.setPrompt("Pick a Service");
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
 
 		mUpdateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-
 				switch (msg.getData().getInt(Protocol.MESSAGE_TYPE)) {
-				case Protocol.MESSAGE_TYPE_NEW_SERVICE_FOUND:
-					adapter.add(msg.getData().getString(Protocol.NEW_SERVICE_NAME));
-					Toast.makeText(MainActivity.this,
-							msg.getData().getString(Protocol.NEW_SERVICE_NAME) + "sevice detected",
-							Toast.LENGTH_SHORT).show();
-					break;
-
 				case Protocol.MESSAGE_TYPE_COMMAND:
 					playCommand(msg.getData().getString(Protocol.COMMAND));
 					break;
@@ -94,11 +79,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			}
 		};
 
-		// NSD
-
+		// CONNECTION
 		mConnection = new Connection(mUpdateHandler);
-		mNsdHelper = new NsdHelper(this, mUpdateHandler);
-		mNsdHelper.initializeNsd();
+
 	}
 
 	// ========================================================================================================
@@ -106,13 +89,32 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	// ========================================================================================================
 
 	public void clickConnect(View v) {
-		NsdServiceInfo service = mNsdHelper.getChosenServiceInfo();
-		if (service != null) {
-			Log.d(TAG, "Connecting.");
-			Toast.makeText(this, "Connecting", Toast.LENGTH_SHORT).show();
-			mConnection.connectToServer(service.getHost(), service.getPort());
+		if (selectedServiceIndex != -1) {
+			ServiceInfo serviceToConnectTo = DNSService.getService(list.get(selectedServiceIndex));
+			if (serviceToConnectTo != null) {
+				mConnection.connectToServer(serviceToConnectTo.getHostAddress() serviceToConnectTo.getPort());
+				Toast.makeText(this, "Trying to connect", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+		}
+		Toast.makeText(this, "Pick a service", Toast.LENGTH_SHORT).show();
+
+	}
+
+	// ========================================================================================================
+	// SCAN FOR SERVICES
+	// ========================================================================================================
+
+	public void clickScan(View v) {
+		if (DNSService.services != null && DNSService.services.length > 0) {
+			for (int i = 0; i < DNSService.services.length; i++) {
+				if (!list.contains(DNSService.services[i].getName()))
+					adapter.add(DNSService.services[i].getName());
+			}
+			Toast.makeText(this, "List refreshed", Toast.LENGTH_SHORT).show();
 		} else {
-			Log.d(TAG, "No service to connect to!");
+			Toast.makeText(this, "No services detected", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -188,13 +190,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-		mNsdHelper.reslveOnDemand(pos);
-
+		selectedServiceIndex = pos;
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	// ========================================================================================================
@@ -203,7 +203,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	@Override
 	protected void onResume() {
-		mNsdHelper.discoverServices();
+		// START SCANING FOR SERVICES
+		DNSService.scanServices();
 		super.onResume();
 	}
 
