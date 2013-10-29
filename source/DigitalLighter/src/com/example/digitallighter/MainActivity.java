@@ -92,7 +92,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		if (selectedServiceIndex != -1) {
 			ServiceInfo serviceToConnectTo = DNSService.getService(list.get(selectedServiceIndex));
 			if (serviceToConnectTo != null) {
-				mConnection.connectToServer(serviceToConnectTo.getHostAddress() serviceToConnectTo.getPort());
+				mConnection
+						.connectToServer(serviceToConnectTo.getInetAddress(), serviceToConnectTo.getPort());
 				Toast.makeText(this, "Trying to connect", Toast.LENGTH_SHORT).show();
 				return;
 			}
