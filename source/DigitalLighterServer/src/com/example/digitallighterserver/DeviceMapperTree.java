@@ -23,7 +23,7 @@ public class DeviceMapperTree extends DeviceMapper {
 
 	public DeviceMapperTree(ConnectionService mConnection, int tilesX,
 			int tilesY, Observer ca) {
-		super(mConnection, tilesX, tilesY, ca);
+		super(mConnection, tilesX, tilesY, ca, null);
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.BLUE));
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.WHITE));
 		obs = ca;
@@ -153,7 +153,7 @@ public class DeviceMapperTree extends DeviceMapper {
 
 			if (toBeDetected.size() > 0) {
 				oneByOneDetector = new DeviceMapperSimple(network, tilesX,
-						tilesY, obs, toBeDetected);
+						tilesY, obs, toBeDetected, collector);
 				oneByOneDetector.reset();
 				state = DeviceMapperState.ONE_BY_ONE_DETECT;
 			} else {

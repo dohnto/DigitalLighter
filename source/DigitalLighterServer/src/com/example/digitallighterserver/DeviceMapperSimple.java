@@ -30,12 +30,12 @@ public class DeviceMapperSimple extends DeviceMapper {
 
 	public DeviceMapperSimple(ConnectionService mConnection, int tilesX,
 			int tilesY, Observer ca) {
-		super(mConnection, tilesX, tilesY, ca);
+		super(mConnection, tilesX, tilesY, ca, null);
 	}
 
 	public DeviceMapperSimple(ConnectionService mConnection, int tilesX,
-			int tilesY, Observer ca, ArrayList<Socket> sockets) {
-		super(mConnection, tilesX, tilesY, ca);
+			int tilesY, Observer ca, ArrayList<Socket> sockets, PointCollector collector) {
+		super(mConnection, tilesX, tilesY, ca, collector);
 		sockets = new ArrayList<Socket>(sockets);
 	}
 
