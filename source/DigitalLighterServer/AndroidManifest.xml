@@ -50,11 +50,6 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
         </activity>
-        <activity
-            android:name="com.example.digitallighterserver.JmDNSActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
-        </activity>
 
         <service
             android:name="com.example.digitallighterserver.ConnectionService"
