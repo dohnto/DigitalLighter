@@ -61,12 +61,6 @@ public class DNSService {
 
 								}
 							});
-
-						try {
-							Thread.sleep(3000);
-						} catch (InterruptedException e) {
-							break;
-						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

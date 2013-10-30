@@ -93,7 +93,10 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 
 	@Override
 	protected void onPause() {
-		unbindService(mConnection);
+		if (mBound) {
+			mBound = false;
+			unbindService(mConnection);
+		}
 		super.onPause();
 	}
 
