@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
     <uses-permission
@@ -49,11 +49,6 @@
             android:name="com.example.lightdetector.CameraActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.example.digitallighterserver.JmDNSActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
         </activity>
 
         <service
