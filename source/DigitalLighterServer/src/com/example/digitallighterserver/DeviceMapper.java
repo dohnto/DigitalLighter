@@ -23,9 +23,9 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected boolean started = false;
 
 	protected ArrayList<Socket> sockets;
-	
+
 	protected static int LIGHT_TIME = 100;
-	protected static int WAIT_TIME  = 1005; // waiting time between sending a
+	protected static int WAIT_TIME = 1005; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
 	protected String SHUT_DOWN_COLOR = ColorManager
@@ -41,11 +41,12 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected ArrayList<String> screenColors = new ArrayList<String>();
 
 	public DeviceMapper(ConnectionService mConnection, int tilesX, int tilesY,
-			Observer ca) {
+			Observer ca, PointCollector collector) {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
 
-		collector = new PointCollector(tilesX, tilesY);
+		this.collector = (collector == null) ? new PointCollector(tilesX,
+				tilesY) : collector;
 		collector.addObserver(this);
 		collector.addObserver(ca);
 		network = mConnection;
@@ -130,7 +131,7 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	public void setStarted(boolean started) {
 		this.started = started;
 	}
-	
+
 	protected ArrayList<Socket> getSockets() {
 		return (sockets == null) ? network.getConnectedDevices() : sockets;
 	}
