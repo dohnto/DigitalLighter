@@ -118,7 +118,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			if (serviceToConnectTo != null) {
 				String address = serviceToConnectTo.getNiceTextString();
 				InetAddress adr = intToInetAddress(ipStringToInt(address.substring(1)));
-				mConnection.connectToServer(adr, serviceToConnectTo.getPort());
+				mConnection.connectToServer(serviceToConnectTo.getAddress(), serviceToConnectTo.getPort());
 				Toast.makeText(this, "Trying to connect", Toast.LENGTH_SHORT).show();
 				return;
 			}
