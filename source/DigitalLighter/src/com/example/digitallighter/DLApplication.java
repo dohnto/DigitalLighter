@@ -1,12 +1,20 @@
 package com.example.digitallighter;
 
 import android.app.Application;
+import android.content.Context;
 
 public class DLApplication extends Application {
-	 @Override
-	 public void onCreate() {
-		 super.onCreate();
-		 // Initialize TestFlight with your app token.
-		// TestFlight.takeOff(this, "70735c1d-2f5e-4ce1-a282-865a5eef206e");
-	 }
+	static private DLApplication ctx;
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		// Initialize TestFlight with your app token.
+		// sTestFlight.takeOff(this, "0322b950-8564-423a-835d-476531c1ab23");
+		ctx = this;
+	}
+
+	static public Context getContext() {
+		return ctx.getApplicationContext();
+	}
 }

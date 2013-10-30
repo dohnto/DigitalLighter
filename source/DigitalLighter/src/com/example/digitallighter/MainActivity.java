@@ -1,10 +1,13 @@
 package com.example.digitallighter;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.jmdns.ServiceInfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -50,12 +53,29 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		setContentView(R.layout.main_activity);
 
 		// RETRIEVE UI ELEMENTS
-		background = findViewById(R.id.background);
-		Button action = (Button) findViewById(R.id.action_button);
+		final Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
 		counter = (TextView) findViewById(R.id.txt_count);
 		spinner = (Spinner) findViewById(R.id.spinner);
 		spinner.setOnItemSelectedListener(this);
+		background = findViewById(R.id.background);
+		final Button connect = (Button) findViewById(R.id.btn_connect);
+		background.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (action.isShown()) {
+					action.setVisibility(View.GONE);
+					spinner.setVisibility(View.GONE);
+					connect.setVisibility(View.GONE);
+				} else {
+					action.setVisibility(View.VISIBLE);
+					spinner.setVisibility(View.VISIBLE);
+					connect.setVisibility(View.VISIBLE);
+				}
+
+			}
+		});
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
 		list = new ArrayList<String>();
@@ -75,6 +95,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				case Protocol.MESSAGE_TYPE_COMMAND:
 					playCommand(msg.getData().getString(Protocol.COMMAND));
 					break;
+
+				case Protocol.MESSAGE_TYPE_SERVER_STARTED:
+					Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+					break;
 				}
 			}
 		};
@@ -92,8 +116,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		if (selectedServiceIndex != -1) {
 			ServiceInfo serviceToConnectTo = DNSService.getService(list.get(selectedServiceIndex));
 			if (serviceToConnectTo != null) {
-				mConnection
-						.connectToServer(serviceToConnectTo.getInetAddress(), serviceToConnectTo.getPort());
+				String address = serviceToConnectTo.getNiceTextString();
+				InetAddress adr = intToInetAddress(ipStringToInt(address.substring(1)));
+				mConnection.connectToServer(adr, serviceToConnectTo.getPort());
 				Toast.makeText(this, "Trying to connect", Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -103,20 +128,33 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	}
 
-	// ========================================================================================================
-	// SCAN FOR SERVICES
-	// ========================================================================================================
-
-	public void clickScan(View v) {
-		if (DNSService.services != null && DNSService.services.length > 0) {
-			for (int i = 0; i < DNSService.services.length; i++) {
-				if (!list.contains(DNSService.services[i].getName()))
-					adapter.add(DNSService.services[i].getName());
-			}
-			Toast.makeText(this, "List refreshed", Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(this, "No services detected", Toast.LENGTH_SHORT).show();
+	public static int ipStringToInt(String str) {
+		int result = 0;
+		String[] array = str.split("\\.");
+		if (array.length != 4)
+			return 0;
+		try {
+			result = Integer.parseInt(array[3]);
+			result = (result << 8) + Integer.parseInt(array[2]);
+			result = (result << 8) + Integer.parseInt(array[1]);
+			result = (result << 8) + Integer.parseInt(array[0]);
+		} catch (NumberFormatException e) {
+			return 0;
 		}
+		return result;
+	}
+
+	public static InetAddress intToInetAddress(int hostAddress) {
+		InetAddress inetAddress;
+		byte[] addressBytes = { (byte) (0xff & hostAddress), (byte) (0xff & (hostAddress >> 8)),
+				(byte) (0xff & (hostAddress >> 16)), (byte) (0xff & (hostAddress >> 24)) };
+
+		try {
+			inetAddress = InetAddress.getByAddress(addressBytes);
+		} catch (UnknownHostException e) {
+			return null;
+		}
+		return inetAddress;
 	}
 
 	// ========================================================================================================
@@ -205,8 +243,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	protected void onResume() {
 		// START SCANING FOR SERVICES
+
+		DNSService.setPostingData(background, adapter);
 		DNSService.scanServices();
 		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
 	}
 
 	@Override

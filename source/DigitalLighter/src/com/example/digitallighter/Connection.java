@@ -40,10 +40,17 @@ public class Connection {
 	}
 
 	public void connectToServer(InetAddress address, int port) {
+
 		if (mChatClient != null && mChatClient.PORT == port && mChatClient.mAddress.equals(address))
 			return;
 
-		mChatClient = new ChatClient(address, port);
+		if (mChatClient != null) {
+			mChatClient.tearDown();
+			mChatServer.tearDown();
+		}
+
+		if (mChatClient == null)
+			mChatClient = new ChatClient(address, port);
 
 	}
 
@@ -178,6 +185,11 @@ public class Connection {
 					if (getSocket() == null) {
 						setSocket(new Socket(mAddress, PORT));
 						Log.d(CLIENT_TAG, "Client-side socket initialized.");
+						Bundle messageBundle = new Bundle();
+						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_SERVER_STARTED);
+						Message message = new Message();
+						message.setData(messageBundle);
+						mUpdateHandler.sendMessage(message);
 
 					} else {
 						Log.d(CLIENT_TAG, "Socket already initialized. skipping!");
