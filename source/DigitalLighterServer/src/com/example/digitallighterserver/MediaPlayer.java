@@ -24,8 +24,11 @@ public class MediaPlayer extends Observable {
 	private ConnectionService network;
 	private CommandCreator commandCreator;
 
-	static private int frameRate = 1; // images per second
-	
+	static private int NEXT_FRAMES = 5;
+	static private int FRAME_RATE = 1; // images per second
+	static private int SEND_COMMAND_BEFORE = 100; // number of millisecond when
+													// should command be send
+
 	/**
 	 * Constructor
 	 * 
@@ -36,18 +39,20 @@ public class MediaPlayer extends Observable {
 	 * @param dls
 	 *            DeviceTracker class
 	 */
-	public MediaPlayer(int tilesX, int tilesY, DeviceLocatingStrategy deviceMapper,
-			ConnectionService network, String media) {
+	public MediaPlayer(int tilesX, int tilesY,
+			DeviceLocatingStrategy deviceMapper, ConnectionService network,
+			String media) {
 		this.tilesX = tilesX;
 		this.tilesY = tilesY;
 		this.deviceMapper = deviceMapper;
 		this.network = network;
 
-		commandCreator = new CommandCreator(media, frameRate);
+		commandCreator = new CommandCreator(media, FRAME_RATE);
 	}
 
 	/**
-	 * Gets the frames from ImageMapper and displays them on phones' screens as a video.
+	 * Gets the frames from ImageMapper and displays them on phones' screens as
+	 * a video.
 	 */
 	public void play() {
 
@@ -65,43 +70,25 @@ public class MediaPlayer extends Observable {
 					devices = deviceMapper.getDevices();
 
 					// get new frame to display
-					int waitTime = commandCreator.nextCommand(5);
-					waitTime = (waitTime > 100) ? waitTime - 100 : 0;
+					int waitTime = commandCreator.nextCommand(NEXT_FRAMES);
+					waitTime = (waitTime > SEND_COMMAND_BEFORE) ? waitTime
+							- SEND_COMMAND_BEFORE : 0;
 
 					// display each tile one by one
 					for (int i = 0; i < tilesX; i++) {
 						for (int j = 0; j < tilesY; j++) {
 							String command = commandCreator.getCommand(i, j);
-							//int color = frame.getPixel(i, j);
-							//double[] colorArray = { Color.red(color), Color.green(color), Color.blue(color) };
-
-							//String hexColor = ColorManager.getHexColor(colorArray);
-							/*list = update.get(hexColor);
-							if (list == null) {
-								list = new ArrayList<Point>();
-								update.put(hexColor, list);
-							}*/
-							/*boolean pointAdded = false;
-
-							if (!pointAdded) {
-								setChanged();
-								list.add(currentPoint);
-								pointAdded = true;
-							}*/
-
 							Point currentPoint = new Point(i, j);
 							// display one color on all devices from one tile
-							network.multicastCommandSignal(devices.get(currentPoint), command);
-							Log.i("PES", "TILE " + i + ", " + j + ": " + command);
+							network.multicastCommandSignal(
+									devices.get(currentPoint), command);
 						}
-						
 					}
 					notifyObservers(update);
-					
+
 					try {
 						Thread.sleep(waitTime);
 					} catch (InterruptedException e) {
-						// TODO Automaticky generovaný zachytávací blok
 						e.printStackTrace();
 					}
 				}
@@ -111,5 +98,4 @@ public class MediaPlayer extends Observable {
 		playbackThread.start();
 	}
 
-	
 }

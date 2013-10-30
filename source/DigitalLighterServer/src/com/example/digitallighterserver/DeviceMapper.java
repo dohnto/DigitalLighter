@@ -22,8 +22,10 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected int tilesY;
 	protected boolean started = false;
 
-	protected static int LIGHT_TIME = 1000;
-	protected static int WAIT_TIME = 1000; // waiting time between sending a
+	protected ArrayList<Socket> sockets;
+	
+	protected static int LIGHT_TIME = 100;
+	protected static int WAIT_TIME  = 1005; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
 	protected String SHUT_DOWN_COLOR = ColorManager
@@ -47,6 +49,7 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		collector.addObserver(this);
 		collector.addObserver(ca);
 		network = mConnection;
+		sockets = null;
 	}
 
 	public void reset() {
@@ -74,11 +77,11 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			finished = doFSMStep(image, false);
 		} else {
 			screenColors.clear();
+			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
 			screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
 			screenColors.add(ColorManager.getHexColor(ColorManager.RED));
 			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
 			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
-			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
 			detectLights(image, screenColors);
 		}
 		return finished;
@@ -87,7 +90,11 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	@Override
 	public void update(Observable obs, Object obj) {
 		if (started) {
-			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj;
+			lastDetectedBlobs = (HashMap<String, ArrayList<Point>>) obj; // possible
+																			// race
+																			// condition?
+																			// copy
+																			// obj?
 			doFSMStep(null, true);
 		}
 	}
@@ -122,5 +129,9 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	public void setStarted(boolean started) {
 		this.started = started;
+	}
+	
+	protected ArrayList<Socket> getSockets() {
+		return (sockets == null) ? network.getConnectedDevices() : sockets;
 	}
 }

@@ -33,6 +33,12 @@ public class DeviceMapperSimple extends DeviceMapper {
 		super(mConnection, tilesX, tilesY, ca);
 	}
 
+	public DeviceMapperSimple(ConnectionService mConnection, int tilesX,
+			int tilesY, Observer ca, ArrayList<Socket> sockets) {
+		super(mConnection, tilesX, tilesY, ca);
+		sockets = new ArrayList<Socket>(sockets);
+	}
+
 	public enum DeviceMapperState {
 		INIT, // broadcast all devices to shine with initial color
 		DETECT_FALSE_ALARM, // take a picture and find all possible devices
@@ -57,14 +63,14 @@ public class DeviceMapperSimple extends DeviceMapper {
 		case INIT:
 			recoveryCounter = 0;
 			// broadcast all devices to shine with initial color
-			network.broadcastCommandSignal(CommandCreator.addTime(
-					SHUT_DOWN_COLOR, LIGHT_TIME));
+			network.multicastCommandSignal(getSockets(),
+					CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
 		case DETECT_FALSE_ALARM:
 			// wait few seconds for devices to process the image
-			if (System.currentTimeMillis() - startT > WAIT_TIME) {
+			if (System.currentTimeMillis() - startT > 0) {
 				// take a picture and find all possible devices
 				screenColors.clear();
 				screenColors.add(RARE_COLOR);
@@ -81,13 +87,12 @@ public class DeviceMapperSimple extends DeviceMapper {
 			}
 			break;
 		case ONE_BY_ONE:
-			if (oneByOneCounter >= network.getConnectedDevices().size()) {
+			if (oneByOneCounter >= getSockets().size()) {
 				state = DeviceMapperState.END;
 			} else {
 				// iterate through all of devices
 				// make it light
-				network.unicastCommandSignal(
-						network.getConnectedDevices().get(oneByOneCounter),
+				network.unicastCommandSignal(getSockets().get(oneByOneCounter),
 						CommandCreator.addTime(RARE_COLOR, LIGHT_TIME));
 				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
@@ -114,7 +119,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 							getRandomInt(0, lastDetectedBlobs.size() - 1));
 					// add to hash map
 					devices.get(tileOfDevice).add(
-							network.getConnectedDevices().get(oneByOneCounter));
+							getSockets().get(oneByOneCounter));
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				} else if (recoveryCounter < RECOVERY_TRIES) { // not detected
@@ -124,9 +129,9 @@ public class DeviceMapperSimple extends DeviceMapper {
 					state = DeviceMapperState.ONE_BY_ONE;
 				} else { // run out of second chances
 					// TODO delete phone
-					network.unicastCommandSignal(network.getConnectedDevices()
-							.get(oneByOneCounter), CommandCreator.addTime(
-							SHUT_DOWN_COLOR, LIGHT_TIME));
+					network.unicastCommandSignal(
+							getSockets().get(oneByOneCounter),
+							CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				}

@@ -9,21 +9,24 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 
 import com.example.digitallighterserver.DeviceMapper;
-import com.example.digitallighterserver.DeviceMapperSimple.DeviceMapperState;
 import com.example.lightdetector.ColorManager;
 
 public class DeviceMapperTree extends DeviceMapper {
-	protected ArrayList<String> RARE_COLORS = new ArrayList<String>();
-	protected DeviceMapperState state;
-	protected HashMap<String, ArrayList<Point>> falseAlarmDevices = new HashMap<String, ArrayList<Point>>();
-	protected ArrayList<Socket> sockets;
-	protected ArrayList<Integer> socketsPointer = new ArrayList<Integer>();
+	private ArrayList<String> RARE_COLORS = new ArrayList<String>();
+	private DeviceMapperState state;
+	private HashMap<String, ArrayList<Point>> falseAlarmDevices = new HashMap<String, ArrayList<Point>>();
+	private TreeListDivider<Socket> divider;
+	private ArrayList<ArrayList<Socket>> division;
+	private HashMap<Socket, ArrayList<Point>> possiblePositions = new HashMap<Socket, ArrayList<Point>>();
+	private DeviceMapperSimple oneByOneDetector;
+	private Observer obs;
 
 	public DeviceMapperTree(ConnectionService mConnection, int tilesX,
 			int tilesY, Observer ca) {
 		super(mConnection, tilesX, tilesY, ca);
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.BLUE));
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.WHITE));
+		obs = ca;
 	}
 
 	public enum DeviceMapperState {
@@ -34,13 +37,27 @@ public class DeviceMapperTree extends DeviceMapper {
 		TREE_INIT, // iterate through all of devices
 					// make it light
 		DETECT_TREE, // take a picure
-		DETECT_ONE_WAIT_FOR_UPDATE, END;
+		DETECT_TREE_WAIT_FOR_UPDATE, ONE_BY_ONE_INIT, ONE_BY_ONE_DETECT, END;
+	}
+
+	protected ArrayList<Point> fillPositions() {
+		ArrayList<Point> retval = new ArrayList<Point>();
+		for (int x = 0; x < tilesX; x++) {
+			for (int y = 0; y < tilesY; y++) {
+				retval.add(new Point(x, y));
+			}
+		}
+		return retval;
 	}
 
 	@Override
 	protected void resetState() {
 		state = DeviceMapperState.INIT;
-		sockets = new ArrayList<Socket>(network.getConnectedDevices());
+		sockets = new ArrayList<Socket>(getSockets());
+		divider = new TreeListDivider<Socket>(sockets, RARE_COLORS.size());
+		for (Socket s : sockets) {
+			possiblePositions.put(s, fillPositions());
+		}
 	}
 
 	@Override
@@ -72,26 +89,88 @@ public class DeviceMapperTree extends DeviceMapper {
 				state = DeviceMapperState.TREE_INIT;
 			}
 			break;
-		case TREE_INIT:
-			socketsPointer = getDivision(sockets, RARE_COLORS.size());
-			int counter = 0;
-			for (int i = 0; i < socketsPointer.size(); i++) {
-				String color = RARE_COLORS.get(i);
-				String command = CommandCreator.addTime(color, LIGHT_TIME);
-				for (int j = counter; j < socketsPointer.get(i); j++) {
-					network.unicastCommandSignal(sockets.get(j), command);
+		case TREE_INIT: // make all phones shine with appropriate color
+			if (divider.isFinished()) { // no need for shining anymore
+				state = DeviceMapperState.ONE_BY_ONE_INIT;
+			} else {
+				division = divider.getNextDivision();
+				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them
+																// shine
+					String command = CommandCreator.addTime(RARE_COLORS.get(i),
+							LIGHT_TIME);
+					network.multicastCommandSignal(division.get(i), command);
 				}
-				counter = socketsPointer.get(i);
+				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_TREE;
 			}
 			break;
 		case DETECT_TREE:
 			if (System.currentTimeMillis() - startT > WAIT_TIME) {
-				state = DeviceMapperState.DETECT_ONE_WAIT_FOR_UPDATE;
+				state = DeviceMapperState.DETECT_TREE_WAIT_FOR_UPDATE;
 				detectLights(image, RARE_COLORS);
 			}
 			break;
-		case END: // set flag
+		case DETECT_TREE_WAIT_FOR_UPDATE:
+			if (forceNextStep) {
+				for (int i = 0; i < RARE_COLORS.size(); i++) { // iterate
+																// through
+																// all colors
+					String color = RARE_COLORS.get(i);
+					ArrayList<Socket> div = division.get(i);
+					if (lastDetectedBlobs.keySet().contains(color)) { // check
+						// get positions where color was detected
+						ArrayList<Point> positions = lastDetectedBlobs
+								.get(color);
+						for (Point falseAlarm : falseAlarmDevices.get(color)) {
+							// remove false alarm devices
+							positions.remove(falseAlarm);
+						}
+						for (Socket receiver : div) {
+							// for all mobile phones that should light that
+							// color
+							// make intersection of possiblePosition
+							possiblePositions.get(receiver)
+									.retainAll(positions);
+						}
+					}
+				}
+				state = DeviceMapperState.TREE_INIT;
+			}
+			break;
+		case ONE_BY_ONE_INIT:
+			ArrayList<Socket> toBeDetected = new ArrayList<Socket>();
+			for (int i = 0; i < sockets.size(); i++) {
+				Socket socket = sockets.get(i);
+				ArrayList<Point> positions = possiblePositions.get(socket);
+				if (positions != null && positions.size() == 1) {
+					// ideal case
+					devices.get(positions.get(0)).add(socket);					
+				} else {
+					// cannot detect this device, prepare list for one by one algorithm
+					toBeDetected.add(socket);
+				}
+			}
+
+			if (toBeDetected.size() > 0) {
+				oneByOneDetector = new DeviceMapperSimple(network, tilesX,
+						tilesY, obs, toBeDetected);
+				oneByOneDetector.reset();
+				state = DeviceMapperState.ONE_BY_ONE_DETECT;
+			} else {
+				state = DeviceMapperState.END;
+			}
+			break;
+		case ONE_BY_ONE_DETECT:
+			if (oneByOneDetector.nextFrame(image)) {
+				HashMap<Point, ArrayList<Socket>> map = oneByOneDetector
+						.getDevices();
+				for (Point tile : map.keySet()) {
+					devices.get(tile).addAll(map.get(tile));
+				}
+				state = DeviceMapperState.END;
+			}
+			break;
+		case END:
 			started = false;
 			retval = true;
 			break;
@@ -102,16 +181,4 @@ public class DeviceMapperTree extends DeviceMapper {
 
 		return retval;
 	}
-
-	private static ArrayList<Integer> getDivision(ArrayList<Socket> sockets,
-			int parts) {
-		ArrayList<Integer> division = new ArrayList<Integer>();
-		int df = sockets.size() / (parts);
-
-		for (int i = 0; i < parts; i++) {
-			division.add((i + 1) * df);
-		}
-		return division;
-	}
-
 }

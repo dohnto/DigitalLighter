@@ -53,7 +53,6 @@ public class PointCollector extends Observable {
 	}
 
 	public void collect(final Mat input, final ArrayList<String> colorsVar) {
-
 		Mat imgTemp = new Mat();
 		input.copyTo(imgTemp);
 		final Mat img = imgTemp;
