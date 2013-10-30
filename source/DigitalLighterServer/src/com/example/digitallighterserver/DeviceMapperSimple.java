@@ -18,7 +18,7 @@ import com.example.lightdetector.PointCollector;
 
 public class DeviceMapperSimple extends DeviceMapper {
 	protected DeviceMapperState state;
-	protected String RARE_COLOR = ColorManager.getHexColor(ColorManager.BLUE);
+	protected String RARE_COLOR = ColorManager.getHexColor(ColorManager.RED);
 
 	protected ArrayList<Point> falseAlarmDevices; // blobs that are shining with
 													// RARE
@@ -36,7 +36,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 	public DeviceMapperSimple(ConnectionService mConnection, int tilesX,
 			int tilesY, Observer ca, ArrayList<Socket> sockets, PointCollector collector) {
 		super(mConnection, tilesX, tilesY, ca, collector);
-		sockets = new ArrayList<Socket>(sockets);
+		this.sockets = new ArrayList<Socket>(sockets);
 	}
 
 	public enum DeviceMapperState {

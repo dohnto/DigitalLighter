@@ -25,7 +25,7 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected ArrayList<Socket> sockets;
 
 	protected static int LIGHT_TIME = 100;
-	protected static int WAIT_TIME = 1005; // waiting time between sending a
+	protected static int WAIT_TIME = 1000; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
 	protected String SHUT_DOWN_COLOR = ColorManager
@@ -47,8 +47,8 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 		this.collector = (collector == null) ? new PointCollector(tilesX,
 				tilesY) : collector;
-		collector.addObserver(this);
-		collector.addObserver(ca);
+		this.collector.addObserver(this);
+		this.collector.addObserver(ca);
 		network = mConnection;
 		sockets = null;
 	}
