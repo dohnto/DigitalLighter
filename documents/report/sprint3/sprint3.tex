@@ -22,15 +22,15 @@ Estimated velocity is 240 hours since we agreed on 30 working hours per person p
 \subsection{User-stories}
 
 \subsubsection*{Implementation}
-All the functional requirements for sprint 3 are presented in table \ref{tab:sprint3stories}
+All the functional requirements for sprint 3 are presented in Table \ref{tab:sprint3stories}
 \LTXtable{\textwidth}{sprint3/stories.tex}
 
 \subsubsection*{Documentation}
-All the documentation stories for sprint 3 are presented in table \ref{tab:sprint3Documentationstories}
+All the documentation stories for sprint 3 are presented in Table \ref{tab:sprint3Documentationstories}
 \LTXtable{\textwidth}{sprint3/storiesDocumentation.tex}
 
 \subsubsection*{Project management}
-All the project management for sprint 3 are presented in table \ref{tab:sprint3storiesProcess}
+All the project management for sprint 3 are presented in Table \ref{tab:sprint3storiesProcess}
 \LTXtable{\textwidth}{sprint3/storiesProcess.tex}
 
 \section{Preliminary studies}
@@ -41,7 +41,7 @@ The goal of this sprint is having a working application on a mobile phone that c
 Input type and output are for both modes common -- input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
 In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image or video) are treated as an input.
 
-You can see example of input with matrix 2x2 in image \ref{img:sprint3_goal}. Appropriate output of image processing and mapping module is: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
+You can see example of input with matrix 2x2 in Figure \ref{img:sprint3_goal}. Appropriate output of image processing and mapping module is: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
 
 \begin{figure}[H]
 	\centering
@@ -55,7 +55,7 @@ You can see example of input with matrix 2x2 in image \ref{img:sprint3_goal}. Ap
 In this section will be described image processing module using 4+1 architectural view module.
 
 \subsection{Logical view}
-You can see a class diagram of new classes created in sprint 3 in figure \ref{fig:class_diagram_sprint3}. We can divide these new classes into three categories. 
+You can see a class diagram of new classes created in sprint 3 in Figure \ref{fig:class_diagram_sprint3}. We can divide these new classes into three categories. 
 
 Into the first category we count classes \texttt{LightDetector}, \texttt{TileMapper} and \texttt{PointCollector}. 
 These classes are a core of image processing module. 
@@ -80,10 +80,37 @@ In last category there is class \texttt{ColorManager}, which is standalone class
 \end{figure}
 
 \subsection{Physical view}
+% ask milos
+
 \subsection{Process view}
-\subsection{Development view}
+You can see the process view represented in Figures \ref{fig:sprint3_activity_diagram} and \ref{fig:sprint3_dfd}.
+It should be mentioned, that each time new image was taken by camera, new thread is created and therefore several processing in the same time can be performed.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=16.2cm]{sprint3/sprint3_activity.pdf}
+	\caption{Sprint 3 activity diagram}
+	\label{fig:sprint3_activity_diagram}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=16.2cm]{sprint3/sprint3_dtd.pdf}
+	\caption{Sprint 3 data flow diagram}
+	\label{fig:sprint3_dfd}
+\end{figure}
+
+%\subsection{Development view}
+%Since this is a single module, there is no need for development view
 
 \section{Implementation}
+
+Few problems during implementation had occurred. 
+Since the OpenCV library for Java is in early stage, there is some functionality missing.
+One of these is a method \texttt{open(String)} of class \texttt{VideoCapture}\footnote{http://docs.opencv.org/java/org/opencv/highgui/VideoCapture.html}.
+In C++ version of OpenCV there exist such a method and it programmers allows to use a video for input for image processing.
+After short research, a fix of this bug was found\footnote{http://code.opencv.org/issues/3207}, but this feature will be added in release 2.4.7.
 
 
 \section{Testing}
