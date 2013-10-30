@@ -22,6 +22,8 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected int tilesY;
 	protected boolean started = false;
 
+	protected ArrayList<Socket> sockets;
+	
 	protected static int LIGHT_TIME = 100;
 	protected static int WAIT_TIME  = 1005; // waiting time between sending a
 											// signal
@@ -47,6 +49,7 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		collector.addObserver(this);
 		collector.addObserver(ca);
 		network = mConnection;
+		sockets = null;
 	}
 
 	public void reset() {
@@ -74,11 +77,11 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 			finished = doFSMStep(image, false);
 		} else {
 			screenColors.clear();
+			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
 			screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
-			//screenColors.add(ColorManager.getHexColor(ColorManager.RED));
+			screenColors.add(ColorManager.getHexColor(ColorManager.RED));
 			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
-			//screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
-			//screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
+			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
 			detectLights(image, screenColors);
 		}
 		return finished;
@@ -126,5 +129,9 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	public void setStarted(boolean started) {
 		this.started = started;
+	}
+	
+	protected ArrayList<Socket> getSockets() {
+		return (sockets == null) ? network.getConnectedDevices() : sockets;
 	}
 }

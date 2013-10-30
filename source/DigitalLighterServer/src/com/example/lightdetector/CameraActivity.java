@@ -196,12 +196,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		Mat output = new Mat();
 		input.copyTo(output);
 
-		int unit = output.width() - 1 / tilesX;
+		int unit = (output.width() - 1) / tilesX;
 		for (int i = 0; i < tilesX; ++i)
 			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
 					ColorManager.getCvColor(ColorManager.RED));
-+
-		unit = output.height()  - 1/ tilesY;
+
+		unit = (output.height()  - 1) / tilesY;
 		for (int i = 0; i < tilesY; ++i)
 			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
 					ColorManager.getCvColor(ColorManager.RED));
