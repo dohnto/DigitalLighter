@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:xhtml="http://www.w3.org/1999/xhtml"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="691.14941"
+   height="288.0097"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="deployment-diagram-sprint3.pdf">
+  <metadata
+     id="metadata112">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="847"
+     id="namedview110"
+     showgrid="false"
+     inkscape:zoom="1.687275"
+     inkscape:cx="365.98368"
+     inkscape:cy="126.46522"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs4" />
+  <path
+     d="m 600.69815,178.99128 0,70"
+     stroke-miterlimit="10"
+     pointer-events="none"
+     id="path4027"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path8"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 180.5,0.5 0,160 -10,10 -170,0 0,-160 10,-10 170,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path10"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 0.5,10.5 170,0 10,-10 m -10,10 0,160" />
+  <g
+     style="font-size:12px;text-anchor:middle"
+     id="g12"
+     font-size="12px"
+     transform="translate(-1.5,-1.5)">
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text14"
+       text-decoration="underline"
+       y="28"
+       x="87">&lt;&lt;device&gt;&gt;</text>
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text16"
+       text-decoration="underline"
+       y="42"
+       x="87">Client</text>
+  </g>
+  <rect
+     style="fill:#ffffff;stroke:#000000"
+     id="rect18"
+     pointer-events="none"
+     height="51"
+     width="150"
+     y="49.5"
+     x="10.5" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path20"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 138.5,55.5 16,0 0,20 -16,0 0,-4 -4,0 0,-4 4,0 0,-4 -4,0 0,-4 4,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path22"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 138.5,59.5 4,0 0,4 -4,0 m 0,4 4,0 0,4 -4,0" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:0.98229712"
+     id="rect32"
+     pointer-events="none"
+     height="48.239689"
+     width="150.0177"
+     y="110.49115"
+     x="10.491148" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path34"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 138.5,116.5 16,0 0,20 -16,0 0,-4 -4,0 0,-4 4,0 0,-4 -4,0 0,-4 4,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path36"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 138.5,120.5 4,0 0,4 -4,0 m 0,4 4,0 0,4 -4,0" />
+  <g
+     id="g38"
+     transform="translate(10.5,110.5)">
+    <switch
+       id="switch40">
+      <foreignObject
+         id="foreignObject42"
+         requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+         height="50"
+         width="150"
+         pointer-events="all">
+        <xhtml:div
+           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 14px; vertical-align: top; width: 150px; height: 50px; white-space: nowrap; text-align: center;">
+          <xhtml:p>
+            <xhtml:strong>Signal play</xhtml:strong>
+            <xhtml:br />
+            <xhtml:strong>function<xhtml:br />
+</xhtml:strong>
+          </xhtml:p>
+        </xhtml:div>
+      </foreignObject>
+      <text
+         style="font-size:12px;text-anchor:middle;fill:#000000;font-family:Helvetica"
+         id="text44"
+         font-size="12px"
+         y="31"
+         x="75" />
+    </switch>
+  </g>
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:10;stroke-dasharray:none"
+     inkscape:connector-curvature="0"
+     id="path46"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 690.37204,25.627958 0,157.956932 -9.98578,15.79569 -169.7583,0 0,-157.95693 9.98578,-15.795692 169.7583,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:10;stroke-dasharray:none"
+     inkscape:connector-curvature="0"
+     id="path48"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 510.62583,41.314149 169.76232,0 9.98602,-15.688322 m -9.98602,15.688322 0,156.883221" />
+  <g
+     style="font-size:12px;text-anchor:middle"
+     id="g50"
+     font-size="12px"
+     transform="translate(-1.5,-1.5)">
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text52"
+       text-decoration="underline"
+       y="53"
+       x="597">&lt;&lt;device&gt;&gt;</text>
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text54"
+       text-decoration="underline"
+       y="67"
+       x="597">Server</text>
+  </g>
+  <rect
+     style="fill:#ffffff;stroke:#000000"
+     id="rect56"
+     pointer-events="none"
+     height="51"
+     width="150"
+     y="74.5"
+     x="520.5" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path58"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 648.5,80.5 16,0 0,20 -16,0 0,-4 -4,0 0,-4 4,0 0,-4 -4,0 0,-4 4,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path60"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 648.5,84.5 4,0 0,4 -4,0 m 0,4 4,0 0,4 -4,0" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path70"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 440.5,25.5 0,100 -10,10 -170,0 0,-100 10,-10 170,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path72"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 260.5,35.5 170,0 10,-10 m -10,10 0,100" />
+  <g
+     style="font-size:12px;text-anchor:middle"
+     id="g74"
+     font-size="12px"
+     transform="translate(-1.5,-1.5)">
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text76"
+       text-decoration="underline"
+       y="53"
+       x="347">&lt;&lt;device&gt;&gt;</text>
+    <text
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica"
+       id="text78"
+       text-decoration="underline"
+       y="67"
+       x="347">Router</text>
+  </g>
+  <rect
+     style="fill:#ffffff;stroke:#000000"
+     id="rect80"
+     pointer-events="none"
+     height="41"
+     width="150"
+     y="74.5"
+     x="270.5" />
+  <path
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path82"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 398.5,80.5 16,0 0,20 -16,0 0,-4 -4,0 0,-4 4,0 0,-4 -4,0 0,-4 4,0 z" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path84"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 398.5,84.5 4,0 0,4 -4,0 m 0,4 4,0 0,4 -4,0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path94"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 180.5,83.5 80,-1" />
+  <g
+     style="font-size:11px;text-anchor:middle"
+     id="g96"
+     font-size="11px"
+     transform="translate(-1.5,-1.5)">
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect98"
+       height="14"
+       width="53"
+       y="66"
+       x="196" />
+    <text
+       style="fill:#000000;font-family:Helvetica"
+       id="text100"
+       y="76"
+       x="222">_http._tcp.</text>
+  </g>
+  <path
+     style="fill:none;stroke:#000000;stroke-miterlimit:10"
+     inkscape:connector-curvature="0"
+     id="path102"
+     pointer-events="none"
+     stroke-miterlimit="10"
+     d="m 440.5,80.5 70,0" />
+  <g
+     style="font-size:11px;text-anchor:middle"
+     id="g104"
+     font-size="11px"
+     transform="translate(2.5,-1.5)">
+    <rect
+       style="fill:#ffffff;stroke:none"
+       id="rect106"
+       height="14"
+       width="53"
+       y="66"
+       x="446" />
+    <text
+       style="fill:#000000;font-family:Helvetica"
+       id="text108"
+       y="76"
+       x="472">_http._tcp.</text>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="75.072029"
+     y="138.95909"
+     id="text3118"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="75.072029"
+       y="138.95909"
+       id="tspan3122"
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica">Signal play function</tspan></text>
+  <text
+     sodipodi:linespacing="125%"
+     id="text3126"
+     y="70.801857"
+     x="78.628059"
+     style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     xml:space="preserve"><tspan
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+       id="tspan3128"
+       y="70.801857"
+       x="80.292122"
+       sodipodi:role="line">Client-side </tspan><tspan
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+       y="85.801857"
+       x="78.628059"
+       sodipodi:role="line"
+       id="tspan3130">communication</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="588.32568"
+     y="97.472076"
+     id="text3179"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       x="589.98975"
+       y="97.472076"
+       id="tspan3181"
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica">Server-side </tspan><tspan
+       id="tspan3183"
+       sodipodi:role="line"
+       x="588.32568"
+       y="112.47208"
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica">communication</tspan></text>
+  <text
+     sodipodi:linespacing="125%"
+     id="text3185"
+     y="98.657417"
+     x="333.4769"
+     style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     xml:space="preserve"><tspan
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+       y="98.657417"
+       x="333.4769"
+       sodipodi:role="line"
+       id="tspan3189">DNS Relay</tspan></text>
+  <path
+     d="m 690.64561,232.33695 0,50.15705 -10.01618,5.0157 -170.27504,0 0,-50.15704 10.01618,-5.01571 170.27504,0 z"
+     stroke-miterlimit="10"
+     pointer-events="none"
+     id="path3231"
+     inkscape:connector-curvature="0"
+     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:10;stroke-dasharray:none" />
+  <path
+     d="m 510.3506,237.2418 170.2822,0 10.0166,-4.90864 m -10.0166,4.90864 0,49.08636"
+     stroke-miterlimit="10"
+     pointer-events="none"
+     id="path3233"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:10;stroke-dasharray:none" />
+  <g
+     transform="translate(-1.5,205.48256)"
+     font-size="12px"
+     id="g3235"
+     style="font-size:12px;text-anchor:middle">
+    <text
+       x="597"
+       y="53"
+       text-decoration="underline"
+       id="text3237"
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica">&lt;&lt;device&gt;&gt;</text>
+    <text
+       x="597"
+       y="67"
+       text-decoration="underline"
+       id="text3239"
+       style="text-decoration: underline;fill:#000000;font-family:Helvetica">Camera</text>
+  </g>
+  <rect
+     x="521.09265"
+     y="136.73051"
+     width="150"
+     height="51"
+     pointer-events="none"
+     id="rect4029"
+     style="fill:#ffffff;stroke:#000000" />
+  <path
+     d="m 648.5,142.5 16,0 0,20 -16,0 0,-4 -4,0 0,-4 4,0 0,-4 -4,0 0,-4 4,0 z"
+     stroke-miterlimit="10"
+     pointer-events="none"
+     id="path4031"
+     inkscape:connector-curvature="0"
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10" />
+  <path
+     d="m 648.5,146.5 4,0 0,4 -4,0 m 0,4 4,0 0,4 -4,0"
+     stroke-miterlimit="10"
+     pointer-events="none"
+     id="path4035"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+  <text
+     sodipodi:linespacing="125%"
+     id="text4037"
+     y="165.03664"
+     x="588.32568"
+     style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     xml:space="preserve"><tspan
+       style="text-align:center;text-anchor:middle;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+       y="165.03664"
+       x="588.32568"
+       sodipodi:role="line"
+       id="tspan4041">Light detection</tspan></text>
+</svg>
