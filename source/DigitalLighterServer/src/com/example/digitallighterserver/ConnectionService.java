@@ -3,8 +3,6 @@ package com.example.digitallighterserver;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.example.jmdns.JmDNSService;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -23,7 +21,7 @@ public class ConnectionService extends Service {
 	private final IBinder mBinder = new LocalBinder();
 
 	// NSD
-	JmDNSService mNsdHelper;
+	NsdHelper mNsdHelper;
 	private Connection mConnection;
 	private Handler mUpdateHandler;
 
@@ -80,15 +78,8 @@ public class ConnectionService extends Service {
 
 		// NSD
 		mConnection = new Connection(mUpdateHandler);
-
-		Thread t = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				mNsdHelper = new JmDNSService(ConnectionService.this, mUpdateHandler);
-			}
-		});
-		t.start();
+		mNsdHelper = new NsdHelper(this, mUpdateHandler);
+		mNsdHelper.initializeNsd();
 
 	}
 
@@ -104,15 +95,7 @@ public class ConnectionService extends Service {
 
 	public void registerService(final String name) {
 		if (mConnection.getLocalPort() > -1) {
-			Thread t = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					mNsdHelper.createService(name, mConnection.getLocalPort());
-				}
-			});
-			t.start();
-
+			mNsdHelper.registerService(name, mConnection.getLocalPort());
 		} else {
 			Log.d(TAG, "ServerSocket isn't bound.");
 			Toast.makeText(this, "Server isn't bound", Toast.LENGTH_SHORT).show();
