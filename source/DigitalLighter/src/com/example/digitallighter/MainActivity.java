@@ -1,50 +1,60 @@
 package com.example.digitallighter;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
+import javax.jmdns.ServiceListener;
+import javax.jmdns.ServiceTypeListener;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener,
+		ServiceListener, ServiceTypeListener, OnItemClickListener {
 
 	// LOGCAT TAG
 	private static final String TAG = "Client";
 
-	// CONNECTION
-	private Handler mUpdateHandler;
-	private Connection mConnection;
-
 	// UI
 	View background;
-	TextView counter;
-	public Spinner spinner;
+	public ListView listView;
 	public ArrayAdapter<String> adapter;
 	ArrayList<String> list;
+	Toast mToast;
 
 	// COMMAND
 	boolean isPlaying = false;
 	ArrayList<String> playingQueue = new ArrayList<String>();
 	private int selectedServiceIndex = -1;
+
+	// NETWORK
+	private static String SERVICE_TYPE = "_http._tcp.local.";
+	JmDNS jmdns = null;
+	ArrayList<ServiceInfo> services = new ArrayList<ServiceInfo>();
+	private Handler mUpdateHandler;
+	private Connection mConnection;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +63,41 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		setContentView(R.layout.main_activity);
 
 		// RETRIEVE UI ELEMENTS
+		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		final Button action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
-		counter = (TextView) findViewById(R.id.txt_count);
-		spinner = (Spinner) findViewById(R.id.spinner);
-		spinner.setOnItemSelectedListener(this);
+		listView = (ListView) findViewById(R.id.lista_servisa);
+		listView.setOnItemClickListener(this);
 		background = findViewById(R.id.background);
 		final Button connect = (Button) findViewById(R.id.btn_connect);
+		final Button hide = (Button) findViewById(R.id.hideUI);
+		/**/
 		background.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				if (action.isShown()) {
 					action.setVisibility(View.GONE);
-					spinner.setVisibility(View.GONE);
+					listView.setVisibility(View.GONE);
 					connect.setVisibility(View.GONE);
 				} else {
 					action.setVisibility(View.VISIBLE);
-					spinner.setVisibility(View.VISIBLE);
+					listView.setVisibility(View.VISIBLE);
 					connect.setVisibility(View.VISIBLE);
+					hide.setVisibility(View.VISIBLE);
 				}
 
+			}
+		}); /**/
+
+		hide.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				hide.setVisibility(View.GONE);
+				listView.setVisibility(View.GONE);
+				action.setVisibility(View.GONE);
+				connect.setVisibility(View.GONE);
 			}
 		});
 
@@ -83,8 +107,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
-		spinner.setPrompt("Pick a Service");
+		listView.setAdapter(adapter);
 
 		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
 
@@ -106,6 +129,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// CONNECTION
 		mConnection = new Connection(mUpdateHandler);
 
+		// START SCANING FOR SERVICES
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					jmdns = JmDNS.create();
+					jmdns.addServiceTypeListener(MainActivity.this);
+				} catch (IOException e) {
+					mToast.setText("JmDNS not initialised.");
+					mToast.show();
+					e.printStackTrace();
+				}
+
+			}
+		}).start();
+
 	}
 
 	// ========================================================================================================
@@ -114,13 +154,21 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	public void clickConnect(View v) {
 		if (selectedServiceIndex != -1) {
-			ServiceInfo serviceToConnectTo = DNSService.getService(list.get(selectedServiceIndex));
+			ServiceInfo serviceToConnectTo = services.get(selectedServiceIndex);
 			if (serviceToConnectTo != null) {
 				String address = serviceToConnectTo.getNiceTextString();
 				InetAddress adr = intToInetAddress(ipStringToInt(address.substring(1)));
-				mConnection.connectToServer(serviceToConnectTo.getAddress(), serviceToConnectTo.getPort());
-				Toast.makeText(this, "Trying to connect", Toast.LENGTH_SHORT).show();
-				return;
+				if (serviceToConnectTo.getAddress() != null) {
+					mConnection
+							.connectToServer(serviceToConnectTo.getAddress(), serviceToConnectTo.getPort());
+					mToast.setText("Trying to connect");
+					mToast.show();
+					return;
+				} else {
+					mToast.setText("Cannot connect, service not resolved");
+					mToast.show();
+					return;
+				}
 			}
 
 		}
@@ -193,7 +241,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 				// SHOW TIME TILL END OF THE COMMAND
 				public void onTick(long millisUntilFinished) {
-					counter.setText("" + (int) millisUntilFinished / 1000);
 				}
 
 				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
@@ -205,7 +252,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 					} else {
 						playCommand("recursion");
 					}
-					counter.setText("");
 				}
 			}.start();
 		}
@@ -224,12 +270,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	}
 
 	// ========================================================================================================
-	// SPINNER SELECT ACTIONS
+	// LIST ITEM CLICK ACTIONS
 	// ========================================================================================================
 
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-		selectedServiceIndex = pos;
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		mToast.setText(list.get(arg2) + " selected");
+		mToast.show();
+		selectedServiceIndex = arg2;
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 	}
 
 	@Override
@@ -237,29 +289,50 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	}
 
 	// ========================================================================================================
-	// LIFE CYCLE METHODS
+	// SERVICE LISTENER
 	// ========================================================================================================
-
 	@Override
-	protected void onResume() {
-		// START SCANING FOR SERVICES
+	public void serviceAdded(final ServiceEvent arg0) {
+		if (!list.contains(arg0.getName())) {
+			Log.d("Detected service: ", arg0.getName());
 
-		DNSService.setPostingData(background, adapter);
-		DNSService.scanServices();
-		super.onResume();
+			listView.post(new Runnable() {
+
+				@Override
+				public void run() {
+					services.add(arg0.getInfo());
+					list.add(arg0.getName());
+					adapter.notifyDataSetChanged();
+				}
+			});
+
+			mToast.setText(arg0.getName() + " service detected");
+			mToast.show();
+		}
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void serviceRemoved(ServiceEvent arg0) {
 
-		super.onDestroy();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void serviceResolved(ServiceEvent arg0) {
+		mToast.setText(arg0.getName() + " service resolved");
+		mToast.show();
+	}
+
+	@Override
+	public void serviceTypeAdded(ServiceEvent arg0) {
+		mToast.setText(arg0.getType() + " service type detected");
+		mToast.show();
+		jmdns.addServiceListener(arg0.getType(), MainActivity.this);
+	}
+
+	@Override
+	public void subTypeForServiceTypeAdded(ServiceEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
