@@ -160,7 +160,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 		if (selectedServiceIndex != -1) {
 			NameIPPair data = packetList.get(selectedServiceIndex);
-			mConnection.connectToServer(data.ipAddress, data.port);
+			String parts[] = data.name.split(":");
+			mConnection.connectToServer(data.ipAddress, Integer.parseInt(parts[1]));
 			mToast.setText("Trying to connect");
 		} else {
 			mToast.setText("Pick a service");
