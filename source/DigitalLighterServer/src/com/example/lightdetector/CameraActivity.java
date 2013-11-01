@@ -44,11 +44,11 @@ import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
-	private static final String MEDIA_SOURCE = "3x3/traffic-light";
+	private static final String MEDIA_SOURCE = "5x4";
 
 	PointCollector collector;
 
-	static int tilesX = 5;
+	static int tilesX = 4;
 	static int tilesY = 5;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();

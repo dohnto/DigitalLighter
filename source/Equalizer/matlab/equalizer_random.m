@@ -66,5 +66,5 @@ for ii = 1:fps*length
     
     frame = uint8(frame);    
     
-    imwrite(frame, strcat(outDir, '\', 'f', num2str(ii), '.png'));
+    imwrite(frame, strcat(outDir, '\', 'f', sprintf('%05d', ii), '.png'));
 end
