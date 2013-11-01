@@ -3,45 +3,35 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".MainActivity" >
+    android:background="@android:color/white" >
 
-    <TextView
-        android:id="@+id/txt_count"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_connect"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="82sp" />
+        android:onClick="clickConnect"
+        android:text="Connect" />
 
     <Button
         android:id="@+id/action_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Play white 10 sec" />
+        android:text="Play color sequence" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/hideUI"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/action_button"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
+        android:text="Hide UI" />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_connect"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="clickConnect"
-            android:text="Connect" />
-    </LinearLayout>
+    <ListView
+        android:id="@+id/lista_servisa"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/hideUI"
+        android:layout_below="@id/btn_connect"
+        android:cacheColorHint="@android:color/transparent" />
 
 </RelativeLayout>
