@@ -180,7 +180,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			player.playCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			player.addCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
 			break;
 
 		case R.id.background:
@@ -237,7 +237,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 			switch (msg.what) {
 			case Protocol.MESSAGE_TYPE_COMMAND:
-				player.playCommand(msg.getData().getString(Protocol.COMMAND));
+				player.addCommand(msg.getData().getString(Protocol.COMMAND));
 				break;
 
 			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
