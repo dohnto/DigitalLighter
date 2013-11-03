@@ -40,7 +40,7 @@ import android.util.Log;
  */
 public class NetThread extends Thread {
 
-	public static final String TAG = MulticastTestActivity.TAG;
+	public static final String TAG = MainActivity.class.getName();
 
 	// the standard mDNS multicast address and port number
 	private static final byte[] MDNS_ADDR = new byte[] { (byte) 224, (byte) 0, (byte) 0, (byte) 251 };

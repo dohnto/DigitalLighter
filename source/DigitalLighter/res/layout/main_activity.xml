@@ -3,35 +3,62 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white"
+    android:onClick="handleQueryButton" >
 
-    <Button
-        android:id="@+id/btn_connect"
+    <LinearLayout
+        android:id="@+id/topButtonsHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="clickConnect"
-        android:text="Connect" />
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/action_button"
+        <Button
+            android:id="@+id/action_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Play color sequence" />
+
+        <Button
+            android:id="@+id/action_refresh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleQueryButton"
+            android:text="Refresh" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomButtonsHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Play color sequence" />
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/hideUI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/action_button"
-        android:text="Hide UI" />
+        <Button
+            android:id="@+id/hideUI"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="hideUI"
+            android:text="Hide UI" />
+
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickConnect"
+            android:text="Connect" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lista_servisa"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/hideUI"
-        android:layout_below="@id/btn_connect"
+        android:layout_above="@id/bottomButtonsHolder"
+        android:layout_below="@id/topButtonsHolder"
         android:cacheColorHint="@android:color/transparent" />
 
 </RelativeLayout>

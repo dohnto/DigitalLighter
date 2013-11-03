@@ -1,17 +1,13 @@
 package com.example.digitallighter;
 
-import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
 import com.example.dns.NameIPPair;
 import com.example.dns.NetThread;
 import com.example.dns.Packet;
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -38,18 +34,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public ArrayAdapter<String> adapter;
 	ArrayList<String> list;
 	Toast mToast;
-
-	// COMMAND
-	boolean isPlaying = false;
-	ArrayList<String> playingQueue = new ArrayList<String>();
+	Button connect;
+	Button hide;
+	Button action;
+	Button refresh;
 	private int selectedServiceIndex = -1;
 
 	// NETWORK
 	private static String SERVICE_TYPE = "_http._tcp.local.";
-	private Handler mUpdateHandler;
 	private Connection mConnection;
 	private NetThread netThread = null;
 	ArrayList<NameIPPair> packetList;
+
+	// PLAYER
+	ClientPlayer player;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,46 +55,25 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
 
+		// SET BRIGHTNES TO MAX
+		WindowManager.LayoutParams layout = getWindow().getAttributes();
+		layout.screenBrightness = 1F;
+		getWindow().setAttributes(layout);
+
 		// RETRIEVE UI ELEMENTS
 		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-		final Button action = (Button) findViewById(R.id.action_button);
+		action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.lista_servisa);
 		listView.setOnItemClickListener(this);
+		refresh = (Button) findViewById(R.id.action_refresh);
 		background = findViewById(R.id.background);
-		final Button connect = (Button) findViewById(R.id.btn_connect);
-		final Button hide = (Button) findViewById(R.id.hideUI);
-		/**/
-		background.setOnClickListener(new OnClickListener() {
+		background.setOnClickListener(this);
+		connect = (Button) findViewById(R.id.btn_connect);
+		hide = (Button) findViewById(R.id.hideUI);
 
-			@Override
-			public void onClick(View v) {
-				if (action.isShown()) {
-					action.setVisibility(View.GONE);
-					listView.setVisibility(View.GONE);
-					connect.setVisibility(View.GONE);
-				} else {
-					action.setVisibility(View.VISIBLE);
-					listView.setVisibility(View.VISIBLE);
-					connect.setVisibility(View.VISIBLE);
-					hide.setVisibility(View.VISIBLE);
-				}
-
-			}
-		}); /**/
-
-		hide.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				handleQueryButton(null);
-
-				/*
-				 * hide.setVisibility(View.GONE); listView.setVisibility(View.GONE);
-				 * action.setVisibility(View.GONE); connect.setVisibility(View.GONE); /*
-				 */
-			}
-		});
+		// SETTING PLAYER
+		player = new ClientPlayer(background);
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
 		list = new ArrayList<String>();
@@ -106,26 +83,26 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// Apply the adapter to the spinner
 		listView.setAdapter(adapter);
 
-		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
-
-		mUpdateHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				switch (msg.getData().getInt(Protocol.MESSAGE_TYPE)) {
-				case Protocol.MESSAGE_TYPE_COMMAND:
-					playCommand(msg.getData().getString(Protocol.COMMAND));
-					break;
-
-				case Protocol.MESSAGE_TYPE_SERVER_STARTED:
-					Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
-					break;
-				}
-			}
-		};
-
 		// CONNECTION
-		mConnection = new Connection(mUpdateHandler);
+		mConnection = new Connection(ipc);
 		packetList = new ArrayList<NameIPPair>();
+	}
+
+	public void hideUI(View v) {
+		if (action.isShown()) {
+			action.setVisibility(View.GONE);
+			refresh.setVisibility(View.GONE);
+			hide.setVisibility(View.GONE);
+			listView.setVisibility(View.GONE);
+			connect.setVisibility(View.GONE);
+		} else {
+			action.setVisibility(View.VISIBLE);
+			refresh.setVisibility(View.VISIBLE);
+			hide.setVisibility(View.VISIBLE);
+			listView.setVisibility(View.VISIBLE);
+			connect.setVisibility(View.VISIBLE);
+			hide.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -199,63 +176,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		return inetAddress;
 	}
 
-	// ========================================================================================================
-	// PLAY ONE COMMAND. COMMAND FORMAT (color(hex):duration(msec)) EXAMPLE: ("#ff00ff:5")
-	// ========================================================================================================
-
-	public void playCommand(String command) {
-
-		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
-		if (command.contains("|")) {
-			String[] commands = command.split("\\|");
-			for (String s : commands) {
-				playingQueue.add(s);
-			}
-		} else if (!command.equals("recursion")) {
-			playingQueue.add(command);
-		}
-
-		// IN CASE OF BAD COMMAND JUST EXIT
-		if (playingQueue.isEmpty())
-			return;
-
-		if (!isPlaying || command.equals("recursion")) {
-
-			// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
-			String[] parts = playingQueue.get(0).split(":");
-			int color = Color.parseColor(parts[0]);
-			int duration = Integer.parseInt(parts[1]);
-			playingQueue.remove(0);
-
-			// SET FLAG SO OTHER COMMANDS HAVE TO WAIT
-			isPlaying = true;
-
-			background.setBackgroundColor(color);
-			new CountDownTimer(duration, 500) {
-
-				// SHOW TIME TILL END OF THE COMMAND
-				public void onTick(long millisUntilFinished) {
-				}
-
-				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
-				public void onFinish() {
-					if (playingQueue.isEmpty()) {
-						// background.setBackgroundColor(Color.WHITE); now device should stay lighting last
-						// command color
-						isPlaying = false;
-					} else {
-						playCommand("recursion");
-					}
-				}
-			}.start();
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			playCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			player.playCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			break;
+
+		case R.id.background:
+			hideUI(null);
 			break;
 
 		default:
@@ -283,7 +212,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	}
 
 	// inter-process communication
-
 	public IPCHandler ipc = new IPCHandler();
 
 	/**
@@ -308,6 +236,13 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			}
 
 			switch (msg.what) {
+			case Protocol.MESSAGE_TYPE_COMMAND:
+				player.playCommand(msg.getData().getString(Protocol.COMMAND));
+				break;
+
+			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
+				Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+				break;
 			case MSG_SET_STATUS:
 				// statusLine.setText((String) msg.obj);
 				break;

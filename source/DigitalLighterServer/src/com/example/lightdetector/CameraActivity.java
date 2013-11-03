@@ -61,6 +61,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	MediaPlayer mediaPlayer = null;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
+	
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
 		public void onManagerConnected(int status) {
@@ -92,7 +93,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			mService.setObserver(CameraActivity.this);
 			dl = new DeviceMapperTree(mService, tilesX, tilesY, CameraActivity.this);
 		}
-		
 
 		@Override
 		public void onServiceDisconnected(ComponentName arg0) {
@@ -162,13 +162,13 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				mediaPlayer.play();
 			}
 		}
-		
-		int middleX = inputFrame.rgba().width()/2;
-		int middleY = inputFrame.rgba().height()/2;
-		double [] color = inputFrame.rgba().get(middleX, middleY);
+
+		int middleX = inputFrame.rgba().width() / 2;
+		int middleY = inputFrame.rgba().height() / 2;
+		double[] color = inputFrame.rgba().get(middleX, middleY);
 		Log.i("BARVA", "" + color[0] + " " + color[1] + " " + color[2]);
 
-		Mat image = drawTilesGrid(inputFrame.rgba(), tilesY, tilesY);
+		Mat image = drawTilesGrid(inputFrame.rgba(), tilesX, tilesY);
 		if (buffer.size() > 0) {
 
 			if (buffer.size() < 20) {
@@ -201,7 +201,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
 					ColorManager.getCvColor(ColorManager.RED));
 
-		unit = (output.height()  - 1) / tilesY;
+		unit = (output.height() - 1) / tilesY;
 		for (int i = 0; i < tilesY; ++i)
 			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
 					ColorManager.getCvColor(ColorManager.RED));
