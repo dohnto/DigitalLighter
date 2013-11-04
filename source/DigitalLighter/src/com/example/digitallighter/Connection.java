@@ -71,14 +71,14 @@ public class Connection {
 	public synchronized void updateMessages(String msg, boolean local) {
 		Log.e(TAG, "Updating message: " + msg);
 
-		Bundle messageBundle = new Bundle();
-		messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_COMMAND);
-		messageBundle.putString(Protocol.COMMAND, msg);
-
 		Message message = new Message();
-		message.setData(messageBundle);
-		mUpdateHandler.sendMessage(message);
+		message.what = Protocol.MESSAGE_TYPE_COMMAND;
 
+		Bundle messageBundle = new Bundle();
+		messageBundle.putString(Protocol.COMMAND, msg);
+		message.setData(messageBundle);
+
+		mUpdateHandler.sendMessage(message);
 	}
 
 	private synchronized void setSocket(Socket socket) {
@@ -185,10 +185,9 @@ public class Connection {
 					if (getSocket() == null) {
 						setSocket(new Socket(mAddress, PORT));
 						Log.d(CLIENT_TAG, "Client-side socket initialized.");
-						Bundle messageBundle = new Bundle();
-						messageBundle.putInt(Protocol.MESSAGE_TYPE, Protocol.MESSAGE_TYPE_SERVER_STARTED);
+
 						Message message = new Message();
-						message.setData(messageBundle);
+						message.what = Protocol.MESSAGE_TYPE_SERVER_STARTED;
 						mUpdateHandler.sendMessage(message);
 
 					} else {

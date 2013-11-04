@@ -4,36 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MainActivity" >
-
-    <TextView
-        android:id="@+id/txt_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="82sp" />
-
-    <Button
-        android:id="@+id/action_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Play white 10 sec" />
+    android:onClick="handleQueryButton" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:id="@+id/topButtonsHolder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/action_button"
         android:layout_alignParentTop="true"
         android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/spinner"
+        <Button
+            android:id="@+id/time_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/white" />
+            android:onClick="timeSync"
+            android:text="Time sync" />
+
+        <Button
+            android:id="@+id/action_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sequence" />
+
+        <Button
+            android:id="@+id/action_refresh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleQueryButton"
+            android:text="Refresh" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomButtonsHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/hideUI"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="hideUI"
+            android:text="Hide UI" />
 
         <Button
             android:id="@+id/btn_connect"
@@ -43,5 +60,13 @@
             android:onClick="clickConnect"
             android:text="Connect" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/lista_servisa"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottomButtonsHolder"
+        android:layout_below="@id/topButtonsHolder"
+        android:cacheColorHint="@android:color/transparent" />
 
 </RelativeLayout>

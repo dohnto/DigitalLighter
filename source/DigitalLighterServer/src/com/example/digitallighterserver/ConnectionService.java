@@ -66,7 +66,8 @@ public class ConnectionService extends Service {
 
 				case Protocol.MESSAGE_TYPE_SERVER_STARTED:
 					serviceName = msg.getData().getString(Protocol.NEW_SERVICE_NAME);
-					Toast.makeText(ConnectionService.this, "Server " + serviceName + " started",
+					Toast.makeText(ConnectionService.this,
+							"Server " + serviceName + " started on port " + mConnection.getLocalPort(),
 							Toast.LENGTH_SHORT).show();
 					break;
 				}
@@ -95,7 +96,8 @@ public class ConnectionService extends Service {
 
 	public void registerService(final String name) {
 		if (mConnection.getLocalPort() > -1) {
-			mNsdHelper.registerService(name, mConnection.getLocalPort());
+			int port = mConnection.getLocalPort();
+			mNsdHelper.registerService(name + ":" + port, mConnection.getLocalPort());
 		} else {
 			Log.d(TAG, "ServerSocket isn't bound.");
 			Toast.makeText(this, "Server isn't bound", Toast.LENGTH_SHORT).show();

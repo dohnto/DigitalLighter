@@ -21,8 +21,7 @@ public class DeviceMapperTree extends DeviceMapper {
 	private DeviceMapperSimple oneByOneDetector;
 	private Observer obs;
 
-	public DeviceMapperTree(ConnectionService mConnection, int tilesX,
-			int tilesY, Observer ca) {
+	public DeviceMapperTree(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		super(mConnection, tilesX, tilesY, ca, null);
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.BLUE));
 		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.RED));
@@ -68,8 +67,7 @@ public class DeviceMapperTree extends DeviceMapper {
 		switch (state) {
 		case INIT:
 			// broadcast all devices to shine with initial color
-			network.multicastCommandSignal(sockets,
-					CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
+			network.multicastCommandSignal(sockets, CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
@@ -84,8 +82,7 @@ public class DeviceMapperTree extends DeviceMapper {
 		case DETECT_FALSE_ALARM_WAIT_FOR_UPDATE:
 			if (forceNextStep) { // collected send update, now we can process
 									// blobs
-				falseAlarmDevices = new HashMap<String, ArrayList<Point>>(
-						lastDetectedBlobs);
+				falseAlarmDevices = new HashMap<String, ArrayList<Point>>(lastDetectedBlobs);
 				lastDetectedBlobs.clear();
 				state = DeviceMapperState.TREE_INIT;
 			}
@@ -99,8 +96,7 @@ public class DeviceMapperTree extends DeviceMapper {
 				division = divider.getNextDivision();
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them
 																// shine
-					String command = CommandCreator.addTime(RARE_COLORS.get(i),
-							LIGHT_TIME);
+					String command = CommandCreator.addTime(RARE_COLORS.get(i), LIGHT_TIME);
 					network.multicastCommandSignal(division.get(i), command);
 				}
 				startT = System.currentTimeMillis();
@@ -122,8 +118,7 @@ public class DeviceMapperTree extends DeviceMapper {
 					ArrayList<Socket> div = division.get(i);
 					if (lastDetectedBlobs.keySet().contains(color)) { // check
 						// get positions where color was detected
-						ArrayList<Point> positions = lastDetectedBlobs
-								.get(color);
+						ArrayList<Point> positions = lastDetectedBlobs.get(color);
 						for (Point falseAlarm : falseAlarmDevices.get(color)) {
 							// remove false alarm devices
 							positions.remove(falseAlarm);
@@ -132,8 +127,7 @@ public class DeviceMapperTree extends DeviceMapper {
 							// for all mobile phones that should light that
 							// color
 							// make intersection of possiblePosition
-							possiblePositions.get(receiver)
-									.retainAll(positions);
+							possiblePositions.get(receiver).retainAll(positions);
 						}
 					}
 				}
@@ -147,7 +141,7 @@ public class DeviceMapperTree extends DeviceMapper {
 				ArrayList<Point> positions = possiblePositions.get(socket);
 				if (positions != null && positions.size() == 1) {
 					// ideal case
-					devices.get(positions.get(0)).add(socket);					
+					devices.get(positions.get(0)).add(socket);
 				} else {
 					// cannot detect this device, prepare list for one by one algorithm
 					toBeDetected.add(socket);
@@ -155,8 +149,8 @@ public class DeviceMapperTree extends DeviceMapper {
 			}
 
 			if (toBeDetected.size() > 0) {
-				oneByOneDetector = new DeviceMapperSimple(network, tilesX,
-						tilesY, obs, toBeDetected, collector);
+				oneByOneDetector = new DeviceMapperSimple(network, tilesX, tilesY, obs, toBeDetected,
+						collector);
 				oneByOneDetector.reset();
 				state = DeviceMapperState.ONE_BY_ONE_DETECT;
 			} else {
@@ -165,8 +159,7 @@ public class DeviceMapperTree extends DeviceMapper {
 			break;
 		case ONE_BY_ONE_DETECT:
 			if (oneByOneDetector.nextFrame(image)) {
-				HashMap<Point, ArrayList<Socket>> map = oneByOneDetector
-						.getDevices();
+				HashMap<Point, ArrayList<Socket>> map = oneByOneDetector.getDevices();
 				for (Point tile : map.keySet()) {
 					devices.get(tile).addAll(map.get(tile));
 				}
