@@ -24,9 +24,9 @@ public class MediaPlayer extends Observable {
 	private ConnectionService network;
 	private CommandCreator commandCreator;
 
-	static private int NEXT_FRAMES = 25;
-	static private int FRAME_RATE = 25; // images per second
-	static private int SEND_COMMAND_BEFORE = 100; // number of millisecond when
+	static private int NEXT_FRAMES = Configuration.NEXT_FRAMES;
+	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per second
+	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number of millisecond when
 													// should command be send
 
 	/**

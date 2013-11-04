@@ -24,12 +24,11 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	protected ArrayList<Socket> sockets;
 
-	protected static int LIGHT_TIME = 100;
-	protected static int WAIT_TIME = 1000; // waiting time between sending a
+	protected static int LIGHT_TIME = Configuration.LIGHT_TIME;
+	protected static int WAIT_TIME = Configuration.WAIT_TIME; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
-	protected String SHUT_DOWN_COLOR = ColorManager
-			.getHexColor(ColorManager.BLACK);
+	protected String SHUT_DOWN_COLOR = Configuration.SHUT_DOWN_COLOR;
 
 	protected long startT;
 

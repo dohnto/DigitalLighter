@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.digitallighterserver.Configuration;
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.DLSApplication;
@@ -44,12 +45,12 @@ import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
-	private static final String MEDIA_SOURCE = "5x4";
+	private static final String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
 
 	PointCollector collector;
 
-	static int tilesX = 4;
-	static int tilesY = 5;
+	static int tilesX = Configuration.TILES_X;
+	static int tilesY = Configuration.TILES_Y;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 

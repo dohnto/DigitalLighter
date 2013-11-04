@@ -80,7 +80,7 @@ In last category there is class \texttt{ColorManager}, which is standalone class
 \end{figure}
 
 \subsection{Physical view}
-You can see the physical view represented in Figure \ref{fig:sprint3_deployment_diagram}.
+You can see the physical view of whole product represented in Figure \ref{fig:sprint3_deployment_diagram}.
 Even though in this particular case device \emph{Camera} part of \emph{Server} device, the architecture and code was designed generally so \emph{Camera} can be stand alone device.
 
 \begin{figure}[H]
@@ -117,8 +117,9 @@ It should be mentioned, that each time new image was taken by camera, new thread
 Few problems during implementation had occurred. 
 Since the OpenCV library for Java is in early stage, there is some functionality missing.
 One of these is a method \texttt{open(String)} of class \texttt{VideoCapture}\footnote{http://docs.opencv.org/java/org/opencv/highgui/VideoCapture.html}.
-In C++ version of OpenCV there exist such a method and it programmers allows to use a video for input for image processing.
+In C++ version of OpenCV there exist such a method and it allows programmers to use a video for input for image processing.
 After short research, a fix of this bug was found\footnote{http://code.opencv.org/issues/3207}, but this feature will be added in release 2.4.7.
+Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only static pictures were used for testing.
 
 
 \section{Testing}

@@ -23,9 +23,7 @@ public class DeviceMapperTree extends DeviceMapper {
 
 	public DeviceMapperTree(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		super(mConnection, tilesX, tilesY, ca, null);
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.BLUE));
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.RED));
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.WHITE));
+		RARE_COLORS.addAll(Configuration.RARE_COLORS_TREE);
 		obs = ca;
 	}
 
