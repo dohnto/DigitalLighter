@@ -48,8 +48,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	PointCollector collector;
 
-	static int tilesX = 4;
-	static int tilesY = 5;
+	static int tilesX = 4;	// number of columns
+	static int tilesY = 5;	// number of rows
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
