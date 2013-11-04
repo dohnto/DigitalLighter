@@ -40,6 +40,8 @@ public class ClientPlayer {
 			play();
 		}
 	}
+	
+
 
 	public void play() {
 

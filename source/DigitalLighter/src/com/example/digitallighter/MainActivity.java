@@ -3,9 +3,6 @@ package com.example.digitallighter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import com.example.dns.NameIPPair;
-import com.example.dns.NetThread;
-import com.example.dns.Packet;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +18,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.dns.NameIPPair;
+import com.example.dns.NetThread;
+import com.example.dns.Packet;
+import com.example.timesyns.SNTPClient;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener,
 		OnItemClickListener {
@@ -286,4 +288,19 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		}
 	};
 
+	// ========================================================================================================
+	// TYME SYNC OVER NTP(Network Time Protocol). no.pool.ntp.org is Norway closest server
+	// The offset is compared to System time and result is saved in sharedPref.
+	// Since we use the mobile device as a router, in order for this code to work, client will first have to
+	// connect to network that provide internet connection, like edurom.
+	// Once time diff is saved, we can switch back to mobile device hotspot.
+	// Also when we start using a real router, internet connection can be provided over it, and there will be
+	// no need for 2 network sequence connactions by client.
+	//
+	// Saved value offset can be used for sheduling commands that include time constant.
+	// ========================================================================================================
+
+	public void timeSync(View v) {
+		new SNTPClient(mToast, "TIME_OFFSET").execute("0.no.pool.ntp.org");
+	}
 }
