@@ -40,4 +40,6 @@ public class Configuration {
 	static public int FRAME_RATE = 25; 
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100; 
+	
+	static public boolean USE_TREE_DETECTION = true;
 }
