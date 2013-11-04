@@ -23,9 +23,7 @@ public class DeviceMapperTree extends DeviceMapper {
 
 	public DeviceMapperTree(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		super(mConnection, tilesX, tilesY, ca, null);
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.BLUE));
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.RED));
-		RARE_COLORS.add(ColorManager.getHexColor(ColorManager.WHITE));
+		RARE_COLORS.addAll(Configuration.RARE_COLORS_TREE);
 		obs = ca;
 	}
 
@@ -90,6 +88,8 @@ public class DeviceMapperTree extends DeviceMapper {
 		case TREE_INIT: // make all phones shine with appropriate color
 			if (divider.isFinished()) { // no need for shining anymore
 				state = DeviceMapperState.ONE_BY_ONE_INIT;
+				String command = CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME);
+				network.multicastCommandSignal(sockets, command);
 			} else {
 				division = divider.getNextDivision();
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them

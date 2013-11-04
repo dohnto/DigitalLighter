@@ -1,20 +1,10 @@
 package com.example.digitallighter;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
-import javax.jmdns.JmDNS;
-import javax.jmdns.ServiceEvent;
-import javax.jmdns.ServiceInfo;
-import javax.jmdns.ServiceListener;
-import javax.jmdns.ServiceTypeListener;
-
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -27,12 +17,15 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dns.NameIPPair;
+import com.example.dns.NetThread;
+import com.example.dns.Packet;
+import com.example.timesyns.SNTPClient;
+
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener,
-		ServiceListener, ServiceTypeListener, OnItemClickListener {
+		OnItemClickListener {
 
 	// LOGCAT TAG
 	private static final String TAG = "Client";
@@ -43,18 +36,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public ArrayAdapter<String> adapter;
 	ArrayList<String> list;
 	Toast mToast;
-
-	// COMMAND
-	boolean isPlaying = false;
-	ArrayList<String> playingQueue = new ArrayList<String>();
+	Button connect;
+	Button hide;
+	Button action;
+	Button refresh;
 	private int selectedServiceIndex = -1;
 
 	// NETWORK
 	private static String SERVICE_TYPE = "_http._tcp.local.";
-	JmDNS jmdns = null;
-	ArrayList<ServiceInfo> services = new ArrayList<ServiceInfo>();
-	private Handler mUpdateHandler;
 	private Connection mConnection;
+	private NetThread netThread = null;
+	ArrayList<NameIPPair> packetList;
+
+	// PLAYER
+	ClientPlayer player;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,44 +57,25 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main_activity);
 
+		// SET BRIGHTNES TO MAX
+		WindowManager.LayoutParams layout = getWindow().getAttributes();
+		layout.screenBrightness = 1F;
+		getWindow().setAttributes(layout);
+
 		// RETRIEVE UI ELEMENTS
 		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-		final Button action = (Button) findViewById(R.id.action_button);
+		action = (Button) findViewById(R.id.action_button);
 		action.setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.lista_servisa);
 		listView.setOnItemClickListener(this);
+		refresh = (Button) findViewById(R.id.action_refresh);
 		background = findViewById(R.id.background);
-		final Button connect = (Button) findViewById(R.id.btn_connect);
-		final Button hide = (Button) findViewById(R.id.hideUI);
-		/**/
-		background.setOnClickListener(new OnClickListener() {
+		background.setOnClickListener(this);
+		connect = (Button) findViewById(R.id.btn_connect);
+		hide = (Button) findViewById(R.id.hideUI);
 
-			@Override
-			public void onClick(View v) {
-				if (action.isShown()) {
-					action.setVisibility(View.GONE);
-					listView.setVisibility(View.GONE);
-					connect.setVisibility(View.GONE);
-				} else {
-					action.setVisibility(View.VISIBLE);
-					listView.setVisibility(View.VISIBLE);
-					connect.setVisibility(View.VISIBLE);
-					hide.setVisibility(View.VISIBLE);
-				}
-
-			}
-		}); /**/
-
-		hide.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				hide.setVisibility(View.GONE);
-				listView.setVisibility(View.GONE);
-				action.setVisibility(View.GONE);
-				connect.setVisibility(View.GONE);
-			}
-		});
+		// SETTING PLAYER
+		player = new ClientPlayer(background);
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
 		list = new ArrayList<String>();
@@ -109,43 +85,50 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// Apply the adapter to the spinner
 		listView.setAdapter(adapter);
 
-		// HENDELR GETS MESSAGES FROM BACKGROUND THREADS AND MAKE MODIFICATIONS TO UI
-
-		mUpdateHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				switch (msg.getData().getInt(Protocol.MESSAGE_TYPE)) {
-				case Protocol.MESSAGE_TYPE_COMMAND:
-					playCommand(msg.getData().getString(Protocol.COMMAND));
-					break;
-
-				case Protocol.MESSAGE_TYPE_SERVER_STARTED:
-					Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
-					break;
-				}
-			}
-		};
-
 		// CONNECTION
-		mConnection = new Connection(mUpdateHandler);
+		mConnection = new Connection(ipc);
+		packetList = new ArrayList<NameIPPair>();
+	}
 
-		// START SCANING FOR SERVICES
-		new Thread(new Runnable() {
+	public void hideUI(View v) {
+		if (action.isShown()) {
+			action.setVisibility(View.GONE);
+			refresh.setVisibility(View.GONE);
+			hide.setVisibility(View.GONE);
+			listView.setVisibility(View.GONE);
+			connect.setVisibility(View.GONE);
+		} else {
+			action.setVisibility(View.VISIBLE);
+			refresh.setVisibility(View.VISIBLE);
+			hide.setVisibility(View.VISIBLE);
+			listView.setVisibility(View.VISIBLE);
+			connect.setVisibility(View.VISIBLE);
+			hide.setVisibility(View.VISIBLE);
+		}
+	}
 
-			@Override
-			public void run() {
-				try {
-					jmdns = JmDNS.create();
-					jmdns.addServiceTypeListener(MainActivity.this);
-				} catch (IOException e) {
-					mToast.setText("JmDNS not initialised.");
-					mToast.show();
-					e.printStackTrace();
-				}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (netThread != null) {
+			Log.e(TAG, "netThread should be null!");
+			netThread.submitQuit();
+		}
+		netThread = new NetThread(this);
+		netThread.start();
+	}
 
-			}
-		}).start();
+	/**
+	 * Handle submitting an mDNS query.
+	 */
+	public void handleQueryButton(View view) {
 
+		try {
+			netThread.submitQuery(SERVICE_TYPE);
+		} catch (Exception e) {
+			Log.w(TAG, e.getMessage(), e);
+			return;
+		}
 	}
 
 	// ========================================================================================================
@@ -153,27 +136,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	// ========================================================================================================
 
 	public void clickConnect(View v) {
+
 		if (selectedServiceIndex != -1) {
-			ServiceInfo serviceToConnectTo = services.get(selectedServiceIndex);
-			if (serviceToConnectTo != null) {
-				String address = serviceToConnectTo.getNiceTextString();
-				InetAddress adr = intToInetAddress(ipStringToInt(address.substring(1)));
-				if (serviceToConnectTo.getAddress() != null) {
-					mConnection
-							.connectToServer(serviceToConnectTo.getAddress(), serviceToConnectTo.getPort());
-					mToast.setText("Trying to connect");
-					mToast.show();
-					return;
-				} else {
-					mToast.setText("Cannot connect, service not resolved");
-					mToast.show();
-					return;
-				}
-			}
+			NameIPPair data = packetList.get(selectedServiceIndex);
+			String parts[] = data.name.split(":");
+			mConnection.connectToServer(data.ipAddress, Integer.parseInt(parts[1]));
+			mToast.setText("Trying to connect");
+		} else {
+			mToast.setText("Pick a service");
 
 		}
-		Toast.makeText(this, "Pick a service", Toast.LENGTH_SHORT).show();
-
+		mToast.show();
 	}
 
 	public static int ipStringToInt(String str) {
@@ -205,63 +178,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		return inetAddress;
 	}
 
-	// ========================================================================================================
-	// PLAY ONE COMMAND. COMMAND FORMAT (color(hex):duration(msec)) EXAMPLE: ("#ff00ff:5")
-	// ========================================================================================================
-
-	public void playCommand(String command) {
-
-		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
-		if (command.contains("|")) {
-			String[] commands = command.split("\\|");
-			for (String s : commands) {
-				playingQueue.add(s);
-			}
-		} else if (!command.equals("recursion")) {
-			playingQueue.add(command);
-		}
-
-		// IN CASE OF BAD COMMAND JUST EXIT
-		if (playingQueue.isEmpty())
-			return;
-
-		if (!isPlaying || command.equals("recursion")) {
-
-			// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
-			String[] parts = playingQueue.get(0).split(":");
-			int color = Color.parseColor(parts[0]);
-			int duration = Integer.parseInt(parts[1]);
-			playingQueue.remove(0);
-
-			// SET FLAG SO OTHER COMMANDS HAVE TO WAIT
-			isPlaying = true;
-
-			background.setBackgroundColor(color);
-			new CountDownTimer(duration, 500) {
-
-				// SHOW TIME TILL END OF THE COMMAND
-				public void onTick(long millisUntilFinished) {
-				}
-
-				// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
-				public void onFinish() {
-					if (playingQueue.isEmpty()) {
-						// background.setBackgroundColor(Color.WHITE); now device should stay lighting last
-						// command color
-						isPlaying = false;
-					} else {
-						playCommand("recursion");
-					}
-				}
-			}.start();
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			playCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			player.addCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			break;
+
+		case R.id.background:
+			hideUI(null);
 			break;
 
 		default:
@@ -288,51 +213,94 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 
-	// ========================================================================================================
-	// SERVICE LISTENER
-	// ========================================================================================================
-	@Override
-	public void serviceAdded(final ServiceEvent arg0) {
-		if (!list.contains(arg0.getName())) {
-			Log.d("Detected service: ", arg0.getName());
+	// inter-process communication
+	public IPCHandler ipc = new IPCHandler();
 
-			listView.post(new Runnable() {
+	/**
+	 * Allow the network thread to send us messages via this IPC mechanism.
+	 * 
+	 * @author simmons
+	 */
+	public class IPCHandler extends Handler {
 
-				@Override
-				public void run() {
-					services.add(arg0.getInfo());
-					list.add(arg0.getName());
+		private static final int MSG_SET_STATUS = 1;
+		private static final int MSG_ADD_PACKET = 2;
+		private static final int MSG_ERROR = 3;
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+
+			// don't process incoming IPC if we are paused.
+			if (adapter == null) {
+				Log.w(TAG, "dropping incoming message: " + msg);
+				return;
+			}
+
+			switch (msg.what) {
+			case Protocol.MESSAGE_TYPE_COMMAND:
+				player.addCommand(msg.getData().getString(Protocol.COMMAND));
+				break;
+
+			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
+				Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+				break;
+			case MSG_SET_STATUS:
+				// statusLine.setText((String) msg.obj);
+				break;
+			case MSG_ADD_PACKET:
+
+				String s = ((Packet) msg.obj).description;
+				InetAddress adr = ((Packet) msg.obj).src;
+				int port = ((Packet) msg.obj).srcPort;
+
+				String[] peaces = s.split("PTR ");
+
+				if (peaces.length > 0) {
+					for (int i = 1; i < peaces.length; i++) {
+						String name = peaces[i].split("._")[0];
+						if (!list.contains(name)) {
+							packetList.add(new NameIPPair(name, adr, port));
+							list.add(name);
+						}
+					}
 					adapter.notifyDataSetChanged();
 				}
-			});
-
-			mToast.setText(arg0.getName() + " service detected");
-			mToast.show();
+				break;
+			case MSG_ERROR:
+				break;
+			default:
+				Log.w(TAG, "unknown activity message code: " + msg);
+				break;
+			}
 		}
+
+		public void setStatus(String status) {
+			sendMessage(Message.obtain(ipc, MSG_SET_STATUS, status));
+		}
+
+		public void addPacket(Packet packet) {
+			sendMessage(Message.obtain(ipc, MSG_ADD_PACKET, packet));
+		}
+
+		public void error(Throwable throwable) {
+			sendMessage(Message.obtain(ipc, MSG_ERROR, throwable));
+		}
+	};
+
+	// ========================================================================================================
+	// TYME SYNC OVER NTP(Network Time Protocol). no.pool.ntp.org is Norway closest server
+	// The offset is compared to System time and result is saved in sharedPref.
+	// Since we use the mobile device as a router, in order for this code to work, client will first have to
+	// connect to network that provide internet connection, like edurom.
+	// Once time diff is saved, we can switch back to mobile device hotspot.
+	// Also when we start using a real router, internet connection can be provided over it, and there will be
+	// no need for 2 network sequence connactions by client.
+	//
+	// Saved value offset can be used for sheduling commands that include time constant.
+	// ========================================================================================================
+
+	public void timeSync(View v) {
+		new SNTPClient(mToast, "TIME_OFFSET").execute("0.no.pool.ntp.org");
 	}
-
-	@Override
-	public void serviceRemoved(ServiceEvent arg0) {
-
-	}
-
-	@Override
-	public void serviceResolved(ServiceEvent arg0) {
-		mToast.setText(arg0.getName() + " service resolved");
-		mToast.show();
-	}
-
-	@Override
-	public void serviceTypeAdded(ServiceEvent arg0) {
-		mToast.setText(arg0.getType() + " service type detected");
-		mToast.show();
-		jmdns.addServiceListener(arg0.getType(), MainActivity.this);
-	}
-
-	@Override
-	public void subTypeForServiceTypeAdded(ServiceEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

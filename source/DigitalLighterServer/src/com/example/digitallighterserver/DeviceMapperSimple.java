@@ -18,14 +18,14 @@ import com.example.lightdetector.PointCollector;
 
 public class DeviceMapperSimple extends DeviceMapper {
 	protected DeviceMapperState state;
-	protected String RARE_COLOR = ColorManager.getHexColor(ColorManager.RED);
+	protected String RARE_COLOR = Configuration.RARE_COLOR_SIMPLE;
 
 	protected ArrayList<Point> falseAlarmDevices; // blobs that are shining with
 													// RARE
 	// color when non of phone should light
 
 	protected int oneByOneCounter;
-	protected final int RECOVERY_TRIES = 3;
+	protected final int RECOVERY_TRIES = Configuration.RECOVERY_TRIES_SIMPLE;
 	protected int recoveryCounter = 0;
 
 	public DeviceMapperSimple(ConnectionService mConnection, int tilesX,
