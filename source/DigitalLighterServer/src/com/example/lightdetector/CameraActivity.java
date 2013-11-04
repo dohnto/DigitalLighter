@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.digitallighterserver.Configuration;
 import com.example.digitallighterserver.ConnectionService;
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.DLSApplication;
@@ -43,13 +44,14 @@ import com.example.digitallighterserver.MediaPlayer;
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
-public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
-	private static final String MEDIA_SOURCE = "5x4";
+public class CameraActivity extends Activity implements CvCameraViewListener2,
+		Observer, ServiceObserver {
+	private static final String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
 
 	PointCollector collector;
 
-	static int tilesX = 4;
-	static int tilesY = 5;
+	static int tilesX = Configuration.TILES_X;
+	static int tilesY = Configuration.TILES_Y;
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
@@ -61,7 +63,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	MediaPlayer mediaPlayer = null;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
-	
+
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
 		public void onManagerConnected(int status) {
@@ -86,12 +88,19 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		@Override
 		public void onServiceConnected(ComponentName className, IBinder service) {
-			// We've bound to LocalService, cast the IBinder and get LocalService instance
+			// We've bound to LocalService, cast the IBinder and get
+			// LocalService instance
 			LocalBinder binder = (LocalBinder) service;
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-			dl = new DeviceMapperTree(mService, tilesX, tilesY, CameraActivity.this);
+
+			if (Configuration.USE_TREE_DETECTION) {
+				dl = new DeviceMapperTree(mService, tilesX, tilesY,
+						CameraActivity.this);
+			} else {
+				dl = new DeviceMapperSimple(mService, tilesX, tilesY, CameraActivity.this);
+			}
 		}
 
 		@Override
@@ -114,9 +123,11 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	@Override
 	public void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
+				mLoaderCallback);
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
-		bindService(serviceIntent, mConnection, Context.BIND_ADJUST_WITH_ACTIVITY);
+		bindService(serviceIntent, mConnection,
+				Context.BIND_ADJUST_WITH_ACTIVITY);
 	}
 
 	public void onDestroy() {
@@ -157,7 +168,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
-				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, MEDIA_SOURCE);
+				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService,
+						MEDIA_SOURCE);
 				mediaPlayer.addObserver(this);
 				mediaPlayer.play();
 			}
@@ -188,8 +200,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	}
 
 	/*
-	 * public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) { if (buffer.size() > 20)
-	 * { buffer.clear(); } buffer.add(update); }
+	 * public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>>
+	 * update) { if (buffer.size() > 20) { buffer.clear(); } buffer.add(update);
+	 * }
 	 */
 
 	public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
@@ -198,25 +211,26 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 		int unit = (output.width() - 1) / tilesX;
 		for (int i = 0; i < tilesX; ++i)
-			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
-					ColorManager.getCvColor(ColorManager.RED));
+			Core.line(output, new Point(i * unit, 0), new Point(i * unit,
+					output.height()), ColorManager.getCvColor(ColorManager.RED));
 
 		unit = (output.height() - 1) / tilesY;
 		for (int i = 0; i < tilesY; ++i)
-			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
-					ColorManager.getCvColor(ColorManager.RED));
+			Core.line(output, new Point(0, i * unit), new Point(output.width(),
+					i * unit), ColorManager.getCvColor(ColorManager.RED));
 
 		return output;
 	}
 
 	private static Mat drawTile(Mat input, int x, int y, Scalar color) {
-		Mat output = new Mat(input.height(), input.width(), input.type(), new Scalar(0, 0, 0));
+		Mat output = new Mat(input.height(), input.width(), input.type(),
+				new Scalar(0, 0, 0));
 		input.copyTo(output);
 
 		int unitX = output.width() / tilesX;
 		int unitY = output.height() / tilesY;
-		Core.rectangle(output, new Point(unitX * x, unitY * y), new Point(unitX * (x + 1), unitY * (y + 1)),
-				color, 5);
+		Core.rectangle(output, new Point(unitX * x, unitY * y), new Point(unitX
+				* (x + 1), unitY * (y + 1)), color, 5);
 
 		// Core.addWeighted(input, 1.0, output, 0.5, 0, output);
 		return output;
@@ -231,6 +245,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 
 	@Override
 	public void onServiceDataUpdate() {
-		// When something change inside service like new device connected this function will be invoked
+		// When something change inside service like new device connected this
+		// function will be invoked
 	}
 }
