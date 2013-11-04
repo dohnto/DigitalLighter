@@ -93,6 +93,8 @@ public class DeviceMapperTree extends DeviceMapper {
 		case TREE_INIT: // make all phones shine with appropriate color
 			if (divider.isFinished()) { // no need for shining anymore
 				state = DeviceMapperState.ONE_BY_ONE_INIT;
+				String command = CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME);
+				network.multicastCommandSignal(sockets, command);
 			} else {
 				division = divider.getNextDivision();
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them
