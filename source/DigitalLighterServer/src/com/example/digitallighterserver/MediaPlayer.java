@@ -25,9 +25,14 @@ public class MediaPlayer extends Observable {
 	private CommandCreator commandCreator;
 
 	static private int NEXT_FRAMES = Configuration.NEXT_FRAMES;
-	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per second
-	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number of millisecond when
-													// should command be send
+	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per
+																// second
+	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number
+																				// of
+																				// millisecond
+																				// when
+
+	// should command be send
 
 	/**
 	 * Constructor
@@ -77,11 +82,15 @@ public class MediaPlayer extends Observable {
 					// display each tile one by one
 					for (int i = 0; i < tilesX; i++) {
 						for (int j = 0; j < tilesY; j++) {
-							String command = commandCreator.getCommand(i, j);
 							Point currentPoint = new Point(i, j);
-							// display one color on all devices from one tile
-							network.multicastCommandSignal(
-									devices.get(currentPoint), command);
+							if (devices.get(currentPoint).size() != 0) {
+								String command = commandCreator
+										.getCommand(i, j);
+								// display one color on all devices from one
+								// tile
+								network.multicastCommandSignal(
+										devices.get(currentPoint), command);
+							}
 						}
 					}
 					notifyObservers(update);

@@ -1,6 +1,7 @@
 package com.example.timesyns;
 
 import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -9,6 +10,8 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import com.example.digitallighter.ClientPlayer;
@@ -60,8 +63,9 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	@Override
 	protected void onPostExecute(Integer result) {
 
-		Toast.makeText(DLApplication.getContext(), "Time diff: " + ClientPlayer.timeOffset,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(DLApplication.getContext(),
+				"Time diff: " + ClientPlayer.timeOffset, Toast.LENGTH_SHORT)
+				.show();
 
 		double utc = ntpTime - (2208988800.0);
 
@@ -69,33 +73,37 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		long ms = (long) (utc * 1000.0);
 
 		// date/time
-		String date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(new Date(ms));
+		String date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss")
+				.format(new Date(ms));
 
 		// fraction
 		double fraction = ntpTime - ((long) ntpTime);
 		String fractionSting = new DecimalFormat(".000000").format(fraction);
 		/*
-		 * mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date())
-		 * + "\n Server Time:\n" + date + fractionSting); mToast.show();
+		 * mToast.setText("System Time:\n" + new
+		 * SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date()) +
+		 * "\n Server Time:\n" + date + fractionSting); mToast.show();
 		 */
 
 		// Log response
-		Log.d("System Time: ", new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date()));
+		Log.d("System Time: ", new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S")
+				.format(new Date()));
 		Log.d("NTP Time: ", date + fractionSting);
 
 		super.onPostExecute(result);
 	}
 
-	private double retrieveSNTPTime(String... params) throws SocketException, UnknownHostException,
-			IOException {
+	private double retrieveSNTPTime(String... params) throws SocketException,
+			UnknownHostException, IOException {
 		String serverName = params[0];
 		DatagramSocket socket = new DatagramSocket();
 		InetAddress serverAddress = InetAddress.getByName(serverName);
 		byte[] buffer = new NtpMessage().toByteArray();
-		DatagramPacket packet = new DatagramPacket(buffer, buffer.length, serverAddress, SNTP_PORT);
+		DatagramPacket packet = new DatagramPacket(buffer, buffer.length,
+				serverAddress, SNTP_PORT);
 
-		NtpMessage
-				.encodeTimestamp(packet.getData(), 40, (System.currentTimeMillis() / 1000.0) + 2208988800.0);
+		NtpMessage.encodeTimestamp(packet.getData(), 40,
+				(System.currentTimeMillis() / 1000.0) + 2208988800.0);
 
 		socket.send(packet);
 
@@ -114,4 +122,22 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 		return message.transmitTimestamp;
 	}
+
+	private static <T extends Number> double getMean(final ArrayList<T> list) {
+		double mean = 0;
+		for (T i : list) {
+			mean += i.doubleValue();
+		}
+		return mean / list.size();
+	}
+	
+	private static <T extends Number> double getMedian(final ArrayList<T> list) {
+		double mean = 0;
+		//Collections.sort(list);
+		for (T i : list) {
+			mean += i.doubleValue();
+		}
+		return mean / list.size();
+	}
+
 }

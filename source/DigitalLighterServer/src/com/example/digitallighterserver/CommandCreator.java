@@ -23,6 +23,7 @@ public class CommandCreator {
 	private String ERROR_COMMAND = "#FFFFFF:1000";
 	private long playTime;
 	private boolean firstCommandSend;
+	private boolean sendTimeStamp;
 
 	/**
 	 * 
@@ -47,6 +48,7 @@ public class CommandCreator {
 				+ Configuration.WAIT_BEFORE_PLAYING;
 		buffer = new ArrayList<Bitmap>();
 		firstCommandSend = false;
+		sendTimeStamp = true;
 	}
 
 	/**
@@ -67,6 +69,8 @@ public class CommandCreator {
 			buffer.add(imageMapper.getNextFrame());
 			framesCounter++;
 		}
+		if (firstCommandSend)
+			sendTimeStamp = false;
 		return buffer.size() * frameMs;
 	}
 
@@ -92,7 +96,7 @@ public class CommandCreator {
 					if (retval.length() != 0) { // not first bunch command so
 												// add deliminator
 						retval += "|";
-					} else if (!firstCommandSend) { // first command and also
+					} else if (sendTimeStamp) { // first command and also
 													// first command ever, add
 													// time when to play
 						retval = addTime(retval, playTime);
