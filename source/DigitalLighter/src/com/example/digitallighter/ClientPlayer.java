@@ -9,6 +9,7 @@ import android.view.View;
 public class ClientPlayer {
 
 	View background;
+	public static long timeOffset;
 
 	// COMMAND
 	boolean isPlaying = false;
