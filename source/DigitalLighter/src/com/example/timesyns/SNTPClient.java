@@ -131,13 +131,9 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		return mean / list.size();
 	}
 	
-	private static <T extends Number> double getMedian(final ArrayList<T> list) {
-		double mean = 0;
-		//Collections.sort(list);
-		for (T i : list) {
-			mean += i.doubleValue();
-		}
-		return mean / list.size();
+	private static double getMedian(ArrayList<Long> list) {
+		Collections.sort(list);
+		return list.get(list.size()/2);
 	}
 
 }
