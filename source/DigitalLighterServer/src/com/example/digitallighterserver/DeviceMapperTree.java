@@ -10,9 +10,11 @@ import org.opencv.core.Point;
 
 import com.example.digitallighterserver.DeviceMapper;
 import com.example.lightdetector.ColorManager;
+import com.example.lightdetector.ColorMappingPair;
 
 public class DeviceMapperTree extends DeviceMapper {
-	private ArrayList<String> RARE_COLORS = new ArrayList<String>();
+	private ArrayList<ColorMappingPair> RARE_COLORS = new ArrayList<ColorMappingPair>();
+	private ArrayList<String> rareColorsForDetection = new ArrayList<String>();
 	private DeviceMapperState state;
 	private HashMap<String, ArrayList<Point>> falseAlarmDevices = new HashMap<String, ArrayList<Point>>();
 	private TreeListDivider<Socket> divider;
@@ -24,6 +26,9 @@ public class DeviceMapperTree extends DeviceMapper {
 	public DeviceMapperTree(ConnectionService mConnection, int tilesX, int tilesY, Observer ca) {
 		super(mConnection, tilesX, tilesY, ca, null);
 		RARE_COLORS.addAll(Configuration.RARE_COLORS_TREE);
+		for (ColorMappingPair color: RARE_COLORS) {
+			rareColorsForDetection.add(color.detection);
+		}
 		obs = ca;
 	}
 
@@ -74,7 +79,7 @@ public class DeviceMapperTree extends DeviceMapper {
 			if (System.currentTimeMillis() - startT > WAIT_TIME) {
 				// take a picture and find all possible devices
 				state = DeviceMapperState.DETECT_FALSE_ALARM_WAIT_FOR_UPDATE;
-				detectLights(image, RARE_COLORS);
+				detectLights(image, rareColorsForDetection);
 			}
 			break;
 		case DETECT_FALSE_ALARM_WAIT_FOR_UPDATE:
@@ -94,7 +99,7 @@ public class DeviceMapperTree extends DeviceMapper {
 				division = divider.getNextDivision();
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them
 																// shine
-					String command = CommandCreator.addDuration(RARE_COLORS.get(i), LIGHT_TIME);
+					String command = CommandCreator.addDuration(RARE_COLORS.get(i).command, LIGHT_TIME);
 					network.multicastCommandSignal(division.get(i), command);
 				}
 				startT = System.currentTimeMillis();
@@ -104,7 +109,7 @@ public class DeviceMapperTree extends DeviceMapper {
 		case DETECT_TREE:
 			if (System.currentTimeMillis() - startT > WAIT_TIME) {
 				state = DeviceMapperState.DETECT_TREE_WAIT_FOR_UPDATE;
-				detectLights(image, RARE_COLORS);
+				detectLights(image, rareColorsForDetection);
 			}
 			break;
 		case DETECT_TREE_WAIT_FOR_UPDATE:
@@ -112,7 +117,7 @@ public class DeviceMapperTree extends DeviceMapper {
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // iterate
 																// through
 																// all colors
-					String color = RARE_COLORS.get(i);
+					String color = RARE_COLORS.get(i).detection;
 					ArrayList<Socket> div = division.get(i);
 					if (lastDetectedBlobs.keySet().contains(color)) { // check
 						// get positions where color was detected
