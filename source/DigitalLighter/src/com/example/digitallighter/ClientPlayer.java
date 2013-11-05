@@ -38,14 +38,16 @@ public class ClientPlayer {
 			command = command.substring(command.indexOf("@") + 1);
 			
 			// Playback start time is in future.
-			if(timeDiff > 0) {
+			if(timeDiff >= 0) {
 				try {
 					Thread.sleep(TimeUnit.NANOSECONDS.toMillis(timeDiff));
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} 
+			} else {
+				
+			}
 		}
 		
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
