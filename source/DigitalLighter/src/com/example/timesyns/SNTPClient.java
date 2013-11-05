@@ -123,15 +123,15 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		return message.transmitTimestamp;
 	}
 
-	private static <T extends Number> double getMean(final ArrayList<T> list) {
-		double mean = 0;
-		for (T i : list) {
-			mean += i.doubleValue();
+	private static long getMean(final ArrayList<Long> list) {
+		long mean = 0;
+		for (long i : list) {
+			mean += i;
 		}
 		return mean / list.size();
 	}
 	
-	private static double getMedian(ArrayList<Long> list) {
+	private static long getMedian(ArrayList<Long> list) {
 		Collections.sort(list);
 		return list.get(list.size()/2);
 	}
