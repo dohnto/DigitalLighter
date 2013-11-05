@@ -9,11 +9,11 @@ import com.example.lightdetector.ColorMappingPair;
 public class Configuration {
 	// === MEDIA CHOICE =========================================
 	// media to be played in assets folder
-	static public String MEDIA_SOURCE = "3x3/traffic-light";
+	static public String MEDIA_SOURCE = "5x4/czech-flag";
 	// number of columns
-	static public int TILES_X = 3;
+	static public int TILES_X = 5;
 	// number of rows
-	static public int TILES_Y = 3;
+	static public int TILES_Y = 4;
 
 	// === DETECTION OF POSITION ================================
 	static public boolean USE_TREE_DETECTION = true;
@@ -34,8 +34,8 @@ public class Configuration {
 
 	// rare colors for tree algorithm
 	static public List<ColorMappingPair> RARE_COLORS_TREE = Arrays.asList(
-			new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
-			new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
+			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
+			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
 			new ColorMappingPair(ColorManager
 					.getHexColor(ColorManager.DARK_RED)), new ColorMappingPair(
 					ColorManager.getHexColor(ColorManager.DARK_GREEN),
