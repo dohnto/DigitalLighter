@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 		// SET BRIGHTNES TO MAX
 		WindowManager.LayoutParams layout = getWindow().getAttributes();
-		layout.screenBrightness = 1F;
+		layout.screenBrightness = 0.2F;
 		getWindow().setAttributes(layout);
 
 		// RETRIEVE UI ELEMENTS
@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			hide.setVisibility(View.GONE);
 			listView.setVisibility(View.GONE);
 			connect.setVisibility(View.GONE);
+			findViewById(R.id.time_btn).setVisibility(View.GONE);
 		} else {
 			action.setVisibility(View.VISIBLE);
 			refresh.setVisibility(View.VISIBLE);
@@ -104,6 +105,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			listView.setVisibility(View.VISIBLE);
 			connect.setVisibility(View.VISIBLE);
 			hide.setVisibility(View.VISIBLE);
+			findViewById(R.id.time_btn).setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -289,7 +291,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	};
 
 	// ========================================================================================================
-	// TYME SYNC OVER NTP(Network Time Protocol). no.pool.ntp.org is Norway closest server
+	// TYME SYNC OVER NTP(Network Time Protocol). "0.no.pool.ntp.org" is Norway closest server
 	// The offset is compared to System time and result is saved in sharedPref.
 	// Since we use the mobile device as a router, in order for this code to work, client will first have to
 	// connect to network that provide internet connection, like edurom.
@@ -301,6 +303,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	// ========================================================================================================
 
 	public void timeSync(View v) {
-		new SNTPClient(mToast, "TIME_OFFSET").execute("0.no.pool.ntp.org");
+		NameIPPair data = packetList.get(selectedServiceIndex);
+		String adr = data.ipAddress.toString();
+		new SNTPClient(mToast, "TIME_OFFSET").execute(adr.substring(1));
 	}
 }

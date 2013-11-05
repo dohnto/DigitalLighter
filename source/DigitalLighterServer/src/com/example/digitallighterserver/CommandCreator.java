@@ -83,7 +83,7 @@ public class CommandCreator {
 						retval += "|";
 					}
 					retval += color;
-					retval = addTime(retval, frameMsCurrent);
+					retval = addDuration(retval, frameMsCurrent);
 					frameMsCurrent = frameMs; // reset
 				}
 			}
@@ -94,10 +94,20 @@ public class CommandCreator {
 	public boolean isFinished() {
 		return (valid) ? imageMapper.isFinished() : true;
 	}
+	
+	static public String createCommand(long atTime, String message, int durationMs) {
+		return addDuration(addTime(message, atTime), durationMs);
+	}
 
-	static public String addTime(String prefix, int ms) {
-		String retval = new String(prefix);
+	static public String addDuration(String message, int ms) {
+		String retval = new String(message);
 		retval += ":" + Integer.toString(ms);
+		return retval;
+	}
+	
+	static public String addTime(String message, long time) {
+		String retval = new String(Double.toString(time));
+		retval += ":" + message;
 		return retval;
 	}
 }

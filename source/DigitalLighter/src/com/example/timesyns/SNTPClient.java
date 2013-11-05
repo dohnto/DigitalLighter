@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private static final String DEFAULT_NTP_SERVER = "0.no.pool.ntp.org";
-	private static final int SNTP_PORT = 123;
+	private static final int SNTP_PORT = 38621; // 123 real address
 
 	private double ntpTime = 0;
 	Toast mToast;
@@ -62,9 +62,10 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		double fraction = ntpTime - ((long) ntpTime);
 		String fractionSting = new DecimalFormat(".000000").format(fraction);
 
-		mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date()));
+		mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date())
+				+ "\n Server Time:\n" + date + fractionSting);
 		mToast.show();
-		mToast.setText("NTP Time:\n" + date + fractionSting);
+		mToast.setText("Diff: " + (ms - System.currentTimeMillis()));
 		mToast.show();
 
 		// Log response
