@@ -64,7 +64,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 			recoveryCounter = 0;
 			// broadcast all devices to shine with initial color
 			network.multicastCommandSignal(getSockets(),
-					CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
+					CommandCreator.addDuration(SHUT_DOWN_COLOR, LIGHT_TIME));
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
@@ -93,7 +93,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 				// iterate through all of devices
 				// make it light
 				network.unicastCommandSignal(getSockets().get(oneByOneCounter),
-						CommandCreator.addTime(RARE_COLOR, LIGHT_TIME));
+						CommandCreator.addDuration(RARE_COLOR, LIGHT_TIME));
 				startT = System.currentTimeMillis();
 				state = DeviceMapperState.DETECT_ONE;
 			}
@@ -131,7 +131,7 @@ public class DeviceMapperSimple extends DeviceMapper {
 					// TODO delete phone
 					network.unicastCommandSignal(
 							getSockets().get(oneByOneCounter),
-							CommandCreator.addTime(SHUT_DOWN_COLOR, LIGHT_TIME));
+							CommandCreator.addDuration(SHUT_DOWN_COLOR, LIGHT_TIME));
 					oneByOneCounter++;
 					state = DeviceMapperState.INIT;
 				}

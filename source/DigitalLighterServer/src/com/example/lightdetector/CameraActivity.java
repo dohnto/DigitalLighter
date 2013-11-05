@@ -95,12 +95,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
 
-			if (Configuration.USE_TREE_DETECTION) {
-				dl = new DeviceMapperTree(mService, tilesX, tilesY,
-						CameraActivity.this);
-			} else {
-				dl = new DeviceMapperSimple(mService, tilesX, tilesY, CameraActivity.this);
-			}
+			dl = mapperFactory();
 		}
 
 		@Override
@@ -109,8 +104,20 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 		}
 	};
 
+	private DeviceMapper mapperFactory() {
+		return (Configuration.USE_TREE_DETECTION) ? new DeviceMapperTree(
+				mService, tilesX, tilesY, CameraActivity.this)
+				: new DeviceMapperSimple(mService, tilesX, tilesY,
+						CameraActivity.this);
+	}
+
 	public void startDetection(View v) {
+		if (!(dl instanceof DeviceMapper)) { // repeated detection
+			dl = mapperFactory();
+		}
+		
 		((DeviceMapper) dl).reset();
+
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 		// SET BRIGHTNES TO MAX
 		WindowManager.LayoutParams layout = getWindow().getAttributes();
-		layout.screenBrightness = 1F;
+		layout.screenBrightness = 0.2F;
 		getWindow().setAttributes(layout);
 
 		// RETRIEVE UI ELEMENTS
@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			hide.setVisibility(View.GONE);
 			listView.setVisibility(View.GONE);
 			connect.setVisibility(View.GONE);
+			findViewById(R.id.time_btn).setVisibility(View.GONE);
 		} else {
 			action.setVisibility(View.VISIBLE);
 			refresh.setVisibility(View.VISIBLE);
@@ -104,6 +105,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			listView.setVisibility(View.VISIBLE);
 			connect.setVisibility(View.VISIBLE);
 			hide.setVisibility(View.VISIBLE);
+			findViewById(R.id.time_btn).setVisibility(View.VISIBLE);
 		}
 	}
 
