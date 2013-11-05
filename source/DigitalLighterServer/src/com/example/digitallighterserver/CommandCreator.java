@@ -21,6 +21,8 @@ public class CommandCreator {
 	private int frameRate; // images per second
 	private int frameMs; // frame stays for frameMs milliseconds
 	private String ERROR_COMMAND = "#FFFFFF:1000";
+	private long playTime;
+	private boolean firstCommandSend;
 
 	/**
 	 * 
@@ -31,13 +33,20 @@ public class CommandCreator {
 	public CommandCreator(String mediaPath, int frameRate) {
 		try {
 			imageMapper = new ImageMapper(mediaPath);
-			buffer = new ArrayList<Bitmap>();
 			this.frameRate = frameRate;
 			frameMs = (int) (1 / (double) frameRate * 1000);
+			reset();
 		} catch (IOException e) {
 			valid = false;
 			e.printStackTrace();
 		}
+	}
+
+	public void reset() {
+		playTime = System.currentTimeMillis()
+				+ Configuration.WAIT_BEFORE_PLAYING;
+		buffer = new ArrayList<Bitmap>();
+		firstCommandSend = false;
 	}
 
 	/**
@@ -74,19 +83,26 @@ public class CommandCreator {
 				String color = ColorManager.getHexColor(buffer.get(i).getPixel(
 						tileX, tileY));
 				if (i + 1 < buffer.size() // there is still something to load
-						&& ColorManager.getHexColor(buffer.get(i + 1).getPixel(
-								tileX, tileY)).equals(color)) { // and it is the same
-															// color!!!
+						&& ColorManager.getHexColor(
+								buffer.get(i + 1).getPixel(tileX, tileY))
+								.equals(color)) { // and it is the same
+					// color!!!
 					frameMsCurrent += frameMs;
 				} else { // flush the command
-					if (retval.length() != 0) { // not first bunch command so add deliminator
+					if (retval.length() != 0) { // not first bunch command so
+												// add deliminator
 						retval += "|";
+					} else if (!firstCommandSend) { // first command and also
+													// first command ever, add
+													// time when to play
+						retval = Long.toString(playTime) + ":";
 					}
 					retval += color;
 					retval = addDuration(retval, frameMsCurrent);
 					frameMsCurrent = frameMs; // reset
 				}
 			}
+			firstCommandSend = true;
 		}
 		return retval;
 	}
@@ -94,8 +110,9 @@ public class CommandCreator {
 	public boolean isFinished() {
 		return (valid) ? imageMapper.isFinished() : true;
 	}
-	
-	static public String createCommand(long atTime, String message, int durationMs) {
+
+	static public String createCommand(long atTime, String message,
+			int durationMs) {
 		return addDuration(addTime(message, atTime), durationMs);
 	}
 
@@ -104,7 +121,7 @@ public class CommandCreator {
 		retval += ":" + Integer.toString(ms);
 		return retval;
 	}
-	
+
 	static public String addTime(String message, long time) {
 		String retval = new String(Double.toString(time));
 		retval += ":" + message;
