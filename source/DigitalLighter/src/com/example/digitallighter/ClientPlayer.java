@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 
 public class ClientPlayer {
@@ -33,7 +34,8 @@ public class ClientPlayer {
 		// INITIAL COMMAND WITH TIME STAMP
 		if (command.contains("@")) {
 			String[] parts = command.split("@");
-			startAt = Long.parseLong(parts[0], 10);
+			startAt = Long.parseLong(parts[0], 10); // from server
+			Log.d("Waiting for this much:", "" + (startAt - System.currentTimeMillis() + timeOffset));
 			command = command.substring(command.indexOf("@") + 1);
 			playingQueue.clear();
 		}
@@ -56,16 +58,16 @@ public class ClientPlayer {
 
 	public void play() {
 
-		while (System.currentTimeMillis() < startAt) {
-
-		}
-		startAt = 0;
-
 		// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
 		String[] parts = playingQueue.poll().split(":");
 		int color = Color.parseColor(parts[0]);
 		int duration = Integer.parseInt(parts[1]);
 		playingQueue.remove(0);
+
+		while (System.currentTimeMillis() + timeOffset < startAt) {
+
+		}
+		startAt = 0;
 
 		// SET PROPER BACKGROUND DEFINED BY COMMAND
 		background.setBackgroundColor(color);

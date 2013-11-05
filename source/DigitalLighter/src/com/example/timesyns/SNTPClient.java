@@ -28,7 +28,7 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	@Override
 	protected Integer doInBackground(String... params) {
 		try {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 50; i++) {
 				ntpTime = retrieveSNTPTime(params);
 				long now = System.currentTimeMillis();
 				double utc = ntpTime - (2208988800.0);
