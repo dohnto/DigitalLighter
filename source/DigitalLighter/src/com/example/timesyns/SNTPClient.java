@@ -1,6 +1,7 @@
 package com.example.timesyns;
 
 import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -42,6 +43,7 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 				retrievedValues.add(now - ms);
 			}
+			getMean(retrievedValues);
 
 		} catch (SocketException e) {
 			e.printStackTrace();
@@ -116,4 +118,22 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 		return message.transmitTimestamp;
 	}
+
+	private static <T extends Number> double getMean(final ArrayList<T> list) {
+		double mean = 0;
+		for (T i : list) {
+			mean += i.doubleValue();
+		}
+		return mean / list.size();
+	}
+
+	private static <T extends Number> double getMedian(final ArrayList<T> list) {
+		double mean = 0;
+		// Collections.sort(list);
+		for (T i : list) {
+			mean += i.doubleValue();
+		}
+		return mean / list.size();
+	}
+
 }
