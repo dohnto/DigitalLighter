@@ -95,7 +95,7 @@ public class CommandCreator {
 					} else if (!firstCommandSend) { // first command and also
 													// first command ever, add
 													// time when to play
-						retval = Long.toString(playTime) + ":";
+						retval = addTime(retval, playTime);
 					}
 					retval += color;
 					retval = addDuration(retval, frameMsCurrent);
@@ -123,7 +123,7 @@ public class CommandCreator {
 	}
 
 	static public String addTime(String message, long time) {
-		String retval = new String(Double.toString(time));
+		String retval = new String(Long.toString(time));
 		retval += ":" + message;
 		return retval;
 	}
