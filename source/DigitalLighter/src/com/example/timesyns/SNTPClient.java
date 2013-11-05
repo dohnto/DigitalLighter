@@ -28,7 +28,19 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	@Override
 	protected Integer doInBackground(String... params) {
 		try {
-			ntpTime = retrieveSNTPTime(params);
+			for (int i = 0; i < 30; i++) {
+				ntpTime = retrieveSNTPTime(params);
+				long now = System.currentTimeMillis();
+				double utc = ntpTime - (2208988800.0);
+
+				// milliseconds
+				long ms = (long) (utc * 1000.0);
+
+				Log.d("TimeSync", "" + (now - ms));
+
+				if (ClientPlayer.timeOffset < now - ms)
+					ClientPlayer.timeOffset = now - ms;
+			}
 		} catch (SocketException e) {
 			e.printStackTrace();
 		} catch (UnknownHostException e) {
@@ -48,6 +60,9 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	@Override
 	protected void onPostExecute(Integer result) {
 
+		Toast.makeText(DLApplication.getContext(), "Time diff: " + ClientPlayer.timeOffset,
+				Toast.LENGTH_SHORT).show();
+
 		double utc = ntpTime - (2208988800.0);
 
 		// milliseconds
@@ -63,10 +78,6 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		 * mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date())
 		 * + "\n Server Time:\n" + date + fractionSting); mToast.show();
 		 */
-
-		ClientPlayer.timeOffset = ms - System.currentTimeMillis();
-		Toast.makeText(DLApplication.getContext(), "Time diff: " + ClientPlayer.timeOffset,
-				Toast.LENGTH_SHORT).show();
 
 		// Log response
 		Log.d("System Time: ", new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date()));

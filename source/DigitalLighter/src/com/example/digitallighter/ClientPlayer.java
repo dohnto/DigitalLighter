@@ -11,7 +11,7 @@ import android.view.View;
 public class ClientPlayer {
 
 	View background;
-	public static long timeOffset;
+	public static long timeOffset = Long.MIN_VALUE;
 
 	// COMMAND
 	boolean isPlaying = false;
@@ -32,13 +32,13 @@ public class ClientPlayer {
 		if (command.contains("@")) {
 			String[] parts = command.split("@");
 			long startTime = Long.parseLong(parts[0], 10);
-			long timeDiff  = TimeUnit.MILLISECONDS.toNanos(startTime) - 
-							(System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(timeOffset));
-			
+			long timeDiff = TimeUnit.MILLISECONDS.toNanos(startTime)
+					- (System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(timeOffset));
+
 			command = command.substring(command.indexOf("@") + 1);
-			
+
 			// Playback start time is in future.
-			if(timeDiff >= 0) {
+			if (timeDiff > 0) {
 				try {
 					Thread.sleep(TimeUnit.NANOSECONDS.toMillis(timeDiff));
 				} catch (InterruptedException e) {
@@ -49,7 +49,7 @@ public class ClientPlayer {
 				
 			}
 		}
-		
+
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
 		if (command.contains("|")) {
 			String[] commands = command.split("\\|");
@@ -65,8 +65,6 @@ public class ClientPlayer {
 			play();
 		}
 	}
-	
-
 
 	public void play() {
 

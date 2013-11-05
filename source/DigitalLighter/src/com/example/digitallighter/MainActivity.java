@@ -73,7 +73,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		background.setOnClickListener(this);
 		connect = (Button) findViewById(R.id.btn_connect);
 		hide = (Button) findViewById(R.id.hideUI);
-
 		// SETTING PLAYER
 		player = new ClientPlayer(background);
 
@@ -97,7 +96,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			hide.setVisibility(View.GONE);
 			listView.setVisibility(View.GONE);
 			connect.setVisibility(View.GONE);
-			findViewById(R.id.time_btn).setVisibility(View.GONE);
 		} else {
 			action.setVisibility(View.VISIBLE);
 			refresh.setVisibility(View.VISIBLE);
@@ -105,7 +103,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			listView.setVisibility(View.VISIBLE);
 			connect.setVisibility(View.VISIBLE);
 			hide.setVisibility(View.VISIBLE);
-			findViewById(R.id.time_btn).setVisibility(View.VISIBLE);
 		}
 	}
 
