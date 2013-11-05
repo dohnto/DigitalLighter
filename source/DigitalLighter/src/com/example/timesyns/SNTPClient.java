@@ -10,6 +10,10 @@ import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.example.digitallighter.ClientPlayer;
+import com.example.digitallighter.DLApplication;
+
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,13 +23,7 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private static final int SNTP_PORT = 38621; // 123 real address
 
 	private double ntpTime = 0;
-	Toast mToast;
 	String sharedKey;
-
-	public SNTPClient(Toast t, String key) {
-		mToast = t;
-		sharedKey = key;
-	}
 
 	@Override
 	protected Integer doInBackground(String... params) {
@@ -61,12 +59,14 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		// fraction
 		double fraction = ntpTime - ((long) ntpTime);
 		String fractionSting = new DecimalFormat(".000000").format(fraction);
+		/*
+		 * mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date())
+		 * + "\n Server Time:\n" + date + fractionSting); mToast.show();
+		 */
 
-		mToast.setText("System Time:\n" + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date())
-				+ "\n Server Time:\n" + date + fractionSting);
-		mToast.show();
-		mToast.setText("Diff: " + (ms - System.currentTimeMillis()));
-		mToast.show();
+		ClientPlayer.timeOffset = ms - System.currentTimeMillis();
+		Toast.makeText(DLApplication.getContext(), "Time diff: " + ClientPlayer.timeOffset,
+				Toast.LENGTH_SHORT).show();
 
 		// Log response
 		Log.d("System Time: ", new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.S").format(new Date()));

@@ -142,11 +142,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		if (selectedServiceIndex != -1) {
 			NameIPPair data = packetList.get(selectedServiceIndex);
 			String parts[] = data.name.split(":");
+			timeSync(data.ipAddress.toString().substring(1));
 			mConnection.connectToServer(data.ipAddress, Integer.parseInt(parts[1]));
 			mToast.setText("Trying to connect");
 		} else {
 			mToast.setText("Pick a service");
-
 		}
 		mToast.show();
 	}
@@ -245,7 +245,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				break;
 
 			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
-				Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+				mToast.setText("Connected");
+				mToast.show();
 				break;
 			case MSG_SET_STATUS:
 				// statusLine.setText((String) msg.obj);
@@ -302,9 +303,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	// Saved value offset can be used for sheduling commands that include time constant.
 	// ========================================================================================================
 
-	public void timeSync(View v) {
-		NameIPPair data = packetList.get(selectedServiceIndex);
-		String adr = data.ipAddress.toString();
-		new SNTPClient(mToast, "TIME_OFFSET").execute(adr.substring(1));
+	public void timeSync(String adr) {
+		new SNTPClient().execute(adr);
 	}
 }
