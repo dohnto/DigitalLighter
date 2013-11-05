@@ -1,7 +1,5 @@
 package com.example.timesyns;
 
-import android.os.AsyncTask;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -11,13 +9,15 @@ import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.digitallighter.ClientPlayer;
 import com.example.digitallighter.DLApplication;
-
-import android.util.Log;
-import android.widget.Toast;
 
 public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private static final String DEFAULT_NTP_SERVER = "0.no.pool.ntp.org";
@@ -127,13 +127,9 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 		return mean / list.size();
 	}
 
-	private static <T extends Number> double getMedian(final ArrayList<T> list) {
-		double mean = 0;
-		// Collections.sort(list);
-		for (T i : list) {
-			mean += i.doubleValue();
-		}
-		return mean / list.size();
+	private static double getMedian(ArrayList<Long> list) {
+		Collections.sort(list);
+		return list.get(list.size() / 2);
 	}
 
 }
