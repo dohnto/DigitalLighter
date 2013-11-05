@@ -15,7 +15,7 @@ public class ColorManager {
 	public static double[] WHITE    = { 255.0, 255.0, 255.0, 255.0 };
 	public static double[] MAGENTA  = { 202.0, 31.0, 123.0, 255.0 };
 	public static double[] DARK_RED  = { 102.0, 0.0, 0.0, 255.0 };
-	public static double[] DARK_GREEN  = { 0.0, 0.0, 102.0, 255.0 };
+	public static double[] DARK_GREEN  = { 0.0, 102.0, 0.0, 255.0 };
 
 
 	public static Scalar getCvColor(double[] color) {
