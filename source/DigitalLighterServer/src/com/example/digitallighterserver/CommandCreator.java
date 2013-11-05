@@ -124,7 +124,7 @@ public class CommandCreator {
 
 	static public String addTime(String message, long time) {
 		String retval = new String(Long.toString(time));
-		retval += ":" + message;
+		retval += "@" + message;
 		return retval;
 	}
 }
