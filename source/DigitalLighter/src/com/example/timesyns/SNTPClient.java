@@ -26,7 +26,7 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private double ntpTime = 0;
 	String sharedKey;
 
-	ArrayList<Long> retrievedValues = new ArrayList<Long>();
+	ArrayList<Long> offsets = new ArrayList<Long>();
 
 	@Override
 	protected Integer doInBackground(String... params) {
@@ -41,9 +41,10 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 				Log.d("TimeSync", "" + (now - ms));
 
-				retrievedValues.add(now - ms);
+				offsets.add(now - ms);
 			}
-			getMean(retrievedValues);
+
+			ClientPlayer.timeOffset = getMean(offsets);
 
 		} catch (SocketException e) {
 			e.printStackTrace();
