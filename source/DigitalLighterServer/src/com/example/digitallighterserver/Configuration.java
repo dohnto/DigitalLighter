@@ -43,5 +43,7 @@ public class Configuration {
 	static public int FRAME_RATE = 5;
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100;
+	// wait before playing a media in ms 
+	static public long WAIT_BEFORE_PLAYING = 5000;
 
 }
