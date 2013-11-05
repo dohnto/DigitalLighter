@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.lightdetector.ColorManager;
+import com.example.lightdetector.ColorMappingPair;
 
 public class Configuration {
 	// === MEDIA CHOICE =========================================
@@ -32,9 +33,13 @@ public class Configuration {
 	static public int RECOVERY_TRIES_SIMPLE = 3;
 
 	// rare colors for tree algorithm
-	static public List<String> RARE_COLORS_TREE = Arrays.asList(
-			ColorManager.getHexColor(ColorManager.WHITE),
-			ColorManager.getHexColor(ColorManager.BLUE));
+	static public List<ColorMappingPair> RARE_COLORS_TREE = Arrays.asList(
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
+			new ColorMappingPair(ColorManager
+					.getHexColor(ColorManager.DARK_RED)), new ColorMappingPair(
+					ColorManager.getHexColor(ColorManager.DARK_GREEN),
+					ColorManager.getHexColor(ColorManager.GREEN)));
 
 	// === MEDIA PLAYING ========================================
 	// how many frames in advance should be processed
@@ -43,7 +48,7 @@ public class Configuration {
 	static public int FRAME_RATE = 5;
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100;
-	// wait before playing a media in ms 
+	// wait before playing a media in ms
 	static public long WAIT_BEFORE_PLAYING = 5000;
 
 }
