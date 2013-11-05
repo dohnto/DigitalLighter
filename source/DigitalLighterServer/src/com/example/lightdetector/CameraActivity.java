@@ -52,6 +52,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 
 	static int tilesX = Configuration.TILES_X;
 	static int tilesY = Configuration.TILES_Y;
+
 	TextView info;
 	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
