@@ -14,14 +14,6 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/time_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="timeSync"
-            android:text="Time sync" />
-
-        <Button
             android:id="@+id/action_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
