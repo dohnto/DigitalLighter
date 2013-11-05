@@ -39,9 +39,12 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 				// milliseconds
 				long ms = (long) (utc * 1000.0);
 
-				Log.d("TimeSync", "" + (now - ms));
+				Log.d("TimeSync", "" + (ms - now));
 
-				offsets.add(now - ms);
+				// if (ClientPlayer.timeOffset < ms - now)
+				// ClientPlayer.timeOffset = ms - now;
+				offsets.add(ms - now);
+				Log.d("TStamp", "" + (now - ms));
 			}
 
 			ClientPlayer.timeOffset = getMean(offsets);

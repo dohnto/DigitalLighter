@@ -34,12 +34,12 @@ public class Configuration {
 
 	// rare colors for tree algorithm
 	static public List<ColorMappingPair> RARE_COLORS_TREE = Arrays.asList(
-			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
-			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
 			new ColorMappingPair(ColorManager
-					.getHexColor(ColorManager.DARK_RED)), new ColorMappingPair(
+					.getHexColor(ColorManager.DARK_RED))/*, new ColorMappingPair(
 					ColorManager.getHexColor(ColorManager.DARK_GREEN),
-					ColorManager.getHexColor(ColorManager.GREEN)));
+					ColorManager.getHexColor(ColorManager.GREEN))*/);
 
 	// === MEDIA PLAYING ========================================
 	// how many frames in advance should be processed

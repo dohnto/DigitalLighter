@@ -22,6 +22,7 @@ public class ClientPlayer {
 	public ClientPlayer(View background) {
 		this.background = background;
 		playingQueue = new LinkedList<String>();
+		timeOffset = Long.MIN_VALUE;
 	}
 
 	// ========================================================================================================
