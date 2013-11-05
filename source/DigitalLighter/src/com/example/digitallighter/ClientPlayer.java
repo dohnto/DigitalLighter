@@ -16,6 +16,7 @@ public class ClientPlayer {
 	// COMMAND
 	boolean isPlaying = false;
 	Queue<String> playingQueue;
+	long startAt = 0;
 
 	public ClientPlayer(View background) {
 		this.background = background;
@@ -28,24 +29,13 @@ public class ClientPlayer {
 	// ========================================================================================================
 
 	public void addCommand(String command) {
+
 		// INITIAL COMMAND WITH TIME STAMP
 		if (command.contains("@")) {
 			String[] parts = command.split("@");
-			long startTime = Long.parseLong(parts[0], 10);
-			long timeDiff = TimeUnit.MILLISECONDS.toNanos(startTime)
-					- (System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(timeOffset));
-
+			startAt = Long.parseLong(parts[0], 10);
 			command = command.substring(command.indexOf("@") + 1);
-
-			// Playback start time is in future.
-			if (timeDiff > 0) {
-				try {
-					Thread.sleep(TimeUnit.NANOSECONDS.toMillis(timeDiff));
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			playingQueue.clear();
 		}
 
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
@@ -65,6 +55,11 @@ public class ClientPlayer {
 	}
 
 	public void play() {
+
+		while (System.currentTimeMillis() < startAt) {
+
+		}
+		startAt = 0;
 
 		// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
 		String[] parts = playingQueue.poll().split(":");
