@@ -9,12 +9,12 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.example.digitallighter.ClientPlayer;
 import com.example.digitallighter.DLApplication;
 
-import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +24,8 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 	private double ntpTime = 0;
 	String sharedKey;
+
+	ArrayList<Long> retrievedValues = new ArrayList<Long>();
 
 	@Override
 	protected Integer doInBackground(String... params) {
@@ -38,9 +40,9 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 				Log.d("TimeSync", "" + (now - ms));
 
-				if (ClientPlayer.timeOffset < now - ms)
-					ClientPlayer.timeOffset = now - ms;
+				retrievedValues.add(now - ms);
 			}
+
 		} catch (SocketException e) {
 			e.printStackTrace();
 		} catch (UnknownHostException e) {
