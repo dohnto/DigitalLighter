@@ -13,9 +13,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
-import com.example.lightdetector.CameraActivity;
 
 public class MainActivityServer extends Activity implements ServiceObserver {
 
@@ -137,8 +135,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickCamera(View v) {
-		startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
-		// mService.pingUsers();
+		startActivity(new Intent(MainActivityServer.this, SettingsActivity.class));
 	}
 
 	@Override
