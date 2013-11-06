@@ -93,7 +93,7 @@ public class CommandCreator {
 												// add deliminator
 						retval += "|";
 					}
-					retval += Long.toString(buffer.get(i).timestamp) + "@";
+					retval += Long.toString(buffer.get(i).timestamp) + ":";
 					retval += color;
 					retval = addDuration(retval, frameMsCurrent);
 					frameMsCurrent = frameMs; // reset
@@ -120,7 +120,7 @@ public class CommandCreator {
 
 	static public String addTime(String message, long time) {
 		String retval = new String(Long.toString(time));
-		retval += "@" + message;
+		retval += ":" + message;
 		return retval;
 	}
 

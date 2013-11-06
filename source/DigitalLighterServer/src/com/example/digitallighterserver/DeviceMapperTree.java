@@ -70,7 +70,7 @@ public class DeviceMapperTree extends DeviceMapper {
 		switch (state) {
 		case INIT:
 			// broadcast all devices to shine with initial color
-			network.multicastCommandSignal(sockets, CommandCreator.addDuration(SHUT_DOWN_COLOR, LIGHT_TIME));
+			network.multicastCommandSignal(sockets, CommandCreator.createCommand(0, SHUT_DOWN_COLOR, LIGHT_TIME));
 			startT = System.currentTimeMillis();
 			state = DeviceMapperState.DETECT_FALSE_ALARM;
 			break;
@@ -93,13 +93,13 @@ public class DeviceMapperTree extends DeviceMapper {
 		case TREE_INIT: // make all phones shine with appropriate color
 			if (divider.isFinished()) { // no need for shining anymore
 				state = DeviceMapperState.ONE_BY_ONE_INIT;
-				String command = CommandCreator.addDuration(SHUT_DOWN_COLOR, LIGHT_TIME);
+				String command = CommandCreator.createCommand(0, SHUT_DOWN_COLOR, LIGHT_TIME);
 				network.multicastCommandSignal(sockets, command);
 			} else {
 				division = divider.getNextDivision();
 				for (int i = 0; i < RARE_COLORS.size(); i++) { // make them
 																// shine
-					String command = CommandCreator.addDuration(RARE_COLORS.get(i).command, LIGHT_TIME);
+					String command = CommandCreator.createCommand(0, RARE_COLORS.get(i).command, LIGHT_TIME);
 					network.multicastCommandSignal(division.get(i), command);
 				}
 				startT = System.currentTimeMillis();
