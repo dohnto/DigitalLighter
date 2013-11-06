@@ -110,6 +110,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	}
 
 	public void startDetection(View v) {
+		tilesX = Configuration.TILES_X;
+		tilesY = Configuration.TILES_Y;
+		
 		if (mediaPlayer == null) { // first run
 			((DeviceMapper) dl).reset();
 		} else if (mediaPlayer.stop()) {
