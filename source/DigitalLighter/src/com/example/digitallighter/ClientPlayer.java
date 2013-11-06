@@ -1,12 +1,8 @@
 package com.example.digitallighter;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
-
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import android.graphics.Color;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 
 public class ClientPlayer {
@@ -16,11 +12,11 @@ public class ClientPlayer {
 
 	// COMMAND
 	boolean isPlaying = false;
-	Queue<String> playingQueue;
+	BlockingQueue<String> playingQueue;
 
 	public ClientPlayer(View background) {
 		this.background = background;
-		playingQueue = new LinkedList<String>();
+		playingQueue = new LinkedBlockingQueue<String>();
 	}
 
 	// ========================================================================================================
@@ -42,39 +38,36 @@ public class ClientPlayer {
 
 		if (!isPlaying) {
 			isPlaying = true;
-			play();
+			new PlayThread().start();
 		}
 	}
 
-	public void play() {
+	class PlayThread extends Thread {
 
-		while (!playingQueue.isEmpty()) {
+		@Override
+		public void run() {
+			while (!playingQueue.isEmpty()) {
 
-			// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
-			String[] parts = playingQueue.poll().split(":");
-			long time = Long.parseLong(parts[0]);
-			int color = Color.parseColor(parts[1]);
-			// int duration = Integer.parseInt(parts[2]);
+				// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
+				String[] parts = playingQueue.poll().split(":");
+				long time = Long.parseLong(parts[0]);
+				final int color = Color.parseColor(parts[1]);
 
-			while (System.currentTimeMillis() + timeOffset < time) {
+				while (System.currentTimeMillis() + timeOffset < time) {
+
+				}
+
+				// SET PROPER BACKGROUND DEFINED BY COMMAND
+				background.post(new Runnable() {
+					@Override
+					public void run() {
+						background.setBackgroundColor(color);
+					}
+				});
 
 			}
-
-			// SET PROPER BACKGROUND DEFINED BY COMMAND
-			background.setBackgroundColor(color);
-
+			isPlaying = false;
 		}
-
-		isPlaying = false;
-
-		/*
-		 * new CountDownTimer(duration, 500) {
-		 * 
-		 * // SHOW TIME TILL END OF THE COMMAND public void onTick(long millisUntilFinished) { }
-		 * 
-		 * // IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN public void
-		 * onFinish() { if (playingQueue.isEmpty()) { isPlaying = false; } else { play(); } } }.start();
-		 */
 
 	}
 
