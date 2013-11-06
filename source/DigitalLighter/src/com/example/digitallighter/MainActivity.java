@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
 		list = new ArrayList<String>();
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list);
 		// Apply the adapter to the spinner
 		listView.setAdapter(adapter);
 
