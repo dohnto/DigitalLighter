@@ -114,7 +114,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 	}
 
 	public void startDetection(View v) {
-		if (mediaPlayer.stop()) {
+		if (mediaPlayer == null) { // first run
+			((DeviceMapper) dl).reset();
+		} else if (mediaPlayer.stop()) {
 			if (!(dl instanceof DeviceMapper)) { // repeated detection
 				dl = mapperFactory();
 				((DeviceMapper) dl).reset();
