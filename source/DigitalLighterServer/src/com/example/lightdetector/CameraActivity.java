@@ -110,6 +110,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	}
 
 	public void startDetection(View v) {
+		
 		if (mediaPlayer == null) { // first run
 			((DeviceMapper) dl).reset();
 		} else if (mediaPlayer.stop()) {
@@ -139,6 +140,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
 		mBound = bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+		
+
+		tilesX = Configuration.TILES_X;
+		tilesY = Configuration.TILES_Y;
 	}
 
 	public void onDestroy() {
