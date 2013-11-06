@@ -47,6 +47,6 @@ public class Configuration {
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100;
 	// wait before playing a media in ms
-	static public long WAIT_BEFORE_PLAYING = 10000;
+	static public long WAIT_BEFORE_PLAYING = 5000;
 
 }

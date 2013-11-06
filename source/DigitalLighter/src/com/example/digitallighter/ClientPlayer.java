@@ -2,6 +2,7 @@ package com.example.digitallighter;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;

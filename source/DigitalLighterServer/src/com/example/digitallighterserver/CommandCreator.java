@@ -91,23 +91,24 @@ public class CommandCreator {
 												// add deliminator
 						retval += "|";
 					}
-					retval += CommandCreator.createCommand(buffer.get(i).timestamp, color);
+					retval += CommandCreator.addTime(buffer.get(i).timestamp, color);
 				}
 			}
 			firstCommandSend = true;
 		}
+		retval += "\n";
 		return retval;
 	}
 
 	public boolean isFinished() {
 		return (valid) ? imageMapper.isFinished() : true;
 	}
-
+	
 	static public String createCommand(long atTime, String message) {
-		return addTime(message, atTime) + "\n";
+		return addTime(atTime, message) + "\n";
 	}
 
-	static public String addTime(String message, long time) {
+	static public String addTime(long time, String message) {
 		String retval = new String(Long.toString(time));
 		retval += ":" + message;
 		return retval;
