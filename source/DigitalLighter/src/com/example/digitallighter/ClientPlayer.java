@@ -2,7 +2,9 @@ package com.example.digitallighter;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 public class ClientPlayer {
@@ -57,7 +59,6 @@ public class ClientPlayer {
 		@Override
 		public void run() {
 			while (!playingQueue.isEmpty()) {
-
 				// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
 				String[] parts = playingQueue.poll().split(":");
 				long time = Long.parseLong(parts[0]);
