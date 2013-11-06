@@ -36,6 +36,7 @@ public class ClientPlayer {
 		}
 
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
+		
 		if (command.contains("|")) {
 			String[] commands = command.split("\\|");
 			for (String s : commands) {

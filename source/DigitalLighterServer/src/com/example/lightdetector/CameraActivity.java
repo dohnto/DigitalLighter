@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digitallighterserver.Configuration;
 import com.example.digitallighterserver.ConnectionService;
@@ -114,7 +115,13 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 
 	public void startDetection(View v) {
 		if (!(dl instanceof DeviceMapper)) { // repeated detection
-			dl = mapperFactory();
+			if (mediaPlayer.stop()) {
+				dl = mapperFactory();
+				mediaPlayer = null;				
+			} else {
+				Toast.makeText(DLSApplication.getContext(), "Sorry, playing is in progress. Try again.", Toast.LENGTH_SHORT).show();;
+				return; // thread is not stopped yet
+			}
 		}
 		
 		((DeviceMapper) dl).reset();

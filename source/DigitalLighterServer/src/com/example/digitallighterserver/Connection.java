@@ -239,10 +239,7 @@ public class Connection {
 		}
 
 		public void broadcast(String msg) {
-			ArrayList<Socket> sockets = getSockets();
-			for (Socket socket : sockets) {
-				unicast(socket, msg);
-			}
+			multicast(getSockets(), msg);
 		}
 		
 		public void multicast(ArrayList<Socket> receivers, String msg) {
