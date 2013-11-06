@@ -17,8 +17,6 @@ public class Configuration {
 
 	// === DETECTION OF POSITION ================================
 	static public boolean USE_TREE_DETECTION = true;
-	// how long should the screen light in ms
-	static public int LIGHT_TIME = 100;
 	// waiting time between sending a signal and taking a picture (ms)
 	static public int WAIT_TIME = 1000;
 

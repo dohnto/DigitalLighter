@@ -24,7 +24,6 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 
 	protected ArrayList<Socket> sockets;
 
-	protected static int LIGHT_TIME = Configuration.LIGHT_TIME;
 	protected static int WAIT_TIME = Configuration.WAIT_TIME; // waiting time between sending a
 											// signal
 	// and taking a picture in miliseconds
