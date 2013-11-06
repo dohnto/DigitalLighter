@@ -33,6 +33,8 @@ public class MediaPlayer extends Observable {
 																				// when
 
 	// should command be send
+	Thread playbackThread;
+	protected boolean playbackThreadRunning = false;
 
 	/**
 	 * Constructor
@@ -61,13 +63,14 @@ public class MediaPlayer extends Observable {
 	 */
 	public void play() {
 
-		Thread playbackThread = new Thread(new Runnable() {
+		playbackThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-
-				// playback the whole video frame by frame
-				while (!commandCreator.isFinished()) {
+				playbackThreadRunning = true;
+				// playback the whole media
+				while (!commandCreator.isFinished()
+						&& !Thread.currentThread().interrupted()) {
 					HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
 					ArrayList<Point> list = new ArrayList<Point>();
 					// get current devices' locations
@@ -98,13 +101,27 @@ public class MediaPlayer extends Observable {
 					try {
 						Thread.sleep(waitTime);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						break; // interrupted, finish
 					}
 				}
+
+				network.broadcastCommandSignal("CLEAR");
+				playbackThreadRunning = false;
 			}
 		});
 
 		playbackThread.start();
+	}
+
+	/**
+	 * 
+	 * @returns true if thread is stopped, false if it is still running
+	 */
+	public boolean stop() {
+		if (playbackThread != null) {
+			playbackThread.interrupt();
+		}
+		return !playbackThreadRunning;
 	}
 
 }
