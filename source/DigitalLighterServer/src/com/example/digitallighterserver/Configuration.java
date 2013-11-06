@@ -43,7 +43,7 @@ public class Configuration {
 	// how many frames in advance should be processed
 	static public int NEXT_FRAMES = 25;
 	// images per second
-	static public int FRAME_RATE = 5;
+	static public int FRAME_RATE = 10;
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100;
 	// wait before playing a media in ms

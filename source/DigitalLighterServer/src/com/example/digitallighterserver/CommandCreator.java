@@ -104,7 +104,7 @@ public class CommandCreator {
 	}
 
 	static public String createCommand(long atTime, String message) {
-		return addTime(message, atTime);
+		return addTime(message, atTime) + "\n";
 	}
 
 	static public String addTime(String message, long time) {
