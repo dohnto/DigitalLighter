@@ -198,6 +198,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 				mConnection.tearDown();
 				mConnection = new Connection(ipc);
+				player.addCommand("CLEAR");
 
 			} else {
 				clickConnect(null);
