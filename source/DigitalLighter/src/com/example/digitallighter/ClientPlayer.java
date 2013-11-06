@@ -3,6 +3,7 @@ package com.example.digitallighter;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 public class ClientPlayer {
@@ -26,6 +27,8 @@ public class ClientPlayer {
 	// ========================================================================================================
 
 	public void addCommand(String command) {
+
+		Log.d("Command", command);
 
 		if (command == null || command.length() == 0)
 			return;
