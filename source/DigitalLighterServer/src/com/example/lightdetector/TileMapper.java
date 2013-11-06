@@ -26,7 +26,7 @@ public class TileMapper {
 	private int tilesCountX;
 	private int tilesCountY;
 	
-	private Boolean debug = true;
+	private Boolean debug = false;
 
 	/**
 	 * Creates TileMapping class specifying tiles
