@@ -45,7 +45,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
 		startService(serviceIntent);
-		bindService(serviceIntent, mConnection, Context.BIND_IMPORTANT);
+		bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
 
 	}
 
