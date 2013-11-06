@@ -181,7 +181,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			player.addCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			long now = System.currentTimeMillis();
+			player.addCommand(now + ":#ff0000:10000|" + (now + 1000) + ":#00ff00:10000|" + (now + 2000)
+					+ ":#0000ff:10000");
 			break;
 
 		case R.id.background:
