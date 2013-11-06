@@ -17,8 +17,6 @@ public class Configuration {
 
 	// === DETECTION OF POSITION ================================
 	static public boolean USE_TREE_DETECTION = true;
-	// how long should the screen light in ms
-	static public int LIGHT_TIME = 100;
 	// waiting time between sending a signal and taking a picture (ms)
 	static public int WAIT_TIME = 1000;
 
@@ -34,18 +32,18 @@ public class Configuration {
 
 	// rare colors for tree algorithm
 	static public List<ColorMappingPair> RARE_COLORS_TREE = Arrays.asList(
-			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
-			//new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.WHITE)),
+			new ColorMappingPair(ColorManager.getHexColor(ColorManager.BLUE)),
 			new ColorMappingPair(ColorManager
-					.getHexColor(ColorManager.DARK_RED)), new ColorMappingPair(
+					.getHexColor(ColorManager.DARK_RED))/*, new ColorMappingPair(
 					ColorManager.getHexColor(ColorManager.DARK_GREEN),
-					ColorManager.getHexColor(ColorManager.GREEN)));
+					ColorManager.getHexColor(ColorManager.GREEN))*/);
 
 	// === MEDIA PLAYING ========================================
 	// how many frames in advance should be processed
 	static public int NEXT_FRAMES = 25;
 	// images per second
-	static public int FRAME_RATE = 5;
+	static public int FRAME_RATE = 10;
 	// number of millisecond when
 	static public int SEND_COMMAND_BEFORE = 100;
 	// wait before playing a media in ms

@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -21,7 +20,6 @@ import android.util.Log;
 public class Connection {
 
 	private Handler mUpdateHandler;
-	private ChatServer mChatServer;
 	private static ChatClient mChatClient;
 
 	private static final String TAG = "Connection";
@@ -31,11 +29,12 @@ public class Connection {
 
 	public Connection(Handler handler) {
 		mUpdateHandler = handler;
-		mChatServer = new ChatServer(handler);
+		mChatClient = null;
+		mSocket = null;
+		mPort = -1;
 	}
 
 	public void tearDown() {
-		mChatServer.tearDown();
 		mChatClient.tearDown();
 	}
 
@@ -46,7 +45,6 @@ public class Connection {
 
 		if (mChatClient != null) {
 			mChatClient.tearDown();
-			mChatServer.tearDown();
 		}
 
 		if (mChatClient == null)
@@ -103,53 +101,6 @@ public class Connection {
 		return mSocket;
 	}
 
-	private class ChatServer {
-		ServerSocket mServerSocket = null;
-		Thread mThread = null;
-
-		public ChatServer(Handler handler) {
-			mThread = new Thread(new ServerThread());
-			mThread.start();
-		}
-
-		public void tearDown() {
-			mThread.interrupt();
-			try {
-				mServerSocket.close();
-			} catch (IOException ioe) {
-				Log.e(TAG, "Error when closing server socket.");
-			}
-		}
-
-		class ServerThread implements Runnable {
-
-			@Override
-			public void run() {
-
-				try {
-					// Since discovery will happen via Nsd, we don't need to care which port is
-					// used. Just grab an available one and advertise it via Nsd.
-					mServerSocket = new ServerSocket(0);
-					setLocalPort(mServerSocket.getLocalPort());
-
-					while (!Thread.currentThread().isInterrupted()) {
-						Log.d(TAG, "ServerSocket Created, awaiting connection");
-						setSocket(mServerSocket.accept());
-						Log.d(TAG, "Connected.");
-						if (mChatClient == null) {
-							int port = mSocket.getPort();
-							InetAddress address = mSocket.getInetAddress();
-							connectToServer(address, port);
-						}
-					}
-				} catch (IOException e) {
-					Log.e(TAG, "Error creating ServerSocket: ", e);
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
 	private class ChatClient {
 
 		private InetAddress mAddress;
@@ -158,7 +109,7 @@ public class Connection {
 		private final String CLIENT_TAG = "ChatClient";
 
 		private Thread mSendThread;
-		private Thread mRecThread;
+		private ReceivingThread mRecThread;
 
 		public ChatClient(InetAddress address, int port) {
 
@@ -194,7 +145,7 @@ public class Connection {
 						Log.d(CLIENT_TAG, "Socket already initialized. skipping!");
 					}
 
-					mRecThread = new Thread(new ReceivingThread());
+					mRecThread = new ReceivingThread();
 					mRecThread.start();
 
 				} catch (UnknownHostException e) {
@@ -214,40 +165,40 @@ public class Connection {
 			}
 		}
 
-		class ReceivingThread implements Runnable {
+		class ReceivingThread extends Thread {
 
 			@Override
 			public void run() {
 
-				BufferedReader input;
 				try {
-					input = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
-					while (!Thread.currentThread().isInterrupted()) {
+					BufferedReader input = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+					while (!Thread.currentThread().interrupted()) {
 
 						String messageStr = null;
-						messageStr = input.readLine();
-						if (messageStr != null) {
-							Log.d(CLIENT_TAG, "Read from the stream: " + messageStr);
-							updateMessages(messageStr, false);
-						} else {
-							Log.d(CLIENT_TAG, "The nulls! The nulls!");
-							break;
+						if (input.ready()) {
+							messageStr = input.readLine();
+							if (messageStr != null) {
+								Log.d(CLIENT_TAG, "Read from the stream: " + messageStr);
+								updateMessages(messageStr, false);
+							} else {
+								Log.d(CLIENT_TAG, "The nulls! The nulls!");
+								break;
+							}
 						}
 					}
 					input.close();
-
+					getSocket().close();
 				} catch (IOException e) {
 					Log.e(CLIENT_TAG, "Server loop error: ", e);
+
 				}
 			}
 		}
 
 		public void tearDown() {
-			try {
-				getSocket().close();
-			} catch (IOException ioe) {
-				Log.e(CLIENT_TAG, "Error when closing server socket.");
-			}
+			mRecThread.interrupt();
+			mSendThread.interrupt();
+
 		}
 
 		public void sendMessage(String msg) {

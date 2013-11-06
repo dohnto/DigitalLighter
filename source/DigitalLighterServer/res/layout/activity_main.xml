@@ -95,6 +95,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:onClick="clickCamera"
-        android:text="Camera" />
+        android:text="Continue" />
 
 </RelativeLayout>

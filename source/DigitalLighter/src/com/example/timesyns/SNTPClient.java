@@ -1,6 +1,5 @@
 package com.example.timesyns;
 
-import android.os.AsyncTask;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -9,14 +8,16 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.digitallighter.ClientPlayer;
 import com.example.digitallighter.DLApplication;
-
-import android.app.ProgressDialog;
-import android.util.Log;
-import android.widget.Toast;
 
 public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private static final String DEFAULT_NTP_SERVER = "0.no.pool.ntp.org";
@@ -25,10 +26,12 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	private double ntpTime = 0;
 	String sharedKey;
 
+	ArrayList<Long> offsets = new ArrayList<Long>();
+
 	@Override
 	protected Integer doInBackground(String... params) {
 		try {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 50; i++) {
 				ntpTime = retrieveSNTPTime(params);
 				long now = System.currentTimeMillis();
 				double utc = ntpTime - (2208988800.0);
@@ -36,11 +39,16 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 				// milliseconds
 				long ms = (long) (utc * 1000.0);
 
-				Log.d("TimeSync", "" + (now - ms));
+				Log.d("TimeSync", "" + (ms - now));
 
-				if (ClientPlayer.timeOffset < now - ms)
-					ClientPlayer.timeOffset = now - ms;
+				// if (ClientPlayer.timeOffset < ms - now)
+				// ClientPlayer.timeOffset = ms - now;
+				offsets.add(ms - now);
+				Log.d("TStamp", "" + (now - ms));
 			}
+
+			ClientPlayer.timeOffset = getMean(offsets);
+
 		} catch (SocketException e) {
 			e.printStackTrace();
 		} catch (UnknownHostException e) {
@@ -114,4 +122,18 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 
 		return message.transmitTimestamp;
 	}
+
+	private static long getMean(final ArrayList<Long> list) {
+		long mean = 0;
+		for (long i : list) {
+			mean += i;
+		}
+		return mean / list.size();
+	}
+
+	private static long getMedian(ArrayList<Long> list) {
+		Collections.sort(list);
+		return list.get(list.size() / 2);
+	}
+
 }

@@ -13,9 +13,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.digitallighterserver.ConnectionService.LocalBinder;
-import com.example.lightdetector.CameraActivity;
 
 public class MainActivityServer extends Activity implements ServiceObserver {
 
@@ -47,7 +45,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
 		startService(serviceIntent);
-		bindService(serviceIntent, mConnection, Context.BIND_IMPORTANT);
+		bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
 
 	}
 
@@ -105,7 +103,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickRed(View v) {
-		mService.broadcastCommandSignal("#ff0000:500");
+		mService.broadcastCommandSignal("0:#ff0000\n");
 	}
 
 	// ========================================================================================================
@@ -113,7 +111,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickGreen(View v) {
-		mService.broadcastCommandSignal("#00ff00:500");
+		mService.broadcastCommandSignal("0:#00ff00\n");
 	}
 
 	// ========================================================================================================
@@ -121,7 +119,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickBlue(View v) {
-		mService.broadcastCommandSignal("#0000ff:500");
+		mService.broadcastCommandSignal("0:#0000ff\n");
 	}
 
 	// ========================================================================================================
@@ -129,7 +127,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickAllThree(View v) {
-		mService.broadcastCommandSignal("#ff0000:500|#00ff00:500|#0000ff:500");
+		mService.broadcastCommandSignal("0:#ff0000|0:#00ff00|0:#0000ff\n");
 	}
 
 	// ========================================================================================================
@@ -137,8 +135,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickCamera(View v) {
-		startActivity(new Intent(MainActivityServer.this, CameraActivity.class));
-		// mService.pingUsers();
+		startActivity(new Intent(MainActivityServer.this, SettingsActivity.class));
 	}
 
 	@Override

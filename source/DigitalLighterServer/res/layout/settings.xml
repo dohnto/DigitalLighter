@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Spinner
+        android:id="@+id/dimensions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:id="@+id/playlist"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/fps"
+        android:layout_below="@id/dimensions" >
+    </ListView>
+
+    <EditText
+        android:id="@id/fps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distance_holder"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="FPS"
+        android:inputType="number" >
+    </EditText>
+
+    <TableLayout
+        android:id="@id/distance_holder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_continue_settings"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="bottom|center_horizontal" >
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <CheckBox
+                android:id="@+id/check_White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="White" />
+
+            <CheckBox
+                android:id="@+id/check_Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blue" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <CheckBox
+                android:id="@+id/check_Red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red" />
+
+            <CheckBox
+                android:id="@+id/check_Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Green" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <CheckBox
+                android:id="@+id/check_Orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orange" />
+
+            <CheckBox
+                android:id="@+id/check_Magenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Magenta" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@id/btn_continue_settings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Continue" />
+
+</RelativeLayout>

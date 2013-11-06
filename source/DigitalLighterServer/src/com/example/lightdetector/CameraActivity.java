@@ -27,9 +27,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digitallighterserver.Configuration;
 import com.example.digitallighterserver.ConnectionService;
@@ -44,8 +46,7 @@ import com.example.digitallighterserver.MediaPlayer;
 import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
-public class CameraActivity extends Activity implements CvCameraViewListener2,
-		Observer, ServiceObserver {
+public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
 	private static final String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
 
 	PointCollector collector;
@@ -95,7 +96,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 			mService = binder.getService();
 			mBound = true;
 			mService.setObserver(CameraActivity.this);
-
 			dl = mapperFactory();
 		}
 
@@ -106,18 +106,25 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 	};
 
 	private DeviceMapper mapperFactory() {
-		return (Configuration.USE_TREE_DETECTION) ? new DeviceMapperTree(
-				mService, tilesX, tilesY, CameraActivity.this)
-				: new DeviceMapperSimple(mService, tilesX, tilesY,
-						CameraActivity.this);
+		return (Configuration.USE_TREE_DETECTION) ? new DeviceMapperTree(mService, tilesX, tilesY,
+				CameraActivity.this) : new DeviceMapperSimple(mService, tilesX, tilesY, CameraActivity.this);
 	}
 
 	public void startDetection(View v) {
-		if (!(dl instanceof DeviceMapper)) { // repeated detection
-			dl = mapperFactory();
+
+		if (mediaPlayer == null) { // first run
+			((DeviceMapper) dl).reset();
+		} else if (mediaPlayer.stop()) {
+			if (!(dl instanceof DeviceMapper)) { // repeated detection
+				dl = mapperFactory();
+				((DeviceMapper) dl).reset();
+				mediaPlayer = null;
+			}
+		} else {
+			// thread is not stopped yet
+			Toast.makeText(DLSApplication.getContext(), "Sorry, playing is in progress. Try again.",
+					Toast.LENGTH_SHORT).show();
 		}
-		
-		((DeviceMapper) dl).reset();
 
 	}
 
@@ -131,17 +138,24 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 	@Override
 	public void onResume() {
 		super.onResume();
-		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this,
-				mLoaderCallback);
+		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
 		Intent serviceIntent = new Intent(this, ConnectionService.class);
-		bindService(serviceIntent, mConnection,
-				Context.BIND_ADJUST_WITH_ACTIVITY);
+		mBound = bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+
+		tilesX = Configuration.TILES_X;
+		tilesY = Configuration.TILES_Y;
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
 		if (mOpenCvCameraView != null)
 			mOpenCvCameraView.disableView();
+
+		if (mBound && mConnection != null) {
+			unbindService(mConnection);
+			mBound = false;
+		}
+
 	}
 
 	@Override
@@ -153,9 +167,17 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 
 		setContentView(R.layout.color_blob_detection_surface_view);
 
-		info = (TextView) findViewById(R.id.info_txt);
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 		mOpenCvCameraView.setCvCameraViewListener(this);
+
+		findViewById(R.id.btn_stop).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (mediaPlayer != null)
+					mediaPlayer.stop();
+			}
+		});
 	}
 
 	@Override
@@ -176,8 +198,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 				// replace mapper with tracker
 				dl = new DeviceTracker(tilesX, tilesY, dl.getDevices());
 				// create media player which runs in separate thread
-				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService,
-						MEDIA_SOURCE);
+				mediaPlayer = new MediaPlayer(tilesX, tilesY, dl, mService, MEDIA_SOURCE);
 				mediaPlayer.addObserver(this);
 				mediaPlayer.play();
 			}
@@ -208,9 +229,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 	}
 
 	/*
-	 * public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>>
-	 * update) { if (buffer.size() > 20) { buffer.clear(); } buffer.add(update);
-	 * }
+	 * public void onPointCollectorUpdate(HashMap<String, ArrayList<Point>> update) { if (buffer.size() > 20)
+	 * { buffer.clear(); } buffer.add(update); }
 	 */
 
 	public static Mat drawTilesGrid(Mat input, int tilesX, int tilesY) {
@@ -219,26 +239,25 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 
 		int unit = (output.width() - 1) / tilesX;
 		for (int i = 0; i < tilesX; ++i)
-			Core.line(output, new Point(i * unit, 0), new Point(i * unit,
-					output.height()), ColorManager.getCvColor(ColorManager.RED));
+			Core.line(output, new Point(i * unit, 0), new Point(i * unit, output.height()),
+					ColorManager.getCvColor(ColorManager.RED));
 
 		unit = (output.height() - 1) / tilesY;
 		for (int i = 0; i < tilesY; ++i)
-			Core.line(output, new Point(0, i * unit), new Point(output.width(),
-					i * unit), ColorManager.getCvColor(ColorManager.RED));
+			Core.line(output, new Point(0, i * unit), new Point(output.width(), i * unit),
+					ColorManager.getCvColor(ColorManager.RED));
 
 		return output;
 	}
 
 	private static Mat drawTile(Mat input, int x, int y, Scalar color) {
-		Mat output = new Mat(input.height(), input.width(), input.type(),
-				new Scalar(0, 0, 0));
+		Mat output = new Mat(input.height(), input.width(), input.type(), new Scalar(0, 0, 0));
 		input.copyTo(output);
 
 		int unitX = output.width() / tilesX;
 		int unitY = output.height() / tilesY;
-		Core.rectangle(output, new Point(unitX * x, unitY * y), new Point(unitX
-				* (x + 1), unitY * (y + 1)), color, 5);
+		Core.rectangle(output, new Point(unitX * x, unitY * y), new Point(unitX * (x + 1), unitY * (y + 1)),
+				color, 5);
 
 		// Core.addWeighted(input, 1.0, output, 0.5, 0, output);
 		return output;

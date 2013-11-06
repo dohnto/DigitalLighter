@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	Button action;
 	Button refresh;
 	private int selectedServiceIndex = -1;
+	private boolean connected = false;
 
 	// NETWORK
 	private static String SERVICE_TYPE = "_http._tcp.local.";
@@ -72,21 +73,21 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		background = findViewById(R.id.background);
 		background.setOnClickListener(this);
 		connect = (Button) findViewById(R.id.btn_connect);
+		connect.setOnClickListener(this);
 		hide = (Button) findViewById(R.id.hideUI);
 		// SETTING PLAYER
 		player = new ClientPlayer(background);
 
 		// SETTING ADAPTER FOR SPINNER (DROP-DOWN LIST)
 		list = new ArrayList<String>();
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list);
 		// Apply the adapter to the spinner
 		listView.setAdapter(adapter);
 
 		// CONNECTION
 		mConnection = new Connection(ipc);
 		packetList = new ArrayList<NameIPPair>();
+
 	}
 
 	public void hideUI(View v) {
@@ -181,11 +182,27 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.action_button:
-			player.addCommand("#ff0000:10000|#00ff00:10000|#0000ff:10000");
+			long now = System.currentTimeMillis();
+			player.addCommand(now + ":#ff0000|" + (now + 1000) + ":#00ff00|" + (now + 2000) + ":#0000ff");
 			break;
 
 		case R.id.background:
 			hideUI(null);
+			break;
+
+		case R.id.btn_connect:
+
+			if (connected) {
+				connected = false;
+				connect.setText("Connect");
+
+				mConnection.tearDown();
+				mConnection = new Connection(ipc);
+				player.addCommand("CLEAR");
+
+			} else {
+				clickConnect(null);
+			}
 			break;
 
 		default:
@@ -244,6 +261,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
 				mToast.setText("Connected");
 				mToast.show();
+				connected = true;
+				connect.setText("Disconnect");
 				break;
 			case MSG_SET_STATUS:
 				// statusLine.setText((String) msg.obj);

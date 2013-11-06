@@ -25,9 +25,16 @@ public class MediaPlayer extends Observable {
 	private CommandCreator commandCreator;
 
 	static private int NEXT_FRAMES = Configuration.NEXT_FRAMES;
-	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per second
-	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number of millisecond when
-													// should command be send
+	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per
+																// second
+	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number
+																				// of
+																				// millisecond
+																				// when
+
+	// should command be send
+	Thread playbackThread;
+	protected boolean playbackThreadRunning = false;
 
 	/**
 	 * Constructor
@@ -56,13 +63,14 @@ public class MediaPlayer extends Observable {
 	 */
 	public void play() {
 
-		Thread playbackThread = new Thread(new Runnable() {
+		playbackThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-
-				// playback the whole video frame by frame
-				while (!commandCreator.isFinished()) {
+				playbackThreadRunning = true;
+				// playback the whole media
+				while (!commandCreator.isFinished()
+						&& !Thread.currentThread().interrupted()) {
 					HashMap<String, ArrayList<Point>> update = new HashMap<String, ArrayList<Point>>();
 					ArrayList<Point> list = new ArrayList<Point>();
 					// get current devices' locations
@@ -77,11 +85,15 @@ public class MediaPlayer extends Observable {
 					// display each tile one by one
 					for (int i = 0; i < tilesX; i++) {
 						for (int j = 0; j < tilesY; j++) {
-							String command = commandCreator.getCommand(i, j);
 							Point currentPoint = new Point(i, j);
-							// display one color on all devices from one tile
-							network.multicastCommandSignal(
-									devices.get(currentPoint), command);
+							if (devices.get(currentPoint).size() != 0) {
+								String command = commandCreator
+										.getCommand(i, j);
+								// display one color on all devices from one
+								// tile
+								network.multicastCommandSignal(
+										devices.get(currentPoint), command);
+							}
 						}
 					}
 					notifyObservers(update);
@@ -89,13 +101,27 @@ public class MediaPlayer extends Observable {
 					try {
 						Thread.sleep(waitTime);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						break; // interrupted, finish
 					}
 				}
+
+				network.broadcastCommandSignal("CLEAR\n");
+				playbackThreadRunning = false;
 			}
 		});
 
 		playbackThread.start();
+	}
+
+	/**
+	 * 
+	 * @returns true if thread is stopped, false if it is still running
+	 */
+	public boolean stop() {
+		if (playbackThread != null) {
+			playbackThread.interrupt();
+		}
+		return !playbackThreadRunning;
 	}
 
 }

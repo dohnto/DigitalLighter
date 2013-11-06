@@ -1,26 +1,25 @@
 package com.example.digitallighter;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import android.graphics.Color;
-import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 
 public class ClientPlayer {
 
 	View background;
-	public static long timeOffset = Long.MIN_VALUE;
+	public static long timeOffset = 0;
+	Thread playThread;
 
 	// COMMAND
 	boolean isPlaying = false;
-	Queue<String> playingQueue;
-	long startAt = 0;
+	BlockingQueue<String> playingQueue;
 
 	public ClientPlayer(View background) {
 		this.background = background;
-		playingQueue = new LinkedList<String>();
+		playingQueue = new LinkedBlockingQueue<String>();
 	}
 
 	// ========================================================================================================
@@ -30,15 +29,20 @@ public class ClientPlayer {
 
 	public void addCommand(String command) {
 
-		// INITIAL COMMAND WITH TIME STAMP
-		if (command.contains("@")) {
-			String[] parts = command.split("@");
-			startAt = Long.parseLong(parts[0], 10);
-			command = command.substring(command.indexOf("@") + 1);
+		Log.d("Command", command);
+
+		if (command == null || command.length() == 0)
+			return;
+
+		if (command.equals("CLEAR")) {
+			playThread.interrupt();
 			playingQueue.clear();
+			background.setBackgroundColor(Color.BLACK);
+			return;
 		}
 
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
+
 		if (command.contains("|")) {
 			String[] commands = command.split("\\|");
 			for (String s : commands) {
@@ -50,40 +54,37 @@ public class ClientPlayer {
 
 		if (!isPlaying) {
 			isPlaying = true;
-			play();
+			playThread = new PlayThread();
+			playThread.start();
 		}
 	}
 
-	public void play() {
+	class PlayThread extends Thread {
 
-		while (System.currentTimeMillis() < startAt) {
+		@Override
+		public void run() {
+			while (!playingQueue.isEmpty() && !Thread.currentThread().interrupted()) {
 
-		}
-		startAt = 0;
+				// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
+				String[] parts = playingQueue.poll().split(":");
+				long time = Long.parseLong(parts[0]);
+				final int color = Color.parseColor(parts[1]);
 
-		// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
-		String[] parts = playingQueue.poll().split(":");
-		int color = Color.parseColor(parts[0]);
-		int duration = Integer.parseInt(parts[1]);
-		playingQueue.remove(0);
+				while (System.currentTimeMillis() + timeOffset < time) {
 
-		// SET PROPER BACKGROUND DEFINED BY COMMAND
-		background.setBackgroundColor(color);
-		new CountDownTimer(duration, 500) {
-
-			// SHOW TIME TILL END OF THE COMMAND
-			public void onTick(long millisUntilFinished) {
-			}
-
-			// IF THERE IS MORE COMMANDS IN QUEUE PLAY THEM, IF NOT SET THE FLAG AND RETURN
-			public void onFinish() {
-				if (playingQueue.isEmpty()) {
-					isPlaying = false;
-				} else {
-					play();
 				}
+
+				// SET PROPER BACKGROUND DEFINED BY COMMAND
+				background.post(new Runnable() {
+					@Override
+					public void run() {
+						background.setBackgroundColor(color);
+					}
+				});
+
 			}
-		}.start();
+			isPlaying = false;
+		}
 
 	}
 
