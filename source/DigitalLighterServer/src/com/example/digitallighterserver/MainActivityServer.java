@@ -105,7 +105,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickRed(View v) {
-		mService.broadcastCommandSignal("#ff0000:500");
+		mService.broadcastCommandSignal("0:#ff0000");
 	}
 
 	// ========================================================================================================
@@ -113,7 +113,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickGreen(View v) {
-		mService.broadcastCommandSignal("#00ff00:500");
+		mService.broadcastCommandSignal("0:#00ff00");
 	}
 
 	// ========================================================================================================
@@ -121,7 +121,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickBlue(View v) {
-		mService.broadcastCommandSignal("#0000ff:500");
+		mService.broadcastCommandSignal("0:#0000ff");
 	}
 
 	// ========================================================================================================
@@ -129,7 +129,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickAllThree(View v) {
-		mService.broadcastCommandSignal("#ff0000:500|#00ff00:500|#0000ff:500");
+		mService.broadcastCommandSignal("0:#ff0000|0:#00ff00|0:#0000ff");
 	}
 
 	// ========================================================================================================

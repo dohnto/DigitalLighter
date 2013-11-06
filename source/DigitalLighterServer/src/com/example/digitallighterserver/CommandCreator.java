@@ -20,7 +20,7 @@ public class CommandCreator {
 	private boolean valid = true;
 	private int frameRate; // images per second
 	private int frameMs; // frame stays for frameMs milliseconds
-	private String ERROR_COMMAND = "#FFFFFF:1000";
+	private String ERROR_COMMAND = "0:#FFFFFF";
 	private long playTime;
 	private boolean firstCommandSend;
 	private boolean sendTimeStamp;
@@ -80,23 +80,18 @@ public class CommandCreator {
 		} else if (tileX >= buffer.get(0).image.getWidth() || tileY >= buffer.get(0).image.getHeight()) {
 			retval = ERROR_COMMAND;
 		} else { // ok
-			int frameMsCurrent = frameMs;
 			for (int i = 0; i < buffer.size(); i++) {
 				String color = ColorManager.getHexColor(buffer.get(i).image.getPixel(tileX, tileY));
 				if (i + 1 < buffer.size() // there is still something to load
 						&& ColorManager.getHexColor(buffer.get(i + 1).image.getPixel(tileX, tileY)).equals(
 								color)) { // and it is the same
 					// color!!!
-					frameMsCurrent += frameMs;
 				} else { // flush the command
 					if (retval.length() != 0) { // not first bunch command so
 												// add deliminator
 						retval += "|";
 					}
-					retval += Long.toString(buffer.get(i).timestamp) + "@";
-					retval += color;
-					retval = addDuration(retval, frameMsCurrent);
-					frameMsCurrent = frameMs; // reset
+					retval += CommandCreator.createCommand(buffer.get(i).timestamp, color);
 				}
 			}
 			firstCommandSend = true;
@@ -108,19 +103,13 @@ public class CommandCreator {
 		return (valid) ? imageMapper.isFinished() : true;
 	}
 
-	static public String createCommand(long atTime, String message, int durationMs) {
-		return addDuration(addTime(message, atTime), durationMs);
-	}
-
-	static public String addDuration(String message, int ms) {
-		String retval = new String(message);
-		retval += ":" + Integer.toString(ms);
-		return retval;
+	static public String createCommand(long atTime, String message) {
+		return addTime(message, atTime);
 	}
 
 	static public String addTime(String message, long time) {
 		String retval = new String(Long.toString(time));
-		retval += "@" + message;
+		retval += ":" + message;
 		return retval;
 	}
 
