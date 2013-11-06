@@ -9,6 +9,7 @@ public class ClientPlayer {
 
 	View background;
 	public static long timeOffset = 0;
+	Thread playThread;
 
 	// COMMAND
 	boolean isPlaying = false;
@@ -30,13 +31,14 @@ public class ClientPlayer {
 			return;
 
 		if (command.equals("CLEAR")) {
+			playThread.interrupt();
 			playingQueue.clear();
 			background.setBackgroundColor(Color.BLACK);
 			return;
 		}
 
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
-		
+
 		if (command.contains("|")) {
 			String[] commands = command.split("\\|");
 			for (String s : commands) {
@@ -48,7 +50,8 @@ public class ClientPlayer {
 
 		if (!isPlaying) {
 			isPlaying = true;
-			new PlayThread().start();
+			playThread = new PlayThread();
+			playThread.start();
 		}
 	}
 
@@ -56,7 +59,7 @@ public class ClientPlayer {
 
 		@Override
 		public void run() {
-			while (!playingQueue.isEmpty()) {
+			while (!playingQueue.isEmpty() && !Thread.currentThread().interrupted()) {
 
 				// GET ONE COMMAND INFO AND REMOVE IT FROM QUEUE
 				String[] parts = playingQueue.poll().split(":");
