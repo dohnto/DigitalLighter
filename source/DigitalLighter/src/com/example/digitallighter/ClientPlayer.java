@@ -26,6 +26,9 @@ public class ClientPlayer {
 
 	public void addCommand(String command) {
 
+		if (command.length() == 0)
+			return;
+
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
 		
 		if (command.contains("|")) {

@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	Button action;
 	Button refresh;
 	private int selectedServiceIndex = -1;
+	private boolean connected = false;
 
 	// NETWORK
 	private static String SERVICE_TYPE = "_http._tcp.local.";
@@ -72,6 +73,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		background = findViewById(R.id.background);
 		background.setOnClickListener(this);
 		connect = (Button) findViewById(R.id.btn_connect);
+		connect.setOnClickListener(this);
 		hide = (Button) findViewById(R.id.hideUI);
 		// SETTING PLAYER
 		player = new ClientPlayer(background);
@@ -87,6 +89,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		// CONNECTION
 		mConnection = new Connection(ipc);
 		packetList = new ArrayList<NameIPPair>();
+
 	}
 
 	public void hideUI(View v) {
@@ -189,6 +192,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			hideUI(null);
 			break;
 
+		case R.id.btn_connect:
+
+			if (connected) {
+				connected = false;
+				connect.setText("Connect");
+
+				mConnection.tearDown();
+				mConnection = new Connection(ipc);
+
+			} else {
+				clickConnect(null);
+			}
+			break;
+
 		default:
 			break;
 		}
@@ -245,6 +262,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			case Protocol.MESSAGE_TYPE_SERVER_STARTED:
 				mToast.setText("Connected");
 				mToast.show();
+				connected = true;
+				connect.setText("Disconnect");
 				break;
 			case MSG_SET_STATUS:
 				// statusLine.setText((String) msg.obj);
