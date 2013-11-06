@@ -85,5 +85,18 @@ public class SettingsActivity extends Activity implements OnCheckedChangeListene
 		// TODO Auto-generated method stub
 
 	}
+	
+	public static int[] parseDimensionsFromPath(String path) {
+		int [] dimensions = new int[2];
+		if (!path.contains("x"))
+			return dimensions;
+
+		String[] dimensionsText = path.split("x");
+		
+		dimensions[0] = Integer.parseInt(dimensionsText[0]);
+		dimensions[1] = Integer.parseInt(dimensionsText[1]);
+		
+		return dimensions;
+	}
 
 }
