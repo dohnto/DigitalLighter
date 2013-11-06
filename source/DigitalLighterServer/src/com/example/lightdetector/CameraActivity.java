@@ -114,17 +114,18 @@ public class CameraActivity extends Activity implements CvCameraViewListener2,
 	}
 
 	public void startDetection(View v) {
-		if (!(dl instanceof DeviceMapper)) { // repeated detection
-			if (mediaPlayer.stop()) {
+		if (mediaPlayer.stop()) {
+			if (!(dl instanceof DeviceMapper)) { // repeated detection
 				dl = mapperFactory();
-				mediaPlayer = null;				
-			} else {
-				Toast.makeText(DLSApplication.getContext(), "Sorry, playing is in progress. Try again.", Toast.LENGTH_SHORT).show();;
-				return; // thread is not stopped yet
+				((DeviceMapper) dl).reset();
+				mediaPlayer = null;
 			}
+		} else {
+			// thread is not stopped yet
+			Toast.makeText(DLSApplication.getContext(),
+					"Sorry, playing is in progress. Try again.",
+					Toast.LENGTH_SHORT).show();
 		}
-		
-		((DeviceMapper) dl).reset();
 
 	}
 
