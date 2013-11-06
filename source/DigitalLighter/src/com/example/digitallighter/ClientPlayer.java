@@ -26,8 +26,14 @@ public class ClientPlayer {
 
 	public void addCommand(String command) {
 
-		if (command.length() == 0)
+		if (command == null || command.length() == 0)
 			return;
+
+		if (command.equals("CLEAR")) {
+			playingQueue.clear();
+			background.setBackgroundColor(Color.BLACK);
+			return;
+		}
 
 		// GET MULTIPLE COMMANDS AND PUT THEM IN QUEUE
 		if (command.contains("|")) {
