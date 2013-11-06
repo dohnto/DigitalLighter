@@ -105,7 +105,7 @@ public class MediaPlayer extends Observable {
 					}
 				}
 
-				network.broadcastCommandSignal("CLEAR");
+				network.broadcastCommandSignal("CLEAR\n");
 				playbackThreadRunning = false;
 			}
 		});
