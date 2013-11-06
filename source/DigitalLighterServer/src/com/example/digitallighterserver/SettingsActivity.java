@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -66,36 +67,57 @@ public class SettingsActivity extends Activity implements OnCheckedChangeListene
 		playlist.setOnItemClickListener(this);
 
 		// DIMENSIONS
+		loadDimensions();
+	}
+
+	private void loadDimensions() {
 		dimensions = (Spinner) findViewById(R.id.dimensions);
 		try {
 			String[] dim = getAssets().list("");
+			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_spinner_item);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			dimensions.setAdapter(dataAdapter);
+			for (int i = 0; i < dim.length; i++) {
+				dataAdapter.add(dim[i]);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		dimensions.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+			}
+		});
 	}
 
+	// WORK WITH CHECK BOX CHANGE
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 		// TODO Auto-generated method stub
 
 	}
 
+	// WORK WITH MEDIA PLAYER ITEM CLICK
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public static int[] parseDimensionsFromPath(String path) {
-		int [] dimensions = new int[2];
+		int[] dimensions = new int[2];
 		if (!path.contains("x"))
 			return dimensions;
 
 		String[] dimensionsText = path.split("x");
-		
+
 		dimensions[0] = Integer.parseInt(dimensionsText[0]);
 		dimensions[1] = Integer.parseInt(dimensionsText[1]);
-		
+
 		return dimensions;
 	}
 
