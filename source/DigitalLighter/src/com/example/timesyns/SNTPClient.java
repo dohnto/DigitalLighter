@@ -31,6 +31,7 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 	@Override
 	protected Integer doInBackground(String... params) {
 		try {
+			long diffSum = 0;
 			for (int i = 0; i < 50; i++) {
 				ntpTime = retrieveSNTPTime(params);
 				long now = System.currentTimeMillis();
@@ -45,6 +46,10 @@ public class SNTPClient extends AsyncTask<String, Void, Integer> {
 				// ClientPlayer.timeOffset = ms - now;
 				offsets.add(ms - now);
 				Log.d("TStamp", "" + (now - ms));
+				
+				
+				diffSum += ms - now;
+				ClientPlayer.timeOffset = diffSum/(i+1);
 			}
 
 			ClientPlayer.timeOffset = getMean(offsets);
