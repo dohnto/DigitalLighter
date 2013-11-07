@@ -74,19 +74,19 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 		boolean finished = false;
 		if (started) {
 			finished = doFSMStep(image, false);
-		} else {
-			screenColors.clear();
-			screenColors.add(ColorManager.getHexColor(ColorManager.DARK_GREEN));
-			screenColors.add(ColorManager.getHexColor(ColorManager.DARK_RED));
-			screenColors.add(ColorManager.getHexColor(ColorManager.MAGENTA));
-			screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
-			screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
+		}// else {
+			//screenColors.clear();
+			//screenColors.add(ColorManager.getHexColor(ColorManager.DARK_GREEN));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.DARK_RED));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.MAGENTA));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.WHITE));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.BLUE));
 			//screenColors.add(ColorManager.getHexColor(ColorManager.RED));
-			screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
+			//screenColors.add(ColorManager.getHexColor(ColorManager.GREEN));
 //			screenColors.add(ColorManager.getHexColor(ColorManager.ORANGE));
 			
-			detectLights(image, screenColors);
-		}
+			//detectLights(image, screenColors);
+		//}
 		return finished;
 	}
 
