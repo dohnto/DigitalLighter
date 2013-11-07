@@ -3,14 +3,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SET PARAMETERS
 
-outDir  = 'out';
+outDir  = 'equalizer5x4';
 fps     = 25;
-length  = 20;   % seconds
+length  = 10;   % seconds
 
-tilesX  = 4;
-tilesY  = 5;
+tilesX  = 5;
+tilesY  = 4;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for gg = 5:7
+    tilesX = gg;
+    
+    for hh = 4:7
+        tilesY = hh;        
+        outDir = strcat('equalizer', num2str(tilesX), 'x', num2str(tilesY));
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GLOBALS
 
 bandValues      = zeros(1, tilesX);
@@ -68,3 +75,6 @@ for ii = 1:fps*length
     
     imwrite(frame, strcat(outDir, '\', 'f', sprintf('%05d', ii), '.png'));
 end
+    end
+end
+
