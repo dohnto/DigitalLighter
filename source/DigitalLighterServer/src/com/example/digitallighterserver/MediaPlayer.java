@@ -25,7 +25,6 @@ public class MediaPlayer extends Observable {
 	private CommandCreator commandCreator;
 
 	static private int NEXT_FRAMES = Configuration.NEXT_FRAMES;
-	static private int FRAME_RATE = Configuration.FRAME_RATE; // images per
 																// second
 	static private int SEND_COMMAND_BEFORE = Configuration.SEND_COMMAND_BEFORE; // number
 																				// of
@@ -54,7 +53,7 @@ public class MediaPlayer extends Observable {
 		this.deviceMapper = deviceMapper;
 		this.network = network;
 
-		commandCreator = new CommandCreator(media, FRAME_RATE);
+		commandCreator = new CommandCreator(media, Configuration.FRAME_RATE);
 	}
 
 	/**
