@@ -56,7 +56,7 @@ public class DeviceMapperTree extends DeviceMapper {
 	@Override
 	protected void resetState() {
 		state = DeviceMapperState.INIT;
-		sockets = new ArrayList<Socket>(network.getConnectedDevices());
+		sockets = new ArrayList<Socket>(getLiveSockets());
 		divider = new TreeListDivider<Socket>(sockets, RARE_COLORS.size());
 		for (Socket s : sockets) {
 			possiblePositions.put(s, fillPositions());
