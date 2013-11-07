@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -199,6 +200,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				mConnection.tearDown();
 				mConnection = new Connection(ipc);
 				player.addCommand("CLEAR");
+				background.setBackgroundColor(Color.WHITE);
 
 			} else {
 				clickConnect(null);
