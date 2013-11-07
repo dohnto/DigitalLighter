@@ -133,8 +133,18 @@ public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	public void setStarted(boolean started) {
 		this.started = started;
 	}
+	
+	protected ArrayList<Socket> getLiveSockets() {
+		ArrayList<Socket> retval = new ArrayList<Socket>();
+		for (Socket s: network.getConnectedDevices()) {
+			if (!s.isClosed()) {
+				retval.add(s);
+			}
+		}
+		return retval;
+	}
 
 	protected ArrayList<Socket> getSockets() {
-		return (sockets == null) ? network.getConnectedDevices() : sockets;
+		return (sockets == null) ? getLiveSockets() : sockets;
 	}
 }

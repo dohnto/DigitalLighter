@@ -119,7 +119,7 @@ public class MainActivityServer extends Activity implements ServiceObserver {
 	// ========================================================================================================
 
 	public void clickBlue(View v) {
-		mService.broadcastCommandSignal("0:#0000ff\n");
+		mService.broadcastCommandSignal(System.currentTimeMillis() + 1000 + ":#0000ff\n");
 	}
 
 	// ========================================================================================================
