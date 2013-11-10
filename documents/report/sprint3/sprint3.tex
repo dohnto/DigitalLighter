@@ -6,7 +6,7 @@ All from setting our goals to implementation and testing. On the end we will eva
 In the planning part of sprint 2, there have been introduced and idea or goal for refining and extending the existing code, customer agreed, with condition, that sprint 3 will be focused on image processing part.
 
 As the image processing module was one of the major risks, there was done some preliminary research even in the end of sprint 2 about possible approaches.
-One specific way to deal with the problem (using OpenCV and Hough Transformation\footnote{http://docs.opencv.org/doc/tutorials/imgproc/imgtrans/hough\_lines/hough\_lines.html}) was introduced to customer in planning part of meeting.
+One specific way to deal with the problem (using OpenCV and Hough transformation \cite{Duda:1972:UHT:361237.361242}) was introduced to customer in planning part of meeting.
 Customer was not satisfied with such a low-level approach and wanted us to use some existing tools.
 Therefore there was need for additional preliminary studies concerning existing projects or libraries that could be used.
 You can read more about additional preliminary studies below.
@@ -119,14 +119,26 @@ Since the OpenCV library for Java is in early stage, there is some functionality
 One of these is a method \texttt{open(String)} of class \texttt{VideoCapture}\footnote{http://docs.opencv.org/java/org/opencv/highgui/VideoCapture.html}.
 In C++ version of OpenCV there exist such a method and it allows programmers to use a video for input for image processing.
 After short research, a fix of this bug was found\footnote{http://code.opencv.org/issues/3207}, but this feature will be added in release 2.4.7.
-Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only static pictures were used for testing.
+Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only single pictures were used for testing.
 
 
 \section{Testing}
+A capability of Java to run on multiple platforms were utilized during testing and initial testing was performed without any Android device.
+There have been created a testing set\footnote{https://github.com/dohnto/DigitalLighter/tree/master/source/others/LightDetectorTester/res/drawable} of simple images used for black box testing.
 
+After this test, it has been decided to merge module with the rest of the application and perform some integration tests.
+To outline a characteristics of further testing you can see videos \footnote{http://www.youtube.com/watch?v=TcuMlvvAwSQ} \footnote{http://www.youtube.com/watch?v=fhWFAJY7QOg} demonstrating current progress of implementation.
 
 \section{Occurring risks}
-\section{Retrospective}
-\subsection{Pros}
-\subsection{Cons}
-\section{Evaluation}
+\section{Retrospective and evaluation}
+\subsection{What went right}
+Since the preliminary studies concerning image processing started very soon and instead of writing light detection module from scratch an existing code was used, the core of implementation was finished ahead of schedule.
+\subsection{What went wrong}
+Due to misunderstanding customer's demands regarding using existing solution, extra time was required for additional preliminary studies resulting to the same output as the first preliminary study concerning image processing. 
+In the end, the customer approved using OpenCV as a best option.
+Therefore the communication with customer should be more precise and accurate and if any ambiguity occurs, it should be consulted with customer as soon as possible.
+
+From the beginning it was obvious, that the light detection module's performance affected by level of light.
+During the testing the team was uncertain when the performance is sufficient, because the question of lighting was not discussed enough.
+After this experience, an proposal to customer was made: if similar situation occurs, acceptance tests should be prepared and approved by the customer.
+\subsection{What to improve}
