@@ -18,7 +18,7 @@ public class Configuration {
 	// === DETECTION OF POSITION ================================
 	static public boolean USE_TREE_DETECTION = true;
 	// waiting time between sending a signal and taking a picture (ms)
-	static public int WAIT_TIME = 1000;
+	static public int WAIT_TIME = 2000;
 
 	static public String SHUT_DOWN_COLOR = ColorManager
 			.getHexColor(ColorManager.BLACK);
