@@ -76,7 +76,7 @@ Even with API limitation it is a part of Android platform, no third part librari
 Min API version was not of concern to the customer, so team made a decision of using Android Network Discovery(NSD) for client-server core module.
 
 \section{Architecture}
-For the core communication and organization of our product the client-server Architecture was selected as shown in figure \ref{fig:sprint1_arhitecture}.
+For the core communication and organization of our product the client-server architecture was selected as shown in figure \ref{fig:sprint1_arhitecture}.
 Choosing this architecture was very intuitive to do as the project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
 And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
@@ -89,20 +89,9 @@ Communication should be established over wireless network using same router for 
 	\label{fig:sprint1_arhitecture}
 \end{figure}
 
-\subsection{"4+1" architectural view model}
-For illustrating software architecture "4+1" architectural Model View\ref{fig:4+1 } will be used. It is based on the multiple concurrent views therefore better explanation of architecture can be provided.
+For illustrating software architecture "4+1" architectural model view\ref{fig:4+1} will be used.
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=7cm]{sprint1/4+1.png}
-	\caption{"4+1" architectural view model}
-	\label{fig:4+1 }
-
-\end{figure}
-
-\subsubsection{Logical View}
-The description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
-
+\subsection{Logical View}
 Figure \ref{fig:class_diagram_client} gives an overview of the client class structure and collaboration. As planed client have all of the functionality covered by user stories. 
 
 \begin{figure}[H]
@@ -130,7 +119,7 @@ In the sequence diagram \ref{fig:sprint1_communication} it is showed how applica
 	\label{fig:sprint1_communication}
 \end{figure}
 
-\subsubsection{Physical View}
+\subsection{Physical View}
 The deployment diagram, displayed in \ref{fig:deployment_diagram} describes the system architecture focusing on the large components and their connections.
 
 \begin{figure}[H]
@@ -189,14 +178,14 @@ Supporting lower platforms in the future, or not, is however never stated in any
 \section{Customer feedback}
 
 \section{Retrospective}
-In this section the team will take a look back at sprint 1, and review this sprint. The focus will be on what went well, and goal we achieved. Another focus will also be what we could have done differently, and of course and learn from what we could have done differently.
+This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
 
-\subsection{What went right}
+\subsection{What went well}
 For the implementation part the sprint 1 goals were reached. The working demonstration video over core client-server module was delivered. The server side registers services, listens for the client, and sends simple  signals. The client is scanning for the services, connecting, receiving signals and play commands on the client. The customer was very satisfied with the video, and suggested recording our future prototypes as well. Besides this we reached the goal to implement Test-Flight in both applications. We also reached the milestone, Obedient client -- Prototype 1.
 
 For the documentation the work done is in the report is good. The report is better structured now, and it actually looks like a report, which is good. The supervisor liked the structure as well. A lot of sections were added when the team integrated the project plan in the report, so that the introduction, the preliminary studies and the planning chapter would be as complete as possible. In for example the preliminary studies chapter the team has not written all of the studies about the image processing part yet, because the team will research this more in later sprints.
 
-\subsection{What to improve}
+\subsection{What could be improved}
 The sprint planning in this sprint could have been better. Some of the implementation user stories were over estimated. To solve this better till next time the team should spend more time doing the planning poker. This makes sure that everyone understands the task better. 
 
 The structure of the report is good, but the number of chapters wuold probably have to be reduced. The supervisor suggested to move the test plan chapter in the planning chapter, since it was such a small chapter. The supervisor also wanted the team to work more with the requirements chapter. There should be a better connection between the user stories and the requirements.
