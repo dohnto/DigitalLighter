@@ -22,7 +22,7 @@ You can see the structure of this report in table \ref{tab:structure_of_report}.
 \caption{List of all chapters and short description. }
 \label{tab:structure_of_report}
 \def\arraystretch{1.3}
-\begin{tabularx}{\textwidth}{lX} \toprule[1mm]
+\begin{tabularx}{\textwidth}{lX} \toprule[0.5mm]
 \textbf{Chapter} & \textbf{Description} \\ \midrule
 Chapter 1 & The \emph{introduction} chapter introduces the problem, and introduces the members and stakeholders of this project.
 This chapter also explains the motivation and goals. \\
@@ -42,19 +42,16 @@ Chapter 13 	 &  The \emph{testing} chapter describes the different tests. Everyt
 Chapter 14 	 &  \emph{Evaluation} chapter includes the team dynamics and risk evaluation. Last but not least it describes an evaluation of the customer, supervisor and of course the task. \\
 
 Chapter 15 	 &  \emph{Conclusion} chapter sums up the project, and discusses the solution, and looks at further work. \\
+\midrule
 
 References 	 &  Here is the \emph{references}. \\
 
 Attachments &  Here is the \emph{attachments}. \\
-\midrule
 Appendix 	 &   The appendix contains user manual, installation guide, meeting minutes and more.\\
 
-\bottomrule[1mm]
+\bottomrule[0.5mm]
 \end{tabularx}
 \end{table*}
-
-\section{Project and project name}
-The customer wants a product to make the audience as a screen on a rock concert. We decided to name the product \emph{Digital Lighter}. We agreed on this name because this product digitalizes the concept from "the old days", where the crowd at a concert held up lighters, to create a special atmosphere. 
 
 \section{Project purpose and concept}
 The audience members at a rock concert should be able to download a simple application to their smart phone, and register this through a simple GUI.
@@ -72,25 +69,10 @@ What kind of picture the audience can create will depend on the number of people
 As a motivation for the audience to hold up their phone, the camera on top of the screen will take pictures of the audience.
 In that way the audience can see a reflection of themselves, and see what kind of picture they are creating together.
 
-\section {Terminology}
-\label{sec:terminology}
-After a few meetings with the supervisor and customer, it was settled that we must present our terminology to prevent from misunderstandings since both customer and supervisor used different terminology.
-Below there is listed product related terminology that will be used in technical parts of this report.
-
-\paragraph{Client user}
-is a participant of the concert who wants to actively take part in show and he can download client application.
-
-\paragraph{Server user}
-or simply \textbf{Manager} is a person who controls what media should be played on screen made from mobile phone's of users. 
-He can also manage other general settings.
-
-\paragraph{End user} is either manager or end client user.
-
-\paragraph{Client} or \textbf{Client side} is an application controlled by client user and provides him an opportunity to be part of the screen by displaying figures on his mobile.
-
-\paragraph{Server} or \textbf{Server side} is and application controlled by manager and provides him opportunity to change the media displayed on screen.
-
-\paragraph{Pixel} is a client user's mobile phone under control of the manager.
+\section{Project name}
+The customer wants a product to make the audience as a screen on a rock concert. 
+The team has decided to name the product \emph{Digital Lighter}. 
+This name was settled because this product digitalizes the concept from "the old days", where the crowd at a concert held up lighters, to create a special atmosphere. 
 
 
 \section{Goals}
@@ -188,9 +170,9 @@ You can see the table with email contacts in table \ref{tab:stakeholders_summary
 \begin{table*}[!ht]\centering
 \caption{List of all stakeholders with their role and email contact. }
 \label{tab:stakeholders_summary}
-\def\arraystretch{1.15}
+\def\arraystretch{1.3}
 \begin{tabular}{lll}
-\toprule[1mm]
+\toprule[0.5mm]
 \textbf{Person} & \textbf{Email} & \textbf{Role}\\
 \midrule
 Peder Kongelf & peder.kongelf@gmail.com  & Customer\\
@@ -201,6 +183,31 @@ Milos Jovac &  milosjovac@gmail.com & Team member  \\
 Jan Bednarik &  ja.bedna1@gmail.com & Team member\\
 Agnethe Soraa & agnethes0raa@gmail.com & Team member  \\
 Tomas Dohnalek & dohnto@gmail.com & Team member \\
-\bottomrule[1mm]
+\bottomrule[0.5mm]
 \end{tabular}
 \end{table*}
+
+
+\section {Terminology}
+\label{sec:terminology}
+After a few meetings with the supervisor and customer, it was settled that we must present our terminology to prevent from misunderstandings since both customer and supervisor used different terminology.
+Below there is listed product related terminology that will be used in further chapters of this report.
+
+\paragraph{Client user}
+is a participant of the concert who wants to actively take part in show and he can download client application.
+
+\paragraph{Server user}
+or simply \textbf{Manager} is a person who controls what media should be played on screen made from mobile phone's of users. 
+He can also manage other general settings.
+
+\paragraph{End user} is either manager or end client user.
+
+\paragraph{DigitalLighter}
+is the final product. It is containing of two separate applications \emph{client} and \emph{server}.
+
+
+\paragraph{Client} or \textbf{Client side} is an application controlled by client user and provides him an opportunity to be part of the screen by displaying figures on his mobile.
+
+\paragraph{Server} or \textbf{Server side} is and application controlled by manager and provides him opportunity to change the media displayed on screen.
+
+\paragraph{Pixel} is a client user's mobile phone under control of the manager.
