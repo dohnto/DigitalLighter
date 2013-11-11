@@ -45,7 +45,7 @@ public class Configuration {
 	// images per second
 	static public int FRAME_RATE = 10;
 	// number of millisecond when
-	static public int SEND_COMMAND_BEFORE = 100;
+	static public int SEND_COMMAND_BEFORE = 1000;
 	// wait before playing a media in ms
 	static public long WAIT_BEFORE_PLAYING = 5000;
 
