@@ -7,6 +7,19 @@ The description of the functional requirements of the architecture. The client a
 \subsection{Development view}
 \subsection{Process view}
 \subsection{Physical view}
+Physical view \cite{Kruchten:1995:VMA:624610.625529} describes the mapping of a software onto hardware. 
+It takes into account non-functional requirements of the system.
+
+Physical view is described in figure \ref{fig:architecture_deployment_diagram}.
+According to requirement \refreq{N1}, there will be two executable files deployed; one deployed to client device and second to server device.
+There is also need for NTP server, which will maintain all connected devices synchronized.
+To generalize the architecture design, the \emph{camera} device is treated as a separate device, which will only send its output to server device.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=15cm]{softwareArchitecture/deployment-diagram.pdf}
+	\caption{Deployment diagram}
+	\label{fig:architecture_deployment_diagram}
+\end{figure}
 \subsection{Scenarios}
 Use case diagrams can be considered as scenarios, therefore introduced diagram \ref{img:usecase} in Requirements chapter can be considered as a scenario.
 
