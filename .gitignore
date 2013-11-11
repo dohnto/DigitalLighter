@@ -6,7 +6,7 @@
 *.blg
 *.synctex.gz
 *.aux
-
+*.fdb_latexmk
 # Android stuff
 *.apk
 *.ap_
