@@ -42,9 +42,9 @@ At first team was thinking about implementing the clock synchronization from scr
 
 The Barkley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
 
-As focus of this project is on proving the concept, and customer want all hours devoted on project to be spent well, team was agreed on researching alternative solutions before start implementing. Further research have brought to Network Time Protocol(NTP)\footnote{https://tools.ietf.org/html/rfc5905\#section-14}.
+As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research have brought to Network Time Protocol(NTP)\footnote{https://tools.ietf.org/html/rfc5905\#section-14}.
 
-Good thing about NTP is that NTP is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
+Good thing about NTP is that it is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
 
 As solution Time Server\footnote{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver} application have been chosen. It will work on same device as Digital Lighter server application, and it will provide same time as Digital Lighter application would. Deployment digram is therefore changed, and now includes NTP server as artifact. 
 
@@ -55,7 +55,7 @@ As solution Time Server\footnote{https://play.google.com/store/apps/details?id=c
 	\label{fig:sprint5_deployment_diagram}
 \end{figure}
 
-Change have influence on messages interchange between server and clients. The difference comparing to old sequence diagram is given at Figure \ref{fig:sprint5_sequence_diagram}. New calls are colored with red color. 
+Change have influence on messages interchange between server and clients. The difference comparing to old sequence diagram is given at Figure \ref{fig:sprint5_sequence_diagram}. New calls are colored red. 
 
 \begin{figure}[H]
 	\centering
@@ -64,7 +64,20 @@ Change have influence on messages interchange between server and clients. The di
 	\label{fig:sprint5_sequence_diagram}
 \end{figure}
 
-Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added. This way project architecture follows open/closed principle\footnote{http://msdn.microsoft.com/en-us/magazine/cc546578.aspx}. System is closed for changes, but open for extensions.
+Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added and big amount of time have been saved. This way project architecture follows open/closed principle\footnote{http://msdn.microsoft.com/en-us/magazine/cc546578.aspx}. System is closed for changes, but open for extensions.
+
+
+
+Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Class \texttt{SNTPClient} makes call to time server in separate thread, and in \texttt{doInBackground} method retrieve NtpMessage object in order extract exact time from server. \texttt{NtpMessage} represents a NTP message, as specified in RFC 2030\footnote{http://www.rfc-base.org/txt/rfc-2030.txt}. The message format is compatible with all versions of NTP and SNTP. This class does not support the optional authentication protocol, and ignores the key ID and message digest fields. For convenience, this class exposes message values as native Java types, not the NTP-specified data formats. For example, timestamps are stored as doubles (as opposed to the NTP unsigned 64-bit fixed point format). However, the contructor NtpMessage(byte[]) and the method toByteArray() allow the import and export of the raw NTP message format.
+
+
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=14cm]{sprint5/sprint5_class_diagram.png}
+	\caption{Time sync class diagram}
+	\label{fig:Time_Sync_class }
+\end{figure}
 
 \section{Implementation}
 
@@ -75,10 +88,23 @@ Observing deployment and sequence diagrams, it is easy to see that this solution
 	\label{fig:Burn5 }
 \end{figure}
 
-
-
 \section{Testing}
 \section{Occurring risks}
+First time during development process, team have encountered the risk that might influence successful finish of the project. 
+Restarting of client devices during runtime is noted. This issue didn't happen very often in the past, and source of it have been attached to not very stable Android device in team possession. Team were unable to replicate this error on other devices, and recklessly marked it as a isolated case. As number of testing devices become bigger multiple phones started to behave the same and it was obvious that it is not isolated problem. 
+
+Researching Internet for similar problems lead to the
+reason of client restarting - race condition inside \texttt{NsdManager} class. The issue is registered on the Android issues list\footnote{https://code.google.com/p/android/issues/detail?id=35585} and has been fixed on Oct 18. 2013. Release is planned for Android 4.4 so only changing Android NSD for some of the previous technologies can solve the problem. 
+
+At that time, working on next core module (image processing), with knowledge that issue will be gone with next release of Android system, was preferable by the customer. For that reason team exchanged few e-mails with the customer explaining that previous decision to stick to Android NSD have multiple bad effects on the recording of final prototype:
+\begin{itemize}
+\item Team will be in possession of big number of Android devices for a limited period of time. If clients restart in middle of the presentation that will take away notably amounts of time.
+
+\item NSD works just on devices powered by Jelly Bean(4.1.x) or KitKat(4.4). Most of the phones team have plan to borrow are not brand new and do not support Android NSD service.
+\end{itemize}
+
+Finally the customer agreed on adding another user story with high priority - Replace NSD communication module with one of the technologies previously researched.
+
 \section{Customer feedback}
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
