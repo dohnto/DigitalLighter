@@ -73,7 +73,7 @@ Miloš Jovac \\
 \definecolor{gray75}{gray}{0.75}
 \newcommand{\hsp}{\hspace{20pt}}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
-
+\setcounter{tocdepth}{1}
 \begin{document}
 \maketitle
 \chapter*{Abstract}
@@ -84,6 +84,9 @@ Miloš Jovac \\
 
 \tableofcontents
 \setcounter{page}{3}
+
+\listoffigures
+\listoftables
 
 \chapter{Introduction}
 \input{introduction/introduction.tex}
