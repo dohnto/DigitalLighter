@@ -2,20 +2,28 @@ In this chapter the project is planned in general. Currently the team is not in 
 
 \section{Work breakdown structure}
 \label{sec:wbs}
-The whole project was thoroughly examined  considering the stated scope and the objectives and it was decomposed into eight main distinctive modules:
+The whole project was thoroughly examined considering the stated scope and the goals and it was decomposed into eight main distinctive modules:
 
 \begin{itemize}
-\item Pre-study
-\item Requirements elicitation
-\item Project planning
-\item Application design
-\item Application implementation
-\item Testing and evaluation
-\item Project management
-\item Documentation
+\item \emph{Pre-study} includes research of similar projects and tools and technologies, which can be used.
+You can find this description in chapter \ref{chap:preliminary_studies}.
+\item \emph{Requirements elicitation} comprises its negotiation, creating use diagrams, etc.
+\item \emph{Project planning} includes various topics such as defining milestones, assigning of roles, risk management, etc.
+\item \emph{Application design} comprises not only designing the architecture of final product, but also designing GUI and communication protocol.
+\item \emph{Application implementation} contains all implementation of both server and client.
+\item \emph{Testing and evaluation} includes test data collection and actual miscellaneous testing and its evaluation.
+\item \emph{Project management} contains not only all meetings, but also attending lectures.
+\item \emph{Documentation} includes creating various documents concerning the product, meetings or this report.
 \end{itemize}
 
-The main modules can be further decomposed into smaller actions. The graphical representation of the whole work breakdown structure can be found in the appendix in chapter \ref{txt:work_breakdown_structure}.
+The main modules can be further decomposed into smaller actions. The graphical representation of the whole work breakdown structure can be seen in Figure \ref{fig:wbs}.
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=20cm, angle=90]{images/wbs}
+	\caption{The work breakdown structure}
+	\label{fig:wbs}
+\end{figure}
 
 \section{Organization}
 This chapter outlines how the project group is organized and why.
@@ -85,7 +93,7 @@ The assigned roles can be seen in Table \ref{tab:roles}.
 \end{table*}
 
 \section{Risk Management}
-In the Table \ref{tab:risks} the consequence and possibility in a number between 1--10. The risk, or the riskfactor, is the consequence multiplied with the possibility. The risks in this table is very obvious ones. 
+In the Table \ref{tab:risks} the consequence and possibility in a number between 1--10. The risk, or the risk factor, is the consequence multiplied with the possibility. The reactive measures is possible solutions when something goes wrong. Proactive measures is what we can do to try to avoid the risks.  
 
 Other risks can be seen from analyzing the skill table. If for example the only two persons on the team who are familiar with image processing are not present, then this will be a risk. There is a great possibility that this kind of task will take longer time then planned for. 
 
@@ -227,8 +235,15 @@ The most important Scrum ceremonies include daily stand up meetings, sprint plan
 These meetings are especially useful for keeping it clear who works on what. Nevertheless as it is described in chapter \ref{sec:duration_and_workload} the team members do not work full hours and thus do not meet every day. Given this fact it is impossible to make the daily stand up meetings and this is one of the reasons the team rather falls back on Scrumbut.
 
 \paragraph{Sprint planning} serves the purpose of discussion between the team and the customer focused no selecting the user stories to be moved to the next sprint's backlog and specifying their priority. Both team and customer agreed they will collaborate on each sprint planning using the online tool TargetProcess \ref{subsec:targetProcessToolDescription}.
-
+\newpage
 \paragraph{Planning poker} or scrum poker is technique for estimating time effort or relative size of the user stories \cite{cohn2005agile}. It gets performed by all team members with regular playing cards or specially designed deck. Team agreed on using planning poker for user stories time estimation, and using "Scrum Poker Cards (Agile)" android application\footnote{https://play.google.com/store/apps/details?id=artarmin.android.scrum.poker} instead of playing cards.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=6cm]{planning/scrumPoker.png}
+    \caption{Scrum poker}
+    \label{fig:scrumPoker }
+\end{figure}
 
 \paragraph{Sprint retrospective} is a discussion about what went well or wrong during the last sprint. It is a good practice that enables the team to keep overview of the work progress.
 
@@ -309,9 +324,9 @@ Overview of all milestones including 4 prototypes:
 	\item Server plays traffic light simulation to the grid.
 \end{itemize}
 
-\paragraph{}
+\paragraph{Course related milestones}
 \begin{itemize}
-	\item Finish of Project Plan document.
+	\item Finish Project Plan document.
 	\item Learn about team dynamics.
 	\item Deliver Report draft.
 \end{itemize}
