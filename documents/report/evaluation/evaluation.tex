@@ -71,7 +71,7 @@ Then we will look at our use of the scrum method, and how we had to modify it fo
 %_______________________________________________________________________________
 \section{Technologies and tools evaluation}
 \subsection{Git}
-The team adopted Git as its version control system since early phase.
+The team adopted Git as its version control system since early phase as described in section \ref{subsec:git}.
 Most of the members had experience with some other VCS such as Subversion and therefore the idea of versioning was not new.
 On the other hand, three of four members of the team had no experience with Git itself.
 
@@ -81,13 +81,25 @@ On the other hand, support of releases was used quite often \footnote{https://gi
 This was very comfortable for creating a final report, when the team could easily see exactly what features were included in each prototype and also it was possible to se the GUI of product in particular phase.
 
 Of course, troubles during merging occurred.
-Since merging conflicts can be sometimes demanding and usually requires a lot of knowledge of merging code, some issues occurred.
+Since merging conflicts can be sometimes demanding and usually requires a lot of knowledge about merging code, sometimes it was impossible for one person to solve it.
 These conflicts were in most cases solved by discussion with all interested members.
 
 After all the experience with Git is rather positive. 
 It is always good to be able to work with tools, that a lot of companies use in real development.
 
-\subsection{Testflight}
+
+\subsection{TestFlight}
+TestFlight service, described in section \ref{subsec:testflight}, was adopted because of customer proposal.
+The service was used in early phases of development for customers comfort when testing the product.
+
+Since the beginning of implementation, some non-reproducible errors occurred in client application.
+After some testing, the team suspected TestFlight of those problems.
+TestFlight for Android is relatively new service \footnote{http://blog.testflightapp.com/post/49971420302/android} and there it was decided to discard it from the implementation.
+After some time, it has been discovered, that the issues were caused by Android system itself (REF NEEDED), but the TestFlight was never used again, because the demonstration were performed via videos.
+ 
+TestFlight is a useful service, that was not used by team as it was proposed by customer.
+Therefore the customer had worse overview about application GUI and also about its basic usage.
+
 \subsection{TargetProcess3}
 \subsection{OpenCV}
 \subsection{Android}
