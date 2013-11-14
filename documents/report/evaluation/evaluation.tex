@@ -71,24 +71,46 @@ Then we will look at our use of the scrum method, and how we had to modify it fo
 %_______________________________________________________________________________
 \section{Technologies and tools evaluation}
 \subsection{Git}
-The team adopted Git as its version control system since early phase.
+The team adopted Git as its version control system since early phase as described in section \ref{subsec:git}.
 Most of the members had experience with some other VCS such as Subversion and therefore the idea of versioning was not new.
 On the other hand, three of four members of the team had no experience with Git itself.
 
 Even though Git is a powerful tool with a lot of features, the main reason of using was to share code.
 Since development was rather linear, branching was used rarely.
-On the other hand, support of releases was used quite often \footnote{https://github.com/dohnto/DigitalLighter/releases}.
+On the other hand, support of releases was used quite often \footnote{\url{https://github.com/dohnto/DigitalLighter/releases}}.
 This was very comfortable for creating a final report, when the team could easily see exactly what features were included in each prototype and also it was possible to se the GUI of product in particular phase.
 
 Of course, troubles during merging occurred.
-Since merging conflicts can be sometimes demanding and usually requires a lot of knowledge of merging code, some issues occurred.
+Since merging conflicts can be sometimes demanding and usually requires a lot of knowledge about merging code, sometimes it was impossible for one person to solve it.
 These conflicts were in most cases solved by discussion with all interested members.
 
 After all the experience with Git is rather positive. 
 It is always good to be able to work with tools, that a lot of companies use in real development.
 
-\subsection{Testflight}
+
+\subsection{TestFlight}
+TestFlight service, described in section \ref{subsec:testflight}, was adopted because of customer proposal.
+The service was used in early phases of development for customer comfort when testing the product.
+
+Since the beginning of implementation, some non-reproducible errors occurred in client application.
+After some testing, the team suspected TestFlight of those problems.
+TestFlight for Android is relatively new service \footnote{\url{http://blog.testflightapp.com/post/49971420302/android}} and there it was decided to discard it from the implementation.
+After some time, the team has discovered, that the issues were caused by Android system itself (REF NEEDED), but the TestFlight was never used again, because the demonstration were performed via videos.
+ 
+Therefore it is difficult to evaluate tool, that has been used only for a short period of time.
+
 \subsection{TargetProcess3}
 \subsection{OpenCV}
+OpenCV is an open source computer vision library briefly described in section \ref{subsec:image_processing_library}.
+It is a very useful library, which saved the team a lot of time instead of implementing image processing parts themselves
+ -- whole light detection module was just enhanced demonstration example of OpenCV functionality.
+
+On the other hand, some problems with this library occurred.
+OpenCV Java API is a relatively new and therefore some implementation is missing.
+One example of this was described in section \ref{sec:sprint3_implementation}.
+This raised a lot of problems, which resulted into discarding of user story.
+
+OpenCV Java API can be therefore counted as a immature product but with a high potential in future, provided OpenCV developers will focus more on this API.
+At this moment, new relase 2.4.7 if OpenCV is 44 days late according to the plan\footnote{\url{http://code.opencv.org/projects/opencv/roadmap}} with still 32 opened bugs or new features.
 \subsection{Android}
 \subsection{Technical issues}
