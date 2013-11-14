@@ -1,9 +1,10 @@
-%\caption{User stories selected for Sprint2.}
+\begin{table*}[!ht]%\caption{User stories selected for Sprint2.}
 \def\arraystretch{1.25}
  
-\begin{longtable}{ccXcc}
-\label{tab:sprint2storiesProcess}\\[-6mm]
-\caption{Project management stories selected for sprint 2}\\[-4mm]
+ \label{tab:sprint2storiesProcess}
+ \caption{Project management stories selected for sprint 2}
+
+\begin{tabularx}{\textwidth}{ccXcc} 
 \toprule[0.5mm]
 \multirow{2}{*}{\textbf{ID}} &
 \multirow{2}{*}{\textbf{Ref.}} & \multirow{2}{*}{\textbf{Description}} & \multicolumn{2}{c}{\textbf{Hours}} \\
@@ -13,7 +14,8 @@
 
 \textbf{P2.1} 	&& {\bf  As a student I have to track time} 										& 	16	& \textbf{16} \\
 	
-\textbf{P2.2} 	&& {\bf As a student I have attend the weekly meetings with the customer} 			& 	22	& \textbf{18} \\
+\textbf{P2.2} 	&
+	\refwbs{wbs_project_management}{WBS 7.1.1}& {\bf As a student I have attend the weekly meetings with the customer} 			& 	22	& \textbf{18} \\
 		&& Week I - Meeting							&  6 & 6 \\
 		&& Week I - Minutes							&  2 & 3 \\
 		&& Week II - Prepare demonstration			&  2 & 2 \\
@@ -22,7 +24,8 @@
 
 
 		
-\textbf{P2.3} 	&& {\bf As a student I have to attend the weekly meetings with the supervisor} 		& 	12	& \textbf{9} \\
+\textbf{P2.3} 	&
+	\refwbs{wbs_project_management}{WBS 7.1.2}& {\bf As a student I have to attend the weekly meetings with the supervisor} 		& 	12	& \textbf{9} \\
 		&& Week I - Meeting							&  4 & 3 \\
 		&& Week I - Minutes							&  2 & 3 \\
 		&& Week II - Meeting						&  4 & 1 \\
@@ -33,4 +36,5 @@
 				&& \textbf{SUM:}		&		50	& \textbf{43}
  \\																			
 \bottomrule[0.5mm]
-\end{longtable}
+\end{tabularx}
+\end{table*}

@@ -1,8 +1,8 @@
-\def\arraystretch{1.25}
- 
-\begin{longtable}{ccXcc}
-\label{tab:sprint1storiesProcess}\\[-6mm]
-\caption{Project management stories selected for sprint 1}\\[-4mm]
+ \begin{table*}[!ht]
+ \def\arraystretch{1.25}
+ \label{tab:sprint1storiesProcess}
+ \caption{Project management stories selected for sprint 1}
+\begin{tabularx}{\textwidth}{ccXcc}
 
 \toprule[0.5mm]
 \multirow{2}{*}{\textbf{ID}} &
@@ -13,7 +13,8 @@
 
 \textbf{P1.1} 	&& {\bf  As a student I have to track time} 										& 	16	& \textbf{16} \\
 	
-\textbf{P1.2} 	&& {\bf As a student I have attend the weekly meetings with the customer} 			& 	22	& \textbf{20} \\
+\textbf{P1.2} 	&
+	\refwbs{wbs_project_management}{WBS 7.1.1}& {\bf As a student I have attend the weekly meetings with the customer} 			& 	22	& \textbf{20} \\
 		&& Week I - Meeting							&  6 & 6 \\
 		&& Week I - Minutes							&  2 & 2 \\
 		&& Week II - Prepare demonstration			&  2 & 2 \\ 
@@ -22,7 +23,8 @@
 
 
 		
-\textbf{P1.3} 	&& {\bf As a student I have to attend the weekly meetings with the supervisor} 		& 	12	& \textbf{11} \\
+\textbf{P1.3} 	&
+	\refwbs{wbs_project_management}{WBS 7.1.2}& {\bf As a student I have to attend the weekly meetings with the supervisor} 		& 	12	& \textbf{11} \\
 		&& Week I - Meeting							&  4 & 4 \\
 		&& Week I - Minutes							&  2 & 1 \\
 		&& Week II - Meeting						&  4 & 4 \\
@@ -32,7 +34,8 @@
 \textbf{P1.4} 	&& {\bf As a student I need to attend the team building.} 							& 		7	& \textbf{9} \\
 		
 
-\textbf{P1.5} 	&& {\bf As a student I need to participate to the lectures about team dynamics. } 	& 		32	& \textbf{25} \\
+\textbf{P1.5} 	&
+	\refwbs{wbs_project_management}{WBS 7.3}& {\bf As a student I need to participate to the lectures about team dynamics. } 	& 		32	& \textbf{25} \\
 		&& Course of group dynamics.				& 30  & 24 \\
 		&& Summarize of course.						& 2  & 1 \\				
 				
@@ -40,4 +43,6 @@
 				&& \textbf{SUM:}		&		89	& \textbf{81}
  \\																			
 \bottomrule[0.5mm]
-\end{longtable}
+\end{tabularx}
+
+\end{table*}
