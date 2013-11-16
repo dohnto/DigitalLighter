@@ -38,7 +38,7 @@ In the first mode, real video from mobile's camera will be treated as an input a
 You can see example of input with matrix 2x2 in Figure \ref{img:sprint3_goal}. 
 Appropriate output of image processing and mapping module is (left top tile is \texttt{[0,0]} and right top tile is \texttt{[1, 0]}): \texttt{\{blue,[0,1]\}, \{red,[0,0]\}, \{green,[1,1]\}}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=7cm,angle=90]{sprint3/sprint3_goal.pdf}
 	\caption{Example of ideal data input for image processing module with 2x2 matrix}
@@ -66,7 +66,7 @@ In second category there is only class \texttt{CameraActivity}, who is responsib
 
 In last category there is class \texttt{ColorManager}, which is standalone class and in application there is only need for one instance. Therefore it was designed as a \texttt{Singleton} pattern \cite[p.~144]{Gamma:1995:DPE:186897}. Its main purpose is to handle transformations of different color formats such as special library, network and internal formats.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint3/sprint3.png}
 	\caption{Sprint 3 light detection module class diagram}
@@ -77,7 +77,7 @@ In last category there is class \texttt{ColorManager}, which is standalone class
 You can see the physical view of whole product represented in Figure \ref{fig:sprint3_deployment_diagram}.
 Even though in this particular case device \emph{Camera} part of \emph{Server} device, the architecture and code was designed generally so \emph{Camera} can be stand alone device.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=15cm]{images/deployment-diagram-sprint3}
 	\caption{Deployment diagram}
@@ -88,7 +88,7 @@ Even though in this particular case device \emph{Camera} part of \emph{Server} d
 You can see the process view represented in Figures \ref{fig:sprint3_activity_diagram} and \ref{fig:sprint3_dfd}. The activity diagram \ref{fig:sprint3_activity_diagram} can be perceived as a subactivity diagram of action \emph{detect clients location} from Figure \ref{fig:activity_diagram_server}.
 It should be mentioned, that each time new image was taken by camera, new thread is created and therefore several processing in the same time can be performed.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint3/activity_sprint3.pdf}
 	\caption{Sprint 3 activity diagram}
@@ -96,7 +96,7 @@ It should be mentioned, that each time new image was taken by camera, new thread
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint3/sprint3_dtd.pdf}
 	\caption{Sprint 3 data flow diagram}
@@ -115,7 +115,7 @@ In C++ version of OpenCV there exist such a method and it allows programmers to 
 After short research, a fix of this bug was found\footnote{http://code.opencv.org/issues/3207}, but this feature will be added in release 2.4.7.
 Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only single pictures were used for testing.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
 	\caption{Burn down chart}

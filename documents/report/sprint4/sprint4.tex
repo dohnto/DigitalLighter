@@ -54,7 +54,7 @@ The goal of this sprint is to have application which integrates already implemen
 This application should be able to display using clients a short animation of a traffic light as can be seen in Figure \ref{fig:trafficlight}.
 This is in fact prototype 4 -- \emph{Traffic light control} as can be seen in Section \ref{sec:milestones}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=10cm]{sprint4/trafficlight.png}
 	\caption{Traffic Light}
@@ -78,11 +78,24 @@ Class \texttt{DeviceTracker} is class that is used as a getter of list of device
 Core of this class is missing, it is only present so it can be extend as a future feature.
 Future purpose of this class is to track already detected devices and update their positions during playing media.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint4/class_diagram_device.png}
 	\caption{Sprint 4 device locating module}
 	\label{fig:class_diagram_device_sprint4}
+\end{figure}
+
+In Figure \ref{fig:class_diagram_device_sprint4b} you can see class diagram of second component -- media player.
+Class \texttt{ImageMapper} is responsible for loading single pictures.
+These pictures are used by class \texttt{CommandCreator}, which can create commands generically during run
+and as a parameter can be passed number of frames that should be parsed in advance and send to client in single command.
+For sending to clients in appropriate moments is responsible instance of class \texttt{MediaPlayer}.
+As you can see, the \texttt{MediaPlayer} class keeps an instance of class \texttt{DeviceLocatingStrategy} which servers as a getter for sockets and positions.
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=11.0cm]{sprint4/class_diagram_media_player.png}
+	\caption{Sprint 4 media player module}
+	\label{fig:class_diagram_device_sprint4b}
 \end{figure}
 
 
@@ -101,15 +114,19 @@ The difference is a position of client.
 
 It should be mentioned, that both activities \emph{Detect white color} are in fact slightly modified subactivities, which can be seen in Figure \ref{fig:sprint3_activity_diagram}.
 Therefore this diagram in Figure \ref{fig:sprint4_activity_diagram} is subactivity of activity \emph{Detect clients location} of Figure \ref{fig:activity_diagram_server}.
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint4/activity_sprint4.pdf}
 	\caption{Sprint 4 activity diagram}
 	\label{fig:sprint4_activity_diagram}
 \end{figure}
 
+The media player component is from point of process view rather straightforward, and therefore there will be no figure presented.
+
 \section{Implementation}
-\begin{figure}[H]
+
+
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=18cm]{sprint4/BurndownSprint4.png}
 	\caption{Burn down chart for sprint 4}

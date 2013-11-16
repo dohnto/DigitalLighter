@@ -175,7 +175,7 @@ After some time, the team has discovered, that the issues were caused by Android
 %___________-_______________________________________
 (REF NEEDED)
 %__________________________________________________-
-, but the TestFlight was never used again, because the demonstration were performed via videos.
+, but the TestFlight was never used again, because the demonstration for customer were performed in form of videos.
  
 Therefore it is difficult to evaluate tool, that has been used only for a short period of time.
 
@@ -183,12 +183,22 @@ Therefore it is difficult to evaluate tool, that has been used only for a short 
 During testing light detection module, problem situation\footnote{Tested with Samsumg Galaxy S3 and Samsung Galaxy S2.} with mobile devices camera was encountered.
 In dark, if a tracked object (mobile phone lighting with single color) or camera itself is moving, everything is working as expected.
 But if both object and camera are static, after some time, the camera starts to adjust the colors.
-You can see that situation in image 
-%___________-_______________________________________
-(REF NEEDED)
-%__________________________________________________-
-Calibration is probably needed in this cases.
-By empirical research there were established colors (e. g. blue and white) which are not affected by this behavior.
-%___________-_______________________________________
-(AUTO WHITE BALANCE)
-%__________________________________________________-
+You can see that situation in Figure \ref{fig:screen_colors_in_enviroments}.
+This is probably caused by exposure settings, and further research concerning that topic would have to be done.
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{evaluation/IMG_7029.JPG}
+                \caption{Colors of screens in light environment}
+                \label{fig:tiger}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{evaluation/IMG_7032.JPG}
+                \caption{Colors of screens in dark environment}
+                \label{fig:mouse}
+        \end{subfigure}
+        \caption{Colors of screens in different light environments}\label{fig:screen_colors_in_enviroments}
+\end{figure}
+By empirical research there were established colors (e. g. blue and white) which are least affected by this behavior.
