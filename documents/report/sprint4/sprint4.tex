@@ -133,7 +133,16 @@ You can see the burn down chart for sprint 4 in Figure \ref{fig:Burn4}.
 	\caption{Burn down chart for sprint 4}
 	\label{fig:Burn4}
 \end{figure}
+
 \section{Testing}
+There was no unit testing for device locating component, because mocking of network module, which is needed for this testing was estimated with too high value.
+Therefore testing was performed with all modules integrated.
+The team focused on finding the lowest value for waiting which can be seen in Figure \ref{fig:sprint4_activity_diagram}.
+This value was set on 200 milliseconds due to empirical research.
+It should be mentioned, that this value suppose very low delay between sending lit control signal and its performing by client.
+Three mobile devices were used for testing purposes.
+You can see example the form of testing in prototype 4 demonstration video\footnote{\url{http://www.youtube.com/watch?v=6mV5ajoZomI}}.
+
 \section{Occurring risks}
 \section{Customer feedback}
 \section{Retrospective}
