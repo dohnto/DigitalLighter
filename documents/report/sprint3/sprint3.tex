@@ -35,20 +35,18 @@ The goal of this sprint is having a working application on a mobile phone that c
 Input type and output are for both modes common -- input is an image or video and output is location of detected mobile phones in a given matrix (e.g. 4x4 matrix) with color that mobile's screen is lighting.
 In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image or video) are treated as an input.
 
-You can see example of input with matrix 2x2 in Figure \ref{img:sprint3_goal}. Appropriate output of image processing and mapping module is: \texttt{\{blue,[0,0]\}, \{red,[1,0]\}, \{green,[0,1]\}}.
+You can see example of input with matrix 2x2 in Figure \ref{img:sprint3_goal}. 
+Appropriate output of image processing and mapping module is (left top tile is \texttt{[0,0]} and right top tile is \texttt{[1, 0]}): \texttt{\{blue,[0,1]\}, \{red,[0,0]\}, \{green,[1,1]\}}.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=7cm]{sprint3/sprint3_goal.pdf}
+		\includegraphics[width=7cm,angle=90]{sprint3/sprint3_goal.pdf}
 	\caption{Example of ideal data input for image processing module with 2x2 matrix}
 	\label{img:sprint3_goal}
 \end{figure}
 
-\section{System Burndown}
-
-
 \section{Architecture}
-In this section will be described image processing module using 4+1 architectural view module.
+In this section it will be described image processing module using 4+1 architectural view model.
 
 \subsection{Logical view}
 You can see a class diagram of new classes created in sprint 3 in Figure \ref{fig:class_diagram_sprint3}. We can divide these new classes into three categories. 

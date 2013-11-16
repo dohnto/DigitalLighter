@@ -2,52 +2,58 @@ In this chapter the planning and work-flow regarding Sprint 4 will be described.
 Everything from setting our goals to implementation and testing. At the end the team will evaluate the whole sprint and try on answer the following questions: What went well? What could be improved? 
 \section{Sprint planning}
 
-The customer was very satisfied with the demonstration video for sprint 3. 
-The team with the customer planned how to take the project further. 
-At this point it was possible to send control signals to multiple clients, and then detect the devices that lit up. 
+The team with the customer planned how to take the project further on a regular planning meeting.
+At this point it was possible to send control signals to multiple clients, and then detect the screens that lit up. 
 It was decided that the plan for this sprint was to combine those two modules, and try to display a short animation.
 This meant that detection of clients' locations must be performed and than connecting its position in a grid with an appropriate socket linked with client.
 
-After this detection, a commands to all clients must be continuously send with information, what colors should they lit.
+After this detection, commands to all clients must be continuously send with information, what colors should they lit.
 To be more efficient and do not use too much traffic, which could result into delays on network, it was proposed by customer that video should be preprocessed and large chunks of data with timing should be send to clients.
 
-After detection the signal should make the first client light up red, and make the second one light up yellow, and then make the last one light up green. 
-Since the main goal was to make the mobile screens create an image, the order of the different colors was be imporant. The team had to plan for making specific devices to light up specific colors at spesific positions. 
-A traffic light was a good start for focusing on this part of the assignment, and the customer agreed. 
-For sprint 4, the plan was to first map all available devices to grid, and then link the devices location with their ids, and then make the clients create a traffic light.
+Next, the team with the customer discussed long term planning of the product.
+Since this product cannot be finished and deploy for everyday and commercial use due to time restriction, the features included and not included in final prototype were discussed.
+The customer proposed two different goals.
+One involved mobile device tracking (on rock concert after detection phase, it is probable, that audience wont be static but they will be moving, and therefore if animation should be displayed in proper way, these movements should be detected).
+After a short discussion, it was decided that this is a long term goal, which is out of scope of this project.
+The focus was put on finishing all core modules and therefore a different goal was adopted.
+This goal will be described in Section \ref{sec:sprint4goal}.
 
+As the team wanted the customer feedback more often, it was again settled, than a next pre-delivery demonstration will be made for meeting on 17th of October. 
 
-All implementation related stories for sprint 4 are presented in table \ref{tab:sprint4stories}.
+All implementation related stories for sprint 4 are presented in Table \ref{tab:sprint4stories}.
 \input{sprint4/stories.tex}
 
 
 In sprint 4 the team also planned to work more on the report. 
 The plan was to finish sprint 3, since that sprint itself finished the week before. 
-It was also wanted to start working on sprint 4 in report. 
-Since it was implemented detection of devices, and it was planned to link their location to their ids, it was decided that it was imporant to add more information about the software architecture as well. 
+It was also wanted to start working on sprint 4 in report.
+Since more modules were implemented and their integration must be done, discussion about architecture started to be intensive.
+The main goal was to keep architecture as general as possible and open for all future (out of scope) features.
+Therefore the idea of architecture become more clear and work on writing architecture chapter could start.
 The team where also getting a better understanding of what the end product would look like, therefore it was planned to start working a little bit on the evaluation as well. 
 The supervisor also came up with some suggestions for small improvements on the report, which the team planned to follow up.
 Also it was decided to make to the user stories more consistent. 
-It was also planned to separate the implementation stories from the documentation, and the project management stories.
+Last but not least, it was also planned to separate the implementation stories from the documentation, and the project management stories.
 
-All the documentation related stories for sprint 4 are presented in table \ref{tab:sprint4Documentationstories}.
+All the documentation related stories for sprint 4 are presented in Table \ref{tab:sprint4Documentationstories}.
 \input{sprint4/storiesDocumentation.tex}
 
-All the project management related stories for sprint 4 are presented in table \ref{tab:sprint4storiesProcess}.
+All the project management related stories for sprint 4 are presented in Table \ref{tab:sprint4storiesProcess}.
 \input{sprint4/storiesProcess.tex}
 
 % hous all in total: Estimated: 130 + 65 + 42 = 237  Spent: 136+ 36+35= 207
 
 \subsection{Duration}
-This sprint is 2 weeks long. From 14th of October 2013 to 27th of October 2013. We agreed
-on the date of presentation and showing the running demo – on Thursday 25th of October 2013.
-Estimated velocity is 240 hours since we agreed on 30 working hours per person per week.
+This sprint is 2 weeks long. From 14th of October 2013 to 27th of October 2013. 
+We agreed on the date of presentation and showing the running demo -- on Thursday 25th of October 2013.
+Estimated velocity is 200 hours since we agreed on 25 working hours per person per week.
 
-\section{Preliminary studies}
-% TODO
 \section{Sprint goal}
+\label{sec:sprint4goal}
+The goal of this sprint is to have application which integrates already implemented modules.
+This application should be able to display using clients a short animation of a traffic light as can be seen in Figure \ref{fig:trafficlight}.
+This is in fact prototype 4 -- \emph{Traffic light control} as can be seen in Section \ref{sec:milestones}.
 
-The goal for sprint 4 is to link the devices location with their ids, and then make the clients create a traffic light together. 
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=10cm]{sprint4/trafficlight.png}
@@ -55,14 +61,48 @@ The goal for sprint 4 is to link the devices location with their ids, and then m
 	\label{fig:trafficlight}
 \end{figure}
 
-\section{System Burndown}
-
 \section{Architecture}
+In this section it will be described architecture for sprint 4 using 4+1 view model.
+The implementation work can be divided into two logical parts: linking clients' sockets with their position in grid and processing media (animation) into chain of commands for clients.
+Therefore the architecture description will be in each view divided into two parts.
+
+\subsection{Logical view}
+In Figure \ref{fig:class_diagram_device_sprint4} can be seen class diagram of device locating component.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=16.2cm]{sprint4/class_diagram_device.png}
+	\caption{Sprint 4 device locating module}
+	\label{fig:class_diagram_device_sprint4}
+\end{figure}
+
+
+\subsection{Physical view}
+In this sprint, no changes were made in physical view.
+Therefore you can see the physical view in deployment diagram in Figure \ref{fig:sprint3_deployment_diagram} from sprint 3.
+
+\subsection{Process view}
+Process view for sprint 4 can be seen in activity diagram in Figure \ref{fig:sprint4_activity_diagram}.
+First, to all clients is sent control signal to lit with black color.
+After some delay (because of possible network delay, there is need for waiting), all white blobs are detected, this represents \emph{false alarm} blobs.
+Next, iterating through all clients starts.
+In each iteration to only one clients is sent to lit with white color.
+Again, after some delay a new detection is performed and difference between currently detected white blobs and false alarm blobs is calculated.
+The difference is a position of client.
+
+It should be mentioned, that both activities \emph{Detect white color} are in fact slightly modified subactivities, which can be seen in Figure \ref{fig:sprint3_activity_diagram}.
+Therefore this diagram in Figure \ref{fig:sprint4_activity_diagram} is subactivity of activity \emph{Detect clients location} of Figure \ref{fig:activity_diagram_server}.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=16.2cm]{sprint4/activity_sprint4.pdf}
+	\caption{Sprint 4 activity diagram}
+	\label{fig:sprint4_activity_diagram}
+\end{figure}
+
 \section{Implementation}
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=18cm]{sprint4/BurndownSprint4.png}
-	\caption{Burn down chart.}
+	\caption{Burn down chart for sprint 4}
 	\label{fig:Burn4 }
 \end{figure}
 \section{Testing}
