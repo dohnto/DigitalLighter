@@ -68,6 +68,16 @@ Therefore the architecture description will be in each view divided into two par
 
 \subsection{Logical view}
 In Figure \ref{fig:class_diagram_device_sprint4} can be seen class diagram of device locating component.
+On the top of the hierarchy there is an interface \texttt{DeviceLocatingStrategy}, which defines common behavior for two classes: \texttt{DeviceMapper} and \texttt{DeviceTracker}.
+The first mentioned is an abstract class and defines shared behavior for all (future) types of implementations of linking sockets with positions.
+One of these classes is \texttt{DeviceMapperSimple} which uses simple dummy algorithm.
+This algorithm simply let lit clients with white color one by one and detects this color.
+Detected tile is position of a mobile device.
+
+Class \texttt{DeviceTracker} is class that is used as a getter of list of devices with their positions.
+Core of this class is missing, it is only present so it can be extend as a future feature.
+Future purpose of this class is to track already detected devices and update their positions during playing media.
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=16.2cm]{sprint4/class_diagram_device.png}
