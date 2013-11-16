@@ -28,7 +28,7 @@ public class Configuration {
 			.getHexColor(ColorManager.WHITE);
 
 	// recovery tries for detection
-	static public int RECOVERY_TRIES_SIMPLE = 3;
+	static public int RECOVERY_TRIES_SIMPLE = 1;
 
 	// rare colors for tree algorithm
 	static public List<ColorMappingPair> RARE_COLORS_TREE = Arrays.asList(
@@ -41,7 +41,7 @@ public class Configuration {
 
 	// === MEDIA PLAYING ========================================
 	// how many frames in advance should be processed
-	static public int NEXT_FRAMES = 25;
+	static public int NEXT_FRAMES = 1;
 	// images per second
 	static public int FRAME_RATE = 10;
 	// number of millisecond when

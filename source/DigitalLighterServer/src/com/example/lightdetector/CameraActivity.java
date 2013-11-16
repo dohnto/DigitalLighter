@@ -47,7 +47,7 @@ import com.example.digitallighterserver.R;
 import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
-	private static final String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
+	private String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
 
 	PointCollector collector;
 
