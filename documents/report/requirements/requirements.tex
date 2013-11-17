@@ -90,17 +90,18 @@ You can see non-functional requirements listed below.
 \subsubsection{Quality attributes}
 \phantomsection
 \label{sec:quality_attributes}
+Quality attributes are the overall factors that affect run-time behavior, system design, and user experience. They represent areas of concern that have the potential for application wide impact across layers and tiers. Some of these attributes are related to the overall system design, while others are specific to run time, design time, or user centric issues. The list and description of the quality attributes DigitalLighter application have to fulfill is below, and also show on Figure \ref{img:qualityAttributes}.
 
 \paragraph{Accessibility}
-is the degree to which a the product is available to as many people as possible. 
+is the degree to which the product is available to as many people as possible. 
 Accessibility can be viewed as the "ability to access" and benefit from the product. 
-To achieve this we plan to release the product on the Android Play Store, and we are also using TestFlight to make the applications as accessible as we can.
+To achieve accessibility team plan to release the product on the Android Play Store\footnote{"https://play.google.com/store"} and thus enable everyone with Android device to try it. Use of TestFlight\footnote{https://testflightapp.com/} will allow easy access to application during implementation process for potential beta testers.
 
 \paragraph{Interoperability}
-describes the extent to which systems and devices can exchange data, and interpret that shared data. Digital Lighter server and client application should be able to mutually share specific structure or format of data that is preserved and unalterd during the process.  
+describes the extent to which systems and devices can exchange data, and interpret that shared data. Digital Lighter server and client application should be able to mutually share specific structure or format of data that is preserved and unaltered during the process. For this purpose communication protocol will be established.
 
 \paragraph{Maintainability}
-is the ease with which a product can be maintained. This means the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy.
+is the ease with which a product can be maintained. This means the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy. 
 
 \paragraph{Modifiability}
 is all about handling changes, and this is including the extent to which this modification affects other functions. 
@@ -110,18 +111,32 @@ Team should also make sure that dependencies are restricted.
 Increasing the cohesion, or interdependency within modules, can affect build time, load time, initialization time or run time, therefore some trade-offs have to be done.
 
 \paragraph{Performance}
-is about managing system resources in the face of particular types of demands to achieve acceptable timing behavior. 
+is about managing system resources in the face of particular types of demands to achieve acceptable timing behavior.
 Performance can be measured in terms of throughput and latency. 
 Performance can be improved by reducing demand, or by managing resources more appropriately. 
 Reducing demands will have the side effect of reducing fidelity, or refuse service to some requests. 
-Managing the resources more fitting can be done through scheduling, relication, or simply increase the resources available.
-
-WRITE MORE HERE WEHN WE KNOW MORE!!
-
+Managing the resources more fitting can be done through scheduling, relocation, or simply increase the resources available.
+In particular performance objectives that have to be satisfied are:
+\begin{itemize}
+\item Client must be able to play command colors at least 1 frame per second,
+\item Client need to have minimal possible impact on device's battery. 
+\item Server must be able to recognize more than 80 \% of the present devices,
+\item Server must detect one device in less than 2 seconds,
+\item Server must be able to detect fake lights and cancel their influence on the system,
+\item Server must be responsive and without User Interface freezing,
+\end{itemize}
 
 \paragraph{Usability}
-Usability is the ease of use and learnability of the product.
-Usability includes methods of measuring usability, such as analysis of needs or the study of the principles behind an object's perceived efficiency or elegance. We want our product to be easy to use, understandable, and easy to learn.  
+is the ease of use and learn about the product.
+Usability includes methods of measuring usability, such as analysis of needs or the study of the principles behind an object's perceived efficiency or elegance. DigitalLighter have to be easy to use, understandable, and easy to learn. This can be achieved with good User Interface and logical sequence of actions in order to achieve desired behavior. Therefore team agreed on using only native widgets that all Android users are familiar with, making multiple Activities\footnote{http://developer.android.com/reference/android/app/Activity.html} composed of functionally related options, and providing only functionality given by requirements so visual noise can be reduced. 
+
+\begin{figure}[!ht]
+    \begin{center}
+    \includegraphics[scale=0.5]{requirements/quality.png}
+    \caption{Quality attributes.}
+    \label{img:qualityAttributes}
+    \end{center}
+\end{figure}
 
 \section{Summary}
 In this chapter it was explained how the application's basic life-cycle looks like and the use case diagram \ref{img:usecase} was introduced.
@@ -135,10 +150,3 @@ User stories will be chosen by customer after discussion with team during each p
 Its priorities can be change anytime since the team is trying to be as agile as possible.
 During the planning meeting, if needed, new stories can be created or some stories can be discarded.
 
-\begin{figure}[!ht]
-    \begin{center}
-    \includegraphics[scale=0.4]{images/qualityAttributes.jpg}
-    \caption{Quality attributes.}
-    \label{img:qualityAttributes}
-    \end{center}
-\end{figure}
