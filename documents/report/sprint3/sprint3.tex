@@ -32,7 +32,23 @@ As explained in section \ref{txt:sprint3_planning} the customer was presented th
 
 One of the customers advices on this topic was to contact the project supervisor and ask him to either recommend the relevant department in NTNU or even better the specific persons who might be able to provide needed know-how or at least suggest which approach to choose in order to eventually obtain the most precise results. If the team were to fail getting the relevant information the reasonable amount of time should be spent on carrying out additional research regarding existing solutions, customer stated.
 
-The team's supervisor suggested two persons working for IDI department
+The team's supervisor suggested two persons working for IDI\footnote{\url{http://www.idi.ntnu.no/}} department at NTNU who might be of any help. Nevertheless, nor either of them or the other persons who they suggested were able to recommend any existing solution. Thus the team spend more time on researching the existing solutions using online accessible sources. The outcomes were as follows:
+
+\subsection{Shape detection}
+Since the objective is to detect the device's display which is lit and surrounded by the relatively dark surroundings (and thus sufficiently contrasting) the problem of detecting the device can be simplified to basically detecting the known shape - rectangle. Even though the detection of the specific shape is well described in many online sources including the OpenCV documentation\footnote{\url{http://docs.opencv.org/doc/tutorials/im
+gproc/shapedescriptors/find_contours/find_contours.html}}. The algorithm is based on transforming the image into grayscale, blurring it, thresholding and detecting the edges. Though the team were not able to find any existing solution which could be used right away as the customer required.
+
+\subsection{Color blob detection}
+Another widely used approach comprises of detecting the areas of the specified color, so called \textit{color blobs}. This technique seemed to be even easier to implement as compared to the shape detection. What is more the libraries and working examples exist and those can be utilized conveniently.
+
+\subsubsection{CVblob-for-android}
+The open-source library CVblob-for-Andoid\footnote{\url{https://code.google.com/p/cvblob-for-android/}} was specifically designed for Android platform and it builds on the OpenCV library \textit{cvblob}\footnote{\url{https://code.google.com/p/cvblob/}}. It allows for the detection of the blobs of the specified color and it even features the center of mass estimation. Nevertheless after inspecting the code it was decided to choose the alternative code that provides the OpenCV among its functioning examples (see section \ref{txt:sprint3_openCVcolorblob}) and which is easier to adjust.
+
+\subsubsection{OpenCV color-blob-detection} \label{txt:sprint3_openCVcolorblob}
+OpenCV4Android SDK includes a few examples demonstrating the capabilities of the library. One of them, \textit{color-blob-detection}\footnote{\url{https://github.com/Itseez/opencv/tree/master/samples/android/color-blob-detection}} turned out to suite the needs of DigitalLighter project the best. The example enables the user to select arbitrary color that would be used to detect color blobs. It was rather straightforward to adjust the source code so that the specifically chosen colors would be used to detect the devices' screens. Even though the obtained code cannot be considered as an already working technology as the customer required, given the outcomes of the research and the current knowledge of the team's members this was the most reasonable solution.
+
+
+
 
 \section{Sprint goal}
 The goal of this sprint is having a working application on a mobile phone that can work in two modes.  
