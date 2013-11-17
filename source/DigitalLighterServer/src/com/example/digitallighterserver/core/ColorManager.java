@@ -1,4 +1,4 @@
-package com.example.lightdetector;
+package com.example.digitallighterserver.core;
 
 import java.util.HashMap;
 

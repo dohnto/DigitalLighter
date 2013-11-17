@@ -8,13 +8,36 @@ Since some design patterns were used, the purpose of using specific pattern and 
 The description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
 
 \section{Development view}
+The development view is a view of system's architect and can be described by component diagram.
+It focuses on software module organization in development.
+Component diagram shows components in system and their provided and required interfaces.
 
-\begin{figure}[H]
+Component diagram for server application can be seen in Figure \ref{fig:component_diagram_server}.
+There are five components: \emph{Network}, \emph{Media player},  \emph{Device locating}, \emph{Device detection}, and \emph{Core}.
+
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{softwareArchitecture/component_diagram.pdf}
-	\caption{Activity diagram of server application}
-	\label{fig:activity_diagram_server}
+	\caption{Component diagram of server application}
+	\label{fig:component_diagram_server}
 \end{figure}
+
+
+\paragraph{Network} is a component that provides interface which allows other components to communicate with clients. 
+This includes broadcasting, unicasting and multicasting. 
+It is also responsible for handling new connections from clients and creating new service.
+
+\paragraph{Media player} is a component that provides simple interface consisting of start and stop command. 
+It is responsible for playing actual media and timing for sending control commands to clients.
+
+\paragraph{Device locating} is a component providing two interfaces. 
+It must be able to handle incoming images and also it provides to other components locations of all connected clients.
+
+\paragraph{Device detection} is a component that provides single interface. 
+It accepts image as an input and it returns positions of possible devices.
+
+\paragraph{Core} is a component that handles camera and manager's actions.
+
 
 \section{Process view}
 The process view shows concurrency and distribution of a system and system's processes.
@@ -24,14 +47,14 @@ Process view can be described by activity diagrams.
 You can activity diagrams in Figures \ref{fig:activity_diagram_server} and \ref{fig:activity_diagram_client}. Note, that client application is sending signal action \emph{connect to server}, which is connected to server's event action \emph{new client connected}. 
  All clients connections are stored in datastore \emph{client list} and particular actions require all client connections to be able to send any information to clients.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{softwareArchitecture/activity_server.pdf}
 	\caption{Activity diagram of server application}
 	\label{fig:activity_diagram_server}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{softwareArchitecture/activity_client.pdf}
 	\caption{Activity diagram of client application}
@@ -48,7 +71,7 @@ According to requirement \refreq{N1}, there are two executable files deployed; o
 There is also need for NTP\footnote{http://ntp.org/} server, which will maintain all connected devices synchronized.
 To generalize the architecture design, the \emph{camera} device is treated as a separate device, which will only send its output to server device.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=15cm]{softwareArchitecture/deployment-diagram.pdf}
 	\caption{Deployment diagram}

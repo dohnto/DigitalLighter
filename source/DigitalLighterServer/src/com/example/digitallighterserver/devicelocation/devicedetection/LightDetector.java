@@ -1,4 +1,4 @@
-package com.example.lightdetector;
+package com.example.digitallighterserver.devicelocation.devicedetection;
 
 import java.util.ArrayList;
 import java.util.Iterator;

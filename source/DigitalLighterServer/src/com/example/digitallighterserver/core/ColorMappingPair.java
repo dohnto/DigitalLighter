@@ -1,4 +1,4 @@
-package com.example.lightdetector;
+package com.example.digitallighterserver.core;
 
 public class ColorMappingPair {
 	public String command;

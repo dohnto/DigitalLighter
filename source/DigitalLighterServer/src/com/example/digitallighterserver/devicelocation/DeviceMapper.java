@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.devicelocation;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -13,8 +13,10 @@ import org.opencv.core.Point;
 
 import android.util.Log;
 
-import com.example.lightdetector.ColorManager;
-import com.example.lightdetector.PointCollector;
+import com.example.digitallighterserver.core.ColorManager;
+import com.example.digitallighterserver.core.Configuration;
+import com.example.digitallighterserver.devicelocation.devicedetection.PointCollector;
+import com.example.digitallighterserver.network.ConnectionService;
 
 public abstract class DeviceMapper implements Observer, DeviceLocatingStrategy {
 	protected PointCollector collector; // point collector

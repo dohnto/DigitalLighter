@@ -1,9 +1,10 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.mediaplayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.example.lightdetector.ColorManager;
+import com.example.digitallighterserver.core.ColorManager;
+import com.example.digitallighterserver.core.Configuration;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

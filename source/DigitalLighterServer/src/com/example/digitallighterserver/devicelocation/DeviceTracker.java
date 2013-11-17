@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.devicelocation;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+
 
 public class DeviceTracker implements DeviceLocatingStrategy {
 
