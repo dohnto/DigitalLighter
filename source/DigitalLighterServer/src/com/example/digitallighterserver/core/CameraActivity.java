@@ -1,4 +1,4 @@
-package com.example.lightdetector;
+package com.example.digitallighterserver.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,18 +33,17 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.digitallighterserver.Configuration;
-import com.example.digitallighterserver.ConnectionService;
-import com.example.digitallighterserver.ConnectionService.LocalBinder;
+import com.example.digitallighterserver.devicelocation.DeviceLocatingStrategy;
+import com.example.digitallighterserver.devicelocation.DeviceMapper;
+import com.example.digitallighterserver.devicelocation.DeviceMapperSimple;
+import com.example.digitallighterserver.devicelocation.DeviceMapperTree;
+import com.example.digitallighterserver.devicelocation.DeviceTracker;
+import com.example.digitallighterserver.devicelocation.devicedetection.PointCollector;
+import com.example.digitallighterserver.mediaplayer.MediaPlayer;
+import com.example.digitallighterserver.network.ConnectionService;
+import com.example.digitallighterserver.network.ConnectionService.LocalBinder;
 import com.example.digitallighterserver.DLSApplication;
-import com.example.digitallighterserver.DeviceLocatingStrategy;
-import com.example.digitallighterserver.DeviceMapper;
-import com.example.digitallighterserver.DeviceMapperSimple;
-import com.example.digitallighterserver.DeviceMapperTree;
-import com.example.digitallighterserver.DeviceTracker;
-import com.example.digitallighterserver.MediaPlayer;
 import com.example.digitallighterserver.R;
-import com.example.digitallighterserver.ServiceObserver;
 
 public class CameraActivity extends Activity implements CvCameraViewListener2, Observer, ServiceObserver {
 	private static final String MEDIA_SOURCE = Configuration.MEDIA_SOURCE;
@@ -54,8 +53,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2, O
 	static int tilesX = Configuration.TILES_X;
 	static int tilesY = Configuration.TILES_Y;
 
-	TextView info;
-	BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
+    BlockingQueue<HashMap<String, ArrayList<Point>>> buffer = new LinkedBlockingQueue<HashMap<String, ArrayList<Point>>>();
 
 	int fpsCounter;
 	ConnectionService mService;
