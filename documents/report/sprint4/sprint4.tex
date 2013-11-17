@@ -57,7 +57,7 @@ This is in fact prototype 4 -- \emph{Traffic light control} as can be seen in Se
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=10cm]{sprint4/trafficlight.png}
-	\caption{Traffic Light}
+	\caption{Traffic light}
 	\label{fig:trafficlight}
 \end{figure}
 
@@ -125,19 +125,52 @@ The media player component is from point of process view rather straightforward,
 
 \section{Implementation}
 In the first week the device locating component was implemented during first week and in second week the media player component was implemented.
-You can see the burn down chart for sprint 4 in Figure \ref{fig:Burn4 }.
+You can see the burn down chart for sprint 4 in Figure \ref{fig:Burn4}.
 
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=18cm]{sprint4/BurndownSprint4.png}
 	\caption{Burn down chart for sprint 4}
-	\label{fig:Burn4 }
+	\label{fig:Burn4}
 \end{figure}
+
 \section{Testing}
+There was no unit testing for device locating component, because mocking of network module, which is needed for this testing was estimated with too high value.
+Therefore testing was performed with all modules integrated.
+The team focused on finding the lowest value for waiting which can be seen in Figure \ref{fig:sprint4_activity_diagram}.
+This value was set on 200 milliseconds due to empirical research.
+It should be mentioned, that this value suppose very low delay between sending lit control signal and its performing by client.
+Three mobile devices were used for testing purposes.
+You can see an example of the form of testing in prototype 4 demonstration video\footnote{\url{http://www.youtube.com/watch?v=6mV5ajoZomI}}.
+
+Media player component did not require connected clients and therefore unit testing could be performed.
+For this testing, traffic light media\footnote{\url{https://github.com/dohnto/DigitalLighter/tree/master/source/DigitalLighterServer/assets/3x3/traffic-light}} was chosen.
+After verification, component was integrated to the system and integration testing in real situation was performed.
+
 \section{Occurring risks}
+In this sprint, working prototype was very close to final product.
+Almost all code modules were implemented and integrated and therefore testing of whole prototype could be done quite exhaustively.
+Unfortunately there was lack of mobile devices and also the team could not borrowed any router supporting DNS relay.
+Both customer and supervisor were asked for advice where to gain required hardware, but only negative or very general hints were provided.
+Therefore the testing was performed just with few devices, which cannot be counted as complete.
+There is possibility, that server application is going to have problems with large number of clients.
+
+One team member announced very early in the process phase his absence for second week of this sprint.
+Since the absence was planned for in advance, the team was able to deal with this problem.
+Also the missing member was active beyond working hours.
+
 \section{Customer feedback}
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
 
 \subsection{What went well}
+All implementation related user stories were finished and as a consequence the goal for sprint 4 and the milestone \emph{Traffic light control} were reached.
+The work in implementation part of this project start to escalate and team started to be enthusiastic.
+
+The team was able to prepare and deal with situation, that one member was absent for a whole week.
+
 \subsection{What could be improved}
+Stand-up meetings were not that often anymore.
+Due to other obligations of all members of team and late attendance during work hours, it was difficult find a common time for these meetings.
+Attendance should be more accurate and if absence is known ahead, it should be mentioned to other members.
+
