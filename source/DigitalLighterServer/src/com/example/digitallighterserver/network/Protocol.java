@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.network;
 
 public class Protocol {
 

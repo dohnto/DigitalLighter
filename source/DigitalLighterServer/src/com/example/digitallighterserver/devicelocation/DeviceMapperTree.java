@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.devicelocation;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -8,9 +8,11 @@ import java.util.Observer;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 
-import com.example.digitallighterserver.DeviceMapper;
-import com.example.lightdetector.ColorManager;
-import com.example.lightdetector.ColorMappingPair;
+import com.example.digitallighterserver.core.ColorManager;
+import com.example.digitallighterserver.core.ColorMappingPair;
+import com.example.digitallighterserver.core.Configuration;
+import com.example.digitallighterserver.mediaplayer.CommandCreator;
+import com.example.digitallighterserver.network.ConnectionService;
 
 public class DeviceMapperTree extends DeviceMapper {
 	private ArrayList<ColorMappingPair> RARE_COLORS = new ArrayList<ColorMappingPair>();

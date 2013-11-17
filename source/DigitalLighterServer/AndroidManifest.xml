@@ -30,13 +30,13 @@
         android:required="false" />
 
     <application
-        android:name=".DLSApplication"
+        android:name="com.example.digitallighterserver.DLSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.digitallighterserver.MainActivityServer"
+            android:name="com.example.digitallighterserver.core.MainActivityServer"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -46,18 +46,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.lightdetector.CameraActivity"
+            android:name="com.example.digitallighterserver.core.CameraActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="com.example.digitallighterserver.SettingsActivity"
+   			android:name="com.example.digitallighterserver.core.SettingsActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
         </activity>
 
         <service
-            android:name="com.example.digitallighterserver.ConnectionService"
+            android:name="com.example.digitallighterserver.network.ConnectionService"
             android:exported="false" />
     </application>
 

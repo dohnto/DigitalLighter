@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.devicelocation;
 
 import java.util.ArrayList;
 

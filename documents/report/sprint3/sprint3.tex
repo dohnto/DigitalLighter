@@ -41,7 +41,7 @@ Appropriate output of image processing and mapping module is (left top tile is \
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=7cm,angle=90]{sprint3/sprint3_goal.pdf}
-	\caption{Example of ideal data input for image processing module with 2x2 matrix}
+	\caption[Goal for sprint 3]{Example of ideal data input for image processing module with 2x2 matrix}
 	\label{img:sprint3_goal}
 \end{figure}
 
@@ -110,9 +110,9 @@ It should be mentioned, that each time new image was taken by camera, new thread
 \label{sec:sprint3_implementation}
 Few problems during implementation had occurred. 
 Since the OpenCV library for Java is in early stage, there is some functionality missing.
-One of these is a method \texttt{open(String)} of class \texttt{VideoCapture}\footnote{http://docs.opencv.org/java/org/opencv/highgui/VideoCapture.html}.
+One of these is a method \texttt{open(String)} of class \texttt{VideoCapture}\footnote{\url{http://docs.opencv.org/java/org/opencv/highgui/VideoCapture.html}}.
 In C++ version of OpenCV there exist such a method and it allows programmers to use a video for input for image processing.
-After short research, a fix of this bug was found\footnote{http://code.opencv.org/issues/3207}, but this feature will be added in release 2.4.7.
+After short research, a fix of this bug was found\footnote{\url{http://code.opencv.org/issues/3207}}, but this feature will be added in release 2.4.7.
 Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only single pictures were used for testing.
 
 \begin{figure}[h]
@@ -124,13 +124,13 @@ Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is 
 
 \section{Testing}
 A capability of Java to run on multiple platforms were utilized during testing and initial testing was performed without any Android device.
-There have been created a testing set\footnote{https://github.com/dohnto/DigitalLighter/tree/master/source/others/LightDetectorTester/res/drawable} of simple images used for black box testing.
+There have been created a testing set\footnote{\url{https://github.com/dohnto/DigitalLighter/tree/master/source/others/LightDetectorTester/res/drawable}} of simple images used for black box testing.
 
 After this test, it has been decided to merge module with the rest of the application and perform some integration tests.
-To outline a characteristics of further testing you can see videos \footnote{http://www.youtube.com/watch?v=TcuMlvvAwSQ} \footnote{http://www.youtube.com/watch?v=fhWFAJY7QOg} demonstrating current progress of implementation.
+To outline a characteristics of further testing you can see videos \footnote{\url{http://www.youtube.com/watch?v=TcuMlvvAwSQ}} \footnote{\url{http://www.youtube.com/watch?v=fhWFAJY7QOg}} demonstrating current progress of implementation.
 
 \section{Occurring risks}
-This sprint, the \emph{dead end with technology} risk occurred. 
+This sprint, the \emph{dead end with technology} item from Table \ref{tab:risks} occurred. 
 Since the required functionality (loading mocked videos) was proposed by customer mainly from testing reasons, the fact that the team met dead end was announced to customer with proposition, that the team can spend more time on researching other solutions or simply the final product will lack this feature.
 The customer have chosen second choice.
 

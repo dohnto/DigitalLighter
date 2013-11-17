@@ -1,10 +1,8 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.core;
 
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.lightdetector.ColorManager;
-import com.example.lightdetector.ColorMappingPair;
 
 public class Configuration {
 	// === MEDIA CHOICE =========================================

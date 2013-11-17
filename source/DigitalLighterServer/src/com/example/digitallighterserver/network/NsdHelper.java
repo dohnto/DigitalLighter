@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.network;
+
 import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;

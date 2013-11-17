@@ -1,11 +1,14 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.mediaplayer;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.lightdetector.ColorManager;
+import com.example.digitallighterserver.core.ColorManager;
+import com.example.digitallighterserver.core.Configuration;
+import com.example.digitallighterserver.devicelocation.DeviceLocatingStrategy;
+import com.example.digitallighterserver.network.ConnectionService;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.lightdetector.CameraActivity;
-import com.example.lightdetector.ColorManager;
-import com.example.lightdetector.ColorMappingPair;
+import com.example.digitallighterserver.R;
+import com.example.digitallighterserver.R.id;
+import com.example.digitallighterserver.R.layout;
 
 public class SettingsActivity extends Activity implements OnItemClickListener, OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.example.digitallighterserver;
+package com.example.digitallighterserver.core;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -13,7 +13,13 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.digitallighterserver.ConnectionService.LocalBinder;
+
+import com.example.digitallighterserver.R;
+import com.example.digitallighterserver.R.id;
+import com.example.digitallighterserver.R.layout;
+import com.example.digitallighterserver.R.string;
+import com.example.digitallighterserver.network.ConnectionService;
+import com.example.digitallighterserver.network.ConnectionService.LocalBinder;
 
 public class MainActivityServer extends Activity implements ServiceObserver {
 

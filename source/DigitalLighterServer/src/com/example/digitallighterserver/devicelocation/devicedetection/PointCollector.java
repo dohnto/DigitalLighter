@@ -1,4 +1,4 @@
-package com.example.lightdetector;
+package com.example.digitallighterserver.devicelocation.devicedetection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,8 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 
-import com.example.digitallighterserver.DeviceMapper;
+import com.example.digitallighterserver.core.ColorManager;
+import com.example.digitallighterserver.devicelocation.DeviceMapper;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
