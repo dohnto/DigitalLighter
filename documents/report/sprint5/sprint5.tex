@@ -9,12 +9,12 @@ The recording final demo is planned for Thursday 7th of November, and informing 
 As far as the implementation is concerned the team focused mainly on device detection part as the customer required to speed up this process. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
 In sprint 5 we plan to work further on the report. Our plan is to finish sprint 4, and sprint 5. We also need to work further on the evaluation and the conclusion chapters.  
 
-All implementation related stories for sprint 5 are presented in table \ref{tab:sprint5stories}.
+All implementation related stories for sprint 5 are presented in Table \ref{tab:sprint5stories}.
 \input{sprint5/stories.tex}
 
-All the documentation related stories for sprint 5 are presented in table \ref{tab:sprint5Documentationstories}.
+All the documentation related stories for sprint 5 are presented in Table \ref{tab:sprint5Documentationstories}.
 \input{sprint5/storiesDocumentation.tex}
-All the project management related stories for sprint 5 are presented in table \ref{tab:sprint5storiesProcess}.
+All the project management related stories for sprint 5 are presented in Table \ref{tab:sprint5storiesProcess}.
 \input{sprint5/storiesProcess.tex}
 
 % hous all in total: Estimated: 235  Spent: 230
@@ -41,7 +41,7 @@ At first team was thinking about implementing the clock synchronization from scr
 
 The Berkeley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
 
-As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{\url{https://tools.ietf.org/html/rfc5905\#section-14}}.
+As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to, according to Table \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{\url{https://tools.ietf.org/html/rfc5905\#section-14}}.
 
 Good thing about NTP is that it is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
 
