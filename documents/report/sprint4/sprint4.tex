@@ -5,9 +5,9 @@ Everything from setting our goals to implementation and testing. At the end the 
 The team with the customer planned how to take the project further on a regular planning meeting.
 At this point it was possible to send control signals to multiple clients, and then detect the screens that lit up. 
 It was decided that the plan for this sprint was to combine those two modules, and try to display a short animation.
-This meant that detection of clients' locations must be performed and than connecting its position in a grid with an appropriate socket linked with client.
+This meant that detection of possible clients' locations must be performed and than connecting its position in a grid with an appropriate socket linked with client.
 
-After this detection, commands to all clients must be continuously send with information, what colors should they lit.
+After this locating, commands to all clients must be continuously send with information, what colors should they lit.
 To be more efficient and do not use too much traffic, which could result into delays on network, it was proposed by customer that video should be preprocessed and large chunks of data with timing should be send to clients.
 
 Next, the team with the customer discussed long term planning of the product.
@@ -149,6 +149,14 @@ Since the absence was planned for in advance, the team was able to deal with thi
 Also the missing member was active beyond working hours.
 
 \section{Customer feedback}
+As the team succeeded to implement the most parts of Prototype 4 (see Section \ref{txt:requirements}) the only part left was to create the demonstration of the traffic light, the three (or more) devices ordered vertically displaying red, yellow and green color, the setting reminiscent of the ordinary traffic light. The team managed to finish the implementation in the first half of the sprint so the demonstration video was presented to the customer one week in advance.
+
+The customer expressed his contentment with the goals achieved. He however stated the team should focus more on the speed of detection of the devices. Using current "one-by-one" approach is too time consuming. What is more from now on the team should focus mostly on coming up with the ideas how to present the product in the most immersive way.
+
+On the second meeting during this sprint the team suggested the ideas about what to utilize the created product for. The customer decided to choose the equalizer video effect that would be displayed on the phones while accompanying the played music.
+
+The video presented to the customer can be found on YouTube under the name Prototype 4: \url{http://www.youtube.com/watch?v=6mV5ajoZomI}.
+
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
 You can see the burn down chart for sprint 4 in Figure \ref{fig:Burn4}.
