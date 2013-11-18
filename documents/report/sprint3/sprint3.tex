@@ -28,7 +28,7 @@ We agreed on the date of presentation and showing the running demo -- on Thursda
 Estimated velocity is 240 hours since we agreed on 30 working hours per person per week.
 
 \section{Preliminary studies}
-As explained in section \ref{txt:sprint3_planning} the customer was presented the possible technical approaches which, if followed, might lead to the successful implementation of the image processing module. The customer is well aware of the fact the image processing part itself should be considered rather complex and that it might be tricky to achieve good results while attempting to detect the lit devices' screens. Therefore he stressed out it was his strong requirement that the team would find, research and utilize already existing solutions.
+As explained in Section \ref{txt:sprint3_planning} the customer was presented the possible technical approaches which, if followed, might lead to the successful implementation of the image processing module. The customer is well aware of the fact the image processing part itself should be considered rather complex and that it might be tricky to achieve good results while attempting to detect the lit devices' screens. Therefore he stressed out it was his strong requirement that the team would find, research and utilize already existing solutions.
 
 One of the customers advices on this topic was to contact the project supervisor and ask him to either recommend the relevant department in NTNU or even better the specific persons who might be able to provide needed know-how or at least suggest which approach to choose in order to eventually obtain the most precise results. If the team were to fail getting the relevant information the reasonable amount of time should be spent on carrying out additional research regarding existing solutions, customer stated.
 
@@ -42,7 +42,7 @@ gproc/shapedescriptors/find_contours/find_contours.html}}. The algorithm is base
 Another widely used approach comprises of detecting the areas of the specified color, so called \textit{color blobs}. This technique seemed to be even easier to implement as compared to the shape detection. What is more the libraries and working examples exist and those can be utilized conveniently.
 
 \subsubsection{CVblob-for-android}
-The open-source library CVblob-for-Andoid\footnote{\url{https://code.google.com/p/cvblob-for-android/}} was specifically designed for Android platform and it builds on the OpenCV library \textit{cvblob}\footnote{\url{https://code.google.com/p/cvblob/}}. It allows for the detection of the blobs of the specified color and it even features the center of mass estimation. Nevertheless after inspecting the code it was decided to choose the alternative code that provides the OpenCV among its functioning examples (see section \ref{txt:sprint3_openCVcolorblob}) and which is easier to adjust.
+The open-source library CVblob-for-Andoid\footnote{\url{https://code.google.com/p/cvblob-for-android/}} was specifically designed for Android platform and it builds on the OpenCV library \textit{cvblob}\footnote{\url{https://code.google.com/p/cvblob/}}. It allows for the detection of the blobs of the specified color and it even features the center of mass estimation. Nevertheless after inspecting the code it was decided to choose the alternative code that provides the OpenCV among its functioning examples (see Section \ref{txt:sprint3_openCVcolorblob}) and which is easier to adjust.
 
 \subsubsection{OpenCV color-blob-detection} \label{txt:sprint3_openCVcolorblob}
 OpenCV4Android SDK includes a few examples demonstrating the capabilities of the library. One of them, \textit{color-blob-detection}\footnote{\url{https://github.com/Itseez/opencv/tree/master/samples/android/color-blob-detection}} turned out to suite the needs of DigitalLighter project the best. The example enables the user to select arbitrary color that would be used to detect color blobs. It was rather straightforward to adjust the source code so that the specifically chosen colors would be used to detect the devices' screens. Even though the obtained code cannot be considered as an already working technology as the customer required, given the outcomes of the research and the current knowledge of the team's members this was the most reasonable solution.
@@ -105,7 +105,7 @@ Even though in this particular case device \emph{Camera} part of \emph{Server} d
 \end{figure}
 
 \subsection{Process view}
-You can see the process view represented in Figures \ref{fig:sprint3_activity_diagram} and \ref{fig:sprint3_dfd}. The activity diagram \ref{fig:sprint3_activity_diagram} can be perceived as a subactivity diagram of action \emph{detect clients location} from Figure \ref{fig:activity_diagram_server}.
+You can see the process view represented in Figures \ref{fig:sprint3_activity_diagram} and \ref{fig:sprint3_dfd}. The activity diagram, displayed in Figure \ref{fig:sprint3_activity_diagram}, can be perceived as a subactivity diagram of action \emph{detect clients location} from Figure \ref{fig:activity_diagram_server}.
 It should be mentioned, that each time new image was taken by camera, new thread is created and therefore several processing in the same time can be performed.
 
 \begin{figure}[h]
@@ -135,13 +135,6 @@ In C++ version of OpenCV there exist such a method and it allows programmers to 
 After short research, a fix of this bug was found\footnote{\url{http://code.opencv.org/issues/3207}}, but this feature will be added in release 2.4.7.
 Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only single pictures were used for testing.
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
-	\caption{Burn down chart}
-	\label{fig:Burn3 }
-\end{figure}
-
 \section{Testing}
 A capability of Java to run on multiple platforms were utilized during testing and initial testing was performed without any Android device.
 There have been created a testing set\footnote{\url{https://github.com/dohnto/DigitalLighter/tree/master/source/others/LightDetectorTester/res/drawable}} of simple images used for black box testing.
@@ -165,6 +158,14 @@ The first video presented to the customer can be found on YouTube under the name
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
+You can see the burn down chart in Figure \ref{fig:Burn3}.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
+	\caption{Burn down chart}
+	\label{fig:Burn3}
+\end{figure}
 
 \subsection{What went well}
 Since the preliminary studies concerning image processing started very soon and instead of writing light detection module from scratch an existing code was used, the core of implementation was finished ahead of schedule.
