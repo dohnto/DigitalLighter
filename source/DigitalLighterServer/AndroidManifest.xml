@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.digitallighterserver"
+    package="com.silentducks.digitallighterserver"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -30,13 +30,13 @@
         android:required="false" />
 
     <application
-        android:name="com.example.digitallighterserver.DLSApplication"
+        android:name="com.silentducks.digitallighterserver.DLSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.digitallighterserver.core.MainActivityServer"
+            android:name="com.silentducks.digitallighterserver.core.MainActivityServer"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -46,18 +46,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.digitallighterserver.core.CameraActivity"
+            android:name="com.silentducks.digitallighterserver.core.CameraActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-   			android:name="com.example.digitallighterserver.core.SettingsActivity"
+   			android:name="com.silentducks.digitallighterserver.core.SettingsActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
         </activity>
 
         <service
-            android:name="com.example.digitallighterserver.network.ConnectionService"
+            android:name="com.silentducks.digitallighterserver.network.ConnectionService"
             android:exported="false" />
     </application>
 
