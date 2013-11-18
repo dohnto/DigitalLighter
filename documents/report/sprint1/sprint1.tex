@@ -4,7 +4,7 @@ All from setting  goals to implementation and testing. On the end team will eval
 
 \section{Sprint Planning}
 After assembling all the tools in Sprint 0, team decided to start with the implementation of the core modules.
-As teams understanding of task improved, they were able to come up with user stories from the perspective of user, customer, developer and a student.
+As team's understanding of task improved, they were able to come up with user stories from the perspective of user, customer, developer and a student.
 All user-stories were given to the customer so they can be prioritized. 
 All but user-stories concerning team school obligations, like writing project plan, minutes, meetings with supervisor and attending lectures.
 Team decided to have school tasks as a user stories so time can be better tracked.
@@ -40,33 +40,33 @@ This includes registering services, listening for the client and sending simple 
 Scanning for the services, connecting, receiving signals and play commands on the client.
 Establishing simple communication protocol and implementing Test-Flight in both applications, the server and the client.
 
-The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. It must be evaluated whether to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means we need to finish the sprint 0 chapter, and of course write the sprint 1 chapter.
+The goal for the documentation is to have a good structure for the report, and integrate the project plan in the project report. It must be evaluated whether to write more of remove sections after integrating. The goal is also to finish the chapters that are a part of this sprint, which means that team need to finish the sprint 0 chapter, and write the sprint 1 chapter.
 
 \section {Preliminary studies}
 In this section all research connected to finishing user-stories, taken before work on actual code, will be described, as well as a decisions team made in order to successfully finish sprint 1.
 
 \subsection{Bonjour software}
-The first research of technologies that could help with achieving client-server communication, without writing everything from scratch, was Bonjour software. 
+The first research of technologies that could help with achieving client-server communication, without writing everything from scratch, was Bonjour software\footnote{http://www.apple.com/support/bonjour/}. 
 It is a group of technologies that includes service discovery, address assignment, and hostname resolution. 
 Bonjour locates devices such as printers, other computers, and the services that those devices offer on a local network using multicast Domain Name System (mDNS) service records.
 It is the Apple's implementation of Zero configuration network (Zeroconf).
-Aldo good and very useful tool it is not supported on Android, and since Android is the platform chosen for the DigialLighter product further research must have been carried out. 
-Zeroconf software written in Java with similar set of services as Bonjour seemed to be the best option.
+Although good and very useful tool it is not supported on Android, and since Android is the platform chosen for the DigialLighter product further research must have been carried out.
+Zeroconf software written in Java with similar set of services as Bonjour software seemed to be the best option.
 
 \subsection {Zero configuration (Zeroconf)}
-Zeroconf is a methodology and a set of special technologies that automatically create a usable wireless network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
+Zeroconf\footnote{http://www.zeroconf.org/} is a methodology and a set of special technologies that automatically create a usable wireless network based on the Internet Protocol Suite (TCP/IP) when computers or network peripherals are interconnected. 
 It does not require manual operator intervention or special configuration servers.
 It is assembled of technologies that includes service discovery, addressing assignment, and host name resolution.
 
 
 \subsection{JmDNS library}
-Further research brought JmDNS. 
+Further research brought JmDNS\footnote{http://jmdns.sourceforge.net/}. 
 Java implementation of multi-cast DNS that can be used for service registration and discovery in Local Area Network. 
 It works on most JDK1.6 compatible Virtual Machines, it comes as a library and it is easy to integrate with Android. 
-JmDNS fulfill all of the expectations, but while learning about it, team found that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
+JmDNS fulfill all of the expectations, but while learning about it, team found out that Android itself have built in Nestwork Service Discovery(NSD) that do the same thing.
 
 \subsection{Android Network Service Discovery (NSD)}
-NSD is supported from API version 16. 
+NSD\footnote{http://developer.android.com/training/connect-devices-wirelessly/nsd.html} is supported from API version 16. 
 It allows users to identify other devices on the local network, register services, broadcast connection information, scan for registered services and connect.
 Even with API limitation it is a part of Android platform, no third part libraries are needed, it will evolve with Android and therefore always be working.
 Min API version was not of concern to the customer, so team made a decision of using Android Network Discovery(NSD) for client-server core module.
@@ -75,7 +75,7 @@ Min API version was not of concern to the customer, so team made a decision of u
 For the core communication and organization of our product the client-server architecture was selected as shown in figure \ref{fig:sprint1_arhitecture}.
 Choosing this architecture was very intuitive to do as the project should consist of two applications and overall tasks should be partitioned. 
 Client application should be able to light up different sequences of lights depending on server command signals.
-And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by broadcast.
+And server application should be responsible for awaiting incoming clients connections, mapping clients to the grid and providing command play signals to the clients by unicast and broadcast.
 Communication should be established over wireless network using same router for both applications, the user and the server, and without need for third party server nor Internet connection.
 
 \begin{figure}[H]
@@ -104,7 +104,7 @@ Figure \ref{fig:class_diagram_server} gives an overview of the server class stru
 	\label{fig:class_diagram_server}
 \end{figure}
 
-In the sequence diagram \ref{fig:sprint1_communication} it is showed how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
+On the sequence diagram \ref{fig:sprint1_communication} it is shown how applications can be used. It gives an idea of how the data flows between different parts of the system when it is up and running.
 
 \begin{figure}[H]
 	\centering
@@ -127,10 +127,10 @@ The deployment diagram, displayed in \ref{fig:deployment_diagram} describes the 
 is the application that runs on audience Android device. It is able to discover available services, connects to the one and receives command signals from the server. After receiving commands the client is able to flash screen according to given signal.
 
 \paragraph{Router}
-is inevitable part of client-server communication since project is based on wireless network and zeroconf technologies. In order to support all the demands demands it have to include a DNS relay service. The relay embraces storing of service names and allows look-up stored data to the clients.
+is inevitable part of client-server communication since project is based on wireless network and zeroconf technologies. In order to support all of the demands it has to include a DNS relay service. The relay embraces storing of service names and allows look-up stored data to the clients.
 
 \paragraph{Server}
-is the application that runs on manager's Android device. It have to register service that it provides at router DNS table. Once registered it have to be able to listen for the clients and broadcast command signals to them.
+is the application that runs on manager's Android device. It has to register service it provides at router DNS table. Once registered it have to be able to listen for the clients and broadcast command signals to them.
 
 
 \section{Implementation}
@@ -151,7 +151,7 @@ The risk table 3.3, taken from the risk management section in the planning chapt
 For this sprint most of them did not occur. 
 This is because the hardest technical parts, which is the image processing, is not scheduled until the upcoming sprints. 
 
-The user stories for this sprint was very clear, and the customer did not change any of them in the last minute. The team overestimated some of the user stories, so we did not experience pressure with the time frame. 
+The user stories for this sprint was very clear, and the customer did not change any of them in the last minute. The team overestimated some of the user stories, so pressure with the time frame was not experienced.
 
 The first risk in the risk table describes team members being sick. This did not occur, but what did occur was that that some of team members had to be absent in some of the working hours. 
 The team solved this by having these team members work more independently, and with more flexible hours.  
