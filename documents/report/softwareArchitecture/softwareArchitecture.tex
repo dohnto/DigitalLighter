@@ -12,7 +12,7 @@ The logical view will be described by class diagrams.
 Only core classes will be discussed. 
 Detailed architecture of particular parts will be presented in sprint chapters.
 
-You can see server's class diagram in Figure \ref{fig:architecture_class_diagram_server}.
+You can see server class diagram in Figure \ref{fig:architecture_class_diagram_server}.
 As a starting point in this diagram can be considered instance of class \texttt{MainActivityServer}.
 This class is controller of whole application and handles inputs by manager.
 It also initialize one of the core classes -- \emph{ConnectionService}.
@@ -31,9 +31,15 @@ Mentioned class serves only as intermediary between camera and instance of class
 This object can process incoming images and according to them it updates its inner data structure, which maps sockets into position on grid.
 Two classes implements that interface: \texttt{DeviceMapper} and \texttt{DeviceTracker}.
 First mentioned one is used initially, when there are no assumptions about devices positions.
-After \texttt{DeviceMapper} assigns position to each socket, his role is taken by \texttt{DeviceTracker}, which is able to track movement of devices in time and track the changing position.
+After \texttt{DeviceMapper} assigns position to each socket, his role is taken by \texttt{DeviceTracker}, which is designed\footnote{This class is actually not implemented due to time restriction after discussion with customer. It is only prepared for future extension.} to be able to track movement of devices in time and track the changing position.
 
 Instance of class \texttt{MediaPlayer} provides interface to load a media from a given path and start and stop playing that media.
+
+You can see client class diagram in Figure \ref{fig:architecture_class_diagram_client}.
+Instance of class \texttt{MainActivity} handles inputs from user and controls the flow of the whole application.
+\texttt{SNTPClient} is a class that main responsibility is to synchronize time through network with other devices.
+Instance of class \texttt{Connection} is responsible for connecting to an existing server and also for handling incoming control commands.
+These commands are interpreted by instance of class \texttt{ClientPlayer}.
 
 \begin{figure}[!h]
 	\centering
@@ -137,6 +143,33 @@ To generalize the architecture design, the \emph{camera} device is treated as a 
 Use case diagrams can be considered as scenarios, therefore introduced Figure \ref{img:usecase} can be considered as a scenario.
 
 \section{Used design patterns}
+Design patterns solve specific object oriented design problems and make the design itself more flexible, elegant and reusable \cite[p.~11]{Gamma:1995:DPE:186897}.
+They are proven techniques and they also improve documentation -- due to well-known terminology it is more easy to understand an architecture.
+
+Below, you will find description of used design patterns and their utilization.
+
 \subsection{Strategy}
-\subsection{Model-View-Controller}
+Strategy pattern defines a family of algorithms, encapsulated them and make them interchangeable\cite[p.~349]{Gamma:1995:DPE:186897}.
+This pattern is applicable for example when related classes differs in a behavior or when different variants of algorithms are available.
+
+Strategy pattern was utilized in few cases.
+First, classes \texttt{DeviceMapper} and \texttt{DeviceTracker} are related classes and they differ in the behavior, and therefore there was created an strategy interface \texttt{DeviceLocatingStrategy}.
+Both concrete strategies implements the behavior in their own way.
+
+Since class \texttt{DeviceMapper} is an abstract class, it can be also considered as another strategy.
+In this case, concrete strategies will implement different algorithm of detection of devices' position.
+These concrete strategies will be introduced in Chapters \ref{chap:sprint4} and \ref{chap:sprint5}.
+
 \subsection{Observer}
+Observer pattern defines a dependency one-to-many between objects.
+When the object changes its state, all the dependent objects are automatically notified.
+This pattern is often used when change in state of one object will cause changes in others, but there is unknown the count of these dependent objects.
+It also does not force the developer to tight objects, the design can therefore stay general. \cite[p.~327]{Gamma:1995:DPE:186897}
+
+There was a need for displaying a feedback from device detection component, which is performed by instance of class \texttt{PointCollector}.
+Therefore the \texttt{PointCollector} implements interface \texttt{Observable}.
+One of the dependency objects is instance of class \texttt{CameraActivity}, which draws detected devices into real time camera record.
+Another dependent object is instance of \texttt{DeviceMapper}, which is connecting clients' sockets with positions, and therefore it is also dependent on results of device detection.
+
+\subsection{Model-View-Controller}
+TODO
