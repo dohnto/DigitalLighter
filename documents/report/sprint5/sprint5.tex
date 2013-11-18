@@ -4,9 +4,9 @@ As in previous sprint chapters, work-flow trough sprint 5 will be described. Wha
 
 The planning started with customer meeting at Thursday 24th of October 2013. For the customer, the main event and goal of this sprint, is to finalize the prototype and record the demo video. Therefore planning includes tasks as: collecting phones from friends, researching the companies that do mobile development and borrowing the phones from them, renting the room and recording equipment from university. We planned to borrow phones from friends, but if that did not work we planned to borrow phones from companies.
 
- The recording final demo is planned for Thursday 7th of November, and informing potential phone owners that will be able to share their phones with us is planned at least one week before the event. This way table of potential phones can be crated, and risk of not collecting the sufficient number of devices can be reduced and solved. Recording equipment is planned to be rented or reserved at least 3 days before the event.
+The recording final demo is planned for Thursday 7th of November, and informing potential phone owners that will be able to share their phones with us is planned at least one week before the event. This way table of potential phones can be crated, and risk of not collecting the sufficient number of devices can be reduced and solved. Recording equipment is planned to be rented or reserved at least 3 days before the event.
 
-As far as implementation is concerned it was planned to speed up the detection of devices. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
+As far as the implementation is concerned the team focused mainly on device detection part as the customer required to speed up this process. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
 In sprint 5 we plan to work further on the report. Our plan is to finish sprint 4, and sprint 5. We also need to work further on the evaluation and the conclusion chapters.  
 
 All implementation related stories for sprint 5 are presented in table \ref{tab:sprint5stories}.
@@ -37,15 +37,15 @@ Estimated velocity is 200 hours since every team member will devote 25 working h
 
 \section{Architecture}
 
-At first team was thinking about implementing the clock synchronization from scratch. Using one of the popular algorithms as Berkeley algorithm\footnote{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=\&arnumber=29484}, and adding additional responsibility to server or client application. 
+At first team was thinking about implementing the clock synchronization from scratch. Using one of the popular algorithms as Berkeley algorithm\footnote{\url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=\&arnumber=29484}}, and adding additional responsibility to server or client application. 
 
 The Berkeley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
 
-As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{https://tools.ietf.org/html/rfc5905\#section-14}.
+As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{\url{https://tools.ietf.org/html/rfc5905\#section-14}}.
 
 Good thing about NTP is that it is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
 
-As solution Time Server\footnote{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver} application have been chosen. It will work on same device as Digital Lighter server application, and it will provide same time as Digital Lighter application would. Deployment digram is therefore changed, and now includes NTP server as artifact. 
+As solution Time Server\footnote{\url{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver}} application have been chosen. It will work on same device as Digital Lighter server application, and it will provide same time as Digital Lighter application would. Deployment digram is therefore changed, and now includes NTP server as artifact. 
 
 \begin{figure}[H]
 	\centering
@@ -63,13 +63,9 @@ Change have influence on messages interchange between server and clients. The di
 	\label{fig:sprint5_sequence_diagram}
 \end{figure}
 
-Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added and big amount of time have been saved. This way project architecture follows open/closed principle\footnote{http://msdn.microsoft.com/en-us/magazine/cc546578.aspx}. System is closed for changes, but open for extensions.
+Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added and big amount of time have been saved. This way project architecture follows open/closed principle\footnote{\url{http://msdn.microsoft.com/en-us/magazine/cc546578.aspx}}. System is closed for changes, but open for extensions.
 
-
-
-Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Class \texttt{SNTPClient} makes call to time server in separate thread, and in \texttt{doInBackground} method retrieve NtpMessage object in order extract exact time from server. \texttt{NtpMessage} represents a NTP message, as specified in RFC 2030\footnote{http://www.rfc-base.org/txt/rfc-2030.txt}. The message format is compatible with all versions of NTP and SNTP. This class does not support the optional authentication protocol, and ignores the key ID and message digest fields. For convenience, this class exposes message values as native Java types, not the NTP-specified data formats. For example, timestamps are stored as doubles (as opposed to the NTP unsigned 64-bit fixed point format). However, the contructor NtpMessage(byte[]) and the method toByteArray() allow the import and export of the raw NTP message format.
-
-
+Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Class \texttt{SNTPClient} makes call to time server in separate thread, and in \texttt{doInBackground} method retrieve NtpMessage object in order extract exact time from server. \texttt{NtpMessage} represents a NTP message, as specified in RFC 2030\footnote{\url{http://www.rfc-base.org/txt/rfc-2030.txt}}. The message format is compatible with all versions of NTP and SNTP. This class does not support the optional authentication protocol, and ignores the key ID and message digest fields. For convenience, this class exposes message values as native Java types, not the NTP-specified data formats. For example, timestamps are stored as doubles (as opposed to the NTP unsigned 64-bit fixed point format). However, the constructor NtpMessage(byte[]) and the method toByteArray() allow the import and export of the raw NTP message format.
 
 \begin{figure}[H]
 	\centering
@@ -79,23 +75,36 @@ Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Clas
 \end{figure}
 
 \section{Implementation} \label{txt:sprint5_immplementation}
-
+This section is devoted to describing the improved algorithm used for faster detection of the devices. So far the simple detection using "one-by-one" approach as explained in Section \ref{txt:sprint4_processview} was used. The drawback of this algorithm is that it performs with time complexity $T(n) = O(n)$ and thus it might get inadmissibly long. Thus more advanced algorithm based on divide and conquer design paradigm was developed. It will be described in greater detail in next sections.
 
 \subsection{Algorithm}
+The algorithm is based on the assumption that the image processing module originally designed and implemented during Sprint 3 (see Section \ref{txt:sprint3_architecture}) is capable of recognizing multiple different colors. Then it possible to recursively divide all the devices into the groups of the same color until there is only one device left in each subgroup. This algorithm is referred to as the \textit{tree algorithm} since the recursive divison gradually creates the tree where each node excluding the leaf nodes has $n$ children where $n = number\_of\_colors\_used\_during\_detection$.
+
+Figure \ref{fig:sprint5_tree_alg} depicts the example of the detection process of the 16 devices while recognizing among 4 different colors: red, green, blue, yellow. In this example the ideal conditions where each device precisely fits into one single matrix tile are set. 
+
+One step of the algorithm can be represented as generating the new level of the tree (STEP 0, STEP 1 and STEP 2 in Figure \ref{fig:sprint5_tree_alg}). Given the specific tree level each node represents the group of devices that are to be lit with the same color. Devices are assigned to the groups randomly and it is required that each group would consist of the the same number of devices if possible (otherwise some groups might differ by 1 device).
+
+Once it was decided which device will be lit by which color the server sends relevant signals to all of the devices and then detects the color blobs in the image. It saves the position of detected colors and proceeds to the next step.
+
+The algorithm ends when there are is no more than one device in each color group. Then the saved history of the colors sent to each device can be compared to the actual detected colors and their positions which results in detecting the real position of each device.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=18cm, angle=-90]{sprint5/tree_algorithm.eps}
-	\caption{Tree algorithm schematic explanation.}
-	\label{fig:tree_alg}
+		\includegraphics[width=18cm, angle=90]{sprint5/tree_algorithm.eps}
+	\caption[Tree algorithm detection example]{Tree algorithm detection example. There are sixteen devices and four detected colors which means it is possible to recognize the position of all devices within two steps.}
+	\label{fig:sprint5_tree_alg}
 \end{figure}
 
-
 \subsection{Limitations}
-- placement resolution limited to tiles
+The main drawback of this algorithm is the position resolution. It is only be capable of distinguishing between all devices if there are no more than one device in each tile. Otherwise the ambiguities occur and the algorithm finishes in the state where some devices are assigned more then one possible positions.
 
-\subsection{Possible improvements}
-- improve on position resolution - track the position more precisely
+Nevertheless it has been decided to disregard this issue as this project only serves the purpose of proof of concept and if needed these minor limitations might be improved on performing additional techniques that would solve the problem.
+
+\subsection{Modification}
+It might happen that certain devices are not recognized using this algorithm. Therefore this algorithm is accompanied by the former "one-by-one" approach. This fallback option is only invoked if there happen to be devices that failed to being recognized.
+
+\subsection{Performance}
+Given the divide and conquer base of this algorithm the time complexity is logarithmic, $T(n) = O(\log n)$, as compared to linear time complexity of the former algorithm. This is though the best-case scenario where all the devices are correctly recognized. In the worst case scenario where no device is recognized during performing tree algorithm the time complexity would be $T(n) = O(\log n + n)$.
 
 \begin{figure}[H]
 	\centering
