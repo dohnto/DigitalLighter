@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.digitallighter"
+    package="com.silentducks.digitallighter"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -17,13 +17,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".DLApplication"
+        android:name="com.silentducks.digitallighter.DLApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.digitallighter.MainActivity"
+            android:name="com.silentducks.digitallighter.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -34,12 +34,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.digitallighter.JmDNSActivity"
+            android:name="com.silentducks.digitallighter.JmDNSActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.example.dns.MulticastTestActivity"
+            android:name="com.silentducks.dns.MulticastTestActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>

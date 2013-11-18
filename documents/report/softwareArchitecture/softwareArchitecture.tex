@@ -5,20 +5,40 @@ The design is made with emphasis on generality, therefore it is possible, that i
 Since some design patterns were used, the purpose of using specific pattern and its advantages will be discussed in the end of this chapter.
 
 \section{Logical view}
-The description of the functional requirements of the architecture. The client and the server are decomposed into a set of key abstractions, taken(mostly) from the problem domain, in the form of objects or object classes.
+The logical view  primarily describes functional requirements \cite[p.~3]{Kruchten:1995:VMA:624610.625529}. 
+The client and the server are decomposed into a set of key abstractions, taken from the problem domain, in the form of classes. 
 
+The logical view will be described by class diagrams.
+Only core classes will be discussed. 
+Detailed architecture of particular parts will be presented in sprint chapters.
 
+You can see server's class diagram in Figure \ref{fig:architecture_class_diagram_server}.
+As a starting point in this diagram can be considered instance of class \texttt{MainActivityServer}.
+This class is controller of whole application and handles inputs by manager.
+It also initialize one of the core classes -- \emph{ConnectionService}.
+Instance of this class has ability to send commands to clients using methods such as \texttt{broadcast} or \texttt{unicast}, and it is responsible for creating a service on local network.
+Its interface is used through whole system.
 \begin{figure}[!h]
 	\centering
 		\includegraphics[width=20cm, angle=90]{softwareArchitecture/class_diagram_server.png}
-	\caption{The work breakdown structure}
+	\caption{Server class diagram}
 	\label{fig:architecture_class_diagram_server}
 \end{figure}
+
+When inputs from camera are needed, the instance of class \texttt{CameraActivity} is emerged.
+Since that moment, it takes responsibility for all handling inputs from manager and also for displaying feedback of other components on application screen.
+Mentioned class serves only as intermediary between camera and instance of class which implements interface \texttt{DeviceLocatingStrategy}.
+This object can process incoming images and according to them it updates its inner data structure, which maps sockets into position on grid.
+Two classes implements that interface: \texttt{DeviceMapper} and \texttt{DeviceTracker}.
+First mentioned one is used initially, when there are no assumptions about devices positions.
+After \texttt{DeviceMapper} assigns position to each socket, his role is taken by \texttt{DeviceTracker}, which is able to track movement of devices in time and track the changing position.
+
+Instance of class \texttt{MediaPlayer} provides interface to load a media from a given path and start and stop playing that media.
 
 \begin{figure}[!h]
 	\centering
 		\includegraphics[width=10cm]{softwareArchitecture/class_diagram_client.png}
-	\caption{The work breakdown structure}
+	\caption{Client class diagram}
 	\label{fig:architecture_class_diagram_client}
 \end{figure}
 
