@@ -190,3 +190,25 @@ is the final product. It is containing of two separate applications \emph{client
 
 \paragraph{Pixel} is a client user's mobile phone under control of the manager.
 
+\paragraph{Grid} is a matrix used as a abstraction for mapping mobile devices into single pixel of image.
+To different sizes of images, different grid sizes are connected. 
+For example imagine, that on screen made of mobile devices, there will be played a single letter \emph{D}.
+This letter can be represented as a image displayed in Figure \ref{fig:grid_d} with size 4x4 pixels.
+A grid is a 4x4 matrix created according to the image as shown in Figure \ref{fig:grid_mobiles}.
+
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{introduction/grid_d.png}
+                \caption{Image to be displayed}
+                \label{fig:grid_d}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{introduction/grid_mobiles.png}
+                \caption{Appropriate grid with mobile devices}
+                \label{fig:grid_mobiles}
+        \end{subfigure}
+        \caption{Grid example}\label{fig:grid}
+\end{figure}
