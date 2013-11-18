@@ -20,18 +20,41 @@ This sprint is 10 days (8 work days) long. From 11th of November 2013 to 20th of
 Estimated velocity is 160 hours since we agreed on 25 working hours per person per week. 
 
 \section{Sprint Goal}
+The goals set to this sprint comprise of recording the final demonstration video using the newly created imagery, editing the video, finalizing and refining the report, creating the presentation and rehearsing. It was also agreed with the supervisor that the team would present demonstrate the presentation in draft one day before 21st November so that the supervisor would be able to give the last advices.
 
 \section{System Burndown}
 
-\section{Architecture}
 \section{Implementation}
-\section{Testing}
+As the application is already finished there were no need for the implementation during Sprint 6. However this section will summarize the types of imagery designed for the recording of the final demonstration video and explain the choices.
+
+\subsection{Static images}
+As the main implementation problems the team was facing during last sprint stem from the inaccurate time synchronization it has been decided to use static images as one of the sources of displayed imagery. Static images are perfectly suitable for showing the detection algorithm together with sending the commands work as expected while avoiding the synchronization issues.
+
+As the team was able to collect around 18 devices the 4x4 pixels resolution pictures were used. The resolution can be considered too low for displaying any meaningful content, there are some possibilities (requiring a bit of imagination) though. The example can be seen in figure \ref{fig:sprint6_marge}.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=5cm]{./sprint6/marge.png}
+	\caption{Depiction of the famous cartoon character Marge Simpson displayed on 4 x 4 pixels.}
+	\label{fig:sprint6_marge}
+\end{figure}
+
+\subsection{Animations}
+Despite the synchronization issues it is still possible to play the animations of as low value of fps\footnote{frames per second} as 5 or less. The examples of the animations can be seen in the video published under the name Prototype 6 on YouTube: \url{http://www.youtube.com/watch?v=bBIvLHwQe7I}.
+
 \section{Occurring risks}
+The lack of time due to the fact the recording of the final demonstration video must have been redone might be considered a major risk. This is specified as a \textit{Unrealistic time estimate} in Table \ref{tab:risks} summarizing the measures that should be taken in order to reduce impact of occurring risks. The team decided to perform the suggested measure \textit{"Work overtime"} and actually spent more hours on finalizing the product than formerly estimated.
+
 \section{Customer feedback}
-- agreed that we fulfilled all the requirements
+In the middle of the sprint the special meeting with customer was held in order to present him the draft of the final presentation video. Customer stated that the video proves the team reached all the goals and fulfilled all the requirements specified. He also suggested to extend the video and add more content. This will be done while creating the final demonstration video.
+
+The video presented to the customer can be found on YouTube under the name Prototype 6: \url{http://www.youtube.com/watch?v=bBIvLHwQe7I}.
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
 
 \subsection{What went well}
+It must be noted that the team managed to prepare better for the final demonstration video recording as compared to the last sprint where it only encountered the performance issues for the first time. The devices operated mostly as expected and it was possible to record sufficiently enough video material which was later used for creating the presentation.
+
 \subsection{What could be improved}
+The team failed to finish the work within estimated time frame which lead to taking the necessary measures such as working overtime and prioritizing the most important tasks while omitting some less significant ones.
