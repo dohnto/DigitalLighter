@@ -66,13 +66,14 @@ Appropriate output of image processing and mapping module is (left top tile is \
 \end{figure}
 
 \section{Architecture} \label{txt:sprint3_architecture}
-In this section it will be described image processing module using 4+1 architectural view model.
+In this section it will be described device detection component module using 4+1 architectural view model.
 
 \subsection{Logical view}
-You can see a class diagram of new classes created in sprint 3 in Figure \ref{fig:class_diagram_sprint3}. We can divide these new classes into three categories. 
+You can see a class diagram of new classes created in sprint 3 in Figure \ref{fig:class_diagram_sprint3}. 
+We can divide these new classes into three categories. 
 
 Into the first category we count classes \texttt{LightDetector}, \texttt{TileMapper} and \texttt{PointCollector}. 
-These classes are a core of image processing module. 
+These classes are a core of device detection module. 
 The only visible method for working with this module is \texttt{PointCollector}'s method \texttt{collect}.
 This function accepts two parameters: first is the image where mobile phone's screen detection should be done and second is a list of colors of screens which should be detected. 
 Method \texttt{collect} is run asynchronously (as a new thread due to possible high time demanding operations) and therefore it was designed as a design pattern \texttt{Observer}
@@ -82,9 +83,11 @@ Class \texttt{LightDetector} is responsible for detecting location of color blob
 Results as a list of pixel's position of blobs are passed as a return value of function \texttt{getBlobCoords}. 
 These values are fetched by instance of \texttt{PointCollector} and passed to \texttt{TileMapper}, which is responsible for mapping points into appropriate tiles in grid.
 
-In second category there is only class \texttt{CameraActivity}, who is responsible for handling outputs from camera or mock device and also gives appropriate feedback on screen of mobile (draws grid and marks detected blobs).
+In second category there is only class \texttt{CameraActivity}, which is responsible for handling outputs from camera or mock device and also gives appropriate feedback on screen of mobile (draws grid and marks detected blobs).
 
-In last category there is class \texttt{ColorManager}, which is standalone class and in application there is only need for one instance. Therefore it was designed as a \texttt{Singleton} pattern \cite[p.~144]{Gamma:1995:DPE:186897}. Its main purpose is to handle transformations of different color formats such as special library, network and internal formats.
+In last category there is class \texttt{ColorManager}, which is standalone class and in application there is only need for one instance. 
+Therefore it was designed as a \texttt{Singleton} pattern \cite[p.~144]{Gamma:1995:DPE:186897}. 
+Its main purpose is to handle transformations of different color formats such as special library, network and internal formats.
 
 \begin{figure}[h]
 	\centering
