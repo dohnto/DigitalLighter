@@ -135,13 +135,6 @@ In C++ version of OpenCV there exist such a method and it allows programmers to 
 After short research, a fix of this bug was found\footnote{\url{http://code.opencv.org/issues/3207}}, but this feature will be added in release 2.4.7.
 Due to this discovery, there has been abandoned (at least until OpenCV 2.4.7 is released) a plan for mocking a video and only single pictures were used for testing.
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
-	\caption{Burn down chart}
-	\label{fig:Burn3 }
-\end{figure}
-
 \section{Testing}
 A capability of Java to run on multiple platforms were utilized during testing and initial testing was performed without any Android device.
 There have been created a testing set\footnote{\url{https://github.com/dohnto/DigitalLighter/tree/master/source/others/LightDetectorTester/res/drawable}} of simple images used for black box testing.
@@ -159,6 +152,14 @@ Since the pre-demo video was presented to customer during regular meetings,
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
+You can see the burn down chart in Figure \ref{fig:Burn3}.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
+	\caption{Burn down chart}
+	\label{fig:Burn3}
+\end{figure}
 
 \subsection{What went well}
 Since the preliminary studies concerning image processing started very soon and instead of writing light detection module from scratch an existing code was used, the core of implementation was finished ahead of schedule.
