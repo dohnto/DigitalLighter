@@ -6,7 +6,7 @@ The planning started with customer meeting at Thursday 24th of October 2013. For
 
  The recording final demo is planned for Thursday 7th of November, and informing potential phone owners that will be able to share their phones with us is planned at least one week before the event. This way table of potential phones can be crated, and risk of not collecting the sufficient number of devices can be reduced and solved. Recording equipment is planned to be rented or reserved at least 3 days before the event.
 
-As far as implementation this sprint we only planned to speed up the detection of devices. We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
+As far as implementation is concerned it was planned to speed up the detection of devices. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
 In sprint 5 we plan to work further on the report. Our plan is to finish sprint 4, and sprint 5. We also need to work further on the evaluation and the conclusion chapters.  
 
 All implementation related stories for sprint 5 are presented in table \ref{tab:sprint5stories}.
@@ -39,9 +39,9 @@ Estimated velocity is 200 hours since every team member will devote 25 working h
 
 At first team was thinking about implementing the clock synchronization from scratch. Using one of the popular algorithms as Berkeley algorithm\footnote{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=\&arnumber=29484}, and adding additional responsibility to server or client application. 
 
-The Barkley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
+The Berkeley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
 
-As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research have brought to Network Time Protocol(NTP)\footnote{https://tools.ietf.org/html/rfc5905\#section-14}.
+As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{https://tools.ietf.org/html/rfc5905\#section-14}.
 
 Good thing about NTP is that it is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
 
@@ -78,7 +78,24 @@ Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Clas
 	\label{fig:Time_Sync_class }
 \end{figure}
 
-\section{Implementation}
+\section{Implementation} \label{txt:sprint5_immplementation}
+
+
+\subsection{Algorithm}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=18cm, angle=-90]{sprint5/tree_algorithm.eps}
+	\caption{Tree algorithm schematic explanation.}
+	\label{fig:tree_alg}
+\end{figure}
+
+
+\subsection{Limitations}
+- placement resolution limited to tiles
+
+\subsection{Possible improvements}
+- improve on position resolution - track the position more precisely
 
 \begin{figure}[H]
 	\centering

@@ -1,4 +1,4 @@
-In this chapter, product architecture is described using 4 + 1 architectural view model. It is based on the multiple concurrent views and therefore better explanation of architecture can be provided.
+In this chapter, product architecture is described using 4 + 1 architectural view model \footnote{Ph. Kruchten, "The 4+1 View Model of Architecture," IEEE Software, vol. 12 (6), pp. 45-50, 1995.}. It is based on the multiple concurrent views and therefore better explanation of architecture can be provided.
 Only high level design will be presented in this chapter and in each sprint, specific, detailed architecture will be described.
 The design is made with emphasis on generality, therefore it is possible, that in particular sprints in the architecture section it will be adapted to specific situation.
 
@@ -44,7 +44,7 @@ The process view shows concurrency and distribution of a system and system's pro
 It can also show communication between these units.
 Process view can be described by activity diagrams.
 
-You can activity diagrams in Figures \ref{fig:activity_diagram_server} and \ref{fig:activity_diagram_client}. Note, that client application is sending signal action \emph{connect to server}, which is connected to server's event action \emph{new client connected}. 
+You can see activity diagrams in Figures \ref{fig:activity_diagram_server} and \ref{fig:activity_diagram_client}. Note, that client application is sending signal action \emph{connect to server}, which is connected to server's event action \emph{new client connected}. 
  All clients connections are stored in datastore \emph{client list} and particular actions require all client connections to be able to send any information to clients.
 
 \begin{figure}[h]
