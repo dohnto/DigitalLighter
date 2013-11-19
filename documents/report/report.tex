@@ -68,10 +68,12 @@
     Netlight AS
     \horrule{2pt}
     }  
-\author{Agnethe Soraa,
-Tomas Dohnalek,
+\author{
 Jan Bednarik,
-Miloš Jovac \\
+Tomas Dohnalek,
+Miloš Jovac,
+Agnethe Soraa,
+\\
 \normalsize Project supervisor: Anh Nguyen Duc}
 \date{\today}
     \usepackage[bottom]{footmisc}
@@ -80,11 +82,71 @@ Miloš Jovac \\
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
 \setcounter{tocdepth}{1}
 
+
+%________ TITLE PAGE __________________________________________________________
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic publisher logo
+\newcommand*{\titleDL}{\begingroup % Create the command for including the title page in the document
+\centering % Center all text
+
+\vspace*{\baselineskip} % White space at the top of the page
+\scshape % Small caps
+TDT4290 Customer Driven Project \\ % Tagline(s) or further description
+Department of Computer and Information Science\\
+Norwegian University of Science and Technology\\[10px]
+
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
+
+{\LARGE ROCK CONCERT AUDIENCE\\[0.3\baselineskip] AS A SCREEN}\\[0.2\baselineskip] % Title
+%{\LARGE THE BIG BOOK\\ OF \\[0.3\baselineskip] \LaTeX ~TEMPLATES}\\[0.2\baselineskip] % Title
+
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+
+
+
+
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=6cm]{images/ntnu-logo.eps}
+\end{figure}
+
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+\today\par % Location and year
+\vfill % Whitespace between editor names and publisher logo
+
+\begin{minipage}[b]{200px}
+Group 5 members \\[5px]
+{\Large Jan Bednarik \\ Tomas Dohnalek \\ Milos Jovac \\ Agnethe Soraa\par} % Editor list
+\end{minipage}
+\begin{minipage}[b]{200px}\raggedleft
+Customer \\[5px]
+{\Large Netlight AS\par}
+\vspace{1.2em}
+Customer representative\\[5px]
+{\Large Peder Kongelf\par} % Editor list
+\vspace{1.2em}
+Advisor\\[5px]
+{\Large Anh Nguyen Duc \par} % Editor list
+\end{minipage}
+
+
+
+
+
+\endgroup}
+%________ TITLE PAGE __________________________________________________________
+
 \begin{document}
-\maketitle
+%\maketitle
+
+\pagestyle{empty}
+\titleDL
 
 \pagenumbering{roman}
-\setcounter{page}{2}
+\setcounter{page}{1}
 \chapter*{Abstract}
 \input{abstract/abstract.tex}
 
@@ -96,6 +158,16 @@ Miloš Jovac \\
 %\setcounter{page}{3}
 
 
+
+%- NTNU Logo with the Univeristy name
+%- Department of Computer and Information Science
+%- Course code and title
+%- Customer
+%- Project title
+%- Group number
+%- Names of group members
+%- Name of advisor
+%- Name of customer representative (s)
 \listoffigures
 \listoftables
 
