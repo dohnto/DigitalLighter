@@ -105,7 +105,7 @@ Given the divide and conquer base of this algorithm the time complexity is logar
 \section{Occurring risks}
 \label{sec:sprint5_occuring_risks}
 First time during development process, team have encountered the risk that might influence successful finish of the project. 
-Restarting of client devices during runtime is noted again. This issue didn't happen for a while and source of it have been previously attached to TestFlight library as described in Section \ref{section:test_flight_bug}. As number of testing devices become bigger, multiple phones started to behave the same way and it was obvious that TestFlight library was not the real problem. 
+Restarting of client devices during runtime is noted again. This issue didn't happen for a while and source of it have been previously attached to TestFlight library as described in Section \ref{section:test_flight_bug}. As number of testing devices become bigger, multiple phones started to behave the same way and it was obvious that TestFlight library was not the real problem. According to risk management strategy recorded under "Dead end with technologies" in risk table \ref{tab:risks}, team decided to do throughly research for alternative solutions. 
 
 Further research lead to the reason of client restarting - race condition inside \texttt{NsdManager} class. The issue is registered on the Android issues list\footnote{\url{https://code.google.com/p/android/issues/detail?id=35585}} and has been fixed on Oct 18. 2013. Release is planned for Android 4.4 so only changing Android NSD for some of the previous technologies could solve the problem. 
 
