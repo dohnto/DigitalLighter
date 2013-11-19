@@ -3,12 +3,12 @@ As in previous sprint chapters, work-flow trough sprint 5 will be described. Wha
 
 \section{Sprint planning}
 
-The planning started with customer meeting at Thursday 24th of October 2013. For the customer, the main event and goal of this sprint, is to finalize the prototype and record the demo video. Therefore planning includes tasks as: collecting phones from friends, researching the companies that do mobile development and borrowing the phones from them, renting the room and recording equipment from university. We planned to borrow phones from friends, but if that did not work we planned to borrow phones from companies.
+The planning started with customer meeting at Thursday 24th of October 2013. For the customer, the main event and goal of this sprint, is to finalize the prototype and record the demo video. Therefore planning includes tasks as: collecting phones from friends, researching the companies that do mobile development and borrowing the phones from them, renting the room and recording equipment from university. Team agreed to borrow phones from friends, but if that did not work backup plan was to borrow phones from companies.
 
 The recording final demo is planned for Thursday 7th of November, and informing potential phone owners that will be able to share their phones with us is planned at least one week before the event. This way table of potential phones can be crated, and risk of not collecting the sufficient number of devices can be reduced and solved. Recording equipment is planned to be rented or reserved at least 3 days before the event.
 
-As far as the implementation is concerned the team focused mainly on device detection part as the customer required to speed up this process. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). We planned that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor we also needed to implement a predefined gallery.
-In sprint 5 we plan to work further on the report. Our plan is to finish sprint 4, and sprint 5. We also need to work further on the evaluation and the conclusion chapters.  
+As far as the implementation is concerned the team focused mainly on device detection part as the customer required to speed up this process. In order to achieve this task the \textit{tree algorithm} for detection was developed (see Section \ref{txt:sprint5_immplementation}). Plan is that the final demo would show an equalizer since the theme for the whole project was a rock concert. Therefor the team also needed to implement a predefined gallery.
+In sprint 5 team also plan to work further on the report, to finish sprint 4, and sprint 5 and also to work further on the evaluation and the conclusion chapters.  
 
 All implementation related stories for sprint 5 are presented in Table \ref{tab:sprint5stories}.
 \input{sprint5/stories.tex} All the documentation related stories for sprint 5 are presented in Table \ref{tab:sprint5Documentationstories}.
@@ -79,7 +79,7 @@ One step of the algorithm can be represented as generating the new level of the 
 
 Once it was decided which device will be lit by which color the server sends relevant signals to all of the devices and then detects the color blobs in the image. It saves the position of detected colors and proceeds to the next step.
 
-The algorithm ends when there are is no more than one device in each color group. Then the saved history of the colors sent to each device can be compared to the actual detected colors and their positions which results in detecting the real position of each device.
+The algorithm ends when there is no more than one device in each color group. Then the saved history of the colors sent to each device can be compared to the actual detected colors and their positions which results in detecting the real position of each device.
 
 \begin{figure}[H]
 	\centering
@@ -99,12 +99,7 @@ It might happen that certain devices are not recognized using this algorithm. Th
 \subsection{Performance}
 Given the divide and conquer base of this algorithm the time complexity is logarithmic, $T(n) = O(\log n)$, as compared to linear time complexity of the former algorithm. This is though the best-case scenario where all the devices are correctly recognized. In the worst case scenario where no device is recognized during performing tree algorithm the time complexity would be $T(n) = O(\log n + n)$.
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=18cm]{sprint5/BurndownSprint5.png}
-	\caption{Burn down chart.}
-	\label{fig:Burn5 }
-\end{figure}
+
 
 \section{Testing}
 \section{Occurring risks}
@@ -124,6 +119,31 @@ At that time, working on next core module (image processing), with knowledge tha
 
 Finally the customer agreed on adding another user story with high priority - Replace NSD communication module with one of the technologies previously researched.
 
+\paragraph{First fix}
+Best NSD replacement technology according to previous research in Sprint 1\ref{subsection:jmdns_desc} was JmDNS library. 
+Client and server communication module has been changed with JmDNS. Library is written for Java and is well documented.
+Migration to new technology was therefore fast, but it had some issues when working on Android platform. Clients are not able to resolve registered service.
+Detection of existing service is possible, but when client try to resolve additional information shown on Figure \ref{fig:DNS record inherit graph } like Address, JmDNS will return null.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=17cm]{sprint5/jmdns.png}
+	\caption{DNS record inherit graph.}
+	\label{fig:DNS record inherit graph }
+\end{figure}
+
+It is important to say that this was not the case with all of the devices. Some of them, like Samsung Galaxy S2, was able to resolve detected services. It was clear that partially working solution is not good enough. After trying to fix the issue, and searching for answer on-line team decided to research additional alternative solutions.
+
+\paragraph{Final fix}
+Further research led to David Simmons multicast support application\footnote{https://github.com/simmons/netlib} on Android devices. His solution works on all Android devices beginning with system version 2.2. Big surprise was trying his application for detecting NSD created service, and JmDNS created services. It was working almost instantly with NSD, and all services ever created on test router were easy recognized and resolved. Since race condition were happening only on client devices, and empirically best match for registering/detecting and resolving service was NSD/netlib, team decided to keep different libraries that communication modules for server and client are based on. Final communication modules and their respective libraries are shown on Figure \ref{fig:Communication modules }
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=9cm]{sprint5/com.png}
+	\caption{Communication modules specific libraries.}
+	\label{fig:Communication modules }
+\end{figure}
+
 \section{Customer feedback} \label{txt:sprint5_customerfeedback}
 The main goal of this sprint was to collect as many devices as possible and use them to display various types of imagery including the equalizer effect which was chosen by the customer as the possibly most spectacular for the viewer. As the team encountered a few serious performance issues regarding the network communication and the time synchronization it was not able to deliver the demonstration video of the flawless animation. On the contrary due to technical issues the team was only able to display obviously not properly working animations on the borrowed phones. Nevertheless two demonstration videos were recorded and presented to the customer.
 
@@ -133,6 +153,13 @@ The first video presented to the customer can be found on YouTube under the name
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=18cm]{sprint5/BurndownSprint5.png}
+	\caption{Burn down chart.}
+	\label{fig:Burn5 }
+\end{figure}
 
 \subsection{What went well}
 \subsection{What could be improved}
