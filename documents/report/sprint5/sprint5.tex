@@ -105,10 +105,9 @@ Given the divide and conquer base of this algorithm the time complexity is logar
 \section{Occurring risks}
 \label{sec:sprint5_occuring_risks}
 First time during development process, team have encountered the risk that might influence successful finish of the project. 
-Restarting of client devices during runtime is noted. This issue didn't happen very often in the past, and source of it have been attached to not very stable Android device in team possession. Team were unable to replicate this error on other devices, and recklessly marked it as a isolated case. As number of testing devices become bigger multiple phones started to behave the same and it was obvious that it is not isolated problem. 
+Restarting of client devices during runtime is noted again. This issue didn't happen for a while and source of it have been previously attached to TestFlight library as described in Section \ref{section:test_flight_bug}. As number of testing devices become bigger, multiple phones started to behave the same way and it was obvious that TestFlight library was not the real problem. 
 
-Researching Internet for similar problems lead to the
-reason of client restarting - race condition inside \texttt{NsdManager} class. The issue is registered on the Android issues list\footnote{\url{https://code.google.com/p/android/issues/detail?id=35585}} and has been fixed on Oct 18. 2013. Release is planned for Android 4.4 so only changing Android NSD for some of the previous technologies can solve the problem. 
+Further research lead to the reason of client restarting - race condition inside \texttt{NsdManager} class. The issue is registered on the Android issues list\footnote{\url{https://code.google.com/p/android/issues/detail?id=35585}} and has been fixed on Oct 18. 2013. Release is planned for Android 4.4 so only changing Android NSD for some of the previous technologies could solve the problem. 
 
 At that time, working on next core module (image processing), with knowledge that issue will be gone with next release of Android system, was preferable by the customer. For that reason team exchanged few e-mails with the customer explaining that previous decision to stick to Android NSD have multiple bad effects on the recording of final prototype:
 \begin{itemize}
@@ -140,7 +139,7 @@ Further research led to David Simmons multicast support application\footnote{htt
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=9cm]{sprint5/com.png}
-	\caption{Communication modules specific libraries.}
+	\caption{Illustration of communication modules specific libraries.}
 	\label{fig:Communication modules }
 \end{figure}
 
