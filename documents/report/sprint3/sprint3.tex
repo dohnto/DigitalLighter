@@ -28,7 +28,7 @@ We agreed on the date of presentation and showing the running demo -- on Thursda
 Estimated velocity is 240 hours since we agreed on 30 working hours per person per week.
 
 \section{Preliminary studies}
-As explained in Section \ref{txt:sprint3_planning} the customer was presented the possible technical approaches which, if followed, might lead to the successful implementation of the image processing module. The customer is well aware of the fact the image processing part itself should be considered rather complex and that it might be tricky to achieve good results while attempting to detect the lit devices' screens. Therefore he stressed out it was his strong requirement that the team would find, research and utilize already existing solutions.
+As explained in Section \ref{txt:sprint3_planning} the customer was presented the possible technical approaches which, if followed, might lead to the successful implementation of the image processing (device detection) module. The customer is well aware of the fact the image processing part itself should be considered rather complex and that it might be tricky to achieve good results while attempting to detect the lit devices' screens. Therefore he stressed out it was his strong requirement that the team would find, research and utilize already existing solutions.
 
 One of the customers advices on this topic was to contact the project supervisor and ask him to either recommend the relevant department in NTNU or even better the specific persons who might be able to provide needed know-how or at least suggest which approach to choose in order to eventually obtain the most precise results. If the team were to fail getting the relevant information the reasonable amount of time should be spent on carrying out additional research regarding existing solutions, customer stated.
 
@@ -56,12 +56,12 @@ Input type and output are for both modes common -- input is an image or video an
 In the first mode, real video from mobile's camera will be treated as an input and on the other hand in the second mode mock data (image or video) are treated as an input.
 
 You can see example of input with matrix 2x2 in Figure \ref{img:sprint3_goal}. 
-Appropriate output of image processing and mapping module is (left top tile is \texttt{[0,0]} and right top tile is \texttt{[1, 0]}): \texttt{\{blue,[0,1]\}, \{red,[0,0]\}, \{green,[1,1]\}}.
+Appropriate output of device detection module is (left top tile is \texttt{[0,0]} and right top tile is \texttt{[1, 0]}): \texttt{\{blue,[0,1]\}, \{red,[0,0]\}, \{green,[1,1]\}}.
 
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=7cm,angle=90]{sprint3/sprint3_goal.pdf}
-	\caption[Goal for sprint 3]{Example of ideal data input for image processing module with 2x2 matrix}
+	\caption[Goal for sprint 3]{Example of ideal data input for device detection module with 2x2 matrix}
 	\label{img:sprint3_goal}
 \end{figure}
 
@@ -92,7 +92,7 @@ Its main purpose is to handle transformations of different color formats such as
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=16.2cm]{sprint3/sprint3.png}
-	\caption{Sprint 3 light detection module class diagram}
+	\caption{Sprint 3 device detection module class diagram}
 	\label{fig:class_diagram_sprint3}
 \end{figure}
 
@@ -157,7 +157,8 @@ During the implementation the team realized it might be tricky to achieve good r
 
 The customer also added the user story regarding collecting the mobile devices for the final presentation as this might not be easy to achieve and it must be plan well ahead of time.
 
-The first video presented to the customer can be found on YouTube under the name Prototype 2.1: \url{http://www.youtube.com/watch?v=TcuMlvvAwSQ}. The second video is published under the name Prototype 3: \url{http://www.youtube.com/watch?v=fhWFAJY7QOg}.
+The first video presented to the customer can be found on YouTube under the name Prototype~2.1\footnote{\url{http://www.youtube.com/watch?v=TcuMlvvAwSQ}}. 
+The second video is published under the name Prototype~3\footnote{\url{http://www.youtube.com/watch?v=fhWFAJY7QOg}}.
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
@@ -165,13 +166,14 @@ You can see the burn down chart in Figure \ref{fig:Burn3}.
 
 \begin{figure}[h]
 	\centering
-		\includegraphics[width=18cm]{sprint3/BurndownSprint3.png}
-	\caption{Burn down chart}
+		\includegraphics[width=14cm]{burndowns/sprint3.eps}
+	\caption{Burn down chart for sprint 3}
 	\label{fig:Burn3}
 \end{figure}
 
 \subsection{What went well}
-Since the preliminary studies concerning image processing started very soon and instead of writing light detection module from scratch an existing code was used, the core of implementation was finished ahead of schedule.
+Since the preliminary studies concerning image processing started very soon and instead of writing device detection module from scratch an existing code was used, the core of implementation was finished ahead of schedule. 
+Also all documentation stories were reached according to plan.
 
 \subsection{What could be improved}
 Due to misunderstanding about customer's demands regarding using existing solution, extra time was required for additional preliminary studies resulting to the same output as the first preliminary study concerning image processing. 
@@ -179,11 +181,11 @@ Due to misunderstanding about customer's demands regarding using existing soluti
 In the end, the customer approved using OpenCV as a best option.
 Therefore the communication with customer should be more precise and accurate and if any ambiguity occurs, it should be consulted with customer as soon as possible.
 
-From the beginning it was obvious, that the light detection module's performance affected by level of light.
+From the beginning it was obvious, that the device detection module's performance is affected by level of light.
 During the testing the team was uncertain when the performance is sufficient, because the question of lighting was not discussed enough.
 After this experience, an proposal to customer was made: if similar situation occurs, acceptance tests should be prepared and approved by the customer.
 
-Last but not least, documentation stories XX YY ZZ were not finished due to need to refining previously written chapters.
+Last but not least, implementation story \textbf{I3.2} was not finished, due to \emph{dead end} described in Section \ref{sec:sprint3_implementation}.
 
 Also, daily stand ups were often omitted due to late attendance.
 Even though the workload is 30 hours per week per person, the efficiently spend time is much lower, therefore the workload was decreased to 25 hours per week per person (it better reflects the reality).
