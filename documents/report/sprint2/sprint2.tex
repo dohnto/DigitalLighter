@@ -41,15 +41,39 @@ All of the above is extended so it works for several clients connected to the se
 Goals about the report are to refine the report and write the sections needed to be up to speed with the report. This means that sprint 1 chapter has to be finished same as sprint 2 chapter. 
 
 \section{Architecture}
-\section{Implementation}
+Biggest changes in architecture, comparing to previous sprint, is possibility of connecting multiple clients to the server and sending same commands with multiple playing instructions to the clients. 
+
+Adding support for multiple clients was straight forward. Changing one socket instance for array of sockets. Sending same signal to multiple clients is done by iterating trough all the sockets and sending same signal that have been previously sent to single client.
+
+Change of the protocol and example of playing command instruction message is given in Implementation Section \ref{section:impl}
+
+
+\section{Implementation} \label{section:impl}
+For sending/receiving commands with multiple playing instructions communication protocol had to be changed. New command message that server sends to client is shown on Figure \ref{fig:Command_new}.
 
 \begin{figure}[H]
-	\centering
-		\includegraphics[width=18cm]{sprint2/BurndownSprint2.png}
-	\caption{Burn down chart}
-	\label{fig:Burn2 }
+      	\centering
+      		\includegraphics[width=16cm]{sprint2/protocol.png}
+      	\caption{Command message with multiple instructions}
+      	\label{fig:Command_new}
 \end{figure}
+Coding:
+\begin{itemize}
+\item[] \textcolor{red!80}{$\bullet$} color to play(hexadecimal),
+\item[] \textcolor{green!100}{$\bullet$} color-time separator,
+\item[] \textcolor{blue!100}{$\bullet$} duration(milliseconds),
+\item[] \textcolor{black!100}{$\bullet$} one instruction separator.
+\end{itemize}
+
+
+Particular command on Figure \ref{fig:Command_new} is composed of 3 instructions. First one is "Play red for 5 seconds", than "play green for 3 seconds" and on the end "play blue for 1 second".
+
+Playing this messages on client side is matter of parsing the instruction with proper separator, and setting up time counter that will change background color in right moment.
+
 \section{Testing}
+\label{section:test_flight_bug}
+During regular testing of application functionality, it was noticed that client get restarted from time to time. It was impossible to replicate the use case that lead to this error. Crashing and restarting of clients were random and rare. After catching some of the log error messages, it was possible to see that all of them have TestFlight tag. As a solution the TestFlight library has been removed from both applications, the client and the server. At dozens of additional tests error didn't occur and this issue is considered solved.  
+
 \section{Occurring risks}
 
 The risk table, presented in Table \ref{tab:risks}, shows many different risks that can occur. 
@@ -78,8 +102,21 @@ The customer was asked to give the advice on certain chapters of the report the 
 
 The video presented to the customer can be found on YouTube under the name Prototype 2: \url{http://www.youtube.com/watch?v=98Q3nYTAxlw}.
 
+
+
+
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
+
+Actual burn down chart can be seen on Figure \ref{fig:Burn2}.  
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=18cm]{sprint2/BurndownSprint2.png}
+	\caption{Burn down chart}
+	\label{fig:Burn2}
+\end{figure}
+
 
 \subsection{What went well}
 The team reached the sprint 2 goals. 
