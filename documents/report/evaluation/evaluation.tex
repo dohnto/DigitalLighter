@@ -264,8 +264,28 @@ In this section you can read about main used technologies and tools during devel
 Emphasis is placed on problems encountered during using these tools and technologies.
 
 \subsection{Android}
+A brief description of Android operating system have been given in Section \ref{subsec:image_processing_library}. Building system under this platform had some advantages and disadvantages. Main points of both groups will be presented but bottom line goes in favor of positive points - Android OS was a good choice.
 
-\subsection{OpenCV}
+Disadvantages:
+\begin{itemize}
+\item Platform fragmentation - Right now, there are so many different devices out there, it is extremely difficult to put together an application that even runs on all of them.
+\item Late support for multicast DNS-based discovery - For now only Android 4.1 adds support this feature, and that leave more than 30\% of the devices behind. Even working devices have issue described in Section \ref{sec:sprint5_occuring_risks}.
+\item OpenCV library for Android is still relatively new and missing some of the original library features as described in Section \ref{subsec:openCV_reflection}.
+\end{itemize}
+
+Advantages:
+\begin{itemize}
+\item Good documentation - Android is very well documented and covered with training tutorials and lessons \footnote{http://developer.android.com/training/index.html}. This helped the team members who have not previously met with programming mobile applications. 
+
+\item Large community - This means a lot of answered questions, and lot of developers ready to help you with problems. In some situations it was enough to check few forums, and developing problems will be solved.
+
+\item Biggest part of the market share - Considering the survey carried on by the well established analyst, the company IDC, as of Q2 2013 Google's Android OS held almost 80 \% of the market share\footnote{\url{http://www.idc.com/getdoc.jsp?containerId=prUS24257413}}. This means that even with cut of 30\% because of platform fragmentation, team can target the biggest number of the devices. With changed networking module as described in Section \ref{sec:sprint5_occuring_risks} Digital Lighter Client application can be deployed on more than 95\% of the Android devices. This also means that team was able to easier collect sufficient number of devices for final demo video.
+
+\item Big number of third party libraries - Popularity of platform made everyone porting all kind of libraries to Android. Team was using some of them during the development process like OpenCV and JmDNS. 
+\end{itemize}
+
+\subsection{OpenCV} \label{subsec:openCV_reflection}
+
 OpenCV is an open source computer vision library briefly described in Section \ref{subsec:image_processing_library}.
 It is a very useful library, which saved the team a lot of time instead of implementing image processing parts themselves
  -- whole light detection module was just enhanced demonstration example of OpenCV functionality.
