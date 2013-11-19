@@ -105,7 +105,7 @@ Given the divide and conquer base of this algorithm the time complexity is logar
 \section{Occurring risks}
 \label{sec:sprint5_occuring_risks}
 First time during development process, team have encountered the risk that might influence successful finish of the project. 
-Restarting of client devices during runtime is noted again. This issue didn't happen for a while and source of it have been previously attached to TestFlight library as described in Section \ref{section:test_flight_bug}. As number of testing devices become bigger, multiple phones started to behave the same way and it was obvious that TestFlight library was not the real problem. 
+Restarting of client devices during runtime is noted again. This issue didn't happen for a while and source of it have been previously attached to TestFlight library as described in Section \ref{section:test_flight_bug}. As number of testing devices become bigger, multiple phones started to behave the same way and it was obvious that TestFlight library was not the real problem. According to risk management strategy recorded under "Dead end with technologies" in risk table \ref{tab:risks}, team decided to do throughly research for alternative solutions. 
 
 Further research lead to the reason of client restarting - race condition inside \texttt{NsdManager} class. The issue is registered on the Android issues list\footnote{\url{https://code.google.com/p/android/issues/detail?id=35585}} and has been fixed on Oct 18. 2013. Release is planned for Android 4.4 so only changing Android NSD for some of the previous technologies could solve the problem. 
 
@@ -148,17 +148,20 @@ The main goal of this sprint was to collect as many devices as possible and use 
 
 The customer were familiarized with the problems that lead to the faulty performance. He encouraged the team to prepare new demonstration videos that would show the imagery specifically adjusted in a way that it would not be obvious the team faces synchronization issues: lower fps, static images or abstract effects to list a few suggestions.
 
-The first video presented to the customer can be found on YouTube under the name Demonstration - Equalizer [out of sync]: \url{http://www.youtube.com/watch?v=cDBcgPt1Sq8}. The second video is published under the name Demonstation - Czech flag: \url{http://www.youtube.com/watch?v=MmTdFDsHTbk}.
+The first video presented to the customer can be found on YouTube under the name Demonstration - Equalizer [out of sync]\footnote{\url{http://www.youtube.com/watch?v=cDBcgPt1Sq8}}. 
+The second video is published under the name Demonstation - Czech flag\footnote{\url{http://www.youtube.com/watch?v=MmTdFDsHTbk}}.
 
 \section{Retrospective}
 This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
 
 \begin{figure}[h]
 	\centering
-		\includegraphics[width=18cm]{sprint5/BurndownSprint5.png}
+		\includegraphics[width=14cm]{burndowns/sprint5.eps}
 	\caption{Burn down chart.}
 	\label{fig:Burn5 }
 \end{figure}
 
 \subsection{What went well}
 \subsection{What could be improved}
+
+Documentation user stories \textbf{D5.3} and \textbf{D5.4} were not completed.
