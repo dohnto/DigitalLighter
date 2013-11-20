@@ -83,26 +83,26 @@ is the degree to which the product is available to as many users as possible.
 Accessibility can be viewed as the "ability to access" and benefit from the product. 
 To achieve accessibility team plan to fulfill following requirements:
 \begin{enumerate}
-\item[\textbf{N1}] \label{req_N1} Product must be developed as two separate application, server and a client.
+\item[\textbf{N1}] \label{req_N1} Product must be developed as two separate applications, server and a client.
 \item[\textbf{N2}] \label{req_N2} Client side application must work on Android platform.
 \item[\textbf{N3}] \label{req_N3} Application must be deployed to Google Play application store.
 \end{enumerate}
 
 \paragraph{Maintainability}
-- the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy. 
+-- the product needs to isolate defects or their cause, prevent unexpected breakdowns, correct defects and repair or replace faulty components. If one component need to be replaced, then the system should do this without having to replace still-working parts. The product also needs make future maintenance easy. 
 
 \paragraph{Performance}
-is about managing system resources in the face of particular types of demands to achieve acceptable system behavior. In particular performance objectives that have to be satisfied are:
+-- is about managing system resources in the face of particular types of demands to achieve acceptable system behavior. In particular performance objectives that have to be satisfied are:
 \begin{itemize}
-\item [\textbf{N4}] \label{req_N4}  Client must be able to play command colors at least 1 frame per second,
-\item [\textbf{N5}] \label{req_N5} Client need to have minimal possible impact on device's battery, 
+\item [\textbf{N4}] \label{req_N4}  Client must be able to play command colors at least 1 frame per second.
+\item [\textbf{N5}] \label{req_N5} Client need to have minimal possible impact on device's battery.
 \item [\textbf{N6}] \label{req_N6} Server must be able to detect fake lights and cancel their influence on the system,
-\item [\textbf{N7}] \label{req_N7} Server must be responsive and without User Interface freezing,
+\item [\textbf{N7}] \label{req_N7} Server must be responsive and without User Interface freezing.
 \item[\textbf{N8}] \label{req_N8} The product must support at least 16 client devices.
 \end{itemize}
 
 \paragraph{Modifiability}
-- code must be prepared for changes, and this can only be done by increase cohesion, and reduce coupling. 
+-- code must be prepared for changes, and this can only be done by increase cohesion, and reduce coupling. 
 If the modules get built smaller, the risk of having to make a change will be reduced. 
 Team should also make sure that dependencies are restricted. 
 Increasing the cohesion, or interdependency within modules, can affect build time, load time, initialization time or run time, therefore some trade-offs have to be done. By all means system must satisfy following requirement:
@@ -111,12 +111,12 @@ Increasing the cohesion, or interdependency within modules, can affect build tim
 \end{itemize}
 
 \paragraph{Interoperability}
-describes the extent to which systems and devices can exchange data, and interpret that shared data. Digital Lighter server and client application should be able to mutually share specific structure or format of data that is preserved and unaltered during the process. For this purpose:
+-- describes the extent to which systems and devices can exchange data, and interpret that shared data. Digital Lighter server and client application should be able to mutually share specific structure or format of data that is preserved and unaltered during the process. For this purpose:
 \begin{itemize}
 \item[\textbf{N10}] \label{req_N10} The communication protocol should be established.
 \end{itemize}
 
-\paragraph{Usability} - DigitalLighter have to be easy to use, understandable, and easy to learn. This can be achieved with good User Interface and logical sequence of actions in order to achieve desired behavior. Therefore team should use only native widgets that all Android users are familiar with, making multiple Activities\footnote{\url{http://developer.android.com/reference/android/app/Activity.html}} composed of functionally related options, and providing only functionality given by requirements so visual noise can be reduced. 
+\paragraph{Usability} -- DigitalLighter have to be easy to use, understandable, and easy to learn. This can be achieved with good User Interface and logical sequence of actions in order to achieve desired behavior. Therefore team should use only native widgets that all Android users are familiar with, making multiple Activities\footnote{\url{http://developer.android.com/reference/android/app/Activity.html}} composed of functionally related options, and providing only functionality given by requirements so visual noise can be reduced. 
 
 \begin{figure}[!ht]
     \begin{center}
