@@ -24,7 +24,8 @@ public class ClientPlayer {
 
 	// ========================================================================================================
 	// ADD ONE COMMAND. COMMAND FORMAT: (color(hex):duration(msec)) EXAMPLE: ("#ff00ff:5")
-	// FOR MULTIPLE COMMANDS CONCATENATE WITH '|' EXAMPLE: ("#ff00ff:5|#ffabcf:7")
+	// FOR MULTIPLE COMMANDS CONCATENATE WITH '|' EXAMPLE: ("#ff00ff:5|#ffabcf:7") - 
+	// THIS IS OLD. COMMAND LOOKS DIFFERENT NOW
 	// ========================================================================================================
 
 	public void addCommand(String command) {
