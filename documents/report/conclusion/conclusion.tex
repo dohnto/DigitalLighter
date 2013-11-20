@@ -1,37 +1,62 @@
-
-
+In this chapter the summary of the project results will be summarized. Both applications which the final product consists of will be described and their main features together with the main limitations will be listed.  The functional and non-functional requirements will be reflected on so that it would be cleared that all of the project objectives were fulfilled. 
 
 \section{Final Product}
-- detailed description about how the client and server app look like and how it works.
+It was agreed with the customer that the final product would be split into to separate applications, the server-side and client-side part. Despite the fact the main responsibilities of the server (including processing the images and performing the detection, location and time synchronizations) represent computationally intensive tasks the customer insisted on implementing the server as a mobile application. The main reason is to enable the prospective power users or even developers to utilize the framework also for the other domains besides displaying imagery on the music concert crowd. The client-side on the other hand might be considered relatively simple application that only registers to the server and continuously changes the screen color according to the received textual commands.
 
 \subsection{Server-side application}
 
-Maybe we can present milestones reached
+\paragraph{Logic}
+The server-side application is implemented in Java programming language using standard Google Android API and it supports the devices running on Android OS version 2.2 or higher. For the image processing module the Java version of OpenCV library was used and the networking is handled using the freely accessible library netlib. The time synchronization module uses the NTP time protocol and as an NTP server it uses the Android application Time server\footnote{\url{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver}} which must be downloaded and run prior to the server-side application. The application Digital Lighter Server can be downloaded through the online store Google Play\footnote{\url{https://play.google.com/store/apps/details?id=com.silentducks.digitallighterserver}}
+
+For the detection the server uses the \textit{tree algorithm} as explained in Section \ref{txt:sprint5_immplementation} with the fallback option of linear \textit{one-by-one} algorithm. It can be chosen by the user how many colors should be used for the detection but the recommended value is three, specifically blue, white and red. The server is packed with a few images and animations of the various sizes and aspect ratios so that they could be played on the client devices right away.
+
+\paragraph{GUI}
+The graphical user interface should be as simple as possible as it only requires the user to set the server name, choose the number of colors for the detection and select the media to be played. GUI design of the server can be seen in he Figure \ref{fig:Server_UI}.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=5cm]{conclusion/server_ui.png}
 	\caption{Server UI}
-	\label{fig:Server_UI }
+	\label{fig:Server_UI}
 \end{figure}
 
 \subsection{Client-side application}
+
+\paragraph{Logic} 
+As described in the introduction of this chapter the client application should be as simple as possible, so that it would run seamlessly on the wide range of Android phones and so that no user would come across any inconveniences preventing them from using the application. The client application only enables the user to choose one of the services that are offered on the local network and connect to them. From this point the client only waits for the signals to be continuously received from the server, parsing the textual protocol and responding to the single commands by changing the color of its screen.
+
+The application Digital Lighter Client can be downloaded through the online store Google Play\footnote{\url{https://play.google.com/store/apps/details?id=com.silentducks.digitallighter}}.
+
+\paragraph{GUI}
+Similarly to the server-side application also the client GUI should be as simple as possible. The only task the user should perform is to manually select the offered service and connect. Then there is an option to hide the user interface buttons which can improve on the success rate of the detection. The GUI is depicted in the Figure \ref{fig:Client_UI}
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=7cm]{conclusion/user_ui.png}
 	\caption{Client UI}
-	\label{fig:Client_UI }
+	\label{fig:Client_UI}
 \end{figure}
 
 \subsection{Functionalities}
-???
-%\section{Evaluation criteria}
-%\section{Evaluation Results}
-%\section{Conclusion}
-%\section{Discussion}
+
+
+\section{Limitations}
+
+
+\paragraph{FPS}
+
+\paragraph{Detection}
+
+\paragraph{Environment}
+
+\paragraph{Fixed position}
+
+\paragraph{One device in a tile}
+
 \section{Further work}
-%\section{Reflection}
+
 \section{Summary}
+
 During this project the "blablabla" was designed. ...
 
 
