@@ -1,8 +1,8 @@
-In this chapter, product architecture is described using 4 + 1 architectural view model \cite{Kruchten:1995:VMA:624610.625529}. It is based on the multiple concurrent views and therefore better explanation of architecture can be provided.
-Only high level design will be presented in this chapter and in each sprint, specific, detailed architecture will be described.
+In this chapter, the product architecture is described using the 4 + 1 architectural view model \cite{Kruchten:1995:VMA:624610.625529}. It is based on the multiple concurrent views and therefore better explanation of architecture can be provided.
+Only the high level design will be presented in this chapter and in each sprint. The specific and detailed architecture will be described.
 The design is made with emphasis on generality, therefore it is possible, that in particular sprints in the architecture section it will be adapted to specific situation.
 
-Since some design patterns were used, the purpose of using specific pattern and its advantages will be discussed in the end of this chapter.
+Since some design patterns were used, the purpose of using this specific pattern and its advantages will be discussed in the end of this chapter.
 
 \section{Logical view}
 The logical view  primarily describes functional requirements \cite[p.~3]{Kruchten:1995:VMA:624610.625529}. 
@@ -25,8 +25,8 @@ Its interface is used through whole system.
 	\label{fig:architecture_class_diagram_server}
 \end{figure}
 
-When inputs from camera are needed, the instance of class \texttt{CameraActivity} is emerged.
-Since that moment, it takes responsibility for all handling inputs from manager and also for displaying feedback of other components on application screen.
+When inputs from the camera is needed, the instance of class \texttt{CameraActivity} is emerged.
+Since that moment, it takes responsibility for all handling inputs from manager and also for displaying feedback of other components on the application screen.
 Mentioned class serves only as intermediary between camera and instance of class which implements interface \texttt{DeviceLocatingStrategy}.
 This object can process incoming images and according to them it updates its inner data structure, which maps sockets into position on grid.
 Two classes implements that interface: \texttt{DeviceMapper} and \texttt{DeviceTracker}.
@@ -50,7 +50,7 @@ These commands are interpreted by instance of class \texttt{ClientPlayer}.
 
 
 \section{Development view}
-The development view is a view of system's architect and can be described by component diagram.
+The development view, is a view of  the system's architecture.It can be described by a component diagram.
 It focuses on software module organization in development.
 Component diagram shows components in system and their provided and required interfaces.
 
@@ -66,7 +66,7 @@ There are five components: \emph{Network}, \emph{Media player},  \emph{Device lo
 
 \paragraph{Network} is a component that provides interface which allows other components to communicate with clients. 
 This includes broadcasting, unicasting and multicasting. 
-It is also responsible for handling new connections from clients and creating new service.
+It is also responsible for handling the new connections from clients and creating new service.
 
 \paragraph{Media player} is a component that provides simple interface consisting of start and stop command. 
 It is responsible for playing actual media and timing for sending control commands to clients.
@@ -125,7 +125,7 @@ You can see activity diagrams in Figures \ref{fig:activity_diagram_server} and \
 
 \section{Physical view}
 The physical view \cite{Kruchten:1995:VMA:624610.625529} describes a mapping of software onto hardware. 
-It takes into account non-functional requirements of the system and it can be described by deployment diagrams.
+It takes into account the non-functional requirements of the system, and it can be described by deployment diagrams.
 
 Deployment diagram depicting physical view can be seen in Figure \ref{fig:architecture_deployment_diagram}.
 According to requirement \refreq{N1}, there are two executable files deployed; one deployed to client device and second to server device.
@@ -140,11 +140,11 @@ To generalize the architecture design, the \emph{camera} device is treated as a 
 \end{figure}
 
 \section{Scenarios}
-Use case diagrams can be considered as scenarios, therefore introduced Figure \ref{img:usecase} can be considered as a scenario.
+Use case diagrams can be considered as scenarios, and is therefore introduced in Figure \ref{img:usecase}.
 
 \section{Used design patterns}
 Design patterns solve specific object oriented design problems and make the design itself more flexible, elegant and reusable \cite[p.~11]{Gamma:1995:DPE:186897}.
-They are proven techniques and they also improve documentation -- due to well-known terminology it is more easy to understand an architecture.
+They are proven techniques and they also improve documentation -- due to well-known terminology it is easier to understand an architecture.
 
 Below, you will find description of used design patterns and their utilization.
 
@@ -166,7 +166,7 @@ When the object changes its state, all the dependent objects are automatically n
 This pattern is often used when change in state of one object will cause changes in others, but there is unknown the count of these dependent objects.
 It also does not force the developer to tight objects, the design can therefore stay general. \cite[p.~327]{Gamma:1995:DPE:186897}
 
-There was a need for displaying a feedback from device detection component, which is performed by instance of class \texttt{PointCollector}.
+There was a need for displaying a feedback from device detection component, which is performed by the instance of class \texttt{PointCollector}.
 Therefore the \texttt{PointCollector} implements interface \texttt{Observable}.
 One of the dependency objects is instance of class \texttt{CameraActivity}, which draws detected devices into real time camera record.
 Another dependent object is instance of \texttt{DeviceMapper}, which is connecting clients' sockets with positions, and therefore it is also dependent on results of device detection.
