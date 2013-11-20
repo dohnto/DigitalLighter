@@ -34,11 +34,36 @@ At first team was thinking about implementing the clock synchronization from scr
 
 The Berkeley algorithm requires feedback communication from clients by implementing receiving message system on server. Calculating the time offset on server and adjusting local times on clients. The protocol will have to expended in order to support clock sync communication. Although this approach will work, lot of changes on existing architecture have to be done.
 
-As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also part of Risk management strategy where team have to be careful not to implement things they are not suppose to, according to Table \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{\url{https://tools.ietf.org/html/rfc5905\#section-14}}.
+As focus of this project is on proving the concept, and time for big implementation parts or structure changes is not sufficient, team agreed on researching alternative solutions before start implementing. This is also a part of risk management strategy where team have to be careful not to implement things they are not suppose to, according to Table \ref{tab:risks}. Further research has brought the team to Network Time Protocol (NTP)\footnote{\url{https://tools.ietf.org/html/rfc5905\#section-14}}.
 
 Good thing about NTP is that it is used for variable-latency data networks. It was only needed to find application that provide NTP service, and change client code to call this service and determine what is a local time offset before connecting to Digital Lighter server application. In that case, change of existing architecture will be minimal, and it will play only on client application. No server, or protocol will have to be changed.
 
-As solution Time Server\footnote{\url{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver}} application have been chosen. It will work on same device as Digital Lighter server application, and it will provide same time as Digital Lighter application would. Deployment digram is therefore changed, and now includes NTP server as artifact. 
+As solution Time Server\footnote{\url{https://play.google.com/store/apps/details?id=com.icecoldapps.timeserver}} application have been chosen. It will work on same device as Digital Lighter server application, and it will provide same time as Digital Lighter application would.
+
+\subsection{Logical view}
+Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Class \texttt{SNTPClient} makes call to time server in separate thread, and in \texttt{doInBackground} method retrieve NtpMessage object in order extract exact time from server. \texttt{NtpMessage} represents a NTP message, as specified in RFC 2030\footnote{\url{http://www.rfc-base.org/txt/rfc-2030.txt}}. The message format is compatible with all versions of NTP and SNTP. This class does not support the optional authentication protocol, and ignores the key ID and message digest fields. For convenience, this class exposes message values as native Java types, not the NTP-specified data formats. For example, timestamps are stored as doubles (as opposed to the NTP unsigned 64-bit fixed point format). However, the constructor NtpMessage(byte[]) and the method toByteArray() allow the import and export of the raw NTP message format.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=14cm]{sprint5/sprint5_class_diagram.png}
+	\caption{Time sync class diagram}
+	\label{fig:Time_Sync_class }
+\end{figure}
+
+Change have influenced message interchange between server and clients as well. The difference comparing to old sequence diagram is given at Figure \ref{fig:sprint5_sequence_diagram}. New calls are colored red. It is important that time server get started before registering service to the network.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=9cm]{sprint5/communication}
+	\caption{Sequence diagram}
+	\label{fig:sprint5_sequence_diagram}
+\end{figure}
+
+
+
+
+\subsection{Physical view}
+Deployment digram is also changed, and now includes NTP server as artifact. Additional artifact can be seen on Figure \ref{fig:sprint5_deployment_diagram}
 
 \begin{figure}[H]
 	\centering
@@ -47,25 +72,9 @@ As solution Time Server\footnote{\url{https://play.google.com/store/apps/details
 	\label{fig:sprint5_deployment_diagram}
 \end{figure}
 
-Change have influence on messages interchange between server and clients. The difference comparing to old sequence diagram is given at Figure \ref{fig:sprint5_sequence_diagram}. New calls are colored red. 
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=9cm]{sprint5/communication}
-	\caption{Sequence diagram}
-	\label{fig:sprint5_sequence_diagram}
-\end{figure}
 
-Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added and big amount of time have been saved. This way project architecture follows open/closed principle\footnote{\url{http://msdn.microsoft.com/en-us/magazine/cc546578.aspx}}. System is closed for changes, but open for extensions.
-
-Logical view of added module is shown in Figure \ref{fig:Time_Sync_class }. Class \texttt{SNTPClient} makes call to time server in separate thread, and in \texttt{doInBackground} method retrieve NtpMessage object in order extract exact time from server. \texttt{NtpMessage} represents a NTP message, as specified in RFC 2030\footnote{\url{http://www.rfc-base.org/txt/rfc-2030.txt}}. The message format is compatible with all versions of NTP and SNTP. This class does not support the optional authentication protocol, and ignores the key ID and message digest fields. For convenience, this class exposes message values as native Java types, not the NTP-specified data formats. For example, timestamps are stored as doubles (as opposed to the NTP unsigned 64-bit fixed point format). However, the constructor NtpMessage(byte[]) and the method toByteArray() allow the import and export of the raw NTP message format.
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=14cm]{sprint5/sprint5_class_diagram.png}
-	\caption{Time sync class diagram}
-	\label{fig:Time_Sync_class }
-\end{figure}
+Observing deployment and sequence diagrams, it is easy to see that this solution didn't need existing system to change. But in same time new functionality have been added and big amount of time have been saved.
 
 \section{Implementation} \label{txt:sprint5_immplementation}
 This section is devoted to describing the improved algorithm used for faster detection of the devices. So far the simple detection using "one-by-one" approach as explained in Section \ref{txt:sprint4_processview} was used. The drawback of this algorithm is that it performs with time complexity $T(n) = O(n)$ and thus it might get inadmissibly long. Thus more advanced algorithm based on divide and conquer design paradigm was developed. It will be described in greater detail in next sections.
@@ -99,9 +108,80 @@ It might happen that certain devices are not recognized using this algorithm. Th
 \subsection{Performance}
 Given the divide and conquer base of this algorithm the time complexity is logarithmic, $T(n) = O(\log n)$, as compared to linear time complexity of the former algorithm. This is though the best-case scenario where all the devices are correctly recognized. In the worst case scenario where no device is recognized during performing tree algorithm the time complexity would be $T(n) = O(\log n + n)$.
 
+\subsection{Communication protocol} \label{sub:comm_protocol_new}
+After testing synchronization module it was found that old communication protocol, described in Section \ref{section:impl}, cannot be left unchanged. In order to sync at start or at least during the playing sequence, clients need to receive starting timestamps for every command. This change can be seen on Figure \ref{fig:protocol_5}, with following codding:
+\begin{itemize}
+\item[] \textcolor{blue!100}{$\bullet$} server time in milliseconds at which client should play specific instruction. Time offset calculated from NTP call is added to this time so all clients can have same value in sum,
+\item[] \textcolor{black!100}{$\bullet$} time stamp-color separator,
+\item[] \textcolor{red!80}{$\bullet$} color to play(hexadecimal),
+\item[] \textcolor{green!100}{$\bullet$} one instruction separator.
+\end{itemize}
 
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=17cm]{sprint5/protocol_5.png}
+	\caption{New command message with multiple instructions.}
+	\label{fig:protocol_5}
+\end{figure}
 
 \section{Testing}
+After adding NTP module some testing considering time synchronization was executed. During this phase there was only 4 devices at team disposal. Details about this devices and their roles can be seen in Table \ref{tab:sp5_test}
+
+\input{sprint5/test.tex} 
+
+\paragraph{Test case:}
+\begin{enumerate}
+\item Start router. Since no real device is available emulate router functionality with one of the phone's tethering option. Name the hot-spot "Sprint5". 
+\item Connect server device to the network "Sprint5".
+\item Start NTP time server on server device.
+\item Start Digital Lighter server application.
+\item Name service "testSprint5" and register it to the network.
+\item Connect client device to the network "Sprint5"
+\item Refresh list of available services on network and select service "testSprint5".
+\item Connect to selected service.
+\item Repeat steps 6-8 for all client devices.  
+\item Choose syncMedia\footnote{syncMedia - media, when played all client devices blink synchronously at given frame rate.} and set frame rate to 2.
+\item Detect all present clients and play media.
+\item Observe client applications behavior.
+\end{enumerate}
+
+
+\paragraph{Expected server behavior:}
+\begin{enumerate}
+\item When started, Time Server application, stays as notification icon on notification bar.
+\item When service is registered, Toast\footnote{\url{http://developer.android.com/guide/topics/ui/notifiers/toasts.html}} message of confirmation is displayed - "testSprint5 is registered".
+\item When clients connect, text label representing number of connected devices will increment.
+\item When client device is detected grid square in which device is detected will light up.
+\end{enumerate}
+
+
+\paragraph{Expected client behavior:}
+\begin{enumerate}
+\item When list of available services is refreshed, all services should be visible in list view.
+\item When "testSprint5" service is selected, the Toast message of confirmation is displayed - "testSprint5 service selected".
+\item When "Connect" button is pressed, Toast message of confirmation is displayed - "Connected".
+\item Few seconds after being connected, Toast message of background synchronization process should be displayed - "Time diff: SOME\_VALUE". Where SOME\_VALUE is client time offset comparing to Time Server.
+\item When instructed to play, all clients should blink 2 times per second synchronously. 
+\end{enumerate}
+
+\paragraph{Test 1-7 } observed behaviors:
+\newline \newline Server:
+1 \tick   2 \tick   3 \tick  4 \tick
+
+Client:
+1 \tick   2 \tick   3 \tick  4 \tick 5 \cross
+
+Inability of clients to synchronize blinking commands, led to new round of debugging. After the changes described in Section \ref{sub:comm_protocol_new} new set of tests have been executed. 
+
+\paragraph{Test 8-12 } observed behaviors with changed communication protocol:
+\newline \newline Server:
+1 \tick   2 \tick   3 \tick  4 \tick
+
+Client:
+1 \tick   2 \tick   3 \tick  4 \tick 5 \tick
+\newline
+After additional tests, the changes made in this sprint, based on functionality and their reflection of user stories, are considered valid and verified. 
+
 \section{Occurring risks}
 \label{sec:sprint5_occuring_risks}
 First time during development process, team have encountered the risk that might influence successful finish of the project. 
@@ -134,7 +214,7 @@ Detection of existing service is possible, but when client try to resolve additi
 It is important to say that this was not the case with all of the devices. Some of them, like Samsung Galaxy S2, was able to resolve detected services. It was clear that partially working solution is not good enough. After trying to fix the issue, and searching for answer on-line team decided to research additional alternative solutions.
 
 \paragraph{Final fix}
-Further research led to David Simmons multicast support application\footnote{https://github.com/simmons/netlib} on Android devices. His solution works on all Android devices beginning with system version 2.2. Big surprise was trying his application for detecting NSD created service, and JmDNS created services. It was working almost instantly with NSD, and all services ever created on test router were easy recognized and resolved. Since race condition were happening only on client devices, and empirically best match for registering/detecting and resolving service was NSD/netlib, team decided to keep different libraries that communication modules for server and client are based on. Final communication modules and their respective libraries are shown on Figure \ref{fig:Communication modules }
+Further research led to David Simmons multicast support application\footnote{\url{https://github.com/simmons/netlib}} on Android devices. His solution works on all Android devices beginning with system version 2.2. Big surprise was trying his application for detecting NSD created service, and JmDNS created services. It was working almost instantly with NSD, and all services ever created on test router were easy recognized and resolved. Since race condition were happening only on client devices, and empirically best match for registering/detecting and resolving service was NSD/netlib, team decided to keep different libraries that communication modules for server and client are based on. Final communication modules and their respective libraries are shown on Figure \ref{fig:Communication modules }
 
 \begin{figure}[H]
 	\centering
@@ -152,7 +232,7 @@ The first video presented to the customer can be found on YouTube under the name
 The second video is published under the name Demonstation - Czech flag\footnote{\url{http://www.youtube.com/watch?v=MmTdFDsHTbk}}.
 
 \section{Retrospective}
-This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved".
+This section reflects on the past sprint. In order to learn from the mistakes done and thus to improve the workflow it is necessary to answer two essential questions: "What went well" and "What could be improved". Actual burn down chart is shown on Figure \ref{fig:Burn5 }
 
 \begin{figure}[h]
 	\centering
@@ -162,6 +242,16 @@ This section reflects on the past sprint. In order to learn from the mistakes do
 \end{figure}
 
 \subsection{What went well}
-\subsection{What could be improved}
+Team collected more than enough devices for demonstration purposes. All devices have been collected from friends and colleagues since they were notified about recording date a whole week in advance, so there was no need to involve big companies in process. Recording equipment and room at the university were rented on time. 
 
-Documentation user stories \textbf{D5.3} and \textbf{D5.4} were not completed.
+All user stories considering implementation were finished on time, and occurred risk on communication module have been solved. Solving the issue was one of the main reasons for sufficient number of devices since new client module supports legacy devices. Detection algorithm speedup allowed better use of time devoted to recording. As a result of this improvements two demonstration videos have been recorded for the customer.
+
+
+\subsection{What could be improved}
+Connecting big number of devices(approximately 30) causes network low performance. For some messages it takes more than 3 sec to arrive to client. This make problems with device detection and synchronization. Team was aware of possible issue but didn't mark it as a high risk, because test was never launched on more than 3 devices as clients. As a result of this oversight equalizer video was hard to reproduce on clients and, after few attempts, not recorded at all. This could be avoided by thinking of networking issue as necessary to solve.
+
+Team estimated that number of devices for recording the video will be bigger than 30. With this on mind most media that could be played was made for large-scale grid, including 25 pixels and more. After need to eliminate some of the devices not much of media left to be played. Team should prepare as diverse grids as possible in order to get better use of devices during next demonstration recording.
+
+Also documentation user stories \textbf{D5.3} and \textbf{D5.4} were not completed because of underestimation of time needed. Team is reaching the last sprint, and it would be good if more time is spent on estimation because there is no more sprints to which user stories can be delegated.   
+
+
