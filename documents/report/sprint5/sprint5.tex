@@ -202,7 +202,7 @@ Finally the customer agreed on adding another user story with high priority - Re
 Best NSD replacement technology according to previous research, according to sprint 1 preliminary studies in Section \ref{subsection:jmdns_desc}, was JmDNS library. 
 Client and server communication module has been changed with JmDNS. Library is written for Java and is well documented.
 Migration to new technology was therefore fast, but it had some issues when working on Android platform. Clients are not able to resolve registered service.
-Detection of existing service is possible, but when client try to resolve additional information shown on Figure \ref{fig:DNS record inherit graph } like Address, JmDNS will return null.
+Detection of existing service is possible, but when client tries to resolve additional information shown on Figure \ref{fig:DNS record inherit graph } like Address, JmDNS will return null.
 
 \begin{figure}[H]
 	\centering
@@ -226,7 +226,7 @@ Further research led to David Simmons multicast support application\footnote{\ur
 \section{Customer feedback} \label{txt:sprint5_customerfeedback}
 The main goal of this sprint was to collect as many devices as possible and use them to display various types of imagery including the equalizer effect which was chosen by the customer as the possibly most spectacular for the viewer. As the team encountered a few serious performance issues regarding the network communication and the time synchronization it was not able to deliver the demonstration video of the flawless animation. On the contrary due to technical issues the team was only able to display obviously not properly working animations on the borrowed phones. Nevertheless two demonstration videos were recorded and presented to the customer.
 
-The customer were familiarized with the problems that lead to the faulty performance. He encouraged the team to prepare new demonstration videos that would show the imagery specifically adjusted in a way that it would not be obvious the team faces synchronization issues: lower fps, static images or abstract effects to list a few suggestions.
+The customer was familiarized with the problems that lead to the faulty performance. He encouraged the team to prepare new demonstration videos that would show the imagery specifically adjusted in a way that it would not be obvious the team faces synchronization issues: lower fps, static images or abstract effects to list a few suggestions.
 
 The first video presented to the customer can be found on YouTube under the name Demonstration - Equalizer [out of sync]\footnote{\url{http://www.youtube.com/watch?v=cDBcgPt1Sq8}}. 
 The second video is published under the name Demonstation - Czech flag\footnote{\url{http://www.youtube.com/watch?v=MmTdFDsHTbk}}.
@@ -248,9 +248,9 @@ All user stories considering implementation were finished on time, and occurred 
 
 
 \subsection{What could be improved}
-Connecting big number of devices(approximately 30) causes network low performance. For some messages it takes more than 3 sec to arrive to client. This make problems with device detection and synchronization. Team was aware of possible issue but didn't mark it as a high risk, because test was never launched on more than 3 devices as clients. As a result of this oversight equalizer video was hard to reproduce on clients and, after few attempts, not recorded at all. This could be avoided by thinking of networking issue as necessary to solve.
+Connecting high number of devices (approximately 30) causes network low performance. For some messages it take more than 3 sec to arrive to client. This makes problems with device detection and synchronization. Team was aware of possible issue but didn't mark it as a high risk, because test was never launched on more than 3 devices as clients. As a result of this oversight equalizer video was hard to reproduce on clients and, after few attempts, not recorded at all. This could be avoided by thinking of networking issue as necessary to solve.
 
-Team estimated that number of devices for recording the video will be bigger than 30. With this on mind most media that could be played was made for large-scale grid, including 25 pixels and more. After need to eliminate some of the devices not much of media left to be played. Team should prepare as diverse grids as possible in order to get better use of devices during next demonstration recording.
+Team estimated that number of devices for recording the video will be higher than 30. With this on mind most media that could be played was made for large-scale grid, including 25 pixels and more. After need to eliminate some of the devices not much of media left to be played. Team should prepare as diverse grids as possible in order to get better use of devices during next demonstration recording.
 
 Also documentation user stories \textbf{D5.3} and \textbf{D5.4} were not completed because of underestimation of time needed. Team is reaching the last sprint, and it would be good if more time is spent on estimation because there is no more sprints to which user stories can be delegated.   
 
