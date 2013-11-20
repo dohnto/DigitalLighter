@@ -108,7 +108,21 @@ It might happen that certain devices are not recognized using this algorithm. Th
 \subsection{Performance}
 Given the divide and conquer base of this algorithm the time complexity is logarithmic, $T(n) = O(\log n)$, as compared to linear time complexity of the former algorithm. This is though the best-case scenario where all the devices are correctly recognized. In the worst case scenario where no device is recognized during performing tree algorithm the time complexity would be $T(n) = O(\log n + n)$.
 
+\subsection{Communication protocol} \label{sub:comm_protocol_new}
+After testing synchronization module it was found that old communication protocol, described in Section \ref{section:impl}, cannot be left unchanged. In order to sync at start or at least during the playing sequence, clients need to receive starting timestamps for every command. This change can be seen on Figure \ref{fig:protocol_5}, with following codding:
+\begin{itemize}
+\item[] \textcolor{blue!100}{$\bullet$} server time in milliseconds at which client should play specific instruction. Time offset calculated from NTP call is added to this time so all clients can have same value in sum,
+\item[] \textcolor{black!100}{$\bullet$} time stamp-color separator,
+\item[] \textcolor{red!80}{$\bullet$} color to play(hexadecimal),
+\item[] \textcolor{green!100}{$\bullet$} one instruction separator.
+\end{itemize}
 
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=17cm]{sprint5/protocol_5.png}
+	\caption{New command message with multiple instructions.}
+	\label{fig:protocol_5}
+\end{figure}
 
 \section{Testing}
 After adding NTP module some testing considering time synchronization was executed. During this phase there was only 4 devices at team disposal. Details about this devices and their roles can be seen in Table \ref{tab:sp5_test}
@@ -135,7 +149,7 @@ After adding NTP module some testing considering time synchronization was execut
 \paragraph{Expected server behavior:}
 \begin{enumerate}
 \item When started, Time Server application, stays as notification icon on notification bar.
-\item When service is registered, Toast\footnote{http://developer.android.com/guide/topics/ui/notifiers/toasts.html} message of confirmation is displayed - "testSprint5 is registered".
+\item When service is registered, Toast\footnote{\url{http://developer.android.com/guide/topics/ui/notifiers/toasts.html}} message of confirmation is displayed - "testSprint5 is registered".
 \item When clients connect, text label representing number of connected devices will increment.
 \item When client device is detected grid square in which device is detected will light up.
 \end{enumerate}
@@ -150,14 +164,14 @@ After adding NTP module some testing considering time synchronization was execut
 \item When instructed to play, all clients should blink 2 times per second synchronously. 
 \end{enumerate}
 
-\paragraph{Test 1-7 } observed behaviors are same:
+\paragraph{Test 1-7 } observed behaviors:
 \newline \newline Server:
 1 \tick   2 \tick   3 \tick  4 \tick
 
 Client:
 1 \tick   2 \tick   3 \tick  4 \tick 5 \cross
 
-Inability of clients to synchronize blinking commands, led to new round of debugging. After the changes described in Section XX.YY.ZZ new set of test have been executed. 
+Inability of clients to synchronize blinking commands, led to new round of debugging. After the changes described in Section \ref{sub:comm_protocol_new} new set of tests have been executed. 
 
 \paragraph{Test 8-12 } observed behaviors with changed communication protocol:
 \newline \newline Server:
@@ -165,7 +179,7 @@ Inability of clients to synchronize blinking commands, led to new round of debug
 
 Client:
 1 \tick   2 \tick   3 \tick  4 \tick 5 \tick
-
+\newline
 After additional tests, the changes made in this sprint, based on functionality and their reflection of user stories, are considered valid and verified. 
 
 \section{Occurring risks}
@@ -200,7 +214,7 @@ Detection of existing service is possible, but when client try to resolve additi
 It is important to say that this was not the case with all of the devices. Some of them, like Samsung Galaxy S2, was able to resolve detected services. It was clear that partially working solution is not good enough. After trying to fix the issue, and searching for answer on-line team decided to research additional alternative solutions.
 
 \paragraph{Final fix}
-Further research led to David Simmons multicast support application\footnote{https://github.com/simmons/netlib} on Android devices. His solution works on all Android devices beginning with system version 2.2. Big surprise was trying his application for detecting NSD created service, and JmDNS created services. It was working almost instantly with NSD, and all services ever created on test router were easy recognized and resolved. Since race condition were happening only on client devices, and empirically best match for registering/detecting and resolving service was NSD/netlib, team decided to keep different libraries that communication modules for server and client are based on. Final communication modules and their respective libraries are shown on Figure \ref{fig:Communication modules }
+Further research led to David Simmons multicast support application\footnote{\url{https://github.com/simmons/netlib}} on Android devices. His solution works on all Android devices beginning with system version 2.2. Big surprise was trying his application for detecting NSD created service, and JmDNS created services. It was working almost instantly with NSD, and all services ever created on test router were easy recognized and resolved. Since race condition were happening only on client devices, and empirically best match for registering/detecting and resolving service was NSD/netlib, team decided to keep different libraries that communication modules for server and client are based on. Final communication modules and their respective libraries are shown on Figure \ref{fig:Communication modules }
 
 \begin{figure}[H]
 	\centering
