@@ -1,6 +1,6 @@
 In this chapter the summary of the project results will be summarized. Both applications which the final product consists of will be described and their main features together with the main limitations will be listed.  The functional and non-functional requirements will be reflected on so that it would be cleared that all of the project objectives were fulfilled. 
 
-\section{Final Product}
+\section{Final product}
 It was agreed with the customer that the final product would be split into to separate applications, the server-side and client-side part. Despite the fact the main responsibilities of the server (including processing the images and performing the detection, location and time synchronizations) represent computationally intensive tasks the customer insisted on implementing the server as a mobile application. The main reason is to enable the prospective power users or even developers to utilize the framework also for the other domains besides displaying imagery on the music concert crowd. The client-side on the other hand might be considered relatively simple application that only registers to the server and continuously changes the screen color according to the received textual commands.
 
 \subsection{Server-side application}
@@ -43,17 +43,17 @@ Similarly to the server-side application also the client GUI should be as simple
 
 
 \section{Limitations}
+Though fully functioning the final product still suffers certain limitations and only works properly under certain constrained conditions. This is due to the fact the project represents proof of the concept product which mainly focuses on presenting the required features then scaling them for the real world conditions. The major limitations are as follows:
 
+\paragraph{Limited FPS} The server is only able to display animations and videos with FPS\footnote{frames per second} value not exceeding 5 FPS.
 
-\paragraph{FPS}
+\paragraph{Limited detection color palette} The performance of the devices detection and location is influenced by what color is used for the detection. The experiments showed the combination of white, blue and red color gained best success ratio as stated in \ref{txt:evaluation_technicalissues}.
 
-\paragraph{Detection}
+\paragraph{Dark environment} It is required that the client devices to be detected are placed in relatively dark environment so that the colors of their screens would contrast with the low ambient light.
 
-\paragraph{Environment}
+\paragraph{Fixed position} After the detection is done the devices should not move more then in the range of the tile they were originally placed. This is due to the fact that device tracking was not implemented during ths project as it was not considered that important task.
 
-\paragraph{Fixed position}
-
-\paragraph{One device in a tile}
+\paragraph{One device in a tile} In order to enable the \textit{tree algorithm} used for device detection and location work properly there can be no more than one device present in the single tile.
 
 \section{Further work}
 One of the main challenges for future is to improve the performance.
@@ -79,7 +79,7 @@ Even though device detection worked fine in dark environment, there are fields i
 The tree algorithm, described in Section \ref{subsec:tree_alg} will not work properly, when more devices are in the same tile.
 Although there is a fallback algorithm, which will succeed in this case, its time complexity is too high for large audience.
 Hence, a new algorithm with similar performance as the tree algorithm is desired.
-Last but not least, if the detection works even in worse light conditions it would significantly grow the potential of the product.
+Last but not least, if the detection worked even in worse light conditions it would significantly increased the potential of the product.
 
 %___ SCREEN NOT PIXEL ________________
 One of the interesting ideas for extension is not to display single color on a client device, which therefore works as a one pixel, but to display several pixels or even part of an image.
@@ -87,8 +87,10 @@ It would be possible to display complex images or videos even on few devices as 
 This concept would required not only detection of position of devices but also finding its orientation.
 
 \section{Summary}
+During this project the mobile software product titled Digital Lighetr was designed. It's main purpose is to entertain the audience of the music concerts and other social events who use their smartphones or tablets to participate in the huge human-screen.
 
-During this project the "blablabla" was designed. ...
+The objective of the development team was to design and implement this application as well as manage the project using agile methodology Scrum, adapt to the requirements of the customer and deliver the extensive report summarizing the whole development process.
 
+The team committed 1363 person-hours for all the project obligations and eventually it succeeded to deliver the working product which was approved of both customer and supervisor and submit the detailed report describing the development process.
 
-- reflect non nonfunctional requirements
+%All team members from the development team, self-titled Silent ducks, collectively agreed the project was beneficial for them and that they learned new knowledge both from each other and from studying project related problematics. It should be therefore noted the team worked well together. Go team spirit.
