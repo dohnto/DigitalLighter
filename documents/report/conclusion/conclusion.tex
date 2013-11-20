@@ -11,7 +11,7 @@ The server-side application is implemented in Java programming language using st
 For the detection the server uses the \textit{tree algorithm} as explained in Section \ref{txt:sprint5_immplementation} with the fallback option of linear \textit{one-by-one} algorithm. It can be chosen by the user how many colors should be used for the detection but the recommended value is three, specifically blue, white and red. The server is packed with a few images and animations of the various sizes and aspect ratios so that they could be played on the client devices right away.
 
 \paragraph{GUI}
-The graphical user interface should be as simple as possible as it only requires the user to set the server name, choose the number of colors for the detection and select the media to be played. GUI design of the server can be seen in he Figure \ref{fig:Server_UI}.
+The graphical user interface should be as simple as possible as it only requires the user to set the server name, choose the number of colors for the detection and select the media to be played. GUI of the server can be seen in he Figure \ref{fig:Server_UI}.
 
 \begin{figure}[H]
 	\centering
@@ -61,20 +61,23 @@ Higher FPS\footnote{Frames Per Second} value would allow to display more interes
 Also scalability in sense of number of client devices should be improved.
 
 %___ DEVICE TRACKING ________________
-One of the first steps in further development is \emph{device tracking}.
+\paragraph{Device tracking}
+One of the first steps in further development is device tracking.
 Once the mobile device is detected, its position is saved but not updated during time.
 It is probable, that on rock concerts, the audience wont be static, but it will be in motion.
 The current product would not be able to deal with that situation and the content would not be displayed properly.
 One of the solutions might be to perform the initial detection and during playing the media it is known what color should each mobile device display and therefore the playing could be considered as a another continuous detection of devices.
 
 %___ GRID ADJUSTING ________________
-Further work can also be focused on \emph{grid adjusting}.
+\paragraph{Grid adjustment}
+Further work can also be focused on grid adjusting.
 In non-artificial situations, it is possible, that the audience will be located only in the edge of the camera's snapshot.
 The current prototype would not adjust to that situation, although it would be desired.
 It would be adequate to keep the grid's dimension but to adjust the its resolution and position it to the edge, where audience is located.
 One of the benefits of this extension is that the person who is controlling device with camera would not have to position and zoom it precisely.
 
 %___ IMPROVE IMAGE PROCESSING  ________________
+\paragraph{Improved image processing}
 Even though device detection worked fine in dark environment, there are fields in which it could be improved.
 The tree algorithm, described in Section \ref{subsec:tree_alg} will not work properly, when more devices are in the same tile.
 Although there is a fallback algorithm, which will succeed in this case, its time complexity is too high for large audience.
@@ -82,6 +85,7 @@ Hence, a new algorithm with similar performance as the tree algorithm is desired
 Last but not least, if the detection worked even in worse light conditions it would significantly increased the potential of the product.
 
 %___ SCREEN NOT PIXEL ________________
+\paragraph{Extension of domain}
 One of the interesting ideas for extension is not to display single color on a client device, which therefore works as a one pixel, but to display several pixels or even part of an image.
 It would be possible to display complex images or videos even on few devices as can be seen in Figure \ref{fig:extension}.
 This concept would required not only detection of position of devices but also finding its orientation.
