@@ -79,7 +79,7 @@ Observing deployment and sequence diagrams, it is easy to see that this solution
 \section{Implementation} \label{txt:sprint5_immplementation}
 This section is devoted to describing the improved algorithm used for faster detection of the devices. So far the simple detection using "one-by-one" approach as explained in Section \ref{txt:sprint4_processview} was used. The drawback of this algorithm is that it performs with time complexity $T(n) = O(n)$ and thus it might get inadmissibly long. Thus more advanced algorithm based on divide and conquer design paradigm was developed. It will be described in greater detail in next sections.
 
-\subsection{Algorithm}
+\subsection{Algorithm} \label{subsec:tree_alg}
 The algorithm is based on the assumption that the image processing module originally designed and implemented during Sprint 3 (see Section \ref{txt:sprint3_architecture}) is capable of recognizing multiple different colors. Then it possible to recursively divide all the devices into the groups of the same color until there is only one device left in each subgroup. This algorithm is referred to as the \textit{tree algorithm} since the recursive divison gradually creates the tree where each node excluding the leaf nodes has $n$ children where $n = number\_of\_colors\_used\_during\_detection$.
 
 Figure \ref{fig:sprint5_tree_alg} depicts the example of the detection process of the 16 devices while recognizing among 4 different colors: red, green, blue, yellow. In this example the ideal conditions where each device precisely fits into one single matrix tile are set. 
