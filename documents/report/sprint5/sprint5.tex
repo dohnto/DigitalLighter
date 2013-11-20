@@ -98,7 +98,7 @@ The algorithm ends when there is no more than one device in each color group. Th
 \end{figure}
 
 \subsection{Limitations}
-The main drawback of this algorithm is the position resolution. It is only be capable of distinguishing between all devices if there are no more than one device in each tile. Otherwise the ambiguities occur and the algorithm finishes in the state where some devices are assigned more then one possible positions.
+The main drawback of this algorithm is the position resolution. It is only capable of distinguishing between all devices if there are no more than one device in each tile. Otherwise the ambiguities occur and the algorithm finishes in the state where some devices are assigned more then one possible positions.
 
 Nevertheless it has been decided to disregard this issue as this project only serves the purpose of proof of concept and if needed these minor limitations might be improved on performing additional techniques that would solve the problem.
 
@@ -199,7 +199,7 @@ At that time, working on next core module (image processing), with knowledge tha
 Finally the customer agreed on adding another user story with high priority - Replace NSD communication module with one of the technologies previously researched.
 
 \paragraph{First fix}
-Best NSD replacement technology according to previous research in Sprint 1\ref{subsection:jmdns_desc} was JmDNS library. 
+Best NSD replacement technology according to previous research, according to sprint 1 preliminary studies in Section \ref{subsection:jmdns_desc}, was JmDNS library. 
 Client and server communication module has been changed with JmDNS. Library is written for Java and is well documented.
 Migration to new technology was therefore fast, but it had some issues when working on Android platform. Clients are not able to resolve registered service.
 Detection of existing service is possible, but when client try to resolve additional information shown on Figure \ref{fig:DNS record inherit graph } like Address, JmDNS will return null.
