@@ -1,5 +1,7 @@
 DigitalLighter
 ==============
+[![ScreenShot](http://oi42.tinypic.com/242984z.jpg)](http://www.youtube.com/watch?v=JnYAoMxZfms)
+==============
 The audience members at a rock concert should be able to download a simple 
 application to their cell phone, and register this through a simple GUI.
 Behind the artist on stage there is a screen, with a simple camera on top. 
