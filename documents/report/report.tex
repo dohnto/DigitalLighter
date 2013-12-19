@@ -1,6 +1,6 @@
-\documentclass[11pt]{report}
+\documentclass[11pt, twoside]{report}
 %_______ Uncomment this for printing version ______
-%\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
 
 % cool tables
@@ -11,7 +11,7 @@
 
 \newcommand{\colorA}{\cellcolor{green!100}}
 \newcommand{\colorB}{\cellcolor{green!60}}
-\newcommand{\colorC}{\cellcolor{yellow!75}}
+\newcommand{\colorC}{\cellcolor{yellow!75}.}
 \newcommand{\colorD}{\cellcolor{orange!90}}
 \newcommand{\colorE}{\cellcolor{red!80}}
 % images
@@ -59,6 +59,9 @@
 \newcommand{\refreq}[1]{\hyperref[req_#1]{#1}}
 %numbers
 %\renewcommand\thesection{\arabic{section}}
+
+\newcommand{\newpageDL}{\newpage ~}
+
 \pagenumbering{arabic} 
 
 \title{
@@ -146,13 +149,20 @@ Advisor\\[5px]
 %\pagestyle{empty}
 \thispagestyle{empty}
 \titleDL
+
+\newpageDL
+
 \pagenumbering{roman}
-\setcounter{page}{1}
+\setcounter{page}{2}
 \chapter*{Abstract}
 \input{abstract/abstract.tex}
 
+\newpageDL
+
 \chapter*{Preface}
 \input{preface/preface.tex}
+
+\newpageDL
 
 \tableofcontents
 
@@ -166,6 +176,8 @@ Advisor\\[5px]
 \setcounter{page}{1}
 \input{introduction/introduction.tex}
 
+\newpageDL
+
 \chapter{Preliminary studies}
 \input{preliminaryStudies/preliminaryStudies.tex}
 
@@ -175,17 +187,23 @@ Advisor\\[5px]
 \chapter{Requirements}
 \input{requirements/requirements.tex}
 
+\newpageDL
+
 %\chapter{Test plan}
 %\input{testplan/testplan.tex}
 
 \chapter{Software architecture}
 \input{softwareArchitecture/softwareArchitecture.tex}
 
+\newpageDL
+
 \chapter{Sprint 0}
 \input{sprint0/sprint0.tex}
 
 \chapter{Sprint 1}
 \input{sprint1/sprint1.tex}
+
+\newpageDL
 
 \chapter{Sprint 2}
 \input{sprint2/sprint2.tex}
@@ -196,14 +214,22 @@ Advisor\\[5px]
 \chapter{Sprint 4}
 \input{sprint4/sprint4.tex}
 
+\newpageDL
+
 \chapter{Sprint 5}
 \input{sprint5/sprint5.tex}
+
+\newpageDL
 
 \chapter{Sprint 6}
 \input{sprint6/sprint6.tex}
 
+\newpageDL
+
 \chapter{Evaluation}
 \input{evaluation/evaluation.tex}
+
+\newpageDL
 
 \chapter{Conclusion}
 \input{conclusion/conclusion.tex}
